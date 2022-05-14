@@ -200,7 +200,6 @@
   
   
   
-  
     
     
     <div class="category row">
@@ -219,7 +218,6 @@
       <div class="category-collapse collapse" id="collapse-2567a5ec9705eb7ac2c984033e06189d" role="tabpanel" aria-labelledby="heading-2567a5ec9705eb7ac2c984033e06189d">
         
         
-          
   <div class="category-post-list">
     
     
@@ -232,6 +230,7 @@
     
   </div>
 
+          
         
       </div>
     </div>
@@ -254,7 +253,6 @@
       <div class="category-collapse collapse" id="collapse-046a899ee7a6ec88d370211a518c9e80" role="tabpanel" aria-labelledby="heading-046a899ee7a6ec88d370211a518c9e80">
         
         
-          
   <div class="category-post-list">
     
     
@@ -267,9 +265,11 @@
     
   </div>
 
+          
         
       </div>
     </div>
+  
   
 </div>
 
@@ -421,5 +421,21 @@
 <script  src="/blog/js/boot.js" ></script>
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
 </body>
 </html>
