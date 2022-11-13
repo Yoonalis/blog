@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/react2.jpg">
 <meta property="article:published_time" content="2022-11-04T14:01:04.679Z">
-<meta property="article:modified_time" content="2022-11-13T12:34:36.384Z">
+<meta property="article:modified_time" content="2022-11-13T12:36:17.876Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="typescript">
@@ -262,7 +262,7 @@
         
         
           <!-- compatible with older versions-->
-          386 分钟
+          385 分钟
         
       </span>
     
@@ -337,7 +337,7 @@
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> num1 = <span class="hljs-number">1_234_567</span>;<br><span class="hljs-comment">// 等价</span><br><span class="hljs-keyword">const</span> num1 = <span class="hljs-number">1234567</span>;<br></code></pre></td></tr></table></figure>
 
 <h3 id="2-Promise"><a href="#2-Promise" class="headerlink" title="2 Promise"></a>2 Promise</h3><p>Promise 表示一个异步操作的最终结果，与之进行交互的方式主要是 then 方法，该方法注册了两个回调函数，用于接收 promise 的终值或本 promise 不能执行的原因。</p>
-<p>![3da922e676650868e75a32762280af7](C:\Users\28611\AppData\Local\Temp\WeChat Files\3da922e676650868e75a32762280af7.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/1551668316202_.pic-20221113%2020:35:29.jpg" srcset="/blog/img/loading.gif" lazyload alt="1551668316202_.pic"></p>
 <p>特性：链式调用、内部三种状态（Pending（进行中），Resolved(完成)，Rejected (失败)。Promise从Pending状态开始，如果成功就转到成功态，并执行resolve回调函数；如果失败就转到失败状态并执行reject回调函数。 Promise一旦状态改变，就不会再变，任何时候都可以得到这个结果。）</p>
 <p>例如一个<code>createAudioFileAsync</code>方法：</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-title function_">createAudioFileAsync</span>(audioSettings).<span class="hljs-title function_">then</span>(successCallback, failureCallback);<br></code></pre></td></tr></table></figure>
@@ -600,7 +600,7 @@
 </blockquote>
 <p>组件多次被复用的场景</p>
 <p>有一个组件树结构。ParentWrap 包含 Title 组件、2次使用 Count 组件、2次使用 Button 组件。</p>
-<p><img src="C:\Users\28611\AppData\Roaming\Typora\typora-user-images\image-20221113173502503.png" srcset="/blog/img/loading.gif" lazyload alt="image-20221113173502503"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/1571668332118_.pic-20221113%2020:36:13.jpg" srcset="/blog/img/loading.gif" lazyload alt="1571668332118_.pic"></p>
 <p>App.tsx</p>
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./App.css&#x27;</span><br><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">ParentComponent</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./components/26ParentComponenet&#x27;</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;App&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">ParentComponent</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span><br></code></pre></td></tr></table></figure>
 
