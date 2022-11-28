@@ -1,0 +1,1191 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.jpg">
+  <link rel="icon" href="/blog/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Azure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="umi框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="umi基础">
+<meta property="og:url" content="https://yoonalis.github.io/blog/2022/11/28/umi/index.html">
+<meta property="og:site_name" content="Azure&#39;s blog">
+<meta property="og:description" content="umi框架">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yoonalis.github.io/blog/img/umi.png">
+<meta property="article:published_time" content="2022-11-28T13:26:20.042Z">
+<meta property="article:modified_time" content="2022-11-28T13:49:33.818Z">
+<meta property="article:author" content="Azure">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="umi框架">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yoonalis.github.io/blog/img/umi.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>umi基础 - Azure&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yoonalis.github.io","root":"/blog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>Azure</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/album/">
+                <i class="iconfont icon-images"></i>
+                album
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="umi基础"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-28 21:26" pubdate>
+          2022年11月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          20k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          171 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">umi基础</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Umi"><a href="#Umi" class="headerlink" title="Umi"></a>Umi</h1><p>Umi，中文可发音为<strong>乌米</strong>，是可扩展的企业级前端应用框架。Umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。然后配以生命周期完善的插件体系，覆盖从源码到构建产物的每个生命周期，支持各种功能扩展和业务需求。</p>
+<p>Umi 是蚂蚁集团的底层前端框架，已直接或间接地服务了 3000+ 应用，包括 java、node、H5 无线、离线（Hybrid）应用、纯前端 assets 应用、CMS 应用等。他已经很好地服务了我们的内部用户，同时希望他也能服务好外部用户。</p>
+<p>它主要具备以下功能：</p>
+<ul>
+<li>🎉 <strong>可扩展</strong>，Umi 实现了完整的生命周期，并使其插件化，Umi 内部功能也全由插件完成。此外还支持插件和插件集，以满足功能和垂直域的分层需求。</li>
+<li>📦 <strong>开箱即用</strong>，Umi 内置了路由、构建、部署、测试等，仅需一个依赖即可上手开发。并且还提供针对 React 的集成插件集，内涵丰富的功能，可满足日常 80% 的开发需求。</li>
+<li>🐠 <strong>企业级</strong>，经蚂蚁内部 3000+ 项目以及阿里、优酷、网易、飞猪、口碑等公司项目的验证，值得信赖。</li>
+<li>🚀 <strong>大量自研</strong>，包含微前端、组件打包、文档工具、请求库、hooks 库、数据流等，满足日常项目的周边需求。</li>
+<li>🌴 <strong>完备路由</strong>，同时支持配置式路由和约定式路由，同时保持功能的完备性，比如动态路由、嵌套路由、权限路由等等。</li>
+<li>🚄 <strong>面向未来</strong>，在满足需求的同时，我们也不会停止对新技术的探索。比如 dll 提速、modern mode、webpack@5、自动化 external、bundler less 等等。</li>
+</ul>
+<h2 id="umi-临时文件"><a href="#umi-临时文件" class="headerlink" title=".umi 临时文件"></a>.umi 临时文件</h2><p>.umi 临时目录是整个 Umi 项目的发动机，你的入口文件、路由等等都在这里，这些是由 umi 内部插件及三方插件生成的。</p>
+<p>你通常会在 .umi 下看到以下目录，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">+ .umi<br>  + core     <span class="hljs-comment"># 内部插件生成</span><br>  + pluginA  <span class="hljs-comment"># 外部插件生成</span><br>  + presetB  <span class="hljs-comment"># 外部插件生成</span><br>  + umi.ts   <span class="hljs-comment"># 入口文件</span><br></code></pre></td></tr></table></figure>
+
+<p>临时文件是 Umi 框架中非常重要的一部分，框架或插件会根据你的代码生成临时文件，这些原来需要放在项目里的脏乱差的部分都被藏在了这里。</p>
+<p>你可以在这里调试代码，但不要在 .git 仓库里提交他，因为他的临时性，每次启动 umi 时都会被删除并重新生成。</p>
+<h2 id="部署发布"><a href="#部署发布" class="headerlink" title="部署发布"></a>部署发布</h2><h3 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ yarn build<br>✔ Webpack  Compiled successfully <span class="hljs-keyword">in</span> 17.17s<br> DONE  Compiled successfully <span class="hljs-keyword">in</span> 17167ms                                       8:26:25 PM<br>Build success.✨  Done <span class="hljs-keyword">in</span> 20.79s.<br></code></pre></td></tr></table></figure>
+
+<p>构建产物默认生成到 <code>./dist</code> 下，然后通过 tree 命令查看，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tree ./dist<br>./dist├── index.html├── umi.css└── umi.js<br></code></pre></td></tr></table></figure>
+
+<h3 id="本地验证"><a href="#本地验证" class="headerlink" title="本地验证"></a>本地验证</h3><p>发布之前，可以通过 <code>serve</code> 做本地验证，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ yarn global add serve$ serve ./dist<br>   ┌────────────────────────────────────────────────────┐   │                                                    │   │   Serving!                                         │   │                                                    │   │   - Local:            http://localhost:5000        │   │   - On Your Network:  http://192.168.12.34:5000    │   │                                                    │   │   Copied <span class="hljs-built_in">local</span> address to clipboard!               │   │                                                    │   └────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<p>访问 <a target="_blank" rel="noopener" href="http://localhost:5000/">http://localhost:5000</a>，正常情况下应该是和执行 <code>yarn start</code> 时是一致的。</p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>本地验证完，就可以部署了。你需要把 <code>dist</code> 目录部署到服务器上。</p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>一个基础的 Umi 项目大致是这样的，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs unknown">.<br>├── package.json<br>├── .umirc.ts<br>├── .env<br>├── dist<br>├── mock<br>├── public<br>└── src<br>    ├── .umi<br>    ├── layouts/index.tsx<br>    ├── pages<br>        ├── index.less<br>        └── index.tsx<br>    └── app.ts<br></code></pre></td></tr></table></figure>
+
+<h3 id="根目录"><a href="#根目录" class="headerlink" title="根目录"></a>根目录</h3><h4 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h4><p>包含插件和插件集，以 <code>@umijs/preset-</code>、<code>@umijs/plugin-</code>、<code>umi-preset-</code> 和 <code>umi-plugin-</code> 开头的依赖会被自动注册为插件或插件集。</p>
+<h4 id="umirc-ts"><a href="#umirc-ts" class="headerlink" title=".umirc.ts"></a>.umirc.ts</h4><p>配置文件，包含 umi 内置功能和插件的配置。</p>
+<h4 id="env"><a href="#env" class="headerlink" title=".env"></a>.env</h4><p>环境变量。</p>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs unknown">PORT=8888<br>COMPRESS=none<br></code></pre></td></tr></table></figure>
+
+<h4 id="dist-目录"><a href="#dist-目录" class="headerlink" title="dist 目录"></a>dist 目录</h4><p>执行 <code>umi build</code> 后，产物默认会存放在这里。</p>
+<h4 id="mock-目录"><a href="#mock-目录" class="headerlink" title="mock 目录"></a>mock 目录</h4><p>存储 mock 文件，此目录下所有 js 和 ts 文件会被解析为 mock 文件。</p>
+<h4 id="public-目录"><a href="#public-目录" class="headerlink" title="public 目录"></a>public 目录</h4><p>此目录下所有文件会被 copy 到输出路径。</p>
+<h3 id="src-目录"><a href="#src-目录" class="headerlink" title="/src 目录"></a><code>/src</code> 目录</h3><h4 id="umi-目录"><a href="#umi-目录" class="headerlink" title=".umi 目录"></a>.umi 目录</h4><p>临时文件目录，比如入口文件、路由等，都会被临时生成到这里。<strong>不要提交 .umi 目录到 git 仓库，他们会在 umi dev 和 umi build 时被删除并重新生成。</strong></p>
+<h4 id="layouts-x2F-index-tsx"><a href="#layouts-x2F-index-tsx" class="headerlink" title="layouts&#x2F;index.tsx"></a>layouts&#x2F;index.tsx</h4><p>约定式路由时的全局布局文件。</p>
+<h4 id="pages-目录"><a href="#pages-目录" class="headerlink" title="pages 目录"></a>pages 目录</h4><p>所有路由组件存放在这里。</p>
+<h4 id="app-ts"><a href="#app-ts" class="headerlink" title="app.ts"></a>app.ts</h4><p>运行时配置文件，可以在这里扩展运行时的能力，比如修改路由、修改 render 方法等。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>Umi 在 <code>.umirc.ts</code> 或 <code>config/config.ts</code> 中配置项目和插件，支持 es6。一份常见的配置如下，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> default &#123;<br>  base: <span class="hljs-string">&#x27;/docs/&#x27;</span>,<br>  publicPath: <span class="hljs-string">&#x27;/static/&#x27;</span>,<br>  <span class="hljs-built_in">hash</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-built_in">history</span>: &#123;<br>    <span class="hljs-built_in">type</span>: <span class="hljs-string">&#x27;hash&#x27;</span>,<br>  &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>如果项目的配置不复杂，推荐在 <code>.umirc.ts</code> 中写配置； 如果项目的配置比较复杂，可以将配置写在 <code>config/config.ts</code> 中，并把配置的一部分拆分出去，比如路由配置可以拆分成单独的 <code>routes.ts</code>：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// config/routes.ts</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> [    &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;index&#x27;</span> &#125;,];<br><span class="hljs-comment">// config/config.ts</span><br><span class="hljs-keyword">import</span> &#123; defineConfig &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;umi&#x27;</span>;<br><span class="hljs-keyword">import</span> routes <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./routes&#x27;</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>(&#123;  <br>    <span class="hljs-attr">routes</span>: routes,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>推荐两种配置方式二选一，<code>.umirc.ts</code> 优先级更高。</p>
+<h3 id="TypeScript-提示"><a href="#TypeScript-提示" class="headerlink" title="TypeScript 提示"></a>TypeScript 提示</h3><p>如果你想在写配置时也有提示，可以通过 umi 的 <code>defineConfig</code> 方法定义配置，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; defineConfig &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;umi&#x27;</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>(&#123;  <br>    <span class="hljs-attr">routes</span>: [    <br>        &#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/index&#x27;</span> &#125;,  <br>    ],<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img.alicdn.com/tfs/TB1EV1pv.T1gK0jSZFhXXaAtVXa-1204-838.png" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<h3 id="本地临时配置"><a href="#本地临时配置" class="headerlink" title="本地临时配置"></a>本地临时配置</h3><p>可以新建 <code>.umirc.local.ts</code>，这份配置会和 <code>.umirc.ts</code> 做 deep merge 后形成最终配置。</p>
+<blockquote>
+<p>注：<code>.umirc.local.ts</code> 仅在 <code>umi dev</code> 时有效。<code>umi build</code> 时不会被加载。</p>
+</blockquote>
+<p>比如，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// .umirc.ts 或者 config/config.tsexport default &#123; a: 1, b: 2 &#125;;</span><br><span class="hljs-comment">// .umirc.local.ts 或者 config/config.local.tsexport default &#123; c: &#x27;local&#x27; &#125;;</span><br></code></pre></td></tr></table></figure>
+
+<p>拿到的配置是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>,<br>  <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>,<br>  <span class="hljs-attr">c</span>: <span class="hljs-string">&#x27;local&#x27;</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li><code>config/config.ts</code> 对应的是 <code>config/config.local.ts</code></li>
+<li><code>.local.ts</code> 是本地验证使用的临时配置，请将其添加到 <code>.gitignore</code>，<strong>务必不要提交到 git 仓库中</strong></li>
+<li><code>.local.ts</code> 配置的优先级最高，比 <code>UMI_ENV</code> 指定的配置更高</li>
+</ul>
+<h3 id="多环境多份配置"><a href="#多环境多份配置" class="headerlink" title="多环境多份配置"></a>多环境多份配置</h3><p>可以通过环境变量 <code>UMI_ENV</code> 区分不同环境来指定配置。</p>
+<p>举个例子，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// .umirc.js 或者 config/config.jsexport default &#123; a: 1, b: 2 &#125;;</span><br><span class="hljs-comment">// .umirc.cloud.js 或者 config/config.cloud.jsexport default &#123; b: &#x27;cloud&#x27;, c: &#x27;cloud&#x27; &#125;;</span><br><span class="hljs-comment">// .umirc.local.js 或者 config/config.local.jsexport default &#123; c: &#x27;local&#x27; &#125;;</span><br></code></pre></td></tr></table></figure>
+
+<p>不指定 <code>UMI_ENV</code> 时，拿到的配置是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>,<br>  <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>,<br>  <span class="hljs-attr">c</span>: <span class="hljs-string">&#x27;local&#x27;</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>指定 <code>UMI_ENV=cloud</code> 时，拿到的配置是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>,<br>  <span class="hljs-attr">b</span>: <span class="hljs-string">&#x27;cloud&#x27;</span>,<br>  <span class="hljs-attr">c</span>: <span class="hljs-string">&#x27;local&#x27;</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="运行时配置"><a href="#运行时配置" class="headerlink" title="运行时配置"></a>运行时配置</h2><p>运行时配置和配置的区别是他跑在浏览器端，基于此，我们可以在这里写函数、jsx、import 浏览器端依赖等等，注意不要引入 node 依赖。</p>
+<h3 id="配置方式"><a href="#配置方式" class="headerlink" title="配置方式"></a>配置方式</h3><p>约定 <code>src/app.tsx</code> 为运行时配置。</p>
+<h3 id="配置项"><a href="#配置项" class="headerlink" title="配置项"></a>配置项</h3><h5 id="modifyClientRenderOpts-fn"><a href="#modifyClientRenderOpts-fn" class="headerlink" title="modifyClientRenderOpts(fn)"></a>modifyClientRenderOpts(fn)</h5><p>修改 clientRender 参数。</p>
+<p>比如在微前端里动态修改渲染根节点：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> isSubApp = <span class="hljs-literal">false</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">modifyClientRenderOpts</span>(<span class="hljs-params">memo</span>) &#123;<br>  <span class="hljs-keyword">return</span> &#123;<br>    ...memo,<br>    <span class="hljs-attr">rootElement</span>: isSubApp ? <span class="hljs-string">&#x27;sub-root&#x27;</span> : memo.<span class="hljs-property">rootElement</span>,    <br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="patchRoutes-routes"><a href="#patchRoutes-routes" class="headerlink" title="patchRoutes({ routes })"></a>patchRoutes({ routes })</h5><p>修改路由。</p>
+<p>比如在最前面添加一个 <code>/foo</code> 路由，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> <span class="hljs-keyword">function</span> patchRoutes(&#123; routes &#125;) &#123;<br>  routes.unshift(&#123;<br>    path: <span class="hljs-string">&#x27;/foo&#x27;</span>,<br>    exact: <span class="hljs-literal">true</span>,<br>    component: require(<span class="hljs-string">&#x27;@/extraRoutes/foo&#x27;</span>).default,<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>比如和 <code>render</code> 配置配合使用，请求服务端根据响应动态更新路由，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">let</span> extraRoutes;<br><span class="hljs-built_in">export</span> <span class="hljs-keyword">function</span> patchRoutes(&#123; routes &#125;) &#123;  merge(routes, extraRoutes);&#125;<br><span class="hljs-built_in">export</span> <span class="hljs-keyword">function</span> render(oldRender) &#123;  fetch(<span class="hljs-string">&#x27;/api/routes&#x27;</span>).<span class="hljs-keyword">then</span>(res=&gt;res.json()).<span class="hljs-keyword">then</span>((res) =&gt; &#123;     extraRoutes = res.routes;    oldRender();  &#125;)&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>直接修改routes，不需要返回</li>
+</ul>
+<h5 id="render-oldRender-Function"><a href="#render-oldRender-Function" class="headerlink" title="render(oldRender: Function)"></a>render(oldRender: Function)</h5><p>覆写 render。</p>
+<p>比如用于渲染之前做权限校验，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">import &#123; <span class="hljs-built_in">history</span> &#125; from <span class="hljs-string">&#x27;umi&#x27;</span>;<br><span class="hljs-built_in">export</span> <span class="hljs-keyword">function</span> render(oldRender) &#123;  fetch(<span class="hljs-string">&#x27;/api/auth&#x27;</span>).<span class="hljs-keyword">then</span>(auth =&gt; &#123;    <span class="hljs-keyword">if</span> (auth.isLogin) &#123; oldRender() &#125;    <span class="hljs-keyword">else</span> &#123;       history.push(<span class="hljs-string">&#x27;/login&#x27;</span>);       oldRender()    &#125;  &#125;);&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="onRouteChange-routes-matchedRoutes-location-action"><a href="#onRouteChange-routes-matchedRoutes-location-action" class="headerlink" title="onRouteChange({ routes, matchedRoutes, location, action })"></a>onRouteChange({ routes, matchedRoutes, location, action })</h5><p>在初始加载和路由切换时做一些事情。</p>
+<p>比如用于做埋点统计，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> <span class="hljs-keyword">function</span> onRouteChange(&#123; location, routes, action &#125;) &#123;<br>  bacon(location.pathname);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>比如用于设置标题，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> <span class="hljs-keyword">function</span> onRouteChange(&#123; matchedRoutes &#125;) &#123;<br>  <span class="hljs-keyword">if</span> (matchedRoutes.length) &#123;<br>    document.title = matchedRoutes[matchedRoutes.length - 1].route.title || <span class="hljs-string">&#x27;&#x27;</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="rootContainer-LastRootContainer-args"><a href="#rootContainer-LastRootContainer-args" class="headerlink" title="rootContainer(LastRootContainer, args)"></a>rootContainer(LastRootContainer, args)</h5><p>修改交给 react-dom 渲染时的根组件。</p>
+<p>比如用于在外面包一个 Provider，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> <span class="hljs-keyword">function</span> rootContainer(container) &#123;<br>  <span class="hljs-built_in">return</span> React.createElement(ThemeProvider, null, container);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>args 包含：</p>
+<ul>
+<li>routes，全量路由配置</li>
+<li>plugin，运行时插件机制</li>
+<li>history，history 实例</li>
+</ul>
+<h3 id="更多配置项"><a href="#更多配置项" class="headerlink" title="更多配置项"></a>更多配置项</h3><p>Umi 允许插件注册运行时配置，如果你使用插件，肯定会在插件里找到更多运行时的配置项。</p>
+<h2 id="约定式路由"><a href="#约定式路由" class="headerlink" title="约定式路由"></a>约定式路由</h2><p>除配置式路由外，Umi 也支持约定式路由。约定式路由也叫文件路由，就是不需要手写配置，文件系统即路由，通过目录和文件及其命名分析出路由配置。</p>
+<p><strong>如果没有 routes 配置，Umi 会进入约定式路由模式</strong>，然后分析 <code>src/pages</code> 目录拿到路由配置。</p>
+<p>比如以下文件结构：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>  └── pages<br>    ├── index.tsx<br>    └── users.tsx<br></code></pre></td></tr></table></figure>
+
+<p>会得到以下路由配置，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">[<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/index&#x27;</span> &#125;,<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/users&#x27;</span> &#125;,<br>]<br></code></pre></td></tr></table></figure>
+
+<p>需要注意的是，满足以下任意规则的文件不会被注册为路由，</p>
+<ul>
+<li>以 <code>.</code> 或 <code>_</code> 开头的文件或目录</li>
+<li>以 <code>d.ts</code> 结尾的类型定义文件</li>
+<li>以 <code>test.ts</code>、<code>spec.ts</code>、<code>e2e.ts</code> 结尾的测试文件（适用于 <code>.js</code>、<code>.jsx</code> 和 <code>.tsx</code> 文件）</li>
+<li><code>components</code> 和 <code>component</code> 目录</li>
+<li><code>utils</code> 和 <code>util</code> 目录</li>
+<li>不是 <code>.js</code>、<code>.jsx</code>、<code>.ts</code> 或 <code>.tsx</code> 文件</li>
+<li>文件内容不包含 JSX 元素</li>
+</ul>
+<h3 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h3><p>约定 <code>[]</code> 包裹的文件或文件夹为动态路由。</p>
+<p>比如：</p>
+<ul>
+<li><code>src/pages/users/[id].tsx</code> 会成为 <code>/users/:id</code></li>
+<li><code>src/pages/users/[id]/settings.tsx</code> 会成为 <code>/users/:id/settings</code></li>
+</ul>
+<p>举个完整的例子，比如以下文件结构，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>  └── pages<br>    └── [post]<br>      ├── index.tsx<br>      └── comments.tsx<br>    └── <span class="hljs-built_in">users</span><br>      └── [<span class="hljs-built_in">id</span>].tsx<br>    └── index.tsx<br></code></pre></td></tr></table></figure>
+
+<p>会生成路由配置，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">[<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/index&#x27;</span> &#125;,<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users/:id&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/users/[id]&#x27;</span> &#125;,<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/:post/&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/[post]/index&#x27;</span> &#125;,<br>  &#123;<br>    <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/:post/comments&#x27;</span>,<br>    <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/[post]/comments&#x27;</span>,<br>  &#125;,<br>];<br></code></pre></td></tr></table></figure>
+
+<h3 id="动态可选路由"><a href="#动态可选路由" class="headerlink" title="动态可选路由"></a>动态可选路由</h3><p>约定 <code>[ $]</code> 包裹的文件或文件夹为动态可选路由。</p>
+<p>比如：</p>
+<ul>
+<li><code>src/pages/users/[id$].tsx</code> 会成为 <code>/users/:id?</code></li>
+<li><code>src/pages/users/[id$]/settings.tsx</code> 会成为 <code>/users/:id?/settings</code></li>
+</ul>
+<p>举个完整的例子，比如以下文件结构，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>  └── pages<br>    └── [post$]<br>      └── comments.tsx<br>    └── <span class="hljs-built_in">users</span><br>      └── [<span class="hljs-built_in">id</span>$].tsx<br>    └── index.tsx<br></code></pre></td></tr></table></figure>
+
+<p>会生成路由配置，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js">[<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/index&#x27;</span> &#125;,<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users/:id?&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/users/[id$]&#x27;</span> &#125;,<br>  &#123;<br>    <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/:post?/comments&#x27;</span>,<br>    <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/[post$]/comments&#x27;</span>,<br>  &#125;,<br>];<br></code></pre></td></tr></table></figure>
+
+<h3 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h3><p>Umi 里约定目录下有 <code>_layout.tsx</code> 时会生成嵌套路由，以 <code>_layout.tsx</code> 为该目录的 layout。layout 文件需要返回一个 React 组件，并通过 <code>props.children</code> 渲染子组件。</p>
+<p>比如以下目录结构，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>└── pages<br>    └── <span class="hljs-built_in">users</span><br>        ├── _layout.tsx<br>        ├── index.tsx<br>        └── list.tsx<br></code></pre></td></tr></table></figure>
+
+<p>会生成路由，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">[<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/users/_layout&#x27;</span>,<br>    <span class="hljs-attr">routes</span>: [<br>      &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/users/index&#x27;</span> &#125;,<br>      &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users/list&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/users/list&#x27;</span> &#125;,<br>    ]<br>  &#125;<br>]<br></code></pre></td></tr></table></figure>
+
+<h3 id="全局-layout"><a href="#全局-layout" class="headerlink" title="全局 layout"></a>全局 layout</h3><p>约定 <code>src/layouts/index.tsx</code> 为全局路由。返回一个 React 组件，并通过 <code>props.children</code> 渲染子组件。</p>
+<p>比如以下目录结构，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>└── src<br>    ├── layouts<br>    │   └── index.tsx<br>    └── pages<br>        ├── index.tsx<br>        └── users.tsx<br></code></pre></td></tr></table></figure>
+
+<p>会生成路由，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">[<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/layouts/index&#x27;</span>,<br>    <span class="hljs-attr">routes</span>: [<br>      &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/index&#x27;</span> &#125;,<br>      &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/users&#x27;</span> &#125;,<br>    ],<br>  &#125;,<br>]<br></code></pre></td></tr></table></figure>
+
+<p>一个自定义的全局 <code>layout</code> 如下：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">IRouteComponentProps</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;umi&#x27;</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Layout</span>(<span class="hljs-params">&#123; children, location, route, history, match &#125;: IRouteComponentProps</span>) &#123;  <span class="hljs-keyword">return</span> children&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="不同的全局-layout"><a href="#不同的全局-layout" class="headerlink" title="不同的全局 layout"></a>不同的全局 layout</h3><p>你可能需要针对不同路由输出不同的全局 layout，Umi 不支持这样的配置，但你仍可以在 <code>src/layouts/index.tsx</code> 中对 <code>location.path</code> 做区分，渲染不同的 layout 。</p>
+<p>比如想要针对 <code>/login</code> 输出简单布局，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span>(<span class="hljs-params">props</span>) &#123;  <span class="hljs-keyword">if</span> (props.<span class="hljs-property">location</span>.<span class="hljs-property">pathname</span> === <span class="hljs-string">&#x27;/login&#x27;</span>) &#123;    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">SimpleLayout</span>&gt;</span>&#123; props.children &#125;<span class="hljs-tag">&lt;/<span class="hljs-name">SimpleLayout</span>&gt;</span></span>  &#125;<br>  <span class="hljs-keyword">return</span> (    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>      <span class="hljs-tag">&lt;<span class="hljs-name">Header</span> /&gt;</span>      &#123; props.children &#125;      <span class="hljs-tag">&lt;<span class="hljs-name">Footer</span> /&gt;</span>    <span class="hljs-tag">&lt;/&gt;</span></span>  );&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="404-路由"><a href="#404-路由" class="headerlink" title="404 路由"></a>404 路由</h3><p>约定 <code>src/pages/404.tsx</code> 为 404 页面，需返回 React 组件。</p>
+<p>比如以下目录结构，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>└── pages<br>    ├── 404.tsx<br>    ├── index.tsx<br>    └── users.tsx<br></code></pre></td></tr></table></figure>
+
+<p>会生成路由，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">[<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/index&#x27;</span> &#125;,<br>  &#123; <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/users&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/users&#x27;</span> &#125;,<br>  &#123; <span class="hljs-attr">component</span>: <span class="hljs-string">&#x27;@/pages/404&#x27;</span> &#125;,<br>]<br></code></pre></td></tr></table></figure>
+
+<p>这样，如果访问 <code>/foo</code>，<code>/</code> 和 <code>/users</code> 都不能匹配，会 fallback 到 404 路由，通过 <code>src/pages/404.tsx</code> 进行渲染。</p>
+<h3 id="权限路由"><a href="#权限路由" class="headerlink" title="权限路由"></a>权限路由</h3><p>通过指定高阶组件 <code>wrappers</code> 达成效果。</p>
+<p>如下，<code>src/pages/user</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">User</span>(<span class="hljs-params"></span>) &#123;  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>user profile<span class="hljs-tag">&lt;/&gt;</span></span>&#125;<br><span class="hljs-title class_">User</span>.<span class="hljs-property">wrappers</span> = [<span class="hljs-string">&#x27;@/wrappers/auth&#x27;</span>]<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">User</span><br></code></pre></td></tr></table></figure>
+
+<p>然后在 <code>src/wrappers/auth</code> 中，</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Redirect</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;umi&#x27;</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (props) =&gt; &#123;  <span class="hljs-keyword">const</span> &#123; isLogin &#125; = <span class="hljs-title function_">useAuth</span>();  <span class="hljs-keyword">if</span> (isLogin) &#123;    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123; props.children &#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;  &#125; <span class="hljs-keyword">else</span> &#123;    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Redirect</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&quot;/login&quot;</span> /&gt;</span></span>;  &#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样，访问 <code>/user</code>，就通过 <code>useAuth</code> 做权限校验，如果通过，渲染 <code>src/pages/user</code>，否则跳转到 <code>/login</code>，由 <code>src/pages/login</code> 进行渲染。</p>
+<h3 id="扩展路由属性"><a href="#扩展路由属性" class="headerlink" title="扩展路由属性"></a>扩展路由属性</h3><p>支持在代码层通过导出静态属性的方式扩展路由。</p>
+<p>比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">HomePage</span>(<span class="hljs-params"></span>) &#123;  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Home Page<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;&#125;<br><span class="hljs-title class_">HomePage</span>.<span class="hljs-property">title</span> = <span class="hljs-string">&#x27;Home Page&#x27;</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">HomePage</span>;<br></code></pre></td></tr></table></figure>
+
+<p>其中的 <code>title</code> 会附加到路由配置中。</p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="插件的-id-和-key"><a href="#插件的-id-和-key" class="headerlink" title="插件的 id 和 key"></a>插件的 id 和 key</h3><p>每个插件都会对应一个 id 和一个 key，<strong>id 是路径的简写</strong>，<strong>key 是进一步简化后用于配置的唯一值</strong>。</p>
+<p>比如插件 <code>/node_modules/@umijs/plugin-foo/index.js</code>，通常来说，其 id 为 <code>@umijs/plugin-foo</code>，key 为 <code>foo</code>。</p>
+<h3 id="启用插件"><a href="#启用插件" class="headerlink" title="启用插件"></a>启用插件</h3><p>插件有多种启用方式，</p>
+<h4 id="package-json-依赖"><a href="#package-json-依赖" class="headerlink" title="package.json 依赖"></a>package.json 依赖</h4><p>Umi 会自动检测 <code>dependencies</code> 和 <code>devDependencies</code> 里的 umi 插件，比如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;dependencies&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;@umijs/preset-react&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>那么 <code>@umijs/preset-react</code> 会自动被注册，无需在配置里重复声明。</p>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><p>在配置里可通过 <code>presets</code> 和 <code>plugins</code> 配置插件，比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">presets</span>: [<span class="hljs-string">&#x27;./preset&#x27;</span>, <span class="hljs-string">&#x27;foo/presets&#x27;</span>],<br>  <span class="hljs-attr">plugins</span>: [<span class="hljs-string">&#x27;./plugin&#x27;</span>],<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通常用于几种情况：</p>
+<ol>
+<li>项目相对路径的插件</li>
+<li>非 npm 包入口文件的插件</li>
+</ol>
+<p>注意：</p>
+<ul>
+<li>请不要配置 npm 包的插件，否则会报重复注册的错误</li>
+</ul>
+<h4 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h4><p>还可通过环境变量 <code>UMI_PRESETS</code> 和 <code>UMI_PLUGINS</code> 注册额外插件。</p>
+<p>比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ UMI_PRESETS=/a/b/preset.js umi dev<br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>项目里不建议使用，通常用于基于 umi 的框架二次封装</li>
+</ul>
+<h3 id="检查插件注册情况"><a href="#检查插件注册情况" class="headerlink" title="检查插件注册情况"></a>检查插件注册情况</h3><h4 id="通过命令行"><a href="#通过命令行" class="headerlink" title="通过命令行"></a>通过命令行</h4><p>可以执行以下命令，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ umi plugin list<br><span class="hljs-comment"># 顺便看看他们分别用了哪些 key$ umi plugin list --key</span><br></code></pre></td></tr></table></figure>
+
+<p>结果通常如下，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Plugins:<br>    - @umijs/preset-built-in [key: builtIn] (preset)    - @@/registerMethods [key: registerMethods]    - @@/routes [key: routes]    - @@/generateFiles/core/history [key: <span class="hljs-built_in">history</span>]    - @@/generateFiles/core/plugin [key: plugin]    - @@/generateFiles/core/routes [key: routes]    - ...<br></code></pre></td></tr></table></figure>
+
+<h4 id="在插件里感知其他插件"><a href="#在插件里感知其他插件" class="headerlink" title="在插件里感知其他插件"></a>在插件里感知其他插件</h4><p>可通过 <code>api.hasPlugins(pluginId[])</code> 和 <code>api.hasPresets(pluginId[])</code> 的方式感知其他插件，详见插件 API。</p>
+<h3 id="禁用插件"><a href="#禁用插件" class="headerlink" title="禁用插件"></a>禁用插件</h3><p>有两种方式可禁用插件，</p>
+<h4 id="配置-key-为-false"><a href="#配置-key-为-false" class="headerlink" title="配置 key 为 false"></a>配置 key 为 false</h4><p>比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">mock</span>: <span class="hljs-literal">false</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>会禁用 Umi 内置的 mock 插件及其功能。</p>
+<h4 id="在插件里禁用其他插件"><a href="#在插件里禁用其他插件" class="headerlink" title="在插件里禁用其他插件"></a>在插件里禁用其他插件</h4><p>可通过 <code>api.skipPlugins(pluginId[])</code> 的方式禁用，详见插件 API。</p>
+<h3 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h3><p>通过插件的 key 来配置插件，比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">mock</span>: &#123; <span class="hljs-attr">exclude</span>: [<span class="hljs-string">&#x27;./foo&#x27;</span>] &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里的 mock 是 mock 插件的 key。</p>
+<p>再比如我们安装一个插件 <code>umi-plugin-bar</code>，其 key 默认是 <code>bar</code>，就可以这么配置，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">bar</span>: &#123; ...balabala &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Mock-数据"><a href="#Mock-数据" class="headerlink" title="Mock 数据"></a>Mock 数据</h2><p>Mock 数据是前端开发过程中必不可少的一环，是分离前后端开发的关键链路。通过预先跟服务器端约定好的接口，模拟请求数据甚至逻辑，能够让前端开发独立自主，不会被服务端的开发所阻塞。</p>
+<h3 id="约定式-Mock-文件"><a href="#约定式-Mock-文件" class="headerlink" title="约定式 Mock 文件"></a>约定式 Mock 文件</h3><p>Umi 约定 <code>/mock</code> 文件夹下所有文件为 mock 文件。</p>
+<p>比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>├── mock<br>    ├── api.ts<br>    └── users.ts<br>└── src<br>    └── pages<br>        └── index.tsx<br></code></pre></td></tr></table></figure>
+
+<p><code>/mock</code> 下的 <code>api.ts</code> 和 <code>users.ts</code> 会被解析为 mock 文件。</p>
+<h3 id="编写-Mock-文件"><a href="#编写-Mock-文件" class="headerlink" title="编写 Mock 文件"></a>编写 Mock 文件</h3><p>如果 <code>/mock/api.ts</code> 的内容如下，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;  <span class="hljs-comment">// 支持值为 Object 和 Array  &#x27;GET /api/users&#x27;: &#123; users: [1, 2] &#125;,</span><br>  <span class="hljs-comment">// GET 可忽略  &#x27;/api/users/1&#x27;: &#123; id: 1 &#125;,</span><br>  <span class="hljs-comment">// 支持自定义函数，API 参考 express@4  &#x27;POST /api/users/create&#x27;: (req, res) =&gt; &#123;    // 添加跨域请求头    res.setHeader(&#x27;Access-Control-Allow-Origin&#x27;, &#x27;*&#x27;);    res.end(&#x27;ok&#x27;);  &#125;,&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后访问 <code>/api/users</code> 就能得到 <code>&#123; users: [1,2] &#125;</code> 的响应，其他以此类推。</p>
+<h3 id="配置-Mock"><a href="#配置-Mock" class="headerlink" title="配置 Mock"></a>配置 Mock</h3><p>详见<a target="_blank" rel="noopener" href="https://v3.umijs.org/config#mock">配置#mock</a>。</p>
+<h3 id="如何关闭-Mock？"><a href="#如何关闭-Mock？" class="headerlink" title="如何关闭 Mock？"></a>如何关闭 Mock？</h3><p>可以通过配置关闭，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">mock</span>: <span class="hljs-literal">false</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>也可以通过环境变量临时关闭，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ MOCK=none umi dev<br></code></pre></td></tr></table></figure>
+
+<h3 id="引入-Mock-js"><a href="#引入-Mock-js" class="headerlink" title="引入 Mock.js"></a>引入 Mock.js</h3><p><a target="_blank" rel="noopener" href="http://mockjs.com/">Mock.js</a> 是常用的辅助生成模拟数据的三方库，借助他可以提升我们的 mock 数据能力。</p>
+<p>比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> mockjs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;mockjs&#x27;</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;  <span class="hljs-comment">// 使用 mockjs 等三方库  &#x27;GET /api/tags&#x27;: mockjs.mock(&#123;    &#x27;list|100&#x27;: [&#123; name: &#x27;@city&#x27;, &#x27;value|1-100&#x27;: 50, &#x27;type|0-2&#x27;: 1 &#125;],  &#125;),&#125;;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="命令行工具"><a href="#命令行工具" class="headerlink" title="命令行工具"></a>命令行工具</h2><h3 id="umi-build"><a href="#umi-build" class="headerlink" title="umi build"></a>umi build</h3><p>编译构建 web 产物。通常需要针对部署环境，做特定的配置和环境变量修改。相关详情，请查阅<a target="_blank" rel="noopener" href="https://v3.umijs.org/zh-CN/docs/deployment">部署</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ umi build<br>✔ Webpack  Compiled successfully <span class="hljs-keyword">in</span> 5.54s<br>  DONE  Compiled successfully <span class="hljs-keyword">in</span> 5547ms<br>Build success.✨  Done <span class="hljs-keyword">in</span> 9.77s.<br></code></pre></td></tr></table></figure>
+
+<p>默认产物输出到项目的 <code>dist</code> 文件夹，你可以通过修改配置 <code>outputPath</code> 指定产物输出目录。 默认编译时会将 <code>public</code> 文件夹内的所有文件，原样拷贝到 <code>dist</code> 目录，如果你不需要这个特性，可以通过配置 <code>chainWebpack</code> 来删除它。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-title function_">chainWebpack</span>(<span class="hljs-params">memo, &#123; env, webpack &#125;</span>) &#123;<br>    <span class="hljs-comment">// 删除 umi 内置插件</span><br>    memo.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;copy&#x27;</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：如果 <code>public</code> 里面存在产物同名文件，如 <code>index.html</code>，将会导致产物文件被覆盖。</p>
+</blockquote>
+<h3 id="umi-dev"><a href="#umi-dev" class="headerlink" title="umi dev"></a>umi dev</h3><p>启动本地开发服务器进行项目的开发调试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ umi dev<br></code></pre></td></tr></table></figure>
+
+<p>启动在浏览器中运行的开发服务器，并监视源文件变化，自动热加载。</p>
+<p>默认使用 <code>8000</code> 端口，如果 <code>8000</code> 端口被占用，将会使用 <code>8001</code> 端口，以此类推。 你可以通过设置环境变量 <code>PORT</code> 来指定开发端口号。更多环境变量配置，请查阅<a target="_blank" rel="noopener" href="https://v3.umijs.org/docs/env-variables">环境变量</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">umi devStarting the development server...<br>✔ Webpack  Compiled successfully <span class="hljs-keyword">in</span> 2.27s<br>  DONE  Compiled successfully <span class="hljs-keyword">in</span> 2276ms<br>  App running at:  - Local:   http://localhost:8000 (copied to clipboard)  - Network: http://192.168.50.236:8000<br></code></pre></td></tr></table></figure>
+
+<p>开启开发服务还会同时提供一个 Network 的链接，你可以在能访问到你当前运行设备的其他设备中预览页面。</p>
+<blockquote>
+<p>注意：如果是在开启了VPN，或者虚拟机等复杂的网络环境中，这个地址很可能会错误。你可以通过访问你真实可用 <code>ip</code> 的对应端口号来访问开发页面。</p>
+</blockquote>
+<h3 id="umi-generate"><a href="#umi-generate" class="headerlink" title="umi generate"></a>umi generate</h3><p>内置的生成器功能，内置的类型有 <code>page</code> ，用于生成最简页面。支持别名调用 <code>umi g</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ umi generate &lt;<span class="hljs-built_in">type</span>&gt; &lt;name&gt; [options]<br></code></pre></td></tr></table></figure>
+
+<p>这个命令支持扩展，通过 <code>api.registerGenerator</code> 注册，你可以通过插件来实现自己常用的生成器。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Generator</span>, <span class="hljs-title class_">IApi</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;umi&#x27;</span>;<br><span class="hljs-keyword">const</span> createPagesGenerator = <span class="hljs-keyword">function</span> (<span class="hljs-params">&#123; api &#125;: &#123; api: IApi &#125;</span>) &#123;  <span class="hljs-keyword">return</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PageGenerator</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Generator</span> &#123;    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">opts: <span class="hljs-built_in">any</span></span>) &#123;      <span class="hljs-variable language_">super</span>(opts);    &#125;    <span class="hljs-keyword">async</span> <span class="hljs-title function_">writing</span>(<span class="hljs-params"></span>) &#123;&#125;  &#125;;&#125;<br>api.<span class="hljs-title function_">registerGenerator</span>(&#123;  <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;pages&#x27;</span>,  <span class="hljs-title class_">Generator</span>: <span class="hljs-title function_">createPageGenerator</span>(&#123; api &#125;),&#125;);<br>umi generate page pageName<br>umi generate page pageName --typescript<br>umi generate page pageName --less<br></code></pre></td></tr></table></figure>
+
+<p>更多使用类型和参数，请查阅提供生成器扩展的插件的文档。</p>
+<h3 id="umi-plugin"><a href="#umi-plugin" class="headerlink" title="umi plugin"></a>umi plugin</h3><p>快速查看当前项目使用到的所有的 <code>umi</code> 插件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ umi plugin &lt;<span class="hljs-built_in">type</span>&gt; [options]<br></code></pre></td></tr></table></figure>
+
+<p>当前支持的 <code>type</code> 是 <code>list</code>，可选参数 <code>key</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ umi plugin list<br>Plugins:<br>  - @umijs/preset-built-in (preset)  - ./node_modules/umi/lib/plugins/umiAlias<br>✨  Done <span class="hljs-keyword">in</span> 2.27s.<br>$ umi plugin list --key<br>Plugins:<br>  - @umijs/preset-built-in [key: builtIn]  (preset)  - ./node_modules/umi/lib/plugins/umiAlias  [key: builtIn]<br>✨  Done <span class="hljs-keyword">in</span> 2.27s.<br></code></pre></td></tr></table></figure>
+
+<h3 id="umi-help"><a href="#umi-help" class="headerlink" title="umi help"></a>umi help</h3><p>umi 命令行的简易帮助文档。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ umi <span class="hljs-built_in">help</span> &lt;<span class="hljs-built_in">command</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="umi-version"><a href="#umi-version" class="headerlink" title="umi version"></a>umi version</h3><p>查看当前使用的 umi 的版本号，可以使用别名 <code>-v</code> 调用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ umi version<br>$ umi -v<br></code></pre></td></tr></table></figure>
+
+<h3 id="umi-webpack"><a href="#umi-webpack" class="headerlink" title="umi webpack"></a>umi webpack</h3><p>查看 umi 使用的 webpack 配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ umi webpack [options]<br></code></pre></td></tr></table></figure>
+
+<p>参数，</p>
+<table>
+<thead>
+<tr>
+<th>可选参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rules</td>
+<td>查看 webpack.module.rules 配置详情</td>
+</tr>
+<tr>
+<td>rule&#x3D;[name]</td>
+<td>查看 webpack.module.rules 中某个规则的配置详情</td>
+</tr>
+<tr>
+<td>plugins</td>
+<td>查看 webpack.plugins 配置详情</td>
+</tr>
+<tr>
+<td>plugin&#x3D;[name]</td>
+<td>查看 webpack.plugins 中某个插件的配置详情</td>
+</tr>
+</tbody></table>
+<p>示例，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ umi webpack<br>&#123;  mode: <span class="hljs-string">&#x27;development&#x27;</span>,  devtool: <span class="hljs-string">&#x27;cheap-module-source-map&#x27;</span>,  node:&#123; &#125;,  output:&#123; &#125;,  resolve:&#123; &#125;,  module:&#123;    rules:[ ]  &#125;,  plugins:[ ],  entry:&#123; &#125;&#125;<br>$ umi webpack --rules<br>[  <span class="hljs-string">&#x27;js&#x27;</span>,  <span class="hljs-string">&#x27;ts-in-node_modules&#x27;</span>,  <span class="hljs-string">&#x27;js-in-node_modules&#x27;</span>,  <span class="hljs-string">&#x27;images&#x27;</span>,  <span class="hljs-string">&#x27;svg&#x27;</span>,  <span class="hljs-string">&#x27;fonts&#x27;</span>,  <span class="hljs-string">&#x27;plaintext&#x27;</span>,  <span class="hljs-string">&#x27;css&#x27;</span>,  <span class="hljs-string">&#x27;less&#x27;</span>]<br>$ umi webpack --rule=js<br>&#123;  <span class="hljs-built_in">test</span>: /\.(js|mjs|jsx|ts|tsx)$/,  include: [ <span class="hljs-string">&#x27;xx/umi&#x27;</span> ],  exclude: [ /node_modules/ ],  use:[    &#123;      loader:<span class="hljs-string">&#x27;xx/babel-loader/lib/index.js&#x27;</span>,      options: &#123;        sourceType: <span class="hljs-string">&#x27;unambiguous&#x27;</span>      &#125;    &#125;  ]&#125;<br>$ umi webpack --plugins<br>[  <span class="hljs-string">&#x27;extract-css&#x27;</span>,  <span class="hljs-string">&#x27;define&#x27;</span>,  <span class="hljs-string">&#x27;progress&#x27;</span>,  <span class="hljs-string">&#x27;copy&#x27;</span>,  <span class="hljs-string">&#x27;friendly-error&#x27;</span>,  <span class="hljs-string">&#x27;hmr&#x27;</span>]<br>$ umi webpack --plugin=extract-css<br>MiniCssExtractPlugin &#123;  options:&#123;    filename: <span class="hljs-string">&#x27;[name].css&#x27;</span>,    moduleFilename: [Function: moduleFilename],    ignoreOrder: <span class="hljs-literal">true</span>,    chunkFilename: <span class="hljs-string">&#x27;[name].chunk.css&#x27;</span>  &#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>默认会打印 development 的配置，如需查看 production 配置，需要指定环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ NODE_ENV=production umi webpack<br>&#123;  mode: <span class="hljs-string">&#x27;production&#x27;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用-CSS"><a href="#使用-CSS" class="headerlink" title="使用 CSS"></a>使用 CSS</h2><blockquote>
+<p>本文档以 css 为示例，把后缀换成 <code>.less</code> 同样适用。</p>
+</blockquote>
+<h3 id="全局样式"><a href="#全局样式" class="headerlink" title="全局样式"></a>全局样式</h3><p>Umi 中约定 <code>src/global.css</code> 为全局样式，如果存在此文件，会被自动引入到入口文件最前面。</p>
+<p>比如用于覆盖样式，</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.ant-select-selection</span> &#123;<br>  <span class="hljs-attribute">max-height</span>: <span class="hljs-number">51px</span>;<br>  <span class="hljs-attribute">overflow</span>: auto;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="CSS-Modules"><a href="#CSS-Modules" class="headerlink" title="CSS Modules"></a>CSS Modules</h3><p>Umi 会自动识别 CSS Modules 的使用，你把他当做 CSS Modules 用时才是 CSS Modules。</p>
+<p>比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// CSS Modulesimport styles from &#x27;./foo.css&#x27;;</span><br><span class="hljs-comment">// 非 CSS Modulesimport &#x27;./foo.css&#x27;;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="CSS-预处理器"><a href="#CSS-预处理器" class="headerlink" title="CSS 预处理器"></a>CSS 预处理器</h3><p>Umi 内置支持 less，不支持 sass 和 stylus，但如果有需求，可以通过 chainWebpack 配置或者 umi 插件的形式支持。</p>
+<h3 id="CSS-中引入三方库"><a href="#CSS-中引入三方库" class="headerlink" title="CSS 中引入三方库"></a>CSS 中引入三方库</h3><p>TODO：别名的使用。</p>
+<h2 id="使用图片"><a href="#使用图片" class="headerlink" title="使用图片"></a>使用图片</h2><h3 id="JS-里使用图片"><a href="#JS-里使用图片" class="headerlink" title="JS 里使用图片"></a>JS 里使用图片</h3><p>通过 require 引用相对路径的图片。</p>
+<p>比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () =&gt; <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&#123;require(</span>&#x27;<span class="hljs-attr">.</span>/<span class="hljs-attr">foo.png</span>&#x27;)&#125; /&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>支持别名，比如通过 <code>@</code> 指向 src 目录：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () =&gt; <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&#123;require(</span>&#x27;@/<span class="hljs-attr">foo.png</span>&#x27;)&#125; /&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="JS-里使用svg"><a href="#JS-里使用svg" class="headerlink" title="JS 里使用svg"></a>JS 里使用svg</h3><p><strong>组件式引入</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">ReactComponent</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">Logo</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./logo.svg&#x27;</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Analysis</span>(<span class="hljs-params"></span>) &#123;  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Logo</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&#123;90&#125;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&#123;120&#125;</span> /&gt;</span></span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>url式引入</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> logoSrc <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./logo.svg&#x27;</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Analysis</span>(<span class="hljs-params"></span>) &#123;  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&#123;logoSrc&#125;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;logo&quot;</span> /&gt;</span></span>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="CSS-里使用图片"><a href="#CSS-里使用图片" class="headerlink" title="CSS 里使用图片"></a>CSS 里使用图片</h3><p>通过相对路径引用。</p>
+<p>比如，</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.logo</span> &#123;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">./foo.png</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>CSS 里也支持别名，但需要在前面加 <code>~</code> 前缀，</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.logo</span> &#123;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">~@/foo.png</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li>这是 webpack 的规则，如果切到其他打包工具，可能会有变化</li>
+<li>less 中同样适用</li>
+</ol>
+<h3 id="图片路径问题"><a href="#图片路径问题" class="headerlink" title="图片路径问题"></a>图片路径问题</h3><p>项目中使用图片有两种方式，</p>
+<ol>
+<li>先把图片传到 cdn，然后在 JS 和 CSS 中使用图片的绝对路径</li>
+<li>把图片放在项目里，然后在 JS 和 CSS 中通过相对路径的方式使用</li>
+</ol>
+<p>前者不会有任何问题；后者，如果在 JS 中引用相对路径的图片时，在发布时会根据 publicPath 引入绝对路径，所以就算没有开启 dynamicImport 时，也需要注意 publicPath 的正确性。</p>
+<h3 id="Base64-编译"><a href="#Base64-编译" class="headerlink" title="Base64 编译"></a>Base64 编译</h3><p>通过相对路径引入图片的时候，如果图片小于 10K，会被编译为 Base64，否则会被构建为独立的图片文件。</p>
+<p>10K 这个阈值可以通过 <a target="_blank" rel="noopener" href="https://v3.umijs.org/zh-CN/config#inlinelimit">inlineLimit 配置</a>修改。</p>
+<h3 id="使用-CDN"><a href="#使用-CDN" class="headerlink" title="使用 CDN"></a>使用 CDN</h3><p>TODO</p>
+<h2 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h2><h3 id="启用按需加载"><a href="#启用按需加载" class="headerlink" title="启用按需加载"></a>启用按需加载</h3><p><strong>常见使用场景</strong>：组件体积太大，不适合直接计入 bundle 中，以免影响首屏加载速度。例如：某组件 HugeA 包含巨大的实现 &#x2F; 依赖了巨大的三方库，且该组件 HugeA 的使用不在首屏显示范围内，可被单独拆出。这时候，<code>dynamic</code> 就该上场了。</p>
+<p>为了简化部署成本，按需加载功能默认是关闭的，你需要在使用之前先通过配置开启，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">dynamicImport</span>: &#123;&#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用按需加载"><a href="#使用按需加载" class="headerlink" title="使用按需加载"></a>使用按需加载</h3><h4 id="按需加载组件-dynamic"><a href="#按需加载组件-dynamic" class="headerlink" title="按需加载组件 dynamic"></a>按需加载组件 <code>dynamic</code></h4><p>**为什么使用 <code>dynamic</code>**：封装了使用一个异步组件需要做的状态维护工作，开发者可以更专注于自己的业务组件开发，而不必关心 code spliting、async module loading 等等技术细节。</p>
+<p>通常搭配 <a target="_blank" rel="noopener" href="https://github.com/tc39/proposal-dynamic-import">动态 import 语法</a> 使用。</p>
+<p><strong>封装一个异步组件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; dynamic &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;umi&#x27;</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">dynamic</span>(&#123;  <span class="hljs-attr">loader</span>: <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;    <span class="hljs-comment">// 这里的注释 webpackChunkName 可以指导 webpack 将该组件 HugeA 以这个名字单独拆出去    const &#123; default: HugeA &#125; = await import(/* webpackChunkName: &quot;external_A&quot; */ &#x27;./HugeA&#x27;);    return HugeA;  &#125;,&#125;);</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>使用异步组件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<span class="hljs-keyword">import</span> <span class="hljs-title class_">AsyncHugeA</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./AsyncHugeA&#x27;</span>;<br><span class="hljs-comment">// 像使用普通组件一样即可// dynamic 为你做:// 1. 异步加载该模块的 bundle// 2. 加载期间 显示 loading（可定制）// 3. 异步组件加载完毕后，显示异步组件export default () =&gt; &#123;  return &lt;AsyncHugeA /&gt;;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="快速刷新（Fast-Refresh）"><a href="#快速刷新（Fast-Refresh）" class="headerlink" title="快速刷新（Fast Refresh）"></a>快速刷新（Fast Refresh）</h2><blockquote>
+<p>快速刷新（Fast Refresh）是 React 官方为 React Native 开发的模块热替换（HMR）方案，由于其核心实现与平台无关，同时也适用于 Web。</p>
+</blockquote>
+<p>Fast Refresh 功能最大的特性是：开发环境下，可以<strong>保持组件状态</strong>，同时编辑提供<strong>即时反馈</strong>。</p>
+<h3 id="怎样使用？"><a href="#怎样使用？" class="headerlink" title="怎样使用？"></a>怎样使用？</h3><p>在<a target="_blank" rel="noopener" href="https://v3.umijs.org/zh-CN/docs/config">配置文件</a>加上 <code>fastRefresh: &#123;&#125;</code> 即可开启</p>
+<p>这张 gif 动图展示的是使用 Fast Refresh 特性的开发体验，可以看出，修改组件代码后，用户名和密码<strong>状态保持</strong>，这将提升应用本地研发体验。</p>
+<p><img src="https://gw.alipayobjects.com/zos/antfincdn/B2biHHW6s%24/fast-refresh.gif" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>开发方式上与平时没有区别，正常地修改、保存、预览，只是在效果反馈上，体验更加好。</p>
+<h3 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h3><p>有些情况下，维持状态并不是预期，所以为了可靠起见，Fast Refresh 遇到以下情况一概不保留状态（remount）：</p>
+<ul>
+<li>Class 类组件一律重刷（remount），状态会被重置，包括高阶组件返回的 Class 组件</li>
+<li>不纯组件模块，所编辑的模块除导出 React 组件外，还导出了其它模块</li>
+<li>特殊的，还可以通过 <code>// @refresh reset</code> 指令（在源码文件中任意位置加上这行注释）强制重刷（remount），最大限度地保证可用性</li>
+</ul>
+<h3 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h3><p>推荐写函数命名组件，例如：</p>
+<p>✅ Good:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-title function_">Foo</span> = (<span class="hljs-params"></span>) =&gt; &#123;&#125;;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Foo</span>;<br></code></pre></td></tr></table></figure>
+
+<p>❌ Bad:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () =&gt; &#123;&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h3><h4 id="TypeError-Cannot-read-property-‘forEach’-of-undefined"><a href="#TypeError-Cannot-read-property-‘forEach’-of-undefined" class="headerlink" title="TypeError: Cannot read property ‘forEach’ of undefined"></a>TypeError: Cannot read property ‘forEach’ of undefined</h4><p>请检查浏览器扩展 React DevTools 的版本，是否小于 v4，请升级至 v4 版本可解决。<a target="_blank" rel="noopener" href="https://github.com/umijs/umi/issues/6432">issue#6432</a></p>
+<h2 id="部署-1"><a href="#部署-1" class="headerlink" title="部署"></a>部署</h2><h3 id="默认方案"><a href="#默认方案" class="headerlink" title="默认方案"></a>默认方案</h3><p>Umi 默认对新手友好，所以默认不做按需加载处理，<code>umi build</code> 后输出 <code>index.html</code>、<code>umi.js</code> 和 <code>umi.css</code> 三个文件。</p>
+<h3 id="不输出-html-文件"><a href="#不输出-html-文件" class="headerlink" title="不输出 html 文件"></a>不输出 html 文件</h3><p>某些场景 html 文件交给后端输出，前端构建并不需要输出 html 文件，可配置环境变量 <code>HTML=none</code> 实现。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ HTML=none umi build<br></code></pre></td></tr></table></figure>
+
+<h3 id="部署-html-到非根目录"><a href="#部署-html-到非根目录" class="headerlink" title="部署 html 到非根目录"></a>部署 html 到非根目录</h3><p>经常有同学问这个问题：</p>
+<blockquote>
+<p>为什么我本地开发是好的，部署后就没反应了，而且没有报错？</p>
+</blockquote>
+<p><strong>没有报错！</strong> 这是应用部署在非根路径的典型现象。为啥会有这个问题？因为路由没有匹配上，比如你把应用部署在 <code>/xxx/</code> 下，然后访问 <code>/xxx/hello</code>，而代码里匹配的是 <code>/hello</code>，那就匹配不上了，而又没有定义 fallback 的路由，比如 404，那就会显示空白页。</p>
+<p>怎么解决？</p>
+<p>可通过配置 <a target="_blank" rel="noopener" href="https://v3.umijs.org/zh-CN/config#base">base</a> 解决。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> default &#123;<br>  base: <span class="hljs-string">&#x27;/path/to/your/app/root&#x27;</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用-hash-history"><a href="#使用-hash-history" class="headerlink" title="使用 hash history"></a>使用 hash history</h3><p>可通过配置 <a target="_blank" rel="noopener" href="https://v3.umijs.org/zh-CN/config#history">history</a> 为 <code>hash</code> 为解决。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> default &#123;<br>  <span class="hljs-built_in">history</span>: &#123; <span class="hljs-built_in">type</span>: <span class="hljs-string">&#x27;hash&#x27;</span> &#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="按需加载-1"><a href="#按需加载-1" class="headerlink" title="按需加载"></a>按需加载</h3><p>要实现按需加载，需配置 <a target="_blank" rel="noopener" href="https://v3.umijs.org/zh-CN/config#dynamicimport">dynamicImport</a>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">dynamicImport</span>: &#123;&#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="静态资源在非根目录或-cdn"><a href="#静态资源在非根目录或-cdn" class="headerlink" title="静态资源在非根目录或 cdn"></a>静态资源在非根目录或 cdn</h3><p>这时，就需要配置 <a target="_blank" rel="noopener" href="https://v3.umijs.org/zh-CN/config#publicpath">publicPath</a>。至于 publicPath 是啥？具体看 <a target="_blank" rel="noopener" href="https://webpack.js.org/configuration/output/#output-publicpath">webpack 文档</a>，把他指向静态资源（js、css、图片、字体等）所在的路径。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">publicPath</span>: <span class="hljs-string">&quot;http://yourcdn/path/to/static/&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用-runtime-的-publicPath"><a href="#使用-runtime-的-publicPath" class="headerlink" title="使用 runtime 的 publicPath"></a>使用 runtime 的 publicPath</h3><p>对于需要在 html 里管理 publicPath 的场景，比如在 html 里判断环境做不同的输出，可通过配置 <a target="_blank" rel="noopener" href="https://v3.umijs.org/zh-CN/config/#runtimepublicpath">runtimePublicPath</a> 为解决。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">runtimePublicPath</span>: <span class="hljs-literal">true</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>然后在 html 里输出：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript"><span class="hljs-variable language_">window</span>.<span class="hljs-property">publicPath</span> = &lt;%= <span class="hljs-variable constant_">YOUR</span> <span class="hljs-variable constant_">PUBLIC_PATH</span> %&gt;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="静态化"><a href="#静态化" class="headerlink" title="静态化"></a>静态化</h3><p>在一些场景中，无法做服务端的 html fallback，即让每个路由都输出 index.html 的内容，那么就要做静态化。</p>
+<p>比如上面的例子，我们在 .umirc.js 里配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">exportStatic</span>: &#123;&#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后执行 umi build，会为每个路由输出一个 html 文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs unknown">./dist<br>├── index.html<br>├── list<br>│   └── index.html<br>└── static<br>    ├── pages__index.5c0f5f51.async.js<br>    ├── pages__list.f940b099.async.js<br>    ├── umi.2eaebd79.js<br>    └── umi.f4cb51da.css<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：静态化暂不支持有变量路由的场景。</p>
+</blockquote>
+<h3 id="HTML-后缀"><a href="#HTML-后缀" class="headerlink" title="HTML 后缀"></a>HTML 后缀</h3><p>有些静态化的场景里，是不会自动读索引文件的，比如支付宝的容器环境，那么就不能生成这种 html 文件，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs unknown">├── index.html<br>├── list<br>│   └── index.html<br></code></pre></td></tr></table></figure>
+
+<p>而是生成，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs unknown">├── index.html<br>└── list.html<br></code></pre></td></tr></table></figure>
+
+<p>配置方式是在 .umirc.js 里，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">exportStatic</span>: &#123;<br>    <span class="hljs-attr">htmlSuffix</span>: <span class="hljs-literal">true</span>,<br>  &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>umi build 会生成，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs unknown">./dist<br>├── index.html<br>├── list.html<br>└── static<br>    ├── pages__index.5c0f5f51.async.js<br>    ├── pages__list.f940b099.async.js<br>    ├── umi.2924fdb7.js<br>    └── umi.cfe3ffab.css<br></code></pre></td></tr></table></figure>
+
+<h3 id="静态化后输出到任意路径"><a href="#静态化后输出到任意路径" class="headerlink" title="静态化后输出到任意路径"></a>静态化后输出到任意路径</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">exportStatic</span>: &#123;<br>    <span class="hljs-attr">htmlSuffix</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">dynamicRoot</span>: <span class="hljs-literal">true</span>,<br>  &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+      
+        <a href="/blog/tags/umi%E6%A1%86%E6%9E%B6/">#umi框架</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>umi基础</div>
+      <div>https://yoonalis.github.io/blog/2022/11/28/umi/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Azure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2022/11/20/%E5%85%9A%E8%AF%BE/" title="党课">
+                        <span class="hidden-mobile">党课</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
