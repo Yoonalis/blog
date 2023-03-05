@@ -1,0 +1,1038 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.jpg">
+  <link rel="icon" href="/blog/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Azure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack">
+<meta property="og:url" content="https://yoonalis.github.io/blog/2022/11/20/webpack/index.html">
+<meta property="og:site_name" content="Azure&#39;s blog">
+<meta property="og:description" content="webpack">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yoonalis.github.io/blog/img/webpack.jpg">
+<meta property="article:published_time" content="2022-11-20T13:49:55.367Z">
+<meta property="article:modified_time" content="2023-03-05T03:20:55.639Z">
+<meta property="article:author" content="Azure">
+<meta property="article:tag" content="webpack">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yoonalis.github.io/blog/img/webpack.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>webpack - Azure&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yoonalis.github.io","root":"/blog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>Azure</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/album/">
+                <i class="iconfont icon-images"></i>
+                album
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="webpack"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-20 21:49" pubdate>
+          2022年11月20日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          29k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          240 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">webpack</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h1><blockquote>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/65574428">https://zhuanlan.zhihu.com/p/65574428</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904030649614349">https://juejin.cn/post/6844904030649614349</a></li>
+<li>新建webpack项目：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904005286494215">https://juejin.cn/post/6844904005286494215</a></li>
+<li>无法识别webpack：<a target="_blank" rel="noopener" href="https://blog.csdn.net/happyqyt/article/details/89739065">https://blog.csdn.net/happyqyt/article/details/89739065</a></li>
+<li>webpack官方：<a target="_blank" rel="noopener" href="https://webpack.docschina.org/configuration/devtool/">https://webpack.docschina.org/configuration/devtool/</a></li>
+</ol>
+</blockquote>
+<h4 id="1-1-没有webpack的情况："><a href="#1-1-没有webpack的情况：" class="headerlink" title="1.1 没有webpack的情况："></a>1.1 没有webpack的情况：</h4><p>header.js：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Header</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-keyword">var</span> header = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);<br>    header.<span class="hljs-property">innerText</span> = <span class="hljs-string">&#x27;网页标题&#x27;</span>;<br>    webContent.<span class="hljs-title function_">appendChild</span>(header);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>content.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Content</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-keyword">var</span> content = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);<br>    content.<span class="hljs-property">innerText</span> = <span class="hljs-string">&#x27;网页主体&#x27;</span>;<br>    webContent.<span class="hljs-title function_">appendChild</span>(content);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>footer.js：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Footer</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-keyword">var</span> footer = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);<br>    footer.<span class="hljs-property">innerText</span> = <span class="hljs-string">&#x27;网页页脚&#x27;</span>;<br>    webContent.<span class="hljs-title function_">appendChild</span>(footer);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>index.js：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> webContent = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;webContent&#x27;</span>);<br> <br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Header</span>();<br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Content</span>();<br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Footer</span>();<br></code></pre></td></tr></table></figure>
+
+<p>dist.html：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;webContent&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./header.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./content.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./footer.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./index.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这样将代码模块化后，使得代码的逻辑变得清晰，更能呈现出业务场景。</p>
+<p>但是，这种方式的模块化也存在缺点：</p>
+<p>①页面加载速度变慢：</p>
+<p>由于增加了js文件的数量，所以网页需要发起更多次的http请求，导致了页面加载速度变慢。</p>
+<p>②无法直接在js代码中看出js文件之间相互的存储位置的关系，必须要通过dist.html文件才能查看。</p>
+<p>③js文件必须按规定顺序加载：</p>
+<p>在dist.html文件中，header.js、content.js以及footer.js文件都必须在index.js文件之前加载完毕：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-0df3230ef4b30ab06ca7436b683a7090_720w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>假如我们把header.js文件，放在index.js文件后面进行加载：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-57193acea19b5a9b4a8e8a3aff35ce5a_720w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>网页的控制台就会报错。</p>
+<h4 id="1-2-使用webpack打包的情况"><a href="#1-2-使用webpack打包的情况" class="headerlink" title="1.2 使用webpack打包的情况"></a>1.2 使用webpack打包的情况</h4><p>为了解决上面那种模块化方式存在的缺点，我们依据ES module的规则改写一点代码，然后结合webpack来解决。</p>
+<p>首先，我们来看改写后的代码：</p>
+<p>header.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Header</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-keyword">var</span> webContent = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;webContent&#x27;</span>);<br>    <span class="hljs-keyword">var</span> header = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);<br>    header.<span class="hljs-property">innerText</span> = <span class="hljs-string">&#x27;网页标题&#x27;</span>;<br>    webContent.<span class="hljs-title function_">appendChild</span>(header);<br>&#125;<br> <br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Header</span>;<br></code></pre></td></tr></table></figure>
+
+<p>content.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Content</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-keyword">var</span> webContent = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;webContent&#x27;</span>);<br>    <span class="hljs-keyword">var</span> content = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);<br>    content.<span class="hljs-property">innerText</span> = <span class="hljs-string">&#x27;网页主体&#x27;</span>;<br>    webContent.<span class="hljs-title function_">appendChild</span>(content);<br>&#125;<br> <br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Content</span>;<br></code></pre></td></tr></table></figure>
+
+<p>footer.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Footer</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-keyword">var</span> webContent = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;webContent&#x27;</span>);<br>    <span class="hljs-keyword">var</span> footer = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);<br>    footer.<span class="hljs-property">innerText</span> = <span class="hljs-string">&#x27;网页页脚&#x27;</span>;<br>    webContent.<span class="hljs-title function_">appendChild</span>(footer);<br>&#125;<br> <br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Footer</span>;<br></code></pre></td></tr></table></figure>
+
+<p>index.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">Header</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./header.js&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Content</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./content.js&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Footer</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./footer.js&#x27;</span>;<br> <br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Header</span>();<br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Content</span>();<br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Footer</span>();<br></code></pre></td></tr></table></figure>
+
+<p>dist.html:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;webContent&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./dist/main.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>接下来，进入到上面这些文件的根目录，我这里是进入到e:\webpack-demo，然后初始化npm环境（注意：做这些操作之前必须要先安装node环境，可以参考这篇文章：</p>
+<p><a href="https://link.zhihu.com/?target=https://www.npmjs.com.cn/getting-started/installing-node/%EF%BC%89%EF%BC%9A">https://www.npmjs.com.cn/getting-started/installing-node/）：www.npmjs.com.cn/getting-started/installing-node/%EF%BC%89%EF%BC%9A</a></p>
+<p><img src="https://pic3.zhimg.com/80/v2-a00645e76758c8afa04f4f16bde731e6_720w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>接下来，一直回车就好。</p>
+<p>然后，安装webpack:</p>
+<p><img src="https://pic2.zhimg.com/80/v2-023b4ee85a09368e9094de33ac87d255_720w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>最后，运行npx webpack命令（Node 8.2+ 版本提供的 npx 命令，可以运行在初始安装的 webpack 包(package)的 <strong>webpack</strong> 二进制文件，就是可以调用webpack中的webpack二进制文件程序）：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-994a8b8ca95e19b1d6148488b271a907_720w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>此时，会发现根目录中出现了一个新的文件夹：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-823b4204e121b4270006c43d179a99aa_720w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>查看dist文件夹中的内容，可以发现有一个main.js文件，其实这个main.js文件是webpack将index.js、header.js、content.js、footer.js打包在一起的一个文件。</p>
+<p>用浏览器直接打开dist.html文件，可以发现和原先的模块化方法得到相同的结果：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-d0811a49a974c32c1c400711a297dcda_720w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<h4 id="1-3-webpack是什么"><a href="#1-3-webpack是什么" class="headerlink" title="1.3 webpack是什么"></a>1.3 webpack是什么</h4><p>webpack是一个打包工具，他的宗旨是一切静态资源皆可打包。有人就会问为什么要webpack？webpack是现代前端技术的基石，常规的开发方式，比如jquery,html,css静态网页开发已经落后了。现在是MVVM的时代，数据驱动界面。webpack它做的事情是，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言（Scss，TypeScript等），并将其打包为合适的格式以供浏览器使用。</p>
+<h4 id="1-4-webpack核心概念"><a href="#1-4-webpack核心概念" class="headerlink" title="1.4 webpack核心概念"></a>1.4 webpack核心概念</h4><p><strong>1、Entry（入口）：</strong>指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。</p>
+<p><strong>2、Output（出口）：</strong>告诉 webpack 在哪里输出它所创建的结果文件，以及如何命名这些文件，默认值为.&#x2F;dist。</p>
+<p><strong>3、Loader（模块转换器）：</strong>将所有类型的文件转换为 webpack 能够处理的有效模块，然后你就可以利用 webpack 的打包能力，对它们进行处理。</p>
+<p><strong>4、Plugins（插件）：</strong>在 Webpack 构建流程中的特定时机注入扩展逻辑来改变构建结果或做你想要的事情。</p>
+<p><strong>5、Module(模块)：</strong>开发者将程序分解成离散功能块，并称之为模块，</p>
+<p>在webpack里一个模块对应着一个文件，webpack会从配置的 Entry 开始递归找出所有依赖的模块。</p>
+<h4 id="1-5-webpack执行流程"><a href="#1-5-webpack执行流程" class="headerlink" title="1.5 webpack执行流程"></a>1.5 webpack执行流程</h4><p>webpack启动后会在entry里配置的module开始递归解析entry所依赖的所有module，每找到一个module, 就会根据配置的loader去找相应的转换规则，对module进行转换后在解析当前module所依赖的module，这些模块会以entry为分组，一个entry和所有相依赖的module也就是一个chunk，最后webpack会把所有chunk转换成文件输出，在整个流程中webpack会在恰当的时机执行plugin的逻辑</p>
+<h4 id="1-6-webpack简单打包案例"><a href="#1-6-webpack简单打包案例" class="headerlink" title="1.6 webpack简单打包案例"></a>1.6 webpack简单打包案例</h4><ol>
+<li>准备工作</li>
+</ol>
+<p>建一个空文件夹用于创建项目， 如下我在D盘创建了一个名为webpack_demo的文件夹，使用终端进入文件夹， 使用npm init 命令初始化一个package.json文件。</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c2ea3e67e4~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>输入这个命令后，终端会问你一系列诸如项目名称，项目描述，作者等信息，不过如果你不打算发布这个模块，直接一路回车就好。（也可以使用<code>npm init -y</code>这个命令来一次生成package.json文件，这样终端不会询问你问题）。</p>
+<ol start="2">
+<li>安装webpack</li>
+</ol>
+<p>接下来在命令行中输入以下命令安装webpack，如果你想一步到位的话，就把全局webpack和本地项目webpack全都先装了，因为后面一些模块会用到。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">npm install webpack --global                <span class="hljs-regexp">//</span> 安装全局webpack命令<br>npm install webpack webpack-cli --save-dev  <span class="hljs-regexp">//</span> 安装本地项目模块<br><br><span class="hljs-regexp">//</span> install    可简写为i,<br><span class="hljs-regexp">//</span> --global   可简写为-g<br><span class="hljs-regexp">//</span> --save     可简写为-S<br><span class="hljs-regexp">//</span> --save-dev 可简写为-D复制代码<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>新建文件</li>
+</ol>
+<p>在webpack_demo文件夹下新建两个文件夹，分别为src文件夹和dist文件夹，接着在src文件夹下新增index.js文件和hello.js文件，在dist文件夹下新增index.html文件。此时项目结构如下：</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c2eb7d555a~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>在hello.js中导出一个模块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// hello.js </span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>   <span class="hljs-keyword">let</span> hello = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);<br>   hello.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;hello xxx!&quot;</span>;<br>   <span class="hljs-keyword">return</span> hello;<br> &#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在index.js中引入这个hello.js模块</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// index.js</span><br><span class="hljs-keyword">const</span> hello = require(<span class="hljs-string">&#x27;./hello.js&#x27;</span>);<br><span class="hljs-built_in">document</span>.<span class="hljs-built_in">querySelector</span>(<span class="hljs-string">&quot;#root&quot;</span>).appendChild(hello());<br></code></pre></td></tr></table></figure>
+
+<p>在index.html下引入打包后的js文件bundle.js</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Webpack demo<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&#x27;root&#x27;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>   <span class="hljs-comment">&lt;!--这是打包之后的js文件，我们暂时命名为bundle.js--&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>进行打包</li>
+</ol>
+<p>在终端输入如下命令进行打包</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack全局安装的情况下，output后面的是打包后的文件路径，bundle.js为打包后的js文件名<br><br>webpack src<span class="hljs-regexp">/index.js --output dist/</span>bundle.js  <br><br><span class="hljs-regexp">//</span> --output可简写为-o<br><span class="hljs-regexp">//</span> 上述命令相当于把src文件夹下的index.js文件打包到dist文件夹下的bundle.js，这样就生成了打包后的文件供index.html引入<br></code></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c2eca103e8~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>可以看出webpack同时编译了index.js和hello.js，因为index.js文件引入了hello.js模块，现在打开index.html看看结果</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c2ee62bb72~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>我们已经成功使用webpack进行打包，这时小伙伴要说了，每次都在终端中输入这么长的命令，感觉好烦啊，接下来学习通过配置文件来使用webpack。</p>
+<ol start="5">
+<li>通过配置文件来使用webpack</li>
+</ol>
+<p>在当前项目的根目录下新建一个配置文件webpack.config.js，我们写下如下简单配置代码，目前只涉及入口配置（相当于我们的index.js，从它开始打包）和出口配置（相当于我们打包生成的bundle.js）。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack.config.js<br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>module.exports = &#123;<br>    entry: path.join(__dirname, <span class="hljs-string">&quot;/src/index.js&quot;</span>), <span class="hljs-regexp">//</span> 入口文件<br>    output: &#123;<br>        path: path.join( __dirname, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-regexp">//</span> 打包后的文件存放的地方 <br>        filename: <span class="hljs-string">&quot;bundle.js&quot;</span> <span class="hljs-regexp">//</span> 打包后输出文件的文件名<br>    &#125;<br>&#125;<br><br><span class="hljs-regexp">//</span> path.join的功能是拼接路径片段<br><span class="hljs-regexp">//</span> __dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录，即D:\webpack_demo<br></code></pre></td></tr></table></figure>
+
+<p>有了这个配置文件，我们只需在终端中运行webpack命令就可进行打包，这条命令会自动引用webpack.config.js文件中的配置选项</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c2edcc40d3~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<ol start="6">
+<li>package.json文件中自定义脚本命令</li>
+</ol>
+<p>Node项目一般都有一个package.json文件，该文件用于描述当前项目，其中有一个scripts属性，该属性可以自定义脚本命令，例如我们运行的打包命令，那么可以在scripts里添加自定义脚本为：</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c2f40cd7cf~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>之后就可以使用npm run build来运行该脚本命令，这样有什么好处呢？如果命令行很短，好处当然不明显了，但是如何命令行很长呢？那么我们可以在这里添加每次都需要执行的命令，配置了scripts后， npm run key值相当于在终端运行了value值</p>
+<h4 id="1-7-构建本地服务"><a href="#1-7-构建本地服务" class="headerlink" title="1.7 构建本地服务"></a>1.7 构建本地服务</h4><p>上面案例我们是通过打开本地HTML文件来查看页面的，vue，react框架时都是运行在本地服务器上的，那我们能不能也改成那样呢？接下来学习如何构建本地服务</p>
+<ol>
+<li>webpack-dev-server配置本地服务器</li>
+</ol>
+<p>Webpack提供了一个可选的本地开发服务器，这个本地服务器基于node.js构建，它是一个单独的组件，在webpack中进行配置之前需要单独安装它作为项目依赖：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">npm install webpack-dev-<span class="hljs-keyword">server</span> -D<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>devServer配置项</li>
+</ol>
+<ul>
+<li><strong>port：</strong>指定了开启服务器的端口号，默认为8080</li>
+<li><strong>host：</strong>配置 DevServer的服务器监听地址，默认为 127.0.0.1</li>
+<li><strong>headers：</strong>该配置项可以在HTTP响应中注入一些HTTP响应头。例如：</li>
+</ul>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs 1c">headers: &#123;<br>  &#x27;X-foo&#x27;: &#x27;<span class="hljs-number">112233</span>&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>historyApiFallback：</strong>该配置项属性是用来应对返回404页面时定向跳转到特定页面的。一般是应用在单页应用，比如在访问路由时候，访问不到该路由的时候，通过该配置项，设置属性值为true的时候，会自动跳转到 index.html下。当然我们也可以手动通过 正则来匹配路由</li>
+</ul>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-comment">// 跳到index.html页面 </span><br>historyApiFallback: <span class="hljs-keyword">true</span><br><br><span class="hljs-comment">// 使用正则来匹配路由</span><br>historyApiFallback: &#123;<br>  rewrites: [<br>    &#123; <span class="hljs-keyword">from</span>: <span class="hljs-regexp">/^\/user/</span>, to: <span class="hljs-string">&#x27;/user.html&#x27;</span> &#125;,<br>    &#123; <span class="hljs-keyword">from</span>: <span class="hljs-regexp">/^\/home/</span>, to: <span class="hljs-string">&#x27;/home.html&#x27;</span> &#125;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>hot：</strong>该配置项是指模块替换功能，DevServer 默认行为是在发现源代码被更新后通过自动刷新整个页面来做到实时预览的，但是开启模块热替换功能后，它是通过在不刷新整个页面的情况下通过使用新模块替换旧模块来做到实时预览的。</li>
+<li><strong>proxy :</strong> 有时候我们使用webpack在本地启动服务器的时候，由于我们使用的访问的域名是 <a target="_blank" rel="noopener" href="http://localhost:8081/">http://localhost:8081</a> 这样的，但是我们服务端的接口是其他的，可以通过该配置来解决跨域的问题</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 假设服务端接口域名为：http:<span class="hljs-regexp">//</span>news.baidu.com<br>proxy: &#123;<br>  <span class="hljs-string">&#x27;/api&#x27;</span>: &#123;<br>    target: <span class="hljs-string">&#x27;http://news.baidu.com&#x27;</span>, <span class="hljs-regexp">//</span> 目标接口的域名<br>    <span class="hljs-regexp">//</span> secure: true,  <span class="hljs-regexp">//</span> https 的时候 使用该参数<br>    changeOrigin: true,  <span class="hljs-regexp">//</span> 是否跨域<br>    pathRewrite: &#123;<br>      <span class="hljs-string">&#x27;^/api&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span>  <span class="hljs-regexp">//</span> 重写路径<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>open：</strong>该属性用于DevServer启动且第一次构建完成时，自动使用我们的系统默认浏览器去打开网页。</li>
+<li><strong>compress：</strong>配置是否启用 gzip 压缩，boolean 类型，默认为 false</li>
+</ul>
+<ol start="3">
+<li>添加配置项到webpack.config.js</li>
+</ol>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs lua">devServer: &#123;<br>    server: <span class="hljs-string">&quot;http&quot;</span>,<br>    static: <span class="hljs-built_in">path</span>.join(__dirname, <span class="hljs-string">&quot;dist&quot;</span>), // 原contentBase<br>    headers: [<br>    &#123;<br>        key: <span class="hljs-string">&#x27;X-Custom&#x27;</span>,<br>        value: <span class="hljs-string">&#x27;foo&#x27;</span>,<br>    &#125;,<br>    &#123;<br>        key: <span class="hljs-string">&#x27;Y-Custom&#x27;</span>,<br>        value: <span class="hljs-string">&#x27;bar&#x27;</span>,<br>    &#125;,<br>    ],<br>    // hot: <span class="hljs-literal">true</span>, // 模块替换功能，实时预览<br>    hot: <span class="hljs-string">&quot;only&quot;</span>, // 在构建失败的情况下启用无需页面刷新的热模块替换作为后备<br>    host: <span class="hljs-string">&quot;localhost&quot;</span>,<br>    port: <span class="hljs-number">8080</span>, // 开启服务器的端口号<br>    <span class="hljs-built_in">open</span>: <span class="hljs-literal">true</span>, // devserver启动且第一次完成构建时，自动使用系统默认浏览器打开网页<br>    client: &#123; // 编译出错时在浏览器上显示错误<br>        overlay: &#123;<br>            warnings: <span class="hljs-literal">false</span>,<br>            errors: <span class="hljs-literal">true</span>,<br>        &#125;<br>    &#125;,<br>    proxy: &#123; // 跨域问题<br>        <span class="hljs-string">&#x27;/api&#x27;</span>: &#123;<br>            target: <span class="hljs-string">&#x27;http://localhost:8888&#x27;</span>, // 目标接口的域名（服务器接口）<br>            changeOrigin: <span class="hljs-literal">true</span>, // 是否跨域<br>            secure: <span class="hljs-literal">false</span>, // 代理地址没证书也可以代理成功 <br>            pathRewrite: &#123;<br>                <span class="hljs-string">&#x27;^api&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span> // 重写路径<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在package.json文件中添加启动命令</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;scripts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;build&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;webpack&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;dev&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;webpack-dev-server --open&quot;</span><br><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
+
+<p>我们用dev来启动本地服务器， webpack-dev-server就是启动服务器的命令，- -open是用于启动完服务器后自动打开浏览器，这时候我们自定义命令方式的便捷性就体现出来了，可以多个命令集成在一起运行，即我们定义了一个dev命令名称就可以同时运行了webpack-dev-server和- -open两个命令</p>
+<p>现在在终端输入npm run dev 运行服务器</p>
+<p>这样我们就可以在<a target="_blank" rel="noopener" href="http://localhost:8088/%E4%B8%AD%E6%9F%A5%E7%9C%8B%E9%A1%B5%E9%9D%A2">http://localhost:8088/中查看页面</a> (退出服务器，可使用ctrl+c后，再按y确认即可退出服务器运行)</p>
+<ol start="5">
+<li>source maps调试配置</li>
+</ol>
+<p>作为开发，代码调试当然少不了，那么问题来了，经过打包后的文件，你是不容易找到出错的地方的，<code>Source Map</code>就是用来解决这个问题的。通过如下配置，我们会在打包时生成对应于打包文件的<code>.map</code>文件，使得编译后的代码可读性更高，更易于调试。</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs sqf"><span class="hljs-comment">// webpack.config.js</span><br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>module.exports = &#123;<br>  entry: path.<span class="hljs-built_in">join</span>(<span class="hljs-variable">__dirname</span>, <span class="hljs-string">&quot;/src/index.js&quot;</span>), <span class="hljs-comment">// 入口文件</span><br>  output: &#123;<br>    path: path.<span class="hljs-built_in">join</span>(<span class="hljs-variable">__dirname</span>, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-comment">// 打包后的文件存放的地方 </span><br>    filename: <span class="hljs-string">&quot;bundle.js&quot;</span> <span class="hljs-comment">// 打包后输出文件的文件名</span><br>  &#125;,<br>  devServer: &#123;<br>    contentBase: path.<span class="hljs-built_in">join</span>(<span class="hljs-variable">__dirname</span>, <span class="hljs-string">&quot;dist&quot;</span>),<br>    hot: <span class="hljs-literal">true</span>,<br>    port: <span class="hljs-string">&#x27;8080&#x27;</span>,<br>    inline: <span class="hljs-literal">true</span>,<br>    open: <span class="hljs-literal">true</span>,<br>    overlay: <span class="hljs-literal">true</span>,<br>  &#125;,<br>  devtool: <span class="hljs-string">&#x27;source-map&#x27;</span> <span class="hljs-comment">// 会生成对于调试的完整的.map文件，同时也会减慢打包速度</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>配置好后，我们再次运行npm run build进行打包，这时我们会发现在dist文件夹中多出了一个bundle.js.map。如果我们的代码有bug，在浏览器的调试工具中会提示错误出现的位置，这就是devtool：’source-map’ 配置项的作用。</p>
+<h4 id="1-8-Loaders"><a href="#1-8-Loaders" class="headerlink" title="1.8 Loaders"></a>1.8 Loaders</h4><p>loaders是webpack最强大的功能之一，通过不同的loader，webpack有能力调用外部的脚本或工具，实现对不同格式的文件的处理，例如把scss转为css，将ES66、ES7等语法转化为当前浏览器能识别的语法，将JSX转化为js等多项功能。Loaders需要单独安装并且需要在webpack.comfig.js中的modules配置项下进行配置，Loaders的配置包括以下几方面：</p>
+<ul>
+<li>test：一个用以匹配loaders所处理文件的拓展名的正则表达式（必须）</li>
+<li>loader：loader的名称（必须）</li>
+<li>include&#x2F;exclude： 手动添加必须处理的文件（文件夹）或屏蔽不需要处理的文件（文件夹）（可选）</li>
+<li>options： 为loaders提供额外的设置选项（可选）</li>
+</ul>
+<ol>
+<li>配置css-loader</li>
+</ol>
+<p>如果我们要加载一个css文件，需要安装style-loader和css-loader</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> style-loader css-loader -D<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs sqf"><span class="hljs-comment">// webpack.config.js</span><br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>module.exports = &#123;<br>  entry: path.<span class="hljs-built_in">join</span>(<span class="hljs-variable">__dirname</span>, <span class="hljs-string">&quot;/src/index.js&quot;</span>), <span class="hljs-comment">// 入口文件</span><br>  output: &#123;<br>    path: path.<span class="hljs-built_in">join</span>(<span class="hljs-variable">__dirname</span>, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-comment">// 打包后的文件存放的地方 </span><br>    filename: <span class="hljs-string">&quot;bundle.js&quot;</span> <span class="hljs-comment">// 打包后输出文件的文件名</span><br>  &#125;,<br>  devServer: &#123;<br>    contentBase: path.<span class="hljs-built_in">join</span>(<span class="hljs-variable">__dirname</span>, <span class="hljs-string">&quot;dist&quot;</span>),<br>    hot: <span class="hljs-literal">true</span>,<br>    port: <span class="hljs-string">&#x27;8080&#x27;</span>,<br>    inline: <span class="hljs-literal">true</span>,<br>    open: <span class="hljs-literal">true</span>,<br>    overlay: <span class="hljs-literal">true</span>,<br>  &#125;,<br>  devtool: <span class="hljs-string">&#x27;source-map&#x27;</span>, <span class="hljs-comment">// 会生成对于调试的完整的.map文件，但同时也会减慢打包速度</span><br>  module: &#123;<br>    rules: [<br>      &#123;<br>        test: /\.css$/,   <span class="hljs-comment">// 正则匹配以.css结尾的文件</span><br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>]  <span class="hljs-comment">// 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的</span><br>      &#125;<br>    ]<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们在src文件夹下新建index.css文件，设置body的样式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* index.css */</span><br><span class="hljs-selector-tag">body</span> &#123;<br>    <span class="hljs-attribute">background</span>: gray;<br>&#125;复制代码<br></code></pre></td></tr></table></figure>
+
+<p>在src文件夹下的index.js引入它</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// index.js</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./index.css&#x27;</span> <span class="hljs-comment">// 导入css</span><br><br><span class="hljs-keyword">const</span> hello = require(<span class="hljs-string">&#x27;./hello.js&#x27;</span>);<br><span class="hljs-built_in">document</span>.<span class="hljs-built_in">querySelector</span>(<span class="hljs-string">&quot;#root&quot;</span>).appendChild(hello());复制代码<br></code></pre></td></tr></table></figure>
+
+<p>运行npm run dev启动服务器，会发现页面背景颜色变成了灰色</p>
+<ol start="2">
+<li>配置sass</li>
+</ol>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">npm install sass-loader <span class="hljs-keyword">node</span><span class="hljs-title">-sass</span> -D // 因为sass-loader依赖于<span class="hljs-keyword">node</span><span class="hljs-title">-sass</span>，所以还要安装<span class="hljs-keyword">node</span><span class="hljs-title">-sass</span><br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack.config.js<br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>module.exports = &#123;<br>  entry: path.join(__dirname, <span class="hljs-string">&quot;/src/index.js&quot;</span>), <span class="hljs-regexp">//</span> 入口文件<br>  output: &#123;<br>    path: path.join(__dirname, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-regexp">//</span> 打包后的文件存放的地方 <br>    filename: <span class="hljs-string">&quot;bundle.js&quot;</span> <span class="hljs-regexp">//</span> 打包后输出文件的文件名<br>  &#125;,<br>  devServer: &#123;<br>    contentBase: path.join(__dirname, <span class="hljs-string">&quot;dist&quot;</span>),<br>    hot: true,<br>    port: <span class="hljs-string">&#x27;8080&#x27;</span>,<br>    inline: true,<br>    open: true,<br>    overlay: true,<br>  &#125;,<br>  devtool: <span class="hljs-string">&#x27;source-map&#x27;</span>, <span class="hljs-regexp">//</span> 会生成对于调试的完整的.map文件，但同时也会减慢打包速度<br>  module: &#123;<br>    rules: [<br>      &#123;<br>        test: <span class="hljs-regexp">/\.css$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.css结尾的文件<br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>]  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>      &#125;,<br>      &#123;<br>        test: <span class="hljs-regexp">/\.(scss|sass)$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.scss和.sass结尾的文件<br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>      &#125;<br>    ]<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-9-插件"><a href="#1-9-插件" class="headerlink" title="1.9 插件"></a>1.9 插件</h4><p>插件（Plugins）是用来拓展Webpack功能的，它们会在整个构建过程中生效，执行相关的任务。<br>Loaders和Plugins常常被弄混，但是他们其实是完全不同的东西，可以这么来说，loaders是在打包构建过程中用来处理源文件的（JSX，Scss，Less..），一次处理一个，插件并不直接操作单个文件，它直接对整个构建过程其作用。</p>
+<ol>
+<li>使用插件</li>
+</ol>
+<p>如需使用某个插件，需要通过npm进行安装，然后在webpack.config.js配置文件的plugins配置项中添加该插件的实例，下面我们先来使用一个简单的版权声明插件。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack.config.js<br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>const webpack = require(<span class="hljs-string">&#x27;webpack&#x27;</span>);  <span class="hljs-regexp">//</span> 这个插件不需要安装，是基于webpack的，需要引入webpack模块<br>module.exports = &#123;<br>  entry: path.join(__dirname, <span class="hljs-string">&quot;/src/index.js&quot;</span>), <span class="hljs-regexp">//</span> 入口文件<br>  output: &#123;<br>    path: path.join(__dirname, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-regexp">//</span> 打包后的文件存放的地方 <br>    filename: <span class="hljs-string">&quot;bundle.js&quot;</span> <span class="hljs-regexp">//</span> 打包后输出文件的文件名<br>  &#125;,<br>  devServer: &#123;<br>    contentBase: path.join(__dirname, <span class="hljs-string">&quot;dist&quot;</span>),<br>    hot: true,<br>    port: <span class="hljs-string">&#x27;8080&#x27;</span>,<br>    inline: true,<br>    open: true,<br>    overlay: true,<br>  &#125;,<br>  devtool: <span class="hljs-string">&#x27;source-map&#x27;</span>, <span class="hljs-regexp">//</span> 会生成对于调试的完整的.map文件，但同时也会减慢打包速度<br>  module: &#123;<br>    rules: [<br>      &#123;<br>        test: <span class="hljs-regexp">/\.css$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.css结尾的文件<br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>]  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>      &#125;,<br>      &#123;<br>        test: <span class="hljs-regexp">/\.(scss|sass)$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.scss和.sass结尾的文件<br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>      &#125;<br>    ]<br>  &#125;,<br>  plugins: [<br>    new webpack.BannerPlugin(<span class="hljs-string">&#x27;版权所有，翻版必究&#x27;</span>)  <span class="hljs-regexp">//</span> new一个插件的实例 <br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行npm run build 打包后，我们查看dist下面的bundle.js文件显示如下：</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c31dadb6c4~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<ol start="2">
+<li>自动生成html文件（HtmlWebpackPlugin）</li>
+</ol>
+<p>到目前为止我们都是使用一开始建好的index.html文件，而且也是手动引入bundle.js，要是以后我们引入不止一个js文件，而且更改js文件名的话，也得手动更改index.html中的js文件名，所以能不能自动生成index.html且自动引用打包后的js呢？HtmlWebpackPlugin插件就是用来解决这个问题的</p>
+<p>我们对项目结构进行一些更改：把整个dist文件夹删除；在src文件夹下新建一个index.html(名称自定义)文件模板（当然这个是可选的，因为就算不设置模板，HtmlWebpackPlugin插件也会生成默认html文件，这里我们设置模块会让我们的开发更加灵活），如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- index.html --&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&#x27;root&#x27;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>安装HtmlWebpackPlugin插件</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> html-webpack-plugin -D<br></code></pre></td></tr></table></figure>
+
+<p>引入HtmlWebpackPlugin插件，并配置了引用了我们设置的模板，如下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack.config.js<br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>const webpack = require(<span class="hljs-string">&#x27;webpack&#x27;</span>);  <span class="hljs-regexp">//</span> 这个插件不需要安装，是基于webpack的，需要引入webpack模块<br>const HtmlWebpackPlugin = require(<span class="hljs-string">&#x27;html-webpack-plugin&#x27;</span>); <span class="hljs-regexp">//</span> 引入HtmlWebpackPlugin插件<br>module.exports = &#123;<br>  entry: path.join(__dirname, <span class="hljs-string">&quot;/src/index.js&quot;</span>), <span class="hljs-regexp">//</span> 入口文件<br>  output: &#123;<br>    path: path.join(__dirname, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-regexp">//</span> 打包后的文件存放的地方 <br>    filename: <span class="hljs-string">&quot;bundle.js&quot;</span> <span class="hljs-regexp">//</span> 打包后输出文件的文件名<br>  &#125;,<br>  devServer: &#123;<br>    contentBase: path.join(__dirname, <span class="hljs-string">&quot;dist&quot;</span>),<br>    hot: true,<br>    port: <span class="hljs-string">&#x27;8080&#x27;</span>,<br>    inline: true,<br>    open: true,<br>    overlay: true,<br>  &#125;,<br>  devtool: <span class="hljs-string">&#x27;source-map&#x27;</span>, <span class="hljs-regexp">//</span> 会生成对于调试的完整的.map文件，但同时也会减慢打包速度<br>  module: &#123;<br>    rules: [<br>      &#123;<br>        test: <span class="hljs-regexp">/\.css$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.css结尾的文件<br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>]  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>      &#125;,<br>      &#123;<br>        test: <span class="hljs-regexp">/\.(scss|sass)$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.scss和.sass结尾的文件<br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>      &#125;<br>    ]<br>  &#125;,<br>  plugins: [<br>    new webpack.BannerPlugin(<span class="hljs-string">&#x27;版权所有，翻版必究&#x27;</span>),  <span class="hljs-regexp">//</span> new一个插件的实例 <br>    new HtmlWebpackPlugin(&#123;<br>      template: path.join(__dirname, <span class="hljs-string">&quot;/src/index.html&quot;</span>)<span class="hljs-regexp">//</span> new一个这个插件的实例，并传入相关的参数<br>    &#125;)<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行npm run build进行打包，dist文件夹自动生成，包含index.html、bundle.js、bundle.js.map三个文件</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c312cdd4f9~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img">!</p>
+<p>为什么会自动生成dist文件夹呢？因为我们在output出口配置项中定义了出口文件所在的位置为dist文件夹，且出口文件名为bundle.js，所以HtmlWebpackPlugin会自动帮你在 dist&#x2F;index.html 中引用名为bundle.js文件，如果你在webpack.config.js文件中更改了出口文件名，dist&#x2F;index.html 中也会自动更改该文件名，这样以后修改起来是不是方便多了？</p>
+<ol start="3">
+<li>清理dist文件夹（CleanWebpackPlugin）</li>
+</ol>
+<p>webpack会生成文件，然后将这些文件放置在dist文件夹中，但是webpack无法追踪到哪些文件是实际在项目中用到的。通常，在每次构建前清理dist文件夹，是比较推荐的做法，因此只会生成用到的文件，这时候就用到CleanWebpackPlugin插件了。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> clean-webpack-plugin -D<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// webpack.config.js</span><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack&#x27;</span>);  <span class="hljs-comment">// 这个插件不需要安装，是基于webpack的，需要引入webpack模块</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">HtmlWebpackPlugin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;html-webpack-plugin&#x27;</span>); <span class="hljs-comment">// 引入HtmlWebpackPlugin插件</span><br><span class="hljs-keyword">const</span> &#123; <span class="hljs-title class_">CleanWebpackPlugin</span> &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;clean-webpack-plugin&#x27;</span>); <span class="hljs-comment">// 引入CleanWebpackPlugin插件</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">entry</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;/src/index.js&quot;</span>), <span class="hljs-comment">// 入口文件</span><br>  <span class="hljs-attr">output</span>: &#123;<br>    <span class="hljs-attr">path</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-comment">// 打包后的文件存放的地方 </span><br>    <span class="hljs-attr">filename</span>: <span class="hljs-string">&quot;bundle.js&quot;</span> <span class="hljs-comment">// 打包后输出文件的文件名</span><br>  &#125;,<br>  <span class="hljs-attr">devServer</span>: &#123;<br>    <span class="hljs-attr">contentBase</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;dist&quot;</span>),<br>    <span class="hljs-attr">hot</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">port</span>: <span class="hljs-string">&#x27;8080&#x27;</span>,<br>    <span class="hljs-attr">inline</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">open</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">overlay</span>: <span class="hljs-literal">true</span>,<br>  &#125;,<br>  <span class="hljs-attr">devtool</span>: <span class="hljs-string">&#x27;source-map&#x27;</span>, <span class="hljs-comment">// 会生成对于调试的完整的.map文件，但同时也会减慢打包速度</span><br>  <span class="hljs-attr">module</span>: &#123;<br>    <span class="hljs-attr">rules</span>: [<br>      &#123;<br>        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.css$/</span>,   <span class="hljs-comment">// 正则匹配以.css结尾的文件</span><br>        <span class="hljs-attr">use</span>: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>]  <span class="hljs-comment">// 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的</span><br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.(scss|sass)$/</span>,   <span class="hljs-comment">// 正则匹配以.scss和.sass结尾的文件</span><br>        <span class="hljs-attr">use</span>: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]  <span class="hljs-comment">// 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的</span><br>      &#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-attr">plugins</span>: [<br>    <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">BannerPlugin</span>(<span class="hljs-string">&#x27;版权所有，翻版必究&#x27;</span>),  <span class="hljs-comment">// new一个插件的实例 </span><br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">HtmlWebpackPlugin</span>(&#123;<br>      <span class="hljs-attr">template</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;/src/index.html&quot;</span>)<span class="hljs-comment">// new一个这个插件的实例，并传入相关的参数</span><br>    &#125;),<br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">CleanWebpackPlugin</span>(),  <span class="hljs-comment">// 默认删除output中path对应文件</span><br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>现在我们每运行一次npm run build后就会发现，webpack会先将dist文件夹删除，然后再生产新的dist文件夹。</p>
+<ol start="4">
+<li>热更新（HotModuleReplacementPlugin）</li>
+</ol>
+<p><strong>HotModuleReplacementPlugin</strong>是一个很实用的插件，可以在我们修改代码后自动刷新预览效果。</p>
+<p>设置方法：</p>
+<ol>
+<li>devServer配置项中添加 hot：true 参数。</li>
+<li>因为HotModuleReplacementPlugin是webpack模块自带的，所以引入webpack后，在plugins配置项中直接使用即可。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// webpack.config.js</span><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack&#x27;</span>);  <span class="hljs-comment">// 这个插件不需要安装，是基于webpack的，需要引入webpack模块</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">HtmlWebpackPlugin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;html-webpack-plugin&#x27;</span>); <span class="hljs-comment">// 引入HtmlWebpackPlugin插件</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">CleanWebpackPlugin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;clean-webpack-plugin&#x27;</span>); <span class="hljs-comment">// 引入CleanWebpackPlugin插件</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">entry</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;/src/index.js&quot;</span>), <span class="hljs-comment">// 入口文件</span><br>  <span class="hljs-attr">output</span>: &#123;<br>    <span class="hljs-attr">path</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-comment">// 打包后的文件存放的地方 </span><br>    <span class="hljs-attr">filename</span>: <span class="hljs-string">&quot;bundle.js&quot;</span> <span class="hljs-comment">// 打包后输出文件的文件名</span><br>  &#125;,<br>  <span class="hljs-attr">devServer</span>: &#123;<br>    <span class="hljs-attr">contentBase</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;dist&quot;</span>),<br>    <span class="hljs-attr">hot</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">port</span>: <span class="hljs-string">&#x27;8080&#x27;</span>,<br>    <span class="hljs-attr">inline</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">open</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">overlay</span>: <span class="hljs-literal">true</span>,<br>  &#125;,<br>  <span class="hljs-attr">devtool</span>: <span class="hljs-string">&#x27;source-map&#x27;</span>, <span class="hljs-comment">// 会生成对于调试的完整的.map文件，但同时也会减慢打包速度</span><br>  <span class="hljs-attr">module</span>: &#123;<br>    <span class="hljs-attr">rules</span>: [<br>      &#123;<br>        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.css$/</span>,   <span class="hljs-comment">// 正则匹配以.css结尾的文件</span><br>        <span class="hljs-attr">use</span>: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>]  <span class="hljs-comment">// 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的</span><br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.(scss|sass)$/</span>,   <span class="hljs-comment">// 正则匹配以.scss和.sass结尾的文件</span><br>        <span class="hljs-attr">use</span>: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]  <span class="hljs-comment">// 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的</span><br>      &#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-attr">plugins</span>: [<br>    <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">BannerPlugin</span>(<span class="hljs-string">&#x27;版权所有，翻版必究&#x27;</span>),  <span class="hljs-comment">// new一个插件的实例 </span><br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">HtmlWebpackPlugin</span>(&#123;<br>      <span class="hljs-attr">template</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;/src/index.html&quot;</span>)<span class="hljs-comment">// new一个这个插件的实例，并传入相关的参数</span><br>    &#125;),<br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">CleanWebpackPlugin</span>([<span class="hljs-string">&#x27;dist&#x27;</span>]),  <span class="hljs-comment">// 所要清理的文件夹名称</span><br>    <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">HotModuleReplacementPlugin</span>() <span class="hljs-comment">// 热更新插件 </span><br>  ]<br>&#125;复制代码<br></code></pre></td></tr></table></figure>
+
+<p>npm run dev 启动项目后，我们尝试着修改hello.js的内容，会发现浏览器预览效果会自动刷新</p>
+<h4 id="1-10-项目优化及拓展"><a href="#1-10-项目优化及拓展" class="headerlink" title="1.10 项目优化及拓展"></a>1.10 项目优化及拓展</h4><ol>
+<li>代码分离</li>
+</ol>
+<p>我们的webpack.config.js配置文件，其实也没配置多少东西就这么多了，要是以后增加了更多配置，岂不是看得眼花缭乱，所以最好的方法就是把它拆分，方便管理：</p>
+<p>1、 我们在根目录下新建三个文件，分别为webpack.common.js、webpack.dev.js、webpack.prod.js分别代表公共配置文件、开发环境配置文件、生产环境（指项目上线时的环境）配置文件。</p>
+<p>2、安装一个合并模块插件：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> webpack-merge -D<br></code></pre></td></tr></table></figure>
+
+<p>3、将webpack.config.js的代码拆分到上述新建的三个文件中，然后把将webpack.config.js文件删除，具体如下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack.common.js<br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>const webpack = require(<span class="hljs-string">&#x27;webpack&#x27;</span>);  <span class="hljs-regexp">//</span> 这个插件不需要安装，是基于webpack的，需要引入webpack模块<br>const HtmlWebpackPlugin = require(<span class="hljs-string">&#x27;html-webpack-plugin&#x27;</span>); <span class="hljs-regexp">//</span> 引入HtmlWebpackPlugin插件<br>module.exports = &#123;<br>  entry: path.join(__dirname, <span class="hljs-string">&quot;/src/index.js&quot;</span>), <span class="hljs-regexp">//</span> 入口文件<br>  output: &#123;<br>    path: path.join(__dirname, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-regexp">//</span> 打包后的文件存放的地方 <br>    filename: <span class="hljs-string">&quot;bundle.js&quot;</span> <span class="hljs-regexp">//</span> 打包后输出文件的文件名<br>  &#125;,<br>  module: &#123;<br>    rules: [<br>      &#123;<br>        test: <span class="hljs-regexp">/\.css$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.css结尾的文件<br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>]  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>      &#125;,<br>      &#123;<br>        test: <span class="hljs-regexp">/\.(scss|sass)$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.scss和.sass结尾的文件<br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>      &#125;<br>    ]<br>  &#125;,<br>  plugins: [<br>    new webpack.BannerPlugin(<span class="hljs-string">&#x27;版权所有，翻版必究&#x27;</span>),  <span class="hljs-regexp">//</span> new一个插件的实例 <br>    new HtmlWebpackPlugin(&#123;<br>      template: path.join(__dirname, <span class="hljs-string">&quot;/src/index.html&quot;</span>)<span class="hljs-regexp">//</span> new一个这个插件的实例，并传入相关的参数<br>    &#125;),<br>    new webpack.HotModuleReplacementPlugin() <span class="hljs-regexp">//</span> 热更新插件 <br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment">// webpack.dev.js</span><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">path</span> = <span class="hljs-keyword">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">merge</span> = <span class="hljs-keyword">require</span>(<span class="hljs-string">&#x27;webpack-merge&#x27;</span>);  <span class="hljs-comment">// 引入webpack-merge功能模块</span><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">common</span> = <span class="hljs-keyword">require</span>(<span class="hljs-string">&#x27;./webpack.common.js&#x27;</span>); <span class="hljs-comment">// 引入webpack.common.js</span><br><br>module.exports = <span class="hljs-title function_ invoke__">merge</span>(common, &#123;   // 将webpack.common.js合并到当前文件<br>    <span class="hljs-attr">devServer</span>: &#123;<br>        <span class="hljs-attr">contentBase</span>: path.<span class="hljs-title function_ invoke__">join</span>(__dirname, <span class="hljs-string">&quot;dist&quot;</span>),<br>        <span class="hljs-attr">hot</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">port</span>: <span class="hljs-string">&#x27;8080&#x27;</span>,<br>        <span class="hljs-attr">inline</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">open</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">overlay</span>: <span class="hljs-literal">true</span>,<br>    &#125;,<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// webpack.prod.js</span><br><span class="hljs-keyword">const</span> merge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack-merge&#x27;</span>);<br><span class="hljs-keyword">const</span> common = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./webpack.common.js&#x27;</span>);<br><span class="hljs-keyword">const</span> &#123; <span class="hljs-title class_">CleanWebpackPlugin</span> &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;clean-webpack-plugin&#x27;</span>); <span class="hljs-comment">// 引入CleanWebpackPlugin插件</span><br><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-title function_">merge</span>(common, &#123; <span class="hljs-comment">// 将webpack.common.js合并到当前文件</span><br>    <span class="hljs-attr">devtool</span>: <span class="hljs-string">&#x27;source-map&#x27;</span>,  <span class="hljs-comment">// 会生成对于调试的完整的.map文件，但同时也会减慢打包速度</span><br>    <span class="hljs-attr">plugins</span>: [<br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">CleanWebpackPlugin</span>(),  <br>    ]<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>4、设置package.json的scripts命令</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;scripts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;build&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;webpack --config webpack.prod.js&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;dev&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;webpack-dev-server --open --config webpack.dev.js&quot;</span><br><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure>
+
+<p>我们把build命令改为了webpack –config webpack.prod.js，意思是把打包配置指向webpack.prod.js配置文件，而之前我们只需要使用一个webpack 命令为什么就可以运行了？因为webpack 命令是默认指向webpack.config.js这个文件名称了，现在我们把文件名称改了，所以就需要自定义指向新的文件，dev命令中的指令也同理。</p>
+<p>然后我们运行npm run build 和npm run dev，效果应该和我们分离代码前是一样的。</p>
+<ol start="2">
+<li>多入口 多出口</li>
+</ol>
+<p>到目前为止我们都是一个入口文件和一个出口文件，要是我不止一个入口文件呢？下面我们来试试：</p>
+<p>在webpack.common.js中的entry入口有三种写法，分别为字符串、数组和对象，平时我们用得比较多的是对象，所以我们把它改为对象的写法，首先我们在src文件夹下新建index2.js文件，名称任意。因为有多个入口，所以肯定得多个出口来进行一一对应了，所以entry和output配置如下：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">entry:</span> <span class="hljs-punctuation">&#123;</span><br><span class="hljs-symbol">    index:</span> path.join(__dirname, <span class="hljs-string">&quot;/src/index.js&quot;</span>),<br><span class="hljs-symbol">    index2:</span> path.join(__dirname, <span class="hljs-string">&quot;/src/index2.js&quot;</span>)<br><span class="hljs-punctuation">&#125;</span>,<br><span class="hljs-symbol">output:</span> <span class="hljs-punctuation">&#123;</span><br><span class="hljs-symbol">    path:</span> path.join(__dirname, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-comment">// 打包后的文件存放的地方 </span><br><span class="hljs-symbol">    filename:</span> <span class="hljs-string">&quot;[name].js&quot;</span> <span class="hljs-comment">// 打包后输出文件的文件名</span><br><span class="hljs-punctuation">&#125;</span>,<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// index2.js</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">page2</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">let</span> element = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);<br>    element.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;我是第二个入口文件&#x27;</span>;<br>    <span class="hljs-keyword">return</span> element;<br>&#125;<br><br><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>).<span class="hljs-title function_">appendChild</span>(<span class="hljs-title function_">page2</span>());<br></code></pre></td></tr></table></figure>
+
+<p>然后我们运行npm run build打包后发现dist文件夹下会多出index2.js文件，同时index.html也会自动将index2.js引入，然后我们运行npm run dev显示如下：</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c31dcc0a82~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<ol start="3">
+<li>分离css</li>
+</ol>
+<p>webpack的理念是把css、js全都打包到一个文件里，但要是我们想把css分离出来该怎么做呢？</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">npm install extract-text-webpack-plugin@<span class="hljs-keyword">next</span> -D  <span class="hljs-regexp">//</span> 加上@<span class="hljs-keyword">next</span>是为了安装最新的，否则会出错<br></code></pre></td></tr></table></figure>
+
+<p>安装完以上插件后在webpack.common.js文件中引入并使用该插件：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack.common.js<br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>const webpack = require(<span class="hljs-string">&#x27;webpack&#x27;</span>);  <span class="hljs-regexp">//</span> 这个插件不需要安装，是基于webpack的，需要引入webpack模块<br>const HtmlWebpackPlugin = require(<span class="hljs-string">&#x27;html-webpack-plugin&#x27;</span>); <span class="hljs-regexp">//</span> 引入HtmlWebpackPlugin插件<br>const ExtractTextPlugin = require(<span class="hljs-string">&#x27;extract-text-webpack-plugin&#x27;</span>) <span class="hljs-regexp">//</span>引入分离插件<br>module.exports = &#123;<br>    entry: &#123;<br>        index: path.join(__dirname, <span class="hljs-string">&quot;/src/index.js&quot;</span>),<br>        index2: path.join(__dirname, <span class="hljs-string">&quot;/src/index2.js&quot;</span>)<br>    &#125;,<br>    output: &#123;<br>        path: path.join(__dirname, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-regexp">//</span> 打包后的文件存放的地方 <br>        filename: <span class="hljs-string">&quot;[name].js&quot;</span> <span class="hljs-regexp">//</span> 打包后输出文件的文件名<br>    &#125;,<br>    module: &#123;<br>        rules: [<br>            &#123;<br>                test: <span class="hljs-regexp">/\.css$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.css结尾的文件<br>                use: ExtractTextPlugin.extract(&#123;  <span class="hljs-regexp">//</span> 这里我们需要调用分离插件内的extract方法<br>                    fallback: <span class="hljs-string">&#x27;style-loader&#x27;</span>,  <span class="hljs-regexp">//</span> 相当于回滚，经css-loader处理过的css最终再经过style-loader处理<br>                    use: [<span class="hljs-string">&#x27;css-loader&#x27;</span>]<br>                &#125;)<br>            &#125;,<br>            &#123;<br>                test: <span class="hljs-regexp">/\.(scss|sass)$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.scss和.sass结尾的文件<br>                use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>            &#125;<br>        ]<br>    &#125;,<br>    plugins: [<br>        new webpack.BannerPlugin(<span class="hljs-string">&#x27;版权所有，翻版必究&#x27;</span>),  <span class="hljs-regexp">//</span> new一个插件的实例 <br>        new HtmlWebpackPlugin(&#123;<br>            template: path.join(__dirname, <span class="hljs-string">&quot;/src/index.html&quot;</span>)<span class="hljs-regexp">//</span> new一个这个插件的实例，并传入相关的参数<br>        &#125;),<br>        new webpack.HotModuleReplacementPlugin(), <span class="hljs-regexp">//</span> 热更新插件<br>        new ExtractTextPlugin(<span class="hljs-string">&#x27;css/index.css&#x27;</span>) <span class="hljs-regexp">//</span> 将css分离到/dist文件夹下的css文件夹中的index.css <br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行npm run build后会发现dist文件夹下多一个css文件</p>
+<ol start="4">
+<li>消除冗余的css</li>
+</ol>
+<p>有时候我们css写得多了，可能会不自觉的写重复了一些样式，这就造成了多余的代码，上线前又忘了检查，对于这方面，我们应该尽量去优化它，webpack就有这个功能。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> purifycss-webpack purify-css glob -D复制代码<br></code></pre></td></tr></table></figure>
+
+<p>安装完后在webpack.prod.js文件中进行配置，引入purifycss-webpack和glob插件并使用它们</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// webpack.prod.js</span><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> merge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack-merge&#x27;</span>);<br><span class="hljs-keyword">const</span> common = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./webpack.common.js&#x27;</span>);<br><span class="hljs-keyword">const</span> &#123; <span class="hljs-title class_">CleanWebpackPlugin</span> &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;clean-webpack-plugin&#x27;</span>); <span class="hljs-comment">// 引入CleanWebpackPlugin插件</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">PurifyCssWebpack</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;purifycss-webpack&#x27;</span>); <span class="hljs-comment">// 引入PurifyCssWebpack插件</span><br><span class="hljs-keyword">const</span> glob = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;glob&#x27;</span>);  <span class="hljs-comment">// 引入glob模块,用于扫描全部html文件中所引用的css</span><br><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-title function_">merge</span>(common, &#123; <span class="hljs-comment">// 将webpack.common.js合并到当前文件</span><br>    <span class="hljs-attr">devtool</span>: <span class="hljs-string">&#x27;source-map&#x27;</span>,  <span class="hljs-comment">// 会生成对于调试的完整的.map文件，但同时也会减慢打包速度</span><br>    <span class="hljs-attr">plugins</span>: [<br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">CleanWebpackPlugin</span>(),<br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">PurifyCssWebpack</span>(&#123;<br>            <span class="hljs-attr">paths</span>: glob.<span class="hljs-title function_">sync</span>(path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;src/*.html&#x27;</span>)) <span class="hljs-comment">// 同步扫描所有html文件中所引用的css</span><br>        &#125;)<br>    ]<br>&#125;)复制代码<br></code></pre></td></tr></table></figure>
+
+<p>我们在index.css文件中增加一些多余的代码试试：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* index.css */</span><br><span class="hljs-selector-tag">body</span> &#123;<br>    <span class="hljs-attribute">background</span>: gray;<br>&#125;<br><br><span class="hljs-comment">/* 冗余css */</span><br><span class="hljs-selector-class">.a</span> &#123;<br>    <span class="hljs-attribute">color</span>: black;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;<br>    <span class="hljs-attribute">background</span>: red;<br>&#125;<br><br><span class="hljs-comment">/* 冗余css */</span><br><span class="hljs-selector-class">.b</span> &#123;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">border</span>: none;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后我们运行npm run build后发现打包后的index.css中是没有多余的<code>.a</code>和<code>.b</code>代码的：</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c31db42cc2~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<ol start="5">
+<li>处理图片</li>
+</ol>
+<p>如果要使用图片，我们得安装两个loader</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">// 虽然我们只需使用url-loader，但url-loader是依赖于<span class="hljs-keyword">file</span>-loader的，所以也要安装<br>npm <span class="hljs-keyword">install</span> url-loader <span class="hljs-keyword">file</span>-loader -D 复制代码<br></code></pre></td></tr></table></figure>
+
+<p>然后在webpack.common.js中配置url-loader</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> webpack.common.js<br>const path = require(<span class="hljs-string">&#x27;path&#x27;</span>);<br>const webpack = require(<span class="hljs-string">&#x27;webpack&#x27;</span>);  <span class="hljs-regexp">//</span> 这个插件不需要安装，是基于webpack的，需要引入webpack模块<br>const HtmlWebpackPlugin = require(<span class="hljs-string">&#x27;html-webpack-plugin&#x27;</span>); <span class="hljs-regexp">//</span> 引入HtmlWebpackPlugin插件<br>const ExtractTextPlugin = require(<span class="hljs-string">&#x27;extract-text-webpack-plugin&#x27;</span>) <span class="hljs-regexp">//</span>引入分离插件<br>module.exports = &#123;<br>    entry: &#123;<br>        index: path.join(__dirname, <span class="hljs-string">&quot;/src/index.js&quot;</span>),<br>        index2: path.join(__dirname, <span class="hljs-string">&quot;/src/index2.js&quot;</span>)<br>    &#125;,<br>    output: &#123;<br>        path: path.join(__dirname, <span class="hljs-string">&quot;/dist&quot;</span>), <span class="hljs-regexp">//</span> 打包后的文件存放的地方 <br>        filename: <span class="hljs-string">&quot;[name].js&quot;</span> <span class="hljs-regexp">//</span> 打包后输出文件的文件名<br>    &#125;,<br>    module: &#123;<br>        rules: [<br>            &#123;<br>                test: <span class="hljs-regexp">/\.css$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.css结尾的文件<br>                use: ExtractTextPlugin.extract(&#123;  <span class="hljs-regexp">//</span> 这里我们需要调用分离插件内的extract方法<br>                    fallback: <span class="hljs-string">&#x27;style-loader&#x27;</span>,  <span class="hljs-regexp">//</span> 相当于回滚，经css-loader处理过的css最终再经过style-loader处理<br>                    use: [<span class="hljs-string">&#x27;css-loader&#x27;</span>]<br>                &#125;)<br>            &#125;,<br>            &#123;<br>                test: <span class="hljs-regexp">/\.(scss|sass)$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.scss和.sass结尾的文件<br>                use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>            &#125;,<br>            &#123;<br>                test: <span class="hljs-regexp">/\.(png|jpg|svg|gif)$/</span>,  <span class="hljs-regexp">//</span> 正则匹配图片格式名<br>                use: [<br>                    &#123; loader: <span class="hljs-string">&#x27;url-loader&#x27;</span>  <span class="hljs-regexp">//</span> 使用url-loader &#125;<br>                ]<br>            &#125;,<br>        ]<br>    &#125;,<br>    plugins: [<br>        new webpack.BannerPlugin(<span class="hljs-string">&#x27;版权所有，翻版必究&#x27;</span>),  <span class="hljs-regexp">//</span> new一个插件的实例 <br>        new HtmlWebpackPlugin(&#123;<br>            template: path.join(__dirname, <span class="hljs-string">&quot;/src/index.html&quot;</span>)<span class="hljs-regexp">//</span> new一个这个插件的实例，并传入相关的参数<br>        &#125;),<br>        new webpack.HotModuleReplacementPlugin(), <span class="hljs-regexp">//</span> 热更新插件<br>        new ExtractTextPlugin(<span class="hljs-string">&#x27;css/index.css&#x27;</span>) <span class="hljs-regexp">//</span> 将css分离到/dist文件夹下的css文件夹中的index.css <br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们把index.css的背景改为图片</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* index.css */</span><br><span class="hljs-selector-tag">body</span> &#123;<br>    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&#x27;./images/bg.jpg&#x27;</span>) no-repeat;<br>    <span class="hljs-attribute">background-size</span>: <span class="hljs-number">200px</span> <span class="hljs-number">250px</span>;<br>    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;<br>&#125;复制代码<br></code></pre></td></tr></table></figure>
+
+<p>运行npm run dev 后显示如下：</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c31f9e3bce~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>我们会发现背景图片变成了base64，因为webpack会自动优化图片，减少发送请求，但是如果我想把它变成路径的该怎么做？</p>
+<p>我们可以把webpack.common.js的loader配置更改一下，增加options选项：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs awk">module: &#123;<br>    rules: [<br>      &#123;<br>        test: <span class="hljs-regexp">/\.css$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.css结尾的文件<br>        use: ExtractTextPlugin.extract(&#123;  <span class="hljs-regexp">//</span> 这里我们需要调用分离插件内的extract方法<br>          fallback: <span class="hljs-string">&#x27;style-loader&#x27;</span>,  <span class="hljs-regexp">//</span> 相当于回滚，经css-loader处理过的css最终再经过style-loader处理<br>          use: [<span class="hljs-string">&#x27;css-loader&#x27;</span>],<br>          publicPath: <span class="hljs-string">&#x27;../&#x27;</span>  <span class="hljs-regexp">//</span> 给背景图片设置一个公共路径<br>        &#125;)<br>      &#125;,<br>      &#123;<br>        test: <span class="hljs-regexp">/\.(scss|sass)$/</span>,   <span class="hljs-regexp">//</span> 正则匹配以.scss和.sass结尾的文件<br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>],  <span class="hljs-regexp">//</span> 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的<br>      &#125;,<br>      &#123;<br>        test: <span class="hljs-regexp">/\.(png|jpg|svg|gif)$/</span>,  <span class="hljs-regexp">//</span> 正则匹配图片格式名<br>        use: [<br>          &#123;<br>            loader: <span class="hljs-string">&#x27;url-loader&#x27;</span>,  <span class="hljs-regexp">//</span> 使用url-loader<br>            options: &#123;<br>              limit: <span class="hljs-number">1000</span>,  <span class="hljs-regexp">//</span> 限制只有小于<span class="hljs-number">1</span>kb的图片才转为base64，例子图片为<span class="hljs-number">1.47</span>kb,所以不会被转化<br>              outputPath: <span class="hljs-string">&#x27;images&#x27;</span>,  <span class="hljs-regexp">//</span> 设置打包后图片存放的文件夹名称<br>            &#125;,<br>          &#125;<br>        ]<br>      &#125;,<br>    ]<br>  &#125;,<br></code></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>压缩代码</li>
+</ol>
+<p>在webpack4.x版本中当你打包时会自动把js压缩了，而且npm run dev运行服务器时，当你修改代码时，热更新很慢，这是因为你修改后webpack又自动为你打包，这就导致了在开发环境中效率很慢，所以我们需要把开发环境和生产环境区分开来，这时就体现出我们代码分离的便捷性了，webpack.dev.js代表开发环境的配置，webpack.prod.js代表生产环境的配置，这时我们只要在package.json文件中配置对应环境的命令即可：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;scripts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;build&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;webpack --config webpack.prod.js --mode production&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;dev&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;webpack-dev-server --open --config webpack.dev.js --mode development&quot;</span><br><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>–mode production表示打包时是生产环境，会自己将js进行压缩，而–mode development表示当前是开发环境，不需要进行压缩。这同时也解决了之前一直遗留的警告问题</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/12/24/16f374c336f83e41~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<h1 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h1><p>因为webpack版本变更，上文部分内容无法在webpack 5+版本复现，但功能一脉相承，经实验，将可运行的webpack版本传至<a href="github.com/azureabaaba/webpack">此处</a>。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/webpack/">#webpack</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>webpack</div>
+      <div>https://yoonalis.github.io/blog/2022/11/20/webpack/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Azure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2022/11/20/css/" title="css">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">css</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2022/11/20/%E5%85%9A%E8%AF%BE/" title="党课">
+                        <span class="hidden-mobile">党课</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
