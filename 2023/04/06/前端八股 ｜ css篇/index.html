@@ -1,0 +1,1017 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.jpg">
+  <link rel="icon" href="/blog/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Azure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端八股 ｜ css篇">
+<meta property="og:url" content="https://yoonalis.github.io/blog/2023/04/06/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%20%EF%BD%9C%20css%E7%AF%87/index.html">
+<meta property="og:site_name" content="Azure&#39;s blog">
+<meta property="og:description" content="react">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
+<meta property="article:published_time" content="2023-04-06T13:31:00.927Z">
+<meta property="article:modified_time" content="2023-04-07T06:04:19.304Z">
+<meta property="article:author" content="Azure">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="计算">
+<meta property="article:tag" content="css">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>前端八股 ｜ css篇 - Azure&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yoonalis.github.io","root":"/blog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>Azure</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/album/">
+                <i class="iconfont icon-images"></i>
+                album
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="前端八股 ｜ css篇"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-06 21:31" pubdate>
+          2023年4月6日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          103 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">前端八股 ｜ css篇</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前端八股-｜-css篇"><a href="#前端八股-｜-css篇" class="headerlink" title="前端八股 ｜ css篇"></a>前端八股 ｜ css篇</h1><h2 id="1-display-none-visibility-hidden-opacity-0的区别"><a href="#1-display-none-visibility-hidden-opacity-0的区别" class="headerlink" title="1 display:none visibility:hidden opacity: 0的区别"></a>1 display:none visibility:hidden opacity: 0的区别</h2><h3 id="1-display-none"><a href="#1-display-none" class="headerlink" title="1.display: none"></a>1.display: none</h3><ul>
+<li><strong>DOM 结构</strong>：浏览器不会渲染 display 属性为 none 的元素，会让元素完全从渲染树中消失，渲染的时候不占据任何空间；</li>
+<li><strong>事件监听</strong>：无法进行 DOM 事件监听，不能点击；</li>
+<li><strong>性能</strong>：修改元素会造成文档回流（reflow 与 repaint）,读屏器不会读取display: none元素内容，性能消耗较大；</li>
+<li><strong>继承</strong>：是非继承属性，由于元素从渲染树消失，造成子孙节点消失，即使修改子孙节点属性子孙节点也无法显示，毕竟子类也不会被渲染；</li>
+<li><strong>场景</strong>：显示出原来这里不存在的结构；</li>
+<li><strong>transition</strong>：transition 不支持 display。</li>
+</ul>
+<h3 id="2-visibility-hidden"><a href="#2-visibility-hidden" class="headerlink" title="2.visibility: hidden"></a>2.visibility: hidden</h3><ul>
+<li><strong>DOM 结构</strong>：不会让元素从渲染树消失，渲染元素继续占据空间，只是内容不可见；</li>
+<li><strong>事件监听</strong>：无法进行 DOM 事件监听，不能点击；</li>
+<li><strong>性能</strong>：修改元素只会造成本元素的重绘（repaint），是重回操作，比回流操作性能高一些，性能消耗较少；读屏器读取visibility: hidden元素内容；</li>
+<li><strong>继承</strong>：是继承属性，子孙节点消失是由于继承了visibility: hidden，子元素可以通过设置 visibility: visible 来取消隐藏；</li>
+<li><strong>场景</strong>：显示不会导致页面结构发生变动，不会撑开；</li>
+<li><strong>transition</strong>：transition 支持 visibility，visibility 会立即显示，隐藏时会延时。</li>
+</ul>
+<h3 id="3-opacity-0"><a href="#3-opacity-0" class="headerlink" title="3.opacity: 0"></a>3.opacity: 0</h3><ul>
+<li><strong>DOM 结构</strong>：透明度为 100%，不会让元素从渲染树消失，渲染元素继续占据空间，只是内容不可见；</li>
+<li><strong>事件监听</strong>：可以进行 DOM 事件监听，可以点击；</li>
+<li><strong>性能</strong>：提升为合成层，是重建图层，不和动画属性一起则不会产生repaint（不脱离文档流，不会触发重绘），性能消耗较少；</li>
+<li><strong>继承</strong>：会被子元素继承，且子元素并不能通过 opacity: 1 来取消隐藏；</li>
+<li><strong>场景</strong>：可以跟transition搭配；</li>
+<li><strong>transition</strong>：transition 支持 opacity，opacity 可以延时显示和隐藏。</li>
+</ul>
+<p><em>打个比方</em>： <strong>display: none</strong>： 从这个世界消失了, 不存在了； <strong>visibility: hidden</strong>： 视觉和物理上都隐身了, 看不见也摸不到, 但是存在的；<strong>opacity: 0</strong>： 视觉上隐身了, 看不见, 可以触摸得到；</p>
+<p>&#x3D;&#x3D;附加题：CSS 隐藏页面上的一个元素有哪几种方法？&#x3D;&#x3D;</p>
+<ol>
+<li>display:none，visibility:hiden，opacity:0 这三种；</li>
+<li>设置 fixed 并设置足够大负距离的 left top 使其“隐藏”；</li>
+<li>用层叠关系 z-index 把元素叠在最底下使其“隐藏”；</li>
+<li>用 text-indent:-9999px 使其文字隐藏。</li>
+</ol>
+<h2 id="2-讲一下盒模型"><a href="#2-讲一下盒模型" class="headerlink" title="2 讲一下盒模型"></a>2 讲一下盒模型</h2><p>当对一个文档进行布局的时候，浏览器渲染引擎会根据标准，将页面中的所有元素表示为一个一个矩形的盒子。CSS决定这些盒子的大小、位置以及属性。每个盒子有四个部分组成，分别是：content，padding，border，margin。</p>
+<p>属性解释：</p>
+<ol>
+<li><code>content</code>内容区域，内容区域可以定义<code>width</code>和<code>height</code></li>
+<li><code>padding</code>内容区域和边框之间的空间量</li>
+<li><code>border</code>内容区域和内边距周围边框的粗细和样式。</li>
+<li><code>margin</code>边框和元素外边缘的空间量</li>
+</ol>
+<h3 id="块级盒子和内联盒子"><a href="#块级盒子和内联盒子" class="headerlink" title="块级盒子和内联盒子"></a>块级盒子和内联盒子</h3><p>在CSS中我们广泛的使用两种『盒子』——块级盒子和内联盒子。两种盒子在页面布局中有以下特点：</p>
+<p><strong>块级盒子</strong></p>
+<ul>
+<li>盒子会换行显示</li>
+<li><code>width</code>和<code>height</code>属性可以发挥作用</li>
+<li>内边距<code>padding</code>外边距<code>margin</code>边框<code>border</code>会将其他元素从当前盒子周围推开</li>
+<li>默认情况下盒子宽度会跟父容器一样宽</li>
+</ul>
+<p><strong>内联盒子</strong></p>
+<ul>
+<li>盒子不会换行</li>
+<li><code>width</code>和<code>height</code>属性不起作用</li>
+<li>垂直方向的内边距、外边距以及边框会被应用，但是不会把其它处于<code>inline</code>状态的盒子推开。</li>
+<li>水平方向的内边距、外边距以及边框会被应用，并且会把其它处于<code>inline</code>状态的盒子推开。</li>
+</ul>
+<p>我们通过对盒子<code>display</code>属性的设置，来控制盒子的外部显示类型。</p>
+<h3 id="盒模型类型"><a href="#盒模型类型" class="headerlink" title="盒模型类型"></a>盒模型类型</h3><p>完整的CSS盒模型应用于<strong>块级盒子</strong>，内联盒子只使用盒模型中定义的部分内容。盒模型有两种类型，标准盒模型和IE盒模型。</p>
+<h3 id="标准盒模型"><a href="#标准盒模型" class="headerlink" title="标准盒模型"></a>标准盒模型</h3><p>在标准盒模型中，如果给盒子设置<code>width</code>和<code>height</code>，实际设置的是<code>content</code>内容区域的宽和高。内边距<code>padding</code>和边框<code>border</code>加上设置的宽高一起决定了盒子的大小。</p>
+<h3 id="IE盒模型"><a href="#IE盒模型" class="headerlink" title="IE盒模型"></a>IE盒模型</h3><p>在IE盒模型中，如果给盒子设置<code>width</code>和<code>height</code>，那么盒子的大小就是设置的宽高值，如果盒子设置了内边距<code>padding</code>和边框<code>border</code>，那么内容的大小实际上是盒子的大小减去内边距和边框的大小之后的值。</p>
+<h3 id="差异比较"><a href="#差异比较" class="headerlink" title="差异比较"></a>差异比较</h3><p>假设我们定义了如下一个盒子</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.box</span> &#123;<br>    <span class="hljs-attribute">width</span>:<span class="hljs-number">100px</span>;<br>    <span class="hljs-attribute">height</span>:<span class="hljs-number">100px</span>;<br>    <span class="hljs-attribute">margin</span>:<span class="hljs-number">25px</span>;<br>    <span class="hljs-attribute">padding</span>:<span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">border</span>:<span class="hljs-number">15px</span> solid <span class="hljs-number">#000</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>标准盒模型盒子图示：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-d411863379d6532dd8ce935708a73dd5_720w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>标准盒模型</p>
+<p><strong>盒子的宽度&#x3D;width + padding-left + padding-right + border-left + border-right(100+20+20+15+15 &#x3D; 170)</strong></p>
+<p><strong>内容的宽度 &#x3D; width(100)</strong></p>
+<p>IE盒模型图示：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-bcf733f2facddf0d0dad3b0c64a045c4_720w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>IE盒模型</p>
+<p><strong>盒子的宽度&#x3D;width(100)</strong></p>
+<p><strong>内容的宽度 &#x3D; width - padding-left - padding-right - border-left - border-right(100-20-20-15-15 &#x3D; 30)</strong></p>
+<p>在标准盒模型当中，我们使用CSS定义盒子的宽度<code>width</code>和高度<code>height</code>并不是盒子所占据空间大小。</p>
+<p>在IE盒模型当中使用CSS定义盒子的宽度<code>width</code>和高度<code>height</code>就是盒子的大小。</p>
+<h3 id="盒模型切换"><a href="#盒模型切换" class="headerlink" title="盒模型切换"></a>盒模型切换</h3><p>在现代浏览器当中，几乎所有的浏览器，默认的盒模型都是<strong>标准盒模型</strong>。如果想要使用<strong>IE盒模型</strong>，可以通过设置属性<code>box-sizing: border-box</code>来设置。</p>
+<p>在早期还是IE浏览器天下的时候，如果HTML文档缺失<code>DOCTYPE</code>文档定义标签，在IE6、IE7、IE8下默认使用的是IE盒模型。</p>
+<p>盒模型没有好坏优劣之分，根据情况的差异我们选择不同的盒模型。</p>
+<h3 id="折叠边距-边距重叠"><a href="#折叠边距-边距重叠" class="headerlink" title="折叠边距(边距重叠)"></a>折叠边距(边距重叠)</h3><p>折叠边距（边距重叠）不是一个Bug；之前我们说过<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/378991849">BFC</a>，下面是W3C关于BFC的相关说明原文：</p>
+<blockquote>
+<p>In a block formatting context, boxes are laid out one after the other, vertically, beginning at the top of a containing block. The vertical distance between two sibling boxes is determined by the <a href="https://link.zhihu.com/?target=https://www.w3.org/TR/CSS21/box.html%23propdef-margin">‘margin’</a> properties. Vertical margins between adjacent block-level boxes in a block formatting context <a href="https://link.zhihu.com/?target=https://www.w3.org/TR/CSS21/box.html%23collapsing-margins">collapse</a>.</p>
+</blockquote>
+<p>翻译一下就是说：『在BFC当中，盒子是按照垂直方向一个叠一个排列的，垂直方向上两个盒子的距离是由margin属性决定的，在BFC垂直方向的块级盒子之间margin会发生<code>collapse</code>折叠』</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>在W3C关于CSS章节的8.3.1章节详细说了<code>Collapsing margins</code>边距折叠的特点，在此我简单总结一下一些（不全），详细的内容<a href="https://link.zhihu.com/?target=https://www.w3.org/TR/CSS2/box.html%23collapsing-margins">点击查看</a></p>
+<ul>
+<li>边距折叠只会发生在垂直方向上，横向margin不会发生折叠</li>
+<li>根元素框的边距不会折叠</li>
+<li>如果具有间隙的元素的顶部和底部边距相邻，则其边距与后续兄弟元素的相邻边距折叠，但生成的边距不会与父块的底部边距折叠。</li>
+<li>当两个或更多边距折叠时，产生的边距宽度是折叠边距宽度的最大值。在负边距的情况下，从正相邻边距的最大值中减去负相邻边距绝对值的最大值。如果没有正边距，则从零中减去相邻边距绝对值的最大值。</li>
+</ul>
+<h3 id="发生折叠的情况"><a href="#发生折叠的情况" class="headerlink" title="发生折叠的情况"></a>发生折叠的情况</h3><ul>
+<li>同一层相邻元素之间，相邻元素外边距重叠</li>
+<li>父元素与子元素外边距重叠</li>
+<li>空的块级元素重叠</li>
+</ul>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>知道了会发生边距折叠的原因，那么解决方法自然是小菜一碟。</p>
+<ol>
+<li>改变文档流，使用float或者position</li>
+<li>触发元素的BFC（创建了BFC的元素和它的子元素不会发生折叠）</li>
+<li>只有块级盒子才会发生折叠，修改元素盒子类型为内联盒子</li>
+</ol>
+<h3 id="面试回答"><a href="#面试回答" class="headerlink" title="面试回答"></a>面试回答</h3><p>一个完整的盒模型有四部分组成，分别是内容区域content，内边距padding，边框border，以及外边距margin；其中margin不参与计算盒子的大小；盒模型有两种类型，IE盒模型和标准盒模型；有时候IE盒模型也被成为怪异盒模型；在现代浏览器当中默认是盒子模型，我们可以通过CSS的<code>box-sizing:border-box;</code>来修改盒模型为IE盒模型；在IE盒模型当中，盒子的宽度是我们定义的width值，而在标准盒模型当中盒子的宽度是内容的width值加上左右内边距加上左右边框的值。</p>
+<h2 id="3-三栏式布局-x2F-瀑布流布局-x2F-响应式布局"><a href="#3-三栏式布局-x2F-瀑布流布局-x2F-响应式布局" class="headerlink" title="3 三栏式布局&#x2F;瀑布流布局&#x2F;响应式布局"></a>3 三栏式布局&#x2F;瀑布流布局&#x2F;响应式布局</h2><p>三栏布局：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7007054331828502558">https://juejin.cn/post/7007054331828502558</a></p>
+<p>瀑布流布局：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904004720263176">https://juejin.cn/post/6844904004720263176</a></p>
+<p>响应式布局：</p>
+<h2 id="4-元素居中"><a href="#4-元素居中" class="headerlink" title="4 元素居中"></a>4 元素居中</h2><h3 id="居中"><a href="#居中" class="headerlink" title="居中"></a>居中</h3><p>父元素固定宽高，利用定位及设置子元素 margin 值为自身的一半。 </p>
+<p>父元素固定宽高，子元素设置 position:absolute，margin：auto 平均分配margin css3 属 性 transform。子元素设置 position:absolute;left:50%;top: 50%;transform: translate(- 50%,-50%);即可。 </p>
+<p>将父元素设置成 display: table, 子元素设置为单元格 display: table-cell。</p>
+<p> 弹性布局 display:flex。设置 align-items: center;justify-content: center</p>
+<h3 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h3><p>法一：父元素 display:flex,align-items:center; </p>
+<p>法二：元素绝对定位，top:50%，margin-top：-（高度&#x2F;2） </p>
+<p>法三：高度不确定用 transform：translateY（-50%）</p>
+<p> 法四：父元素 </p>
+<h2 id="5-处理溢出"><a href="#5-处理溢出" class="headerlink" title="5 处理溢出"></a>5 处理溢出</h2><p>text-overflow 属性，值为 clip 是修剪文本；ellipsis 为显示省略符号来表被修剪的 文本； string 为使用给定的字符串来代表被修剪的文本。</p>
+<h2 id="6-bfc"><a href="#6-bfc" class="headerlink" title="6 bfc"></a>6 bfc</h2><p>BFC 也就是常说的块格式化上下文，这是一个独立的渲染区域，规定了内部如何布局 ，并且这个区域的子元素不会影响到外面的元素，其中比较重要的布局规则有内部 box 垂直放置，计算 BFC 的高度的时候，浮动元素也参与计算，触发 BFC 的规则有根元 素，浮动元素，position 为 absolute 或 fixed 的元素，display 为 inline-block，table-cell， table-caption，flex，inline-flex，overflow 不为 visible 的元素。</p>
+<h3 id="怎样触发BFC"><a href="#怎样触发BFC" class="headerlink" title="怎样触发BFC"></a>怎样触发BFC</h3><p>这里简单列举几个触发<code>BFC</code>使用的<code>CSS</code>属性</p>
+<ul>
+<li>overflow: hidden</li>
+<li>display: inline-block</li>
+<li>position: absolute</li>
+<li>position: fixed</li>
+<li>display: table-cell</li>
+<li>display: flex</li>
+</ul>
+<h3 id="BFC的规则"><a href="#BFC的规则" class="headerlink" title="BFC的规则"></a>BFC的规则</h3><ul>
+<li><code>BFC</code>就是一个块级元素，块级元素会在垂直方向一个接一个的排列</li>
+<li><code>BFC</code>就是页面中的一个隔离的独立容器，容器里的标签不会影响到外部标签</li>
+<li>垂直方向的距离由margin决定， 属于同一个<code>BFC</code>的两个相邻的标签外边距会发生重叠</li>
+<li>计算<code>BFC</code>的高度时，浮动元素也参与计算</li>
+</ul>
+<h2 id="7-calc属性"><a href="#7-calc属性" class="headerlink" title="7 calc属性"></a>7 calc属性</h2><p>Calc 用户动态计算长度值，任何长度值都可以使用 calc()函数计算，需要注意的是，运 算符前后都需要保留一个空格，例如：width:calc(100% - 10px)；</p>
+<h2 id="8-table"><a href="#8-table" class="headerlink" title="8 table"></a>8 table</h2><p>Display:table 和本身 table 是相对应的，区别在于，display：table 的 css 声明能 够让一个 html 元素和它的子节点像 table 元素一样，使用基于表格的 css 布局，是我 们能够轻松定 义一个单元格的边界，背景等样式，而不会产生因为使用了 table 那样 的制表标签导致 的语义化问题。 之所以现在逐渐淘汰了table系表格元素，是因为用div+css编写出来的文件比用 table 边写出来的文件小，而且 table 必须在页面完全加载后才显示，div 则是逐行显 示，table 的嵌套性太多，没有 div简洁。</p>
+<h2 id="9-移动端适配方案"><a href="#9-移动端适配方案" class="headerlink" title="9 移动端适配方案"></a>9 移动端适配方案</h2><h3 id="移动端适配的目的"><a href="#移动端适配的目的" class="headerlink" title="移动端适配的目的"></a>移动端适配的目的</h3><p>让拥有不同屏幕大小的终端设备拥有一致的 UI 界面，让拥有更大屏幕的终端展示更多的内容</p>
+<h3 id="了解viewport"><a href="#了解viewport" class="headerlink" title="了解viewport"></a>了解viewport</h3><p>viewport 即视窗、视口，用于显示网页部分的区域，在 PC 端视口即是浏览器窗口区域，在移动端，为了让页面展示更多的内容，视窗的宽度默认不为设备的宽度，在移动端视窗有三个概念：布局视窗、视觉视窗、理想视窗</p>
+<ul>
+<li>布局视窗：在浏览器窗口css的布局区域，布局视口的宽度限制css布局的宽。为了能在移动设备上正常显示那些为pc端浏览器设计的网站，移动设备上的浏览器都会把自己默认的 viewport 设为 980px 或其他值，一般都比移动端浏览器可视区域大很多，所以就会出现浏览器出现横向滚动条的情况</li>
+<li>视觉视窗：终端设备显示网页的区域</li>
+<li>理想视窗：针对当前设备最理想的展示页面的视窗，不会出现横向滚动条，页面刚好全部展现在视窗内，理想视窗也就是终端屏幕的宽度。</li>
+</ul>
+<p><strong>布局视窗</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4c0a5f8691f3471885cd54e35317240a~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/42c8f25404b34e538a91f48ea76a76f7~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>在移动端不设置视窗宽度时，页面宽度默认为 980px，页面可以左右滚动</p>
+<p><strong>视觉视窗</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/80a90d5e0e6744a8af7de3388bc71a46~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><strong>理想视窗</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3969df49e9274f35ad4c5d47f9a25998~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>页面的宽度为视窗的宽度，页面没有横向滚动条</p>
+<h3 id="viewport-详细设置"><a href="#viewport-详细设置" class="headerlink" title="viewport 详细设置"></a>viewport 详细设置</h3><p>通过设置 <code>viewport</code> 可以设置页面大小，通过 <code>meta</code> 标签可以设置 <code>viewport</code> 信息，代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0, user-scalable=no, minimum-sacle=1, maximum-scale=1&quot;</span> &gt;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p><code>viewport</code> 需要搭配如下几个属性使用：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+<th>取值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>width</td>
+<td>定义视口的宽度，单位为像素</td>
+<td>正整数或设备宽度device-width</td>
+</tr>
+<tr>
+<td>height</td>
+<td>定义视口的高度，单位为像素</td>
+<td>正整数或device-height</td>
+</tr>
+<tr>
+<td>initial-scale</td>
+<td>定义网页初始缩放值</td>
+<td>整数或小数，小数为缩小，反之放大</td>
+</tr>
+<tr>
+<td>maximum-scale</td>
+<td>定义缩放最大值</td>
+<td>整数或小数</td>
+</tr>
+<tr>
+<td>minimum-scale</td>
+<td>定义缩放最小值</td>
+<td>整数或小数</td>
+</tr>
+<tr>
+<td>user-scalable</td>
+<td>定义用户是否可以缩放</td>
+<td>yes&#x2F;no</td>
+</tr>
+</tbody></table>
+<h3 id="适配方案"><a href="#适配方案" class="headerlink" title="适配方案"></a>适配方案</h3><p>将页面的宽度设置为设置的视窗宽度后，即可进行移动端适配工作了。</p>
+<p>从适配的目的是<strong>在屏幕大小不同的终端设备拥有统一的界面，让拥有更大屏幕的终端展示更多的内容</strong>，从上面两个角度出发，核心思路是：页面内容充满整个视窗</p>
+<h3 id="1-rem-布局"><a href="#1-rem-布局" class="headerlink" title="1. rem 布局"></a>1. rem 布局</h3><p><code>rem</code> 是CSS3新增的一个相对单位，它以 <code>HTML</code> 元素的 <code>font-size</code> 为比例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 设置html元素的字体大小为 16px，即 1rem = 16px */</span><br><span class="hljs-selector-tag">html</span> &#123;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">16px</span>;<br>&#125;<br><span class="hljs-comment">/* 设置box元素宽 160px，10rem = 160px */</span><br><span class="hljs-selector-class">.box</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">10rem</span>; <span class="hljs-comment">/* 160px */</span><br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>修改HTML元素的字体大小可以成比例的调整以 <code>rem</code> 为单位的属性，通过这一个特性，我们可以实现将视窗按一定比例划分为一份一份的，当页面内元素刚好分完所有的份数，页面内容即充满整个视窗且无横向滚动条。</p>
+<p>以宽度750像素的设计稿为例，有两个元素，一个元素占 550 个像素，另一个占 750 个像素：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs html">// ...<br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;w-550px&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;full&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span><br><span class="language-css">    *&#123;</span><br><span class="language-css">        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;</span><br><span class="language-css">        <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br><span class="language-css">    &#125;</span><br><span class="language-css">    <span class="hljs-selector-class">.w-550px</span> &#123;</span><br><span class="language-css">        <span class="hljs-attribute">width</span>: <span class="hljs-number">550rem</span>;</span><br><span class="language-css">        <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;</span><br><span class="language-css">        <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgb</span>(<span class="hljs-number">209</span>, <span class="hljs-number">255</span>, <span class="hljs-number">240</span>);</span><br><span class="language-css">    &#125;</span><br><span class="language-css">    <span class="hljs-selector-class">.full</span> &#123;</span><br><span class="language-css">        <span class="hljs-attribute">width</span>: <span class="hljs-number">750rem</span>;</span><br><span class="language-css">        <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;</span><br><span class="language-css">        <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgb</span>(<span class="hljs-number">195</span>, <span class="hljs-number">200</span>, <span class="hljs-number">199</span>);</span><br><span class="language-css">    &#125;</span><br><span class="language-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">setRem</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-comment">// 当前页面宽度相对于 750 宽的缩放比例，可根据自己需要修改</span></span><br><span class="language-javascript">        <span class="hljs-keyword">const</span> scale = <span class="hljs-variable language_">document</span>.<span class="hljs-property">documentElement</span>.<span class="hljs-property">clientWidth</span> / <span class="hljs-number">750</span>;</span><br><span class="language-javascript">        <span class="hljs-variable language_">document</span>.<span class="hljs-property">documentElement</span>.<span class="hljs-property">style</span>.<span class="hljs-property">fontSize</span> = scale + <span class="hljs-string">&#x27;px&#x27;</span>;</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-title function_">setRem</span>();</span><br><span class="language-javascript">    <span class="hljs-variable language_">window</span>.<span class="hljs-property">onresize</span> = setRem;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>页面伸缩，网页布局也会进行伸缩。运行结果如下：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5811a9addd414a3e93eb23cb804a4c4f~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>目前，除了IE8及更早版本外，所有浏览器均已支持rem。</p>
+<h4 id="1-1-搭配-postcss-pxtorem-搭建项目"><a href="#1-1-搭配-postcss-pxtorem-搭建项目" class="headerlink" title="1.1 搭配 postcss-pxtorem 搭建项目"></a>1.1 搭配 postcss-pxtorem 搭建项目</h4><ol>
+<li>使用 vue-cli 创建项目</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">vue create rem-demo<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>设置 viewport</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- rem-demo/public/index.html --&gt;</span><br><span class="hljs-comment">&lt;!-- 框架已经帮我们设置了，这里可以忽略 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width,initial-scale=1&quot;</span>&gt;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>动态设置 rem 的值</li>
+</ol>
+<p>创建 rem.js 文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// rem-demo/util/rem.js</span><br><span class="hljs-comment">// 设置基准大小</span><br><span class="hljs-keyword">const</span> baseSize = <span class="hljs-number">32</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">setRem</span> () &#123;<br>  <span class="hljs-comment">// 当前页面宽度相对于 750 宽的缩放比例</span><br>  <span class="hljs-keyword">const</span> scale = <span class="hljs-variable language_">document</span>.<span class="hljs-property">documentElement</span>.<span class="hljs-property">clientWidth</span> / <span class="hljs-number">750</span><br>  <span class="hljs-variable language_">document</span>.<span class="hljs-property">documentElement</span>.<span class="hljs-property">style</span>.<span class="hljs-property">fontSize</span> = (baseSize * <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(scale, <span class="hljs-number">2</span>)) + <span class="hljs-string">&#x27;px&#x27;</span><br>&#125;<br><span class="hljs-comment">// 初始化</span><br><span class="hljs-title function_">setRem</span>()<br><span class="hljs-variable language_">window</span>.<span class="hljs-property">onresize</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-title function_">setRem</span>()<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>引入 rem.js 文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// rem-demo/src/main.js</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./utils/rem&#x27;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>安装并使用 postcss-pxtorem</li>
+</ol>
+<p>安装 postcss-pxtorem</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">yarn add postcss-pxtorem --dev<br>npm i postcss-pxtorem --save-dev<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>使用 postcss-pxtorem</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// rem-demo/vue.config.js</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">lintOnSave</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">css</span>: &#123;<br>    <span class="hljs-attr">loaderOptions</span>: &#123;<br>      <span class="hljs-attr">postcss</span>: &#123;<br>        <span class="hljs-attr">plugins</span>: [<br>          <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;postcss-pxtorem&#x27;</span>)(&#123;<br>            rootValue : <span class="hljs-number">16</span>, <span class="hljs-comment">//（数字，函数） 根元素字体大小</span><br>            <span class="hljs-attr">unitPrecision</span>: <span class="hljs-number">5</span>, <span class="hljs-comment">//（数字）允许REM单位增长的十进制数字</span><br>            <span class="hljs-attr">replace</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// （布尔值）替换包含rems的规则，而不添加后备</span><br>            <span class="hljs-attr">mediaQuery</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// （布尔值）允许在媒体查询中转换px</span><br>            <span class="hljs-attr">minPixelValue</span>: <span class="hljs-number">0</span>, <span class="hljs-comment">// （数字）设置要替换的最小像素值</span><br>            selectorBlackList  : [], <span class="hljs-comment">// 忽略转换正则匹配项</span><br>            propList   : [<span class="hljs-string">&#x27;*&#x27;</span>], <span class="hljs-comment">// 可以从px转换为rem的属性，匹配正则</span><br>            <span class="hljs-attr">exclude</span>: <span class="hljs-regexp">/node_modules/i</span> <span class="hljs-comment">// （字符串，正则表达式，函数）要忽略并保留为px的文件路径</span><br>          &#125;),<br>        ]<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>运行结果</li>
+</ol>
+<p>例如：设计稿为 750*1136，我们需要一个盒子宽 375px：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 按照设计稿的宽度编写 */</span><br><span class="hljs-selector-class">.box</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">375px</span>;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span>;<br>  <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgb</span>(<span class="hljs-number">202</span>, <span class="hljs-number">246</span>, <span class="hljs-number">232</span>);<br>&#125;<br><br><span class="hljs-comment">/* 转换后 */</span><br><span class="hljs-selector-class">.box</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">23.4375rem</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">25rem</span>;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#caf6e8</span>;<br>&#125;<br><br><span class="hljs-comment">/* 使用 Px 和 PX 作为单位，pxtorem 将不进行转换 */</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-2-总结"><a href="#1-2-总结" class="headerlink" title="1.2 总结"></a>1.2 总结</h4><p>优点：rem 布局能很好的实现在不同尺寸的屏幕横向填满屏幕，且在不同屏幕元素大小比例一致</p>
+<p>缺点：在大屏设备（Pad）上，元素尺寸会很大，页面显示更少的内容。</p>
+<p>针对大屏改进方案：</p>
+<ol>
+<li>限制 rem 的最大值，</li>
+<li>通过媒体查询，限制内容最大宽度，如：<a href="https://link.juejin.cn/?target=https://xw.qq.com/">腾讯网</a>、<a href="https://link.juejin.cn/?target=https://m.lizhi.fm/">荔枝FM</a></li>
+</ol>
+<p>在移动端浏览器 rem 方案是解决移动端适配的主流方案，这套方案的另一个名字叫做 flexible 方案，通过动态设置 rem 实现在不同尺寸的设备上界面展示效果一致。</p>
+<p>在 <a href="https://link.juejin.cn/?target=https://github.com/amfe/lib-flexible">lib-flexible</a> 库里有这样一段话：</p>
+<p>由于viewport单位得到众多浏览器的兼容，lib-flexible这个过渡方案已经可以放弃使用，不管是现在的版本还是以前的版本，都存有一定的问题。建议大家开始使用viewport来替代此方。</p>
+<p>可知，rem 方案的目的是解决 <code>viewport</code> 不兼容的问题，但是我个人认为，rem 的目的提供一种比例单位，不仅可以解决移动端适配问题，也还有其他的用处。</p>
+<h3 id="2-vw-x2F-vh-布局"><a href="#2-vw-x2F-vh-布局" class="headerlink" title="2. vw&#x2F;vh 布局"></a>2. vw&#x2F;vh 布局</h3><p>vw&#x2F;vh 方案与 rem 方案类似，都是将页面分成一份一份的，只不过 vw&#x2F;vh 是将页面分为 100 份，1vw &#x3D; device-width&#x2F;100</p>
+<h4 id="2-1-搭配-postcss-px-to-viewport-搭建项目"><a href="#2-1-搭配-postcss-px-to-viewport-搭建项目" class="headerlink" title="2.1 搭配 postcss-px-to-viewport 搭建项目"></a>2.1 搭配 postcss-px-to-viewport 搭建项目</h4><ol>
+<li>使用 vue-cli 创建项目</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">vue create vw-demo<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>设置 viewport</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- rem-demo/public/index.html --&gt;</span><br><span class="hljs-comment">&lt;!-- 框架已经帮我们设置了，这里可以忽略 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width,initial-scale=1&quot;</span>&gt;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>安装并使用 postcss-px-to-viewport</li>
+</ol>
+<p>安装 postcss-px-to-viewport</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">yarn add postcss-px-to-viewport --dev<br>npm i postcss-px-to-viewport --save-dev<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>配置 .postcssrc.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">plugins</span>: &#123;<br>    <span class="hljs-attr">autoprefixer</span>: &#123;&#125;, <span class="hljs-comment">// 用来给不同的浏览器自动添加相应前缀，如-webkit-，-moz-等等</span><br>    <span class="hljs-string">&#x27;postcss-px-to-viewport&#x27;</span>: &#123;<br>      <span class="hljs-attr">unitToConvert</span>: <span class="hljs-string">&#x27;px&#x27;</span>, <span class="hljs-comment">// 要转化的单位</span><br>      <span class="hljs-attr">viewportWidth</span>: <span class="hljs-number">750</span>, <span class="hljs-comment">// UI设计稿的宽度</span><br>      <span class="hljs-attr">unitPrecision</span>: <span class="hljs-number">6</span>, <span class="hljs-comment">// 转换后的精度，即小数点位数</span><br>      <span class="hljs-attr">propList</span>: [<span class="hljs-string">&#x27;*&#x27;</span>], <span class="hljs-comment">// 指定转换的css属性的单位，*代表全部css属性的单位都进行转换</span><br>      <span class="hljs-attr">viewportUnit</span>: <span class="hljs-string">&#x27;vw&#x27;</span>, <span class="hljs-comment">// 指定需要转换成的视窗单位，默认vw</span><br>      <span class="hljs-attr">fontViewportUnit</span>: <span class="hljs-string">&#x27;vw&#x27;</span>, <span class="hljs-comment">// 指定字体需要转换成的视窗单位，默认vw</span><br>      <span class="hljs-attr">selectorBlackList</span>: [<span class="hljs-string">&#x27;wrap&#x27;</span>], <span class="hljs-comment">// 指定不转换为视窗单位的类名，</span><br>      <span class="hljs-attr">minPixelValue</span>: <span class="hljs-number">1</span>, <span class="hljs-comment">// 默认值1，小于或等于1px则不进行转换</span><br>      <span class="hljs-attr">mediaQuery</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 是否在媒体查询的css代码中也进行转换，默认false</span><br>      <span class="hljs-attr">replace</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 是否转换后直接更换属性值</span><br>      <span class="hljs-attr">exclude</span>: [<span class="hljs-regexp">/node_modules/</span>], <span class="hljs-comment">// 设置忽略文件，用正则做目录名匹配</span><br>      <span class="hljs-attr">landscape</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// 是否处理横屏情况</span><br>    &#125;,<br>  &#125;,<br>&#125;;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>运行结果</li>
+</ol>
+<p>以 750*1136 的设计稿为例，设计一个宽 375px 的盒子</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.test-vw</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">375px</span>;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">40px</span>;<br>  <span class="hljs-attribute">text-align</span>: center;<br>  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">100px</span>;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-number">#13b5b1</span>;<br>&#125;<br><br><span class="hljs-comment">/* 转换后 */</span><br><span class="hljs-selector-class">.test-vw</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">50vw</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">13.333333vw</span>;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">5.333333vw</span>;<br>    <span class="hljs-attribute">text-align</span>: center;<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">13.333333vw</span>;<br>    <span class="hljs-attribute">background</span>: <span class="hljs-number">#13b5b1</span>;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>运行效果：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9c10d572e3b5436fa0e5af6e3f34b6c9~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<h4 id="2-2-总结"><a href="#2-2-总结" class="headerlink" title="2.2 总结"></a>2.2 总结</h4><p>优点：vw、vh布局能良好的实现在不同尺寸的屏幕横向填满屏幕，使用 <code>postcss-px-to-viewport</code> 能很好的帮我们进行单位转换</p>
+<p>缺点：</p>
+<ul>
+<li>无法修改 vw&#x2F;vh 的值，在大屏设备（Pad）中元素会放大，且无法通过 js 干预</li>
+<li>兼容性- 大多数浏览器都支持、ie11不支持 少数低版本手机系统 ios8、android4.4以下不支持</li>
+</ul>
+<h3 id="3-百分比布局"><a href="#3-百分比布局" class="headerlink" title="3. 百分比布局"></a>3. 百分比布局</h3><p>在 css 中，我们可以使用百分比来实现布局，但是需要特定宽度时，这个百分比的计算对开发者来说并不友好，且元素百分比参考的对象为父元素，元素嵌套较深时会有问题。</p>
+<p>案例：设计稿为 750*1136，我们需要一个宽度为 200px 的盒子</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.box</span> &#123;<br>  <span class="hljs-comment">/* w = 200 / (750/100) = 26.66667 */</span><br>  <span class="hljs-comment">/* 可知，计算复杂，且会存在误差 */</span><br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">26.6%</span>;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p><strong>扩展：</strong> 子元素的 <code>width</code> 和 <code>height</code> 百分比参考对象是父元素的 <code>width</code> 和 <code>height</code>，<code>margin</code>、<code>padding</code> 的参考对象为父元素的 <code>width</code>，<code>border-radius</code>、<code>background-size</code>、<code>transform: translate()</code>、<code>transform-origin</code> 的参考对象为自身宽高</p>
+<h3 id="4-响应式布局"><a href="#4-响应式布局" class="headerlink" title="4. 响应式布局"></a>4. 响应式布局</h3><p>通过媒体查询，可以针对不同的屏幕进行单独设置，但是针对所有的屏幕尺寸做适配显然是不合理的，但是可以用来处理极端情况（例如 IPad 大屏设备）或做简单的适配（隐藏元素或改变元素位置）</p>
+<p><a href="https://link.juejin.cn/?target=https://www.runoob.com/cssref/css3-pr-mediaquery.html">CSS3 @media 查询属性详解</a></p>
+<p>媒体查询案例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">body</span> &#123;<br>  <span class="hljs-attribute">background-color</span>: yellow;<br>&#125;<br><span class="hljs-comment">/* 针对大屏产品 ipad pro */</span><br><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">1024px</span>) &#123;<br>    <span class="hljs-selector-tag">body</span> &#123;<br>      <span class="hljs-attribute">background-color</span>: blue;<br>    &#125;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-px-为主，搭配-vw-x2F-vh、媒体查询与-flex-进行布局"><a href="#5-px-为主，搭配-vw-x2F-vh、媒体查询与-flex-进行布局" class="headerlink" title="5. px 为主，搭配 vw&#x2F;vh、媒体查询与 flex 进行布局"></a>5. px 为主，搭配 vw&#x2F;vh、媒体查询与 flex 进行布局</h3><p>先查看一下当前各大网站移动端适配的结果：</p>
+<p>小屏幕自适应，限制最大宽度：<a href="https://link.juejin.cn/?target=https://xw.qq.com/">腾讯网</a>、<a href="https://link.juejin.cn/?target=https://m.lizhi.fm/">荔枝FM</a></p>
+<p>布局高度固定，宽度自适应：<a href="https://link.juejin.cn/?target=https://main.m.taobao.com/?sprefer=sypc00">淘宝网</a>、<a href="https://link.juejin.cn/?target=https://www.baidu.com/?tn=02049043_50_pg&ch=16">百度</a>、<a href="https://link.juejin.cn/?target=https://c.m.163.com/?referFrom=">网易</a></p>
+<p>移动端适配的宗旨是：<strong>让拥有不同屏幕大小的终端设备拥有一致的 UI 界面，让拥有更大屏幕的终端展示更多的内容</strong>， 那么布局高度固定、宽度自适应的方案针对文本较多的网页（<a href="https://link.juejin.cn/?target=https://www.baidu.com/?tn=02049043_50_pg&ch=16">百度</a>、<a href="https://link.juejin.cn/?target=https://c.m.163.com/?referFrom=">网易</a>）是更好的，针对大屏幕，<a href="https://link.juejin.cn/?target=https://xw.qq.com/">腾讯网</a>和<a href="https://link.juejin.cn/?target=https://m.lizhi.fm/">荔枝FM</a>的做法是限制最大宽度来让大屏有更好的体验。</p>
+<p>我们从页面编写的角度出发，页面中更多的是文本和布局，关于文本，我们应该使用 <code>px</code> 作为单位，来实现在大屏设备显示更多的内容，而不是更大的文本；关于布局，我们可以使用 <code>flex</code> 实现弹性布局，当实现特定宽高元素时，可以适当的使用 vw&#x2F;vh，当特定的值使用 vw&#x2F;vh 计算复杂或存在误差时，也可以使用 rem</p>
+<h3 id="适配流程"><a href="#适配流程" class="headerlink" title="适配流程"></a>适配流程</h3><ol>
+<li>编写 <code>&lt;meta&gt;</code> 标签设置 <code>viewport</code> 的内容 <code>width=device-width</code>，让网页宽度等于视窗宽度</li>
+<li>在 css 中使用 px</li>
+<li>在适当的场景使用flex布局，或者配合vw进行自适应</li>
+<li>在跨设备类型的时候（pc &lt;-&gt; 手机 &lt;-&gt; 平板）使用媒体查询</li>
+<li>在跨设备类型如果交互差异太大的情况，考虑分开项目开发</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>上文简单总结了 5 种移动端适配方案</p>
+<p>当前最流行的依然是第一种 rem 布局，能很好的按照设计稿进行开发，搭配媒体查询能让很好的解决大屏问题，比如：<a href="https://link.juejin.cn/?target=https://xw.qq.com/">腾讯网</a>、<a href="https://link.juejin.cn/?target=https://m.lizhi.fm/">荔枝FM</a></p>
+<p>关于第二种 vw&#x2F;vh 布局方案，我看到蛮多文章在推荐，由于还没有在项目中真正实践过，因为我们无法干预 <code>vw/vh</code> 的值，在大屏的体验应该不是很良好，所以我不能做判断</p>
+<p>关于第五种 <code>px</code> 为主，搭配 <code>vw/vh</code>、媒体查询与 <code>flex</code> 进行布局，个人认为部分地方可以引入 <code>rem</code>，也能很好的按照设计稿开发，且能解决大屏问题，可以参见：<a href="https://link.juejin.cn/?target=https://main.m.taobao.com/?sprefer=sypc00">淘宝网</a>、<a href="https://link.juejin.cn/?target=https://www.baidu.com/?tn=02049043_50_pg&ch=16">百度</a>、<a href="https://link.juejin.cn/?target=https://c.m.163.com/?referFrom=">网易</a></p>
+<p>在我个人看来，第五种方案是很好的，但是暂时还没找到一套方法论来进行论证</p>
+<h2 id="10"><a href="#10" class="headerlink" title="10"></a>10</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1/" class="category-chain-item">前端八股</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+      
+        <a href="/blog/tags/%E8%AE%A1%E7%AE%97/">#计算</a>
+      
+        <a href="/blog/tags/css/">#css</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>前端八股 ｜ css篇</div>
+      <div>https://yoonalis.github.io/blog/2023/04/06/前端八股 ｜ css篇/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Azure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2023/04/06/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%20%EF%BD%9Cjs%E7%AF%87/" title="前端八股 ｜ js篇">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端八股 ｜ js篇</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2023/04/06/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%20%EF%BD%9C%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AF%87/" title="前端八股 ｜ 计算机网络篇">
+                        <span class="hidden-mobile">前端八股 ｜ 计算机网络篇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

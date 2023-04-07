@@ -1,0 +1,1037 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.jpg">
+  <link rel="icon" href="/blog/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Azure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端八股 ｜ 工具篇">
+<meta property="og:url" content="https://yoonalis.github.io/blog/2023/04/06/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%20%EF%BD%9C%20%E5%B7%A5%E5%85%B7%E7%AF%87/index.html">
+<meta property="og:site_name" content="Azure&#39;s blog">
+<meta property="og:description" content="react">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
+<meta property="article:published_time" content="2023-04-06T13:32:15.961Z">
+<meta property="article:modified_time" content="2023-04-07T06:05:48.455Z">
+<meta property="article:author" content="Azure">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="计算">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>前端八股 ｜ 工具篇 - Azure&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yoonalis.github.io","root":"/blog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>Azure</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/album/">
+                <i class="iconfont icon-images"></i>
+                album
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="前端八股 ｜ 工具篇"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-06 21:32" pubdate>
+          2023年4月6日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          28k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          236 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">前端八股 ｜ 工具篇</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前端八股-｜-工具篇"><a href="#前端八股-｜-工具篇" class="headerlink" title="前端八股 ｜ 工具篇"></a>前端八股 ｜ 工具篇</h1><h2 id="1-vite和webpack区别"><a href="#1-vite和webpack区别" class="headerlink" title="1 vite和webpack区别"></a>1 vite和webpack区别</h2><p>最近的vite比较火，而且发布了2.0版本，vue的作者尤雨溪也是在极力推荐的</p>
+<p>在之前的文章里面我提到过，vite的缺点在于目前的生态不够webpack成熟，但是只要能弥补这个缺点，便有很大概率能替代目前webpack的大部分市场</p>
+<h3 id="全方位对比vite和webpack"><a href="#全方位对比vite和webpack" class="headerlink" title="全方位对比vite和webpack"></a>全方位对比vite和webpack</h3><h4 id="webpack打包过程"><a href="#webpack打包过程" class="headerlink" title="webpack打包过程"></a>webpack打包过程</h4><p>1.识别入口文件</p>
+<p>2.通过逐层识别模块依赖。（Commonjs、amd或者es6的import，webpack都会对其进行分析。来获取代码的依赖）</p>
+<p>3.webpack做的就是分析代码。转换代码，编译代码，输出代码</p>
+<p>4.最终形成打包后的代码</p>
+<h4 id="webpack打包原理"><a href="#webpack打包原理" class="headerlink" title="webpack打包原理"></a>webpack打包原理</h4><p>1.先逐级递归识别依赖，构建依赖图谱</p>
+<p>2.将代码转化成AST抽象语法树</p>
+<p>3.在AST阶段中去处理代码</p>
+<p>4.把AST抽象语法树变成浏览器可以识别的代码， 然后输出</p>
+<p>重点:这里需要递归识别依赖，构建依赖图谱。图谱对象就是类似下面这种</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs css">&#123; &#x27;./app<span class="hljs-selector-class">.js</span>&#x27;:<br>   &#123; dependencies: &#123; &#x27;./test1<span class="hljs-selector-class">.js</span>&#x27;: <span class="hljs-string">&#x27;./test1.js&#x27;</span> &#125;,<br>     <span class="hljs-selector-tag">code</span>:<br>      <span class="hljs-string">&#x27;&quot;use strict&quot;;\n\nvar _test = _interopRequireDefault(require(&quot;./test1.js&quot;));\n\nfunction _interopRequireDefault(obj) &#123; return obj &amp;&amp; obj.__esModule ? obj : &#123; &quot;default&quot;: obj &#125;; &#125;\n\nconsole.log(test</span><br><span class="hljs-string">1);&#x27;</span> &#125;,<br>  &#x27;./test1<span class="hljs-selector-class">.js</span>&#x27;:<br>   &#123; dependencies: &#123; &#x27;./test2<span class="hljs-selector-class">.js</span>&#x27;: <span class="hljs-string">&#x27;./test2.js&#x27;</span> &#125;,<br>     <span class="hljs-selector-tag">code</span>:<br>      <span class="hljs-string">&#x27;&quot;use strict&quot;;\n\nvar _test = _interopRequireDefault(require(&quot;./test2.js&quot;));\n\nfunction _interopRequireDefault(obj) &#123; return obj &amp;&amp; obj.__esModule ? obj : &#123; &quot;default&quot;: obj &#125;; &#125;\n\nconsole.log(&#x27;</span>th<br>is is test1.js <span class="hljs-string">&#x27;, _test[&quot;default&quot;]);&#x27;</span> &#125;,<br>  &#x27;./test2<span class="hljs-selector-class">.js</span>&#x27;:<br>   &#123; dependencies: &#123;&#125;,<br>     <span class="hljs-selector-tag">code</span>:<br>      <span class="hljs-string">&#x27;&quot;use strict&quot;;\n\nObject.defineProperty(exports, &quot;__esModule&quot;, &#123;\n  value: true\n&#125;);\nexports[&quot;default&quot;] = void 0;\n\nfunction test2() &#123;\n  console.log(&#x27;</span>this is test2 <span class="hljs-string">&#x27;);\n&#125;\n\nvar _default = tes</span><br><span class="hljs-string">t2;\nexports[&quot;default&quot;] = _default;&#x27;</span> &#125; &#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="vite原理"><a href="#vite原理" class="headerlink" title="vite原理"></a>vite原理</h3><p>当声明一个 script 标签类型为 module 时</p>
+<p>如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript">浏览器就会像服务器发起一个<span class="hljs-variable constant_">GET</span><br><br><span class="hljs-attr">http</span>:<span class="hljs-comment">//localhost:3000/src/main.js请求main.js文件：</span><br> <br><span class="hljs-comment">// /src/main.js:</span><br><span class="hljs-keyword">import</span> &#123; createApp &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App.vue&#x27;</span><br><span class="hljs-title function_">createApp</span>(<span class="hljs-title class_">App</span>).<span class="hljs-title function_">mount</span>(<span class="hljs-string">&#x27;#app&#x27;</span>)<br>浏览器请求到了main.<span class="hljs-property">js</span>文件，检测到内部含有<span class="hljs-keyword">import</span>引入的包，又会对其内部的 <span class="hljs-keyword">import</span> 引用发起 <span class="hljs-variable constant_">HTTP</span> 请求获取模块的内容文件<br><br>如：<span class="hljs-variable constant_">GET</span> <span class="hljs-attr">http</span>:<span class="hljs-comment">//localhost:3000/@modules/vue.js</span><br><br>如：<span class="hljs-variable constant_">GET</span> <span class="hljs-attr">http</span>:<span class="hljs-comment">//localhost:3000/src/App.vue</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>Vite 的主要功能就是通过劫持浏览器的这些请求，并在后端进行相应的处理将项目中使用的文件通过简单的分解与整合，然后再返回给浏览器,Vite整个过程中没有对文件进行打包编译，所以其运行速度比原始的webpack开发编译速度快出许多！</p>
+<h3 id="webpack缺点1-缓慢的服务器启动"><a href="#webpack缺点1-缓慢的服务器启动" class="headerlink" title="webpack缺点1.缓慢的服务器启动"></a>webpack缺点1.缓慢的服务器启动</h3><p>当冷启动开发服务器时，基于打包器的方式是在提供服务前去急切地抓取和构建你的整个应用。</p>
+<h3 id="vite改进"><a href="#vite改进" class="headerlink" title="vite改进"></a>vite改进</h3><p>Vite 通过在一开始将应用中的模块区分为 依赖 和 源码 两类，改进了开发服务器启动时间。依赖 大多为纯 JavaScript 并在开发时不会变动。一些较大的依赖（例如有上百个模块的组件库）处理的代价也很高。依赖也通常会以某些方式（例如 ESM 或者 CommonJS）被拆分到大量小模块中。Vite 将会使用 esbuild 预构建依赖。Esbuild 使用 Go 编写，并且比以 JavaScript 编写的打包器预构建依赖快 10-100 倍。</p>
+<p>源码 通常包含一些并非直接是 JavaScript 的文件，需要转换（例如 JSX，CSS 或者 Vue&#x2F;Svelte 组件），时常会被编辑。同时，并不是所有的源码都需要同时被加载。（例如基于路由拆分的代码模块）。Vite 以 原生 ESM 方式服务源码。这实际上是让浏览器接管了打包程序的部分工作：Vite 只需要在浏览器请求源码时进行转换并按需提供源码。根据情景动态导入的代码，即只在当前屏幕上实际使用时才会被处理。</p>
+<h3 id="webpack缺点2-使用的是node-js去实现"><a href="#webpack缺点2-使用的是node-js去实现" class="headerlink" title="webpack缺点2.使用的是node.js去实现"></a>webpack缺点2.使用的是node.js去实现</h3><h3 id="vite改进-1"><a href="#vite改进-1" class="headerlink" title="vite改进"></a>vite改进</h3><p>Vite 将会使用 esbuild 预构建依赖。Esbuild 使用 Go 编写，并且比以 Node.js 编写的打包器预构建依赖快 10-100 倍。</p>
+<h3 id="webpack致命缺点3-热更新效率低下"><a href="#webpack致命缺点3-热更新效率低下" class="headerlink" title="webpack致命缺点3.热更新效率低下"></a>webpack致命缺点3.热更新效率低下</h3><p>当基于打包器启动时，编辑文件后将重新构建文件本身。显然我们不应该重新构建整个包，因为这样更新速度会随着应用体积增长而直线下降。<br>一些打包器的开发服务器将构建内容存入内存，这样它们只需要在文件更改时使模块图的一部分失活[1]，但它也仍需要整个重新构建并重载页面。这样代价很高，并且重新加载页面会消除应用的当前状态，所以打包器支持了动态模块热重载（HMR）：允许一个模块 “热替换” 它自己，而对页面其余部分没有影响。这大大改进了开发体验 - 然而，在实践中我们发现，即使是 HMR 更新速度也会随着应用规模的增长而显著下降。</p>
+<h3 id="vite改进-2"><a href="#vite改进-2" class="headerlink" title="vite改进"></a>vite改进</h3><p>在 Vite 中，HMR 是在原生 ESM 上执行的。当编辑一个文件时，Vite 只需要精确地使已编辑的模块与其最近的 HMR 边界之间的链失效（大多数时候只需要模块本身），使 HMR 更新始终快速，无论应用的大小。Vite 同时利用 HTTP 头来加速整个页面的重新加载（再次让浏览器为我们做更多事情）：源码模块的请求会根据 304 Not Modified 进行协商缓存，而依赖模块请求则会通过 Cache-Control: max-age&#x3D;31536000,immutable 进行强缓存，因此一旦被缓存它们将不需要再次请求。</p>
+<h3 id="vite缺点1"><a href="#vite缺点1" class="headerlink" title="vite缺点1"></a>vite缺点1</h3><p>1.生态，生态，生态不如webpack，wepback牛逼之处在于loader和plugin非常丰富,不过我认为生态只是时间问题，现在的vite,更像是当时刚出来的M1芯片Mac，我当时非常看好M1的Mac，毫不犹豫买了，现在也没什么问题</p>
+<h3 id="vite缺点2"><a href="#vite缺点2" class="headerlink" title="vite缺点2"></a>vite缺点2</h3><p>1.prod环境的构建，目前用的Rollup，原因在于esbuild对于css和代码分割不是很友好</p>
+<h3 id="vite缺点3"><a href="#vite缺点3" class="headerlink" title="vite缺点3"></a>vite缺点3</h3><p>1.还没有被大规模使用,很多问题或者诉求没有真正暴露出来，vite真正崛起那一天，是跟vue3有关系的,当vue3广泛开始使用在生产环境的时候，vite也就大概率意味着被大家慢慢开始接受了</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Vite，就像刚出来的M1芯片Mac,都说好，但是一开始买的人不多，担心生态问题，后面都说真香，相信vue3作者的大力支持下，vite即将大放异彩！我已经在我自己项目的生产环境中，开始使用vite!还是很好的生态。</p>
+<h2 id="2-CommonJS-和-ES-Module-的区别"><a href="#2-CommonJS-和-ES-Module-的区别" class="headerlink" title="2 CommonJS 和 ES Module 的区别"></a>2 CommonJS 和 ES Module 的区别</h2><h2 id="3-iframe"><a href="#3-iframe" class="headerlink" title="3 iframe"></a>3 iframe</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近几年微前端很火，火到有时候项目里面用到了iframe还要偷偷摸摸地藏起来生怕被别人知道了，因为担心被人质疑：你为什么不用微前端方案？直到最近笔者接手一个项目，需要将现有的一个系统整体嵌入到另外一个系统（一共20多个页面），在被微前端坑了几次之后，回过头发现，iframe真香！</p>
+<p>qiankun的作者有一篇<a href="https://link.juejin.cn/?target=https://www.yuque.com/kuitos/gky7yw/gesexv?spm=ata.21736010.0.0.25c06df01VID5V">《Why Not Iframe》</a> 介绍了iframe的优缺点（不过作者还有一篇<a href="https://link.juejin.cn/?target=https://zhuanlan.zhihu.com/p/391248835">《你可能并不需要微前端》</a>给微前端降降火），诚然iframe确实存在很多缺点，但是在选择一个方案的时候还是要具体场景具体分析，它可能在当下很流行，但它不一定在任何时候都是最优解：iframe的这些缺点对我来说是否能够接受？它的缺点是否有其它方法可以弥补？使用它到底是利大于弊还是弊大于利？我们需要在优缺点之间找到一个平衡。</p>
+<h3 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a>优缺点分析</h3><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a7ba7b4fe292438c9f84f8d095b032a1~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<h3 id="iframe适合的场景"><a href="#iframe适合的场景" class="headerlink" title="iframe适合的场景"></a>iframe适合的场景</h3><p>由于iframe的一些限制，部分场景并不适合用iframe，比如像下面这种iframe只占据页面中间部分区域，由于父页面已经有一个滚动条了，为了避免出现双滚动条，只能动态计算iframe的内容高度赋值给iframe，使得iframe高度完全撑满，但这样带来的问题是弹窗很难处理，如果居中的话一般弹窗都相对的是iframe内容高度而不是屏幕高度，从而导致弹窗可能看不见，如果固定弹窗top又会导致弹窗跟随页面滚动，而且稍有不慎iframe内容高度计算有一点点偏差就会出现双滚动条。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7744c2ded9794f58bb3e9fde13f4c90c~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>所以：</p>
+<ul>
+<li>如果页面本身比较简单，是一个没有弹窗、浮层、高度也是固定的纯信息展示页的话，用iframe一般没什么问题；</li>
+<li>如果页面是包含弹窗、信息提示、或者高度不是固定的话，需要看<strong>iframe是否占据了全部的内容区域</strong>，如果是像下图这种经典的导航+菜单+内容结构、并且整个内容区域都是iframe，那么可以放心大胆地尝试iframe，否则，需要慎重考虑方案选型。</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/117cf442197848b9a39a9338917a2c0f~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>为什么一定要满足“iframe占据全部内容区域”这个条件呢？可以想象一下下面这种场景，滚动条出现在页面中间应该大部分人都无法接受：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe05936603d64af49474f44cb8bb6f51~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<h3 id="实战：A系统接入B系统"><a href="#实战：A系统接入B系统" class="headerlink" title="实战：A系统接入B系统"></a>实战：A系统接入B系统</h3><p>满足“iframe占据全部内容区域”条件的场景，iframe的几个缺点都比较好解决。下面通过一个实际案例来详细介绍将一个线上在运行的系统接入到另外一个系统的全过程。以笔者前段时间刚完成的ACP（全称Alibaba.com Pay，阿里巴巴国际站旗下一站式全球收款平台，下称A系统）接入生意贷（下称B系统）为例，已知：</p>
+<ul>
+<li>ACP和生意贷都是MPA页面；</li>
+<li>ACP系统在此之前没有接入其他系统的先例，生意贷是第一个；</li>
+<li>生意贷作为被接入系统，本次需要接入的一共有20多个页面，且服务端包含大量业务逻辑以及跳转控制，有些页面想看看长什么样子都非常困难，需要在Node层mock大量接口；</li>
+<li>接入时需要做功能删减，部分接口入参需要调整；</li>
+<li>生意贷除了接入到ACP系统中，之前还接入过AMES系统，本次接入需要兼容这部分历史逻辑；</li>
+</ul>
+<p>我们希望的效果：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/abb51daa3fdf44218567982b65ac5517~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>假设我们新增一个页面 <code>/fin/base.html?entry=xxx </code>作为我们A系统承接B系统的地址，A系统有类似如下代码：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;<br>    state = &#123;<br>        currentEntry: decodeURIComponent(iutil.getParam(&#x27;entry&#x27;) || &#x27;&#x27;) || &#x27;&#x27;,<br>    &#125;;<br>    render() &#123;<br>        <span class="hljs-keyword">return</span> &lt;div&gt;<br>            &lt;iframe id=<span class="hljs-string">&quot;microFrontIframe&quot;</span> src=&#123;<span class="hljs-keyword">this</span>.state.currentEntry&#125;/&gt;<br>        &lt;/div&gt;;<br>    &#125;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h4 id="隐藏原系统导航菜单"><a href="#隐藏原系统导航菜单" class="headerlink" title="隐藏原系统导航菜单"></a>隐藏原系统导航菜单</h4><p>因为是接入到另外一个系统，所以需要将原系统的菜单和导航等都通过一个类似“hideLayout”的参数去隐藏。</p>
+<h4 id="前进后退处理"><a href="#前进后退处理" class="headerlink" title="前进后退处理"></a>前进后退处理</h4><p>需要特别注意的是，iframe页面内部的跳转虽然不会让浏览器地址栏发生变化，但是却会产生一个看不见的“history记录”，也就是点击前进或后退按钮（<code>history.forward()</code>或<code>history.back()</code>）可以让iframe页面也前进后退，但是地址栏无任何变化。</p>
+<p>所以准确来说前进后退无需我们做任何处理，我们要做的就是让浏览器地址栏同步更新即可。</p>
+<blockquote>
+<p>如果要禁用浏览器的上述默认行为，一般只能在iframe跳转时通知父页面更新整个<code>&lt;iframe /&gt;DOM</code>节点。</p>
+</blockquote>
+<h4 id="URL的同步更新"><a href="#URL的同步更新" class="headerlink" title="URL的同步更新"></a>URL的同步更新</h4><p>让URL同步更新需要处理2个问题，一个是什么时候去触发更新的动作，一个是URL更新的规律，即父页面的URL地址（A系统）与iframe的URL地址（B系统）映射关系的维护。</p>
+<p>保证URL同步更新功能正常需要满足这3种情况：</p>
+<ul>
+<li>case1: 页面刷新，iframe能够加载正确页面；</li>
+<li>case2: 页面跳转，浏览器地址栏能够正确更新；</li>
+<li>case3: 点击浏览器的前进或后退，地址栏和iframe都能够同步变化；</li>
+</ul>
+<h3 id="什么时候更新URL地址"><a href="#什么时候更新URL地址" class="headerlink" title="什么时候更新URL地址"></a>什么时候更新URL地址</h3><p>首先想到的肯定是在iframe加载完发送一个通知给父页面，父页面通过<code>history.replaceState</code>去更新URL。</p>
+<blockquote>
+<p>为什么不是<code>history.pushState</code>呢？因为前面提到过，浏览器默认会产生一条历史记录，我们只需要更新地址即可，如果用pushState会产生2条记录。</p>
+</blockquote>
+<p>B系统：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript"><span class="hljs-keyword">var</span> postMessage = <span class="hljs-keyword">function</span>(<span class="hljs-params">type, data</span>) &#123;</span><br><span class="language-javascript">    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">parent</span> !== <span class="hljs-variable language_">window</span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-variable language_">window</span>.<span class="hljs-property">parent</span>.<span class="hljs-title function_">postMessage</span>(&#123;</span><br><span class="language-javascript">            <span class="hljs-attr">type</span>: type,</span><br><span class="language-javascript">            <span class="hljs-attr">data</span>: data,</span><br><span class="language-javascript">        &#125;, <span class="hljs-string">&#x27;*&#x27;</span>);</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">&#125;</span><br><span class="language-javascript"><span class="hljs-comment">// 为了让URL地址尽早地更新，这段代码需要尽可能前置，例如可以直接放在document.head中</span></span><br><span class="language-javascript"><span class="hljs-title function_">postMessage</span>(<span class="hljs-string">&#x27;afterHistoryChange&#x27;</span>, &#123; <span class="hljs-attr">url</span>: location.<span class="hljs-property">href</span> &#125;);</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>A系统：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; data, <span class="hljs-keyword">type</span> &#125; = e.<span class="hljs-property">data</span> || &#123;&#125;;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">type</span> === <span class="hljs-string">&#x27;afterHistoryChange&#x27;</span> &amp;&amp; data?.<span class="hljs-property">url</span>) &#123;<br>        <span class="hljs-comment">// 这里先采用一个兜底的URL承接任意地址</span><br>        <span class="hljs-keyword">const</span> entry = <span class="hljs-string">`/fin/base.html?entry=<span class="hljs-subst">$&#123;<span class="hljs-built_in">encodeURIComponent</span>(data.url)&#125;</span>`</span>;<br>        <span class="hljs-comment">// 地址不一样才需要更新</span><br>        <span class="hljs-keyword">if</span> (location.<span class="hljs-property">pathname</span> + location.<span class="hljs-property">search</span> !== entry) &#123;<br>            <span class="hljs-variable language_">window</span>.<span class="hljs-property">history</span>.<span class="hljs-title function_">replaceState</span>(<span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;&#x27;</span>, entry);<br>        &#125;<br>    &#125;<br>&#125;);<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="优化URL的更新速度"><a href="#优化URL的更新速度" class="headerlink" title="优化URL的更新速度"></a>优化URL的更新速度</h3><p>按照上面的方法实现后可以发现，URL虽然可以更新但是速度有点慢，点击跳转后一般需要等待7-800毫秒地址栏才会更新，有点美中不足。可以把地址栏的更新在“跳转后”基础之上再加一个“跳转前”。为此我们必须有一个全局的beforeRedirect钩子，先不考虑它的具体实现：</p>
+<p>B系统：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">beforeRedirect</span>(<span class="hljs-params">href</span>) </span>&#123;<br>    <span class="hljs-title function_ invoke__">postMessage</span>(<span class="hljs-string">&#x27;beforeHistoryChange&#x27;</span>, &#123; <span class="hljs-attr">url</span>: href &#125;);<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>A系统：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; data, <span class="hljs-keyword">type</span> &#125; = e.<span class="hljs-property">data</span> || &#123;&#125;;<br>    <span class="hljs-keyword">if</span> ((<span class="hljs-keyword">type</span> === <span class="hljs-string">&#x27;beforeHistoryChange&#x27;</span> || <span class="hljs-keyword">type</span> === <span class="hljs-string">&#x27;afterHistoryChange&#x27;</span>) &amp;&amp; data?.<span class="hljs-property">url</span>) &#123;<br>        <span class="hljs-comment">// 这里先采用一个兜底的URL承接任意地址</span><br>        <span class="hljs-keyword">const</span> entry = <span class="hljs-string">`/fin/base.html?entry=<span class="hljs-subst">$&#123;<span class="hljs-built_in">encodeURIComponent</span>(data.url)&#125;</span>`</span>;<br>        <span class="hljs-comment">// 地址不一样才需要更新</span><br>        <span class="hljs-keyword">if</span> (location.<span class="hljs-property">pathname</span> + location.<span class="hljs-property">search</span> !== entry) &#123;<br>            <span class="hljs-variable language_">window</span>.<span class="hljs-property">history</span>.<span class="hljs-title function_">replaceState</span>(<span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;&#x27;</span>, entry);<br>        &#125;<br>    &#125;<br>&#125;);<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>加上上述代码之后，点击iframe中的跳转链接，URL会实时更新，浏览器的前进后退功能也正常。</p>
+<blockquote>
+<p>为什么需要同时保留跳转前和跳转后呢？因为如果只保留跳转前，只能满足前面的case1和case2，case3无法满足，也就是点击后退按钮只有iframe会后退，URL地址不会更新。</p>
+</blockquote>
+<h3 id="美化URL地址"><a href="#美化URL地址" class="headerlink" title="美化URL地址"></a>美化URL地址</h3><p>简单的使用<code>/fin/base.html?entry=xxx</code>这样的通用地址虽然能用，但是不太美观，而且很容易被人看出来是iframe实现的，比较没有诚意，所以如果被接入系统的页面数量在可枚举范围内，建议给每个地址维护一个新的短地址。</p>
+<p>首先，新增一个SPA页面<code>/fin/*.html</code>，和前面的<code>/fin/base.html</code>指向同一个页面，然后维护一个URL地址的映射，类似这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// A系统地址到B系统地址映射</span><br><span class="hljs-keyword">const</span> entryMap = &#123;<br>    <span class="hljs-string">&#x27;/fin/home.html&#x27;</span>: <span class="hljs-string">&#x27;https://fs.alibaba.com/xxx/home.htm?hideLayout=1&#x27;</span>,<br>    <span class="hljs-string">&#x27;/fin/apply.html&#x27;</span>: <span class="hljs-string">&#x27;https://fs.alibaba.com/xxx/apply?hideLayout=1&#x27;</span>,<br>    <span class="hljs-string">&#x27;/fin/failed.html&#x27;</span>: <span class="hljs-string">&#x27;https://fs.aibaba.com/xxx/failed?hideLayout=1&#x27;</span>,<br>    <span class="hljs-comment">// 省略</span><br>&#125;;<br><span class="hljs-keyword">const</span> iframeMap = &#123;&#125;; <span class="hljs-comment">// 同时再维护一个子页面 -&gt; 父页面URL映射</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> entry <span class="hljs-keyword">in</span> entryMap) &#123;<br>    iframeMap[entryMap[entry].<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;?&#x27;</span>)[<span class="hljs-number">0</span>]] = entry;<br>&#125;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span> &#123;<br>    state = &#123;<br>        <span class="hljs-attr">currentEntry</span>: <span class="hljs-built_in">decodeURIComponent</span>(iutil.<span class="hljs-title function_">getParam</span>(<span class="hljs-string">&#x27;entry&#x27;</span>) || <span class="hljs-string">&#x27;&#x27;</span>) || entryMap[location.<span class="hljs-property">pathname</span>] || <span class="hljs-string">&#x27;&#x27;</span>,<br>    &#125;;<br>    <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;microFrontIframe&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&#123;this.state.currentEntry&#125;/</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br>    &#125;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>同时完善一下更新URL地址部分：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// base.html继续用作兜底</span><br><span class="hljs-keyword">let</span> entry = <span class="hljs-string">`/fin/base.html?entry=<span class="hljs-subst">$&#123;<span class="hljs-built_in">encodeURIComponent</span>(data.url)&#125;</span>`</span>;<br><span class="hljs-keyword">const</span> [path, search] = data.<span class="hljs-property">url</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;?&#x27;</span>);<br><span class="hljs-keyword">if</span> (iframeMap[path]) &#123;<br>    entry = <span class="hljs-string">`<span class="hljs-subst">$&#123;iframeMap[path]&#125;</span>?<span class="hljs-subst">$&#123;search || <span class="hljs-string">&#x27;&#x27;</span>&#125;</span>`</span>;<br>&#125;<br><span class="hljs-comment">// 地址不一样才需要更新</span><br><span class="hljs-keyword">if</span> (location.<span class="hljs-property">pathname</span> + location.<span class="hljs-property">search</span> !== entry) &#123;<br>    <span class="hljs-variable language_">window</span>.<span class="hljs-property">history</span>.<span class="hljs-title function_">replaceState</span>(<span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;&#x27;</span>, entry);<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>省略参数透传部分代码。</p>
+</blockquote>
+<h3 id="全局跳转拦截"><a href="#全局跳转拦截" class="headerlink" title="全局跳转拦截"></a>全局跳转拦截</h3><p>为什么一定要做全局跳转拦截呢？一个因为我们需要把hideLayout参数一直透传下去，否则就会点着点着突然出现下面这种双菜单的情况：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/110b0f09df6e4f559ff36540fd89f385~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>另一个是有些页面在被嵌入前是当前页面打开的，但是被嵌入后不能继续在当前iframe打开，比如支付宝付款这种第三方页面，想象一下下面这种情况会不会觉得很怪？所以这类页面一定要做特殊处理让它跳出去而不是当前页面打开。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/063c839ca02f452aa7ff77098edba2a2~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>URL跳转可以分为服务端跳转和浏览器跳转，浏览器跳转又包括A标签跳转、location.href跳转、window.open跳转、historyAPI跳转等；</p>
+<p>而根据是否新标签打开又可以分为以下4种场景：</p>
+<ol>
+<li>继续当前iframe打开，需要隐藏原系统的所有layout；</li>
+<li>当前父页面打开第三方页面，不需要任何layout；</li>
+<li>新开标签打开第三方页面（如支付宝页面），不需要做特殊处理；</li>
+<li>新开标签打开宿主页面，需要把原系统layout替换成新layout；</li>
+</ol>
+<p>为此，先定义好一个<code>beforeRedirect</code>方法，由于新标签打开有<code>target=&quot;_blank&quot;</code>和<code>window.open</code>等方式，父页面打开有<code>target=&quot;_parent&quot;</code>和<code>window.parent.location.href</code>等方式，为了更好的统一封装，我们把特殊情况的跳转统一在<code>beforeRedirect</code>处理好，并约定只有有返回值的情况才需要后续继续处理跳转：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs ini">// 维护一个需要做特殊处理的第三方页面列表<br>const <span class="hljs-attr">thirdPageList</span> = [<br>    <span class="hljs-string">&#x27;https://service.alibaba.com/&#x27;</span>,<br>    <span class="hljs-string">&#x27;https://sale.alibaba.com/xxx/&#x27;</span>,<br>    <span class="hljs-string">&#x27;https://alipay.com/xxx/&#x27;</span>,<br>    // ...<br>]<span class="hljs-comment">;</span><br>/**<br> * 封装统一的跳转拦截钩子，处理参数透传和一些特殊情况<br> * @param &#123;*&#125; href 要跳转的地址，允许传入相对路径<br> * @param &#123;*&#125; isNewTab 是否要新标签打开<br> * @param &#123;*&#125; isParentOpen 是否要在父页面打开<br> * @returns 返回处理好的跳转地址，如果没有返回值则表示不需要继续处理跳转<br> */<br>function beforeRedirect(href, isNewTab) &#123;<br>    if (!href) &#123;<br>        return<span class="hljs-comment">;</span><br>    &#125;<br>    // 传过来的href可能是相对路径，为了做统一判断需要转成绝对路径<br>    if (href.indexOf(&#x27;http&#x27;) !== 0) &#123;<br>        var <span class="hljs-attr">a</span> = document.createElement(<span class="hljs-string">&#x27;a&#x27;</span>)<span class="hljs-comment">;</span><br>        <span class="hljs-attr">a.href</span> = href<span class="hljs-comment">;</span><br>        <span class="hljs-attr">href</span> = a.href<span class="hljs-comment">;</span><br>    &#125;<br>    // 如果命中白名单<br>    if (thirdPageList.some(<span class="hljs-attr">item</span> =&gt; href.indexOf(item) === <span class="hljs-number">0</span>)) &#123;<br>        if (isNewTab) &#123;<br>            // _rawOpen参见后面 window.open 拦截<br>            window._rawOpen(href)<span class="hljs-comment">;</span><br>        &#125; else &#123;<br>            // 第三方页面如果不是新标签打开就一定是父页面打开<br>            <span class="hljs-attr">window.parent.location.href</span> = href<span class="hljs-comment">;</span><br>        &#125;<br>        return<span class="hljs-comment">;</span><br>    &#125;<br>    // 需要从当前URL继续往下透传的参数<br>    var <span class="hljs-attr">params</span> = [<span class="hljs-string">&#x27;hideLayout&#x27;</span>, <span class="hljs-string">&#x27;tracelog&#x27;</span>]<span class="hljs-comment">;</span><br>    for (var <span class="hljs-attr">i</span> = <span class="hljs-number">0</span><span class="hljs-comment">; i &lt; params.length; i++) &#123;</span><br>        var <span class="hljs-attr">value</span> = getParam(params[i], location.href)<span class="hljs-comment">;</span><br>        if (value) &#123;<br>            <span class="hljs-attr">href</span> = setParam(params[i], value, href)<span class="hljs-comment">;</span><br>        &#125;<br>    &#125;<br>    if (isNewTab) &#123;<br>        let <span class="hljs-attr">entry</span> = `/fin/base.html?entry=<span class="hljs-variable">$&#123;encodeURIComponent(href)&#125;</span>`<span class="hljs-comment">;</span><br>        const <span class="hljs-section">[path, search]</span> = href.split(&#x27;?&#x27;)<span class="hljs-comment">;</span><br>        if (iframeMap<span class="hljs-section">[path]</span>) &#123;<br>            <span class="hljs-attr">entry</span> = `<span class="hljs-variable">$&#123;iframeMap[path]&#125;</span>?<span class="hljs-variable">$&#123;search || &#x27;&#x27;&#125;</span>`<span class="hljs-comment">;</span><br>        &#125;<br>        <span class="hljs-attr">href</span> = `https://payment.alibaba.com<span class="hljs-variable">$&#123;entry&#125;</span>`<span class="hljs-comment">;</span><br>        window._rawOpen(href)<span class="hljs-comment">;</span><br>        return<span class="hljs-comment">;</span><br>    &#125;<br>    // 如果是以iframe方式嵌入，向父页面发送通知<br>    postMessage(&#x27;beforeHistoryChange&#x27;, &#123; url: href &#125;)<span class="hljs-comment">;</span><br>    return href<span class="hljs-comment">;</span><br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="服务端跳转拦截"><a href="#服务端跳转拦截" class="headerlink" title="服务端跳转拦截"></a>服务端跳转拦截</h3><p>服务端主要是对301或302重定向跳转进行拦截，以Egg为例，只要重写 <code>ctx.redirect</code> 方法即可。</p>
+<h3 id="A标签跳转拦截"><a href="#A标签跳转拦截" class="headerlink" title="A标签跳转拦截"></a>A标签跳转拦截</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs ini">document.addEventListener(&#x27;click&#x27;, function (e) &#123;<br>    var <span class="hljs-attr">target</span> = e.target || &#123;&#125;<span class="hljs-comment">;</span><br>    // A标签可能包含子元素，点击目标可能不是A标签本身，这里只简单判断2层<br>    if (<span class="hljs-attr">target.tagName</span> === <span class="hljs-string">&#x27;A&#x27;</span> || (target.parentNode &amp;&amp; target.parentNode.tagName === <span class="hljs-string">&#x27;A&#x27;</span>)) &#123;<br>        <span class="hljs-attr">target</span> = target.tagName === <span class="hljs-string">&#x27;A&#x27;</span> ? target : target.parentNode<span class="hljs-comment">;</span><br>        var <span class="hljs-attr">href</span> = target.href<span class="hljs-comment">;</span><br>        // 不处理没有配置href或者指向JS代码的A标签<br>        if (!href || href.indexOf(&#x27;javascript&#x27;) === 0) &#123;<br>            return<span class="hljs-comment">;</span><br>        &#125;<br>        var <span class="hljs-attr">newHref</span> = beforeRedirect(href, target.target === <span class="hljs-string">&#x27;_blank&#x27;</span>)<span class="hljs-comment">;</span><br>        // 没有返回值一般是已经处理了跳转，需要禁用当前A标签的跳转<br>        if (!newHref) &#123;<br>            <span class="hljs-attr">target.target</span> = <span class="hljs-string">&#x27;_self&#x27;</span><span class="hljs-comment">;</span><br>            <span class="hljs-attr">target.href</span> = <span class="hljs-string">&#x27;javascript:;&#x27;</span><span class="hljs-comment">;</span><br>        &#125; else if (newHref !== href) &#123;<br>            <span class="hljs-attr">target.href</span> = newHref<span class="hljs-comment">;</span><br>        &#125;<br>    &#125;<br>&#125;, true)<span class="hljs-comment">;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="location-href拦截"><a href="#location-href拦截" class="headerlink" title="location.href拦截"></a>location.href拦截</h3><p>location.href拦截至今是一个困扰前端界的难题，这里只能采用一个折中的方法：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ini">// 由于 location.href 无法重写，只能实现一个 <span class="hljs-attr">location2.href</span> = <span class="hljs-string">&#x27;&#x27;</span><br>if (Object.defineProperty) &#123;<br>    <span class="hljs-attr">window.location2</span> = &#123;&#125;<span class="hljs-comment">;</span><br>    Object.defineProperty(window.location2, &#x27;href&#x27;, &#123;<br>        get: function() &#123;<br>            return location.href<span class="hljs-comment">;</span><br>        &#125;,<br>        set: function(href) &#123;<br>            var <span class="hljs-attr">newHref</span> = beforeRedirect(href)<span class="hljs-comment">;</span><br>            if (newHref) &#123;<br>                <span class="hljs-attr">location.href</span> = newHref<span class="hljs-comment">;</span><br>            &#125;<br>        &#125;,<br>    &#125;)<span class="hljs-comment">;</span><br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>因为我们<strong>不仅实现了location.href的写，location.href的读也一起实现了</strong>，所以可以放心大胆的进行全局替换。找到对应前端工程，首先全局搜索<code>window.location.href</code>，批量替换成<code>(window.location2 || window.location).href</code>，然后再全局搜索<code>location.href</code>，批量替换成<code>(window.location2 || window.location).href</code>（思考一下为什么一定是这个顺序呢）。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/48ae09523b6f46269362ec9025f51406~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<blockquote>
+<p>另外需要注意，有些跳转可能是写在npm包里面的，这种情况只能npm也跟着替换一下了，并没有其它更好办法。</p>
+</blockquote>
+<h3 id="window-open拦截"><a href="#window-open拦截" class="headerlink" title="window.open拦截"></a>window.open拦截</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ini">var <span class="hljs-attr">tempOpenName</span> = <span class="hljs-string">&#x27;_rawOpen&#x27;</span><span class="hljs-comment">;</span><br>if (!window<span class="hljs-section">[tempOpenName]</span>) &#123;<br>    window<span class="hljs-section">[tempOpenName]</span> = window.open<span class="hljs-comment">;</span><br>    <span class="hljs-attr">window.open</span> = function(url, name, features) &#123;<br>        <span class="hljs-attr">url</span> = beforeRedirect(url, <span class="hljs-literal">true</span>)<span class="hljs-comment">;</span><br>        if (url) &#123;<br>            window<span class="hljs-section">[tempOpenName]</span>(url, name, features)<span class="hljs-comment">;</span><br>        &#125;<br>    &#125;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="history-pushState拦截"><a href="#history-pushState拦截" class="headerlink" title="history.pushState拦截"></a>history.pushState拦截</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ini">var <span class="hljs-attr">tempName</span> = <span class="hljs-string">&#x27;_rawPushState&#x27;</span><span class="hljs-comment">;</span><br>if (!window.history<span class="hljs-section">[tempName]</span>) &#123;<br>    window.history<span class="hljs-section">[tempName]</span> = window.history.pushState<span class="hljs-comment">;</span><br>    <span class="hljs-attr">window.history.pushState</span> = function(state, title, url) &#123;<br>        <span class="hljs-attr">url</span> = beforeRedirect(url)<span class="hljs-comment">;</span><br>        if (url) &#123;<br>            window.history<span class="hljs-section">[tempName]</span>(state, title, url)<span class="hljs-comment">;</span><br>        &#125;<br>    &#125;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="history-replaceState拦截"><a href="#history-replaceState拦截" class="headerlink" title="history.replaceState拦截"></a>history.replaceState拦截</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ini">var <span class="hljs-attr">tempName</span> = <span class="hljs-string">&#x27;_rawReplaceState&#x27;</span><span class="hljs-comment">;</span><br>if (!window.history<span class="hljs-section">[tempName]</span>) &#123;<br>    window.history<span class="hljs-section">[tempName]</span> = window.history.replaceState<span class="hljs-comment">;</span><br>    <span class="hljs-attr">window.history.replaceState</span> = function(state, title, url) &#123;<br>        <span class="hljs-attr">url</span> = beforeRedirect(url)<span class="hljs-comment">;</span><br>        if (url) &#123;<br>            window.history<span class="hljs-section">[tempName]</span>(state, title, url)<span class="hljs-comment">;</span><br>        &#125;<br>    &#125;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="全局loading处理"><a href="#全局loading处理" class="headerlink" title="全局loading处理"></a>全局loading处理</h3><p>完成上述步骤后，基本上已经看不出来是iframe了，但是跳转的时候中间有短暂的白屏会有一点顿挫感，体验不算很流畅，这时候可以给iframe加一个全局的loading，开始跳转前显示，页面加载完再隐藏：</p>
+<p>B系统：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;DOMContentLoaded&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) &#123;<br>    <span class="hljs-title function_">postMessage</span>(<span class="hljs-string">&#x27;iframeDOMContentLoaded&#x27;</span>, &#123; <span class="hljs-attr">url</span>: location.<span class="hljs-property">href</span> &#125;);<br>&#125;);<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>A系统：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; data, <span class="hljs-keyword">type</span> &#125; = e.<span class="hljs-property">data</span> || &#123;&#125;;<br>    <span class="hljs-comment">// iframe 加载完毕</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">type</span> === <span class="hljs-string">&#x27;iframeDOMContentLoaded&#x27;</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setState</span>(&#123;<span class="hljs-attr">loading</span>: <span class="hljs-literal">false</span>&#125;);<br>    &#125;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">type</span> === <span class="hljs-string">&#x27;beforeHistoryChange&#x27;</span>) &#123;<br>        <span class="hljs-comment">// 此时页面并没有立即跳转，需要再稍微等待一下再显示loading</span><br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setState</span>(&#123;<span class="hljs-attr">loading</span>: <span class="hljs-literal">true</span>&#125;), <span class="hljs-number">100</span>);<br>    &#125;<br>&#125;);<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>除此之外还需要利用iframe自带的onload加一个兜底，防止iframe页面没有上报 <code>iframeDOMContentLoaded</code> 事件导致loading不消失：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// iframe自带的onload做兜底</span><br>iframeOnLoad = <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setState</span>(&#123;<span class="hljs-attr">loading</span>: <span class="hljs-literal">false</span>&#125;);<br>&#125;<br><span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Loading</span> <span class="hljs-attr">visible</span>=<span class="hljs-string">&#123;this.state.loading&#125;</span> <span class="hljs-attr">tip</span>=<span class="hljs-string">&quot;正在加载...&quot;</span> <span class="hljs-attr">inline</span>=<span class="hljs-string">&#123;false&#125;</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;microFrontIframe&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&#123;this.state.currentEntry&#125;</span> <span class="hljs-attr">onLoad</span>=<span class="hljs-string">&#123;this.iframeOnLoad&#125;/</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">Loading</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>还需要注意，当新标签页打开页面时并不需要显示loading，需要注意区分。</p>
+<h3 id="弹窗居中问题"><a href="#弹窗居中问题" class="headerlink" title="弹窗居中问题"></a>弹窗居中问题</h3><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/77b8181ef065464580ca0f6480bf66be~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>当前场景下弹窗个人觉得并不需要处理，因为菜单的宽度有限，不仔细看的话甚至都没注意到弹窗没有居中：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9b6f64672caa4e3e80b4032e73a5926a~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>如果非要处理的话也不麻烦，覆盖一下原来页面弹窗的样式，当包含<code>hideLayout</code>参数时，让弹窗的位置分别向左移动<code>menuWidth/2</code>、向上移动<code>navbarHeight/2</code>即可（遮罩位置不能动、也动不了）。</p>
+<p>添加了<code>marginLeft=-120px</code>、<code>marginTop=-30px</code> 后的弹窗效果：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ed44aa14e065408cbe3056441579a5f5~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p>其实不难看出，最终效果和SPA几乎无异，而且菜单和导航本来就是无刷新的，页面跳转没有割裂感：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/78ef290a47e84bb6ae1e9fa7727a8af1~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>上述方案有几个没有提到的点：</p>
+<ul>
+<li>方案成立的前提是建立在2个系统共用一套用户体系，否则需要对2个系统的登录体系进行打通，一般包括账号绑定、A系统默认免登B系统，等等，这需要一定额外的工作量；</li>
+<li>参数的透传与删除，例如我希望除了hideLayout参数之外其它URL参数全部在父子页面之间透传；</li>
+<li>埋点，数据上报的时候需要增加一个额外参数来标识流量来自另外一个系统；</li>
+</ul>
+<p>在第一次摸索方案时可能需要花费一些时间，但是在熟悉之后，如果后续还有类似把B系统接入A系统的需求，在没有特殊情况且顺利的前提下可能花费1-2天时间即可完成，最重要的是大部分工作都是全局生效的，不会随着页面的增多而导致工作量增加，测试回归的成本也非常低，只需要验证所有页面跳转、展示等是否正常，功能本身一般不会有太大问题，而如果是微前端方案的话需要从头到尾全部仔仔细细测试一遍，开发和测试的成本都不可估量。</p>
+<blockquote>
+<p>来源：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7185070739064619068">https://juejin.cn/post/7185070739064619068</a></p>
+</blockquote>
+<h2 id="4-前端优化"><a href="#4-前端优化" class="headerlink" title="4 前端优化"></a>4 前端优化</h2><p>降低请求量：合并资源，减少 HTTP 请求数，minify &#x2F; gzip 压缩，webP，lazyLoad。 </p>
+<p>加快请求速度：预解析 DNS，减少域名数，并行加载，CDN 分发。</p>
+<p> 缓存：HTTP 协议缓存请求，离线缓存 manifest，离线数据缓存 localStorage。 </p>
+<p>渲染：JS&#x2F;CSS 优化，加载顺序，服务端渲染，pipeline</p>
+<h2 id="5-HTML5新特性"><a href="#5-HTML5新特性" class="headerlink" title="5 HTML5新特性"></a>5 HTML5新特性</h2><ol>
+<li><p>语义化标签，例如header，footer，section，article等 语义化标签的作用：提升页面的阅读性(结构性增强)，更有利于SEO，对于使用屏幕阅读器的人来说会更友好(有明显的语气差别，例如strong标签内的内容会重读)；</p>
+</li>
+<li><p>新增媒体元素，audio、video audio和video标签能够很容易的输出音频或视频流，提供便利的获取文件信息的API<br>更多详细属性参考 <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-cn/docs/web/html/element/audio">MDN audio</a> <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-cn/docs/web/html/element/video">MDN video</a></p>
+</li>
+<li><p>用于绘画的canvas属性 Canvas API 提供了一个通过JavaScript 和 HTML的<strong>canvas</strong>元素来绘制图形的方式。它可以用于动画、游戏画面、数据可视化、图片编辑以及实时视频处理等方面。<br>更多详细属性参考 <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API">MDN canvas</a></p>
+</li>
+<li><p>新增本地存储方式：sessionStorage、localStorage sessionStorage 用于存储会话级别的数据，会话关闭，数据消失，不可设置过期时间。<br>localStorage 用于存储需要进行持久化存储的数据，只要不主动删除，数据不会消失。</p>
+</li>
+</ol>
+<p> 更多详细属性参考 <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Web/API/Window/sessionStorage">MDN sessionStorage</a><br> 更多详细属性参考 <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">MDN localStorage</a></p>
+<ol start="5">
+<li><p>新的技术：webworker、websocket webworker：用于多线程编程<br>websocket：客户端与服务端双向数据通信协议</p>
+</li>
+<li><p>新增的表单控件：calendar、date、time、email、url、search 更多详细属性参考 <a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input">MDN input</a></p>
+</li>
+</ol>
+<h2 id="6-es6新特性"><a href="#6-es6新特性" class="headerlink" title="6 es6新特性"></a>6 es6新特性</h2><h3 id="1-symbol"><a href="#1-symbol" class="headerlink" title="1. symbol"></a>1. symbol</h3><p>　　在ES6之前，我们知道JavaScript支持8种数据类型：Object，String，Boolean，Number，Null，Undefined、Array、Function。现在，ES6新增了一种原始数据类型：symbol，表示独一无二的值，即每个symbol类型的值都不相同。这让我想起了另一个特殊的值：NaN，想一想，他们是不是有一点类似呢！</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ini">var <span class="hljs-attr">sy</span> = Symbol(<span class="hljs-string">&#x27;test&#x27;</span>)<span class="hljs-comment">;</span><br>var <span class="hljs-attr">sy1</span> = Symbol(<span class="hljs-string">&#x27;test&#x27;</span>)<span class="hljs-comment">;</span><br>console.log(tepeof sy)<span class="hljs-comment">;   //&#x27;symbol&#x27;</span><br><span class="hljs-attr">sy</span> == sy1<span class="hljs-comment">;   //false</span><br>var <span class="hljs-attr">sy2</span> = new Symbol(<span class="hljs-string">&#x27;test&#x27;</span>)<span class="hljs-comment">;   //error : Symbol is not a constructor</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　创建symbol数据类型的值时，需要给Symbol函数传递一个字符串，并且有一点特殊的是：不能使用new关键字调用它。另外，每个symbol类型值都是独一无二的，即使传递的是相同的字符串。</p>
+<h3 id="2-let和const"><a href="#2-let和const" class="headerlink" title="2. let和const"></a>2. let和const</h3><p>　　ES6新增了两个声明变量的关键字：let和const。</p>
+<p>　　他们声明的变量仅在let和const关键字所在的代码块内起作用，即在使用let和const的那一对大括号{}内起作用，也称块级作用域（ES6之前只有函数作用域和全局作用域）。</p>
+<p>　　let和const声明变量不会在预编译过程中有提升行为(在全局声明也不会变成window的属性)，且同一变量不能重复声明。所以要使用这类变量，只能在let和const关键字之后使用它们。</p>
+<p>　　let和const关键字还有一个特性：“暂时性死区”，即在使用了该关键字的块级作用域中，其内部使用let和const关键字声明的变量与外部作用域中的变量相互隔绝，互不影响。即使是同名变量。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ini">var <span class="hljs-attr">a</span> = <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>&#123;<br>   console.log(a)<span class="hljs-comment">;   //error Cannot access &#x27;a&#x27; before initialization</span><br>   let <span class="hljs-attr">a</span> = <span class="hljs-number">0</span><span class="hljs-comment">;</span><br>   console.log(a)<span class="hljs-comment">;   //0</span><br>&#125;<br>console.log(a)<span class="hljs-comment">;   //1</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　const用来声明一个常量，声明时必须赋值，且一旦声明就不能改变。</p>
+<p>　　其实说const变量不能更改是不准确的，请看下面的例子：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ini">const <span class="hljs-attr">obj</span> = &#123;<br>    name:&#x27;ren&#x27;,<br>    age:12<br>&#125;<span class="hljs-comment">;</span><br><span class="hljs-attr">obj</span> = &#123;&#125;<span class="hljs-comment">;   //error</span><br><span class="hljs-attr">obj.sex</span> = male<span class="hljs-comment">;</span><br>consol.log(obj)<span class="hljs-comment">;   //&#123;name:&#x27;ren&#x27;,age:12;sex:&#x27;male&#x27;&#125;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　const声明的如果是一个原始值，那么上面的说法是准确的，如果const声明的是一个引用值，那么更准确的说法应该是一个不能被重新赋值的变量。</p>
+<h3 id="3-解构赋值"><a href="#3-解构赋值" class="headerlink" title="3. 解构赋值"></a>3. 解构赋值</h3><p>　　解构赋值是对赋值运算符的扩展。它是一种针对数组或者对象进行模式匹配，然后对其中的变量进行赋值。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs css">let <span class="hljs-selector-attr">[a,b,c]</span> = <span class="hljs-selector-attr">[1,2,3]</span>;<br>console<span class="hljs-selector-class">.log</span>(<span class="hljs-selector-tag">a</span>,<span class="hljs-selector-tag">b</span>,c);    //<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span><br> <br>let <span class="hljs-selector-attr">[a,b,c]</span> = <span class="hljs-selector-attr">[1,,3]</span>;<br>console<span class="hljs-selector-class">.log</span>(<span class="hljs-selector-tag">a</span>,<span class="hljs-selector-tag">b</span>,c);    //<span class="hljs-number">1</span>,undefined,<span class="hljs-number">3</span><br> <br>let <span class="hljs-selector-attr">[a,,b]</span> = <span class="hljs-selector-attr">[1,2,3]</span>;<br>console<span class="hljs-selector-class">.log</span>(<span class="hljs-selector-tag">a</span>,<span class="hljs-selector-tag">b</span>);//<span class="hljs-number">1</span>,<span class="hljs-number">3</span><br> <br>let <span class="hljs-selector-attr">[a,..b]</span> = <span class="hljs-selector-attr">[1,2,3]</span>;    //...是剩余运算符，表示赋值运算符右边除第一个值外剩余的都赋值给<span class="hljs-selector-tag">b</span><br>console<span class="hljs-selector-class">.log</span>(<span class="hljs-selector-tag">a</span>,<span class="hljs-selector-tag">b</span>);//<span class="hljs-number">1</span>,<span class="hljs-selector-attr">[2,3]</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　  事实上所有可枚举（iterable）的对象都可以使用解构赋值，例如数组，字符串对象，以及ES6新增的Map和Set类型。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">let</span> arr = <span class="hljs-string">&#x27;hello&#x27;</span>;<br><span class="hljs-built_in">let</span> [a,b,c,d,e] = arr;<br>console.log(a,b,c,d,e);  //<span class="hljs-string">&#x27;h&#x27;</span>,<span class="hljs-string">&#x27;e&#x27;</span>,<span class="hljs-string">&#x27;l&#x27;</span>,<span class="hljs-string">&#x27;l&#x27;</span>,<span class="hljs-string">&#x27;o&#x27;</span><br>　　对象的解构赋值和数组类似，不过左边的变量名需要使用对象的属性名，并且用大括号&#123;&#125;而非中括号[]：<br><br><span class="hljs-built_in">let</span> obj = &#123;name:<span class="hljs-string">&#x27;ren&#x27;</span>,age:12,sex:<span class="hljs-string">&#x27;male&#x27;</span>&#125;;<br><span class="hljs-built_in">let</span> &#123;name,age,sex&#125; = obj;<br>console.log(name,age,sex);  //<span class="hljs-string">&#x27;ren&#x27;</span> 12 <span class="hljs-string">&#x27;male&#x27;</span><br><span class="hljs-built_in">let</span> &#123;name:myName,age:myAge,sex:mySex&#125; = obj;  //自定义变量名<br>console.log(myName,myAge,mySex);  //<span class="hljs-string">&#x27;ren&#x27;</span> 12 <span class="hljs-string">&#x27;male&#x27;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="二-新的对象和方法"><a href="#二-新的对象和方法" class="headerlink" title="二　　新的对象和方法"></a>二　　新的对象和方法</h3><h4 id="1，Map和Set"><a href="#1，Map和Set" class="headerlink" title="1，Map和Set"></a>1，Map和Set</h4><p>　　Map对象用于保存键值对，任何值JavaScript支持的值都可以作为一个键或者一个值。这听起来和对象差不多啊？其实它们还是有区别的：</p>
+<p>　　　　a) object的键只能是字符串或ES6的symbol值，而Map可以是任何值。</p>
+<p>　　　　b) Map对象有一个size属性，存储了键值对的个数，而object对象没有类似属性。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs lua">let myMap = new Map(<span class="hljs-string">[[&#x27;name&#x27;,&#x27;ren&#x27;],[&#x27;age&#x27;,12]]</span>);<br>console.<span class="hljs-built_in">log</span>(myMap);  //&#123;<span class="hljs-string">&#x27;name&#x27;</span>=&gt;<span class="hljs-string">&#x27;ren&#x27;</span>,<span class="hljs-string">&#x27;age&#x27;</span>=&gt;<span class="hljs-number">12</span>&#125;<br>myMap.set(<span class="hljs-string">&#x27;sex&#x27;</span>,<span class="hljs-string">&#x27;male&#x27;</span>);<br>console.<span class="hljs-built_in">log</span>(myMap);  //&#123;<span class="hljs-string">&#x27;name&#x27;</span>=&gt;<span class="hljs-string">&#x27;ren&#x27;</span>,<span class="hljs-string">&#x27;age&#x27;</span>=&gt;<span class="hljs-number">12</span>,<span class="hljs-string">&#x27;sex&#x27;</span>=&gt;<span class="hljs-string">&#x27;male&#x27;</span>&#125;<br>myMap.get(<span class="hljs-string">&#x27;name&#x27;</span>);  //<span class="hljs-string">&#x27;ren&#x27;</span><br>myMap.has(<span class="hljs-string">&#x27;age&#x27;</span>);  //<span class="hljs-literal">true</span><br>myMap.delete(<span class="hljs-string">&#x27;age&#x27;</span>);  //<span class="hljs-literal">true</span><br>myMap.has(<span class="hljs-string">&#x27;age&#x27;</span>);  //<span class="hljs-literal">false</span><br>myMap.get(<span class="hljs-string">&#x27;age&#x27;</span>);  //undefined<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　Map构造函数接收一个二维数组来创建一个Map对象。数组元素的第0位表示Map对象的key，第1位表示Map对象的value。</p>
+<p>　　Map对象使用set方法来新增数据，set方法接收两个参数，第一个表示key，第二个表示value。使用get方法获取数据，参数是对象的key。</p>
+<p>　　Map对象使用delete方法来删除数据，接收一个参数，表示需要被删除的key。</p>
+<p>　　Map对象使用has方法检测是否已经具有某个属性，返回boolean值。</p>
+<p>　　Set对象和Map对象类似，但它是用来存储一组唯一值的，而不是键值对。类似数组，但它的每个元素都是唯一的。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs scss">let mySet = new <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]);<br>console<span class="hljs-selector-class">.log</span>(mySet);  <span class="hljs-comment">//&#123;1,2,3&#125;</span><br>mySet<span class="hljs-selector-class">.add</span>(<span class="hljs-number">4</span>);<br>console<span class="hljs-selector-class">.log</span>(mySet);  <span class="hljs-comment">//&#123;1,2,3,4&#125;</span><br>mySet<span class="hljs-selector-class">.delete</span>(<span class="hljs-number">1</span>);  <span class="hljs-comment">//true</span><br>mySet<span class="hljs-selector-class">.has</span>(<span class="hljs-number">1</span>);  <span class="hljs-comment">//false</span><br>复制代码<br> 利用Set对象唯一性的特点，可以轻松实现数组的去重：<br>复制代码<br>let arr = <span class="hljs-selector-attr">[1,1,2,3,4,4]</span>;<br>let mySet = new <span class="hljs-built_in">Set</span>(arr);<br>let newArr = Array<span class="hljs-selector-class">.from</span>(mySet);<br>console<span class="hljs-selector-class">.log</span>(newArr);  <span class="hljs-comment">//[1,2,3,4]</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h4 id="2，对象新特性"><a href="#2，对象新特性" class="headerlink" title="2，对象新特性"></a>2，对象新特性</h4><p>　　创建对象的字面量方式可以更加简洁。直接使用变量名作为属性，函数体作为方法，最终变量值变成属性值，函数名变成方法名。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ini">let <span class="hljs-attr">name</span> = <span class="hljs-string">&#x27;ren&#x27;</span><span class="hljs-comment">;</span><br> let <span class="hljs-attr">age</span> = <span class="hljs-number">12</span><span class="hljs-comment">;</span><br> let <span class="hljs-attr">myself</span> = &#123;<br>     name,<br>     age,<br>     say()&#123;<br>         console.log(this.name)<span class="hljs-comment">;</span><br>     &#125;<br> &#125;<span class="hljs-comment">;</span><br>console.log(myself)<span class="hljs-comment">;  //&#123;name:&#x27;ren&#x27;,age:12,say:fn&#125;</span><br>myself.say()<span class="hljs-comment">;  //&#x27;ren&#x27;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　对象的拓展运算符(…)三点。用于拷贝目标对象所有可遍历的属性到当前对象。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ini">let <span class="hljs-attr">obj</span> = &#123;name:<span class="hljs-string">&#x27;ren&#x27;</span>,age:<span class="hljs-number">12</span>&#125;<span class="hljs-comment">;</span><br>let <span class="hljs-attr">person</span> = &#123;...obj&#125;<span class="hljs-comment">;</span><br>console.log(person)<span class="hljs-comment">;//&#123;name:&#x27;ren&#x27;,age:12&#125;</span><br><span class="hljs-attr">obj</span> == person<span class="hljs-comment">;//false</span><br>let <span class="hljs-attr">another</span> = &#123;sex:<span class="hljs-string">&#x27;male&#x27;</span>&#125;<span class="hljs-comment">;</span><br>let <span class="hljs-attr">someone</span> = &#123;...person,...another&#125;<span class="hljs-comment">;//合并对象</span><br>console.log(someone)<span class="hljs-comment">;//&#123;name:&#x27;ren&#x27;,age:12,sex:&#x27;male&#x27;&#125;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　ES6对象新增了两个方法，assign和is。</p>
+<p>　　assign用于浅拷贝源对象可枚举属性到目标对象。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css">let source = &#123;<span class="hljs-selector-tag">a</span>:&#123; <span class="hljs-selector-tag">b</span>: <span class="hljs-number">1</span>&#125;,<span class="hljs-selector-tag">b</span>: <span class="hljs-number">2</span>&#125;;<br>let target = &#123;c: <span class="hljs-number">3</span>&#125;;<br><span class="hljs-selector-tag">Object</span><span class="hljs-selector-class">.assign</span>(target, source);<br>console<span class="hljs-selector-class">.log</span>(target);  //&#123;c: <span class="hljs-number">3</span>, a: &#123;<span class="hljs-selector-tag">b</span>:<span class="hljs-number">1</span>&#125;, <span class="hljs-selector-tag">b</span>: <span class="hljs-number">2</span>&#125;<br>source<span class="hljs-selector-class">.a</span><span class="hljs-selector-class">.b</span> = <span class="hljs-number">2</span>;<br>console<span class="hljs-selector-class">.log</span>(target<span class="hljs-selector-class">.a</span><span class="hljs-selector-class">.b</span>);  //<span class="hljs-number">2</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　如果有同名属性，那么目标对象的属性值会被源对象的属性值覆盖。所以数组的表现就有一点特别了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Object.assign([1,2,3],[11,22,33,44]);//[11,22,33,44]">复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　数组的index就是属性名，当使用assign方法时，从第0位开始，目标数组的值便开始被源数组的值覆盖了。</p>
+<p>　　is方法和（&#x3D;&#x3D;&#x3D;）功能基本类似，用于判断两个值是否绝对相等。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vbnet"><span class="hljs-type">Object</span>.<span class="hljs-built_in">is</span>(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);//<span class="hljs-literal">true</span><br><span class="hljs-type">Object</span>.<span class="hljs-built_in">is</span>(<span class="hljs-number">1</span>,<span class="hljs-literal">true</span>);//<span class="hljs-literal">false</span><br><span class="hljs-type">Object</span>.<span class="hljs-built_in">is</span>([],[]);//<span class="hljs-literal">false</span><br><span class="hljs-type">Object</span>.<span class="hljs-built_in">is</span>(+<span class="hljs-number">0</span>,-<span class="hljs-number">0</span>);//<span class="hljs-literal">false</span><br><span class="hljs-type">Object</span>.<span class="hljs-built_in">is</span>(NaN,NaN);//<span class="hljs-literal">true</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　他们仅有的两点区别是，is方法可以区分+0还是-0，还有就是它认为NaN是相等的。</p>
+<h4 id="3，字符串新方法"><a href="#3，字符串新方法" class="headerlink" title="3，字符串新方法"></a>3，字符串新方法</h4><p>　　includes()判断字符串是否包含参数字符串，返回boolean值。如果想要知道参数字符串出现的位置，还是需要indexOf或lastIndexOf方法。</p>
+<p>　　startsWith()&#x2F;endsWith()，判断字符串是否以参数字符串开头或结尾。返回boolean值。这两个方法可以有第二个参数，一个数字，表示开始查找的位置。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">str</span> = <span class="hljs-symbol">&#x27;blue</span>,red,orange,white&#x27;;<br><span class="hljs-type">str</span>.<span class="hljs-title function_ invoke__">includes</span>(<span class="hljs-symbol">&#x27;blue</span>&#x27;);<span class="hljs-comment">//true</span><br><span class="hljs-type">str</span>.<span class="hljs-title function_ invoke__">startsWith</span>(<span class="hljs-symbol">&#x27;blue</span>&#x27;);<span class="hljs-comment">//true</span><br><span class="hljs-type">str</span>.<span class="hljs-title function_ invoke__">endsWith</span>(<span class="hljs-symbol">&#x27;blue</span>&#x27;);<span class="hljs-comment">//false</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　repeat()方法按指定次数返回一个新的字符串。如果次数是大于0的小数则向下取整，0到-1之间的小数则向上取整，其他负数将抛出错误。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lua">console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span>.<span class="hljs-keyword">repeat</span>(<span class="hljs-number">2</span>));//<span class="hljs-string">&#x27;hellohello&#x27;</span><br>console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span>.<span class="hljs-keyword">repeat</span>(<span class="hljs-number">1.9</span>));//<span class="hljs-string">&#x27;hello&#x27;</span><br>console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span>.<span class="hljs-keyword">repeat</span>(<span class="hljs-number">-0.9</span>));//<span class="hljs-string">&#x27;&#x27;</span><br>console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span>.<span class="hljs-keyword">repeat</span>(<span class="hljs-number">-1.9</span>));//<span class="hljs-built_in">error</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　padStart()&#x2F;padEnd()，用参数字符串按给定长度从前面或后面补全字符串，返回新字符串。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> arr = <span class="hljs-string">&#x27;hell&#x27;</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">padEnd</span>(<span class="hljs-number">5</span>,<span class="hljs-string">&#x27;o&#x27;</span>));  <span class="hljs-comment">//&#x27;hello&#x27;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">padEnd</span>(<span class="hljs-number">6</span>,<span class="hljs-string">&#x27;o&#x27;</span>));  <span class="hljs-comment">//&#x27;helloo&#x27;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">padEnd</span>(<span class="hljs-number">6</span>));  <span class="hljs-comment">//&#x27;hell  &#x27;,如果没有指定将用空格代替</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">padStart</span>(<span class="hljs-number">5</span>,<span class="hljs-string">&#x27;o&#x27;</span>));  <span class="hljs-comment">//&#x27;ohell&#x27;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　另外，如果字符串加上补全的字符串超出了给定的长度，那么，超出的部分将被截去。</p>
+<h4 id="4，数组的新方法"><a href="#4，数组的新方法" class="headerlink" title="4，数组的新方法"></a>4，数组的新方法</h4><p>　　of()是ES6新增的用于创建数组的方法。of把传入的参数当做数组元素，形成新的数组。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini">let <span class="hljs-attr">arr</span> = Array.of(<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;2&#x27;</span>,[<span class="hljs-number">3</span>],&#123;&#125;)<span class="hljs-comment">;</span><br>console.log(arr)<span class="hljs-comment">;   //[1,&#x27;2&#x27;,[3],&#123;&#125;]</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　from()方法可以将可迭代对象转换为新的数组。函数可接受3个参数：第一个表示将被转换的可迭代对象，第二个是回调函数，将对每个数组元素应用该回调函数，然后返回新的值到新数组，第三个是回到函数内this的指向。后两个参数是可选的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> obj = &#123;<br>    <span class="hljs-title function_">double</span>(<span class="hljs-params">n</span>) &#123;<br>        <span class="hljs-keyword">return</span> n * <span class="hljs-number">2</span>;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">from</span>(arr, <span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>)&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">double</span>(n);<br>&#125;, obj)); <span class="hljs-comment">// [2, 4, 6]</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　find()和findIndex()，查找数组中符合条件的元素值或索引，方法不会修改原数组。</p>
+<p>　　接受一个回调函数作为参数，函数可以接受四个参数，分别是当前遍历到的元素，当前遍历到的索引，数组本身以及函数内this的指向。方法会把回调函数作用于每一个遍历到的元素，如果遍历到某一个元素可以使回调函数返回true，那么find方法会立即返回该元素，findIndex方法会返回该元素的索引。并终止继续遍历。</p>
+<p>　　如果有多个符合条件的，也将只返回第一个。如果遍历完整个数组也无法是回调函数返回true，那么find方法将返回undefined，findIndex方法将返回-1。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>];<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">find</span>(<span class="hljs-function">(<span class="hljs-params">ele</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> ele === <span class="hljs-number">1</span>;<br>&#125;));<span class="hljs-comment">//1</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">findIndex</span>(<span class="hljs-function">(<span class="hljs-params">ele</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> ele &gt; <span class="hljs-number">4</span>;<br>&#125;));  <span class="hljs-comment">//4</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　fill()&#x2F;copyWithin()，替换数组中部分元素，会修改原数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>];<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">fill</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">3</span>));<span class="hljs-comment">//[0,0,0,4,5]</span><br><span class="hljs-comment">//参数1表示目标值，参数2，3表示替换的始末位置，左闭右开区间。</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr.<span class="hljs-title function_">copyWithin</span>(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>));<span class="hljs-comment">//[0,4,0,4,5]</span><br><span class="hljs-comment">//参数1表示修改的起始位置，参数2，3表示用来替换的数据的始末位置，左闭右开区间。</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　fill()用指定的值替换，copyWithin()使用数组中原有的某一部分值替换。</p>
+<p>　　includes()用于检测数组是否包含某个值，可以指定开始位置。</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">let</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]; console.<span class="hljs-built_in">log</span>(arr.includes(<span class="hljs-number">2</span>));//<span class="hljs-literal">true</span> console.<span class="hljs-built_in">log</span>(arr.includes(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>));//<span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="三、函数"><a href="#三、函数" class="headerlink" title="三、函数"></a>三、函数</h3><h4 id="1，参数默认值"><a href="#1，参数默认值" class="headerlink" title="1，参数默认值"></a>1，参数默认值</h4><p>　　ES6首次添加了参数默认值。我们再也不用在函数内部编写容错代码了。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs scss">function <span class="hljs-built_in">add</span>(a=<span class="hljs-number">1</span>,b=<span class="hljs-number">2</span>)&#123;<br>    return <span class="hljs-selector-tag">a</span> + <span class="hljs-selector-tag">b</span>;<br>&#125;<br><span class="hljs-built_in">add</span>();<span class="hljs-comment">//3</span><br><span class="hljs-built_in">add</span>(<span class="hljs-number">2</span>);<span class="hljs-comment">//4</span><br><span class="hljs-built_in">add</span>(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>);<span class="hljs-comment">//7</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　和参数默认值一起，ES6还带来了不定参。它的功能和使用arguments差不多。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">function</span> <span class="hljs-keyword">add</span>(...num)&#123;<br>    <span class="hljs-keyword">return</span> num.reduce(<span class="hljs-keyword">function</span>(<span class="hljs-keyword">result</span>,<span class="hljs-keyword">value</span>)&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">result</span> <span class="hljs-operator">+</span> <span class="hljs-keyword">value</span>;<br>    &#125;);<br>&#125;<br><span class="hljs-keyword">add</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>);<span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-number">10</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　下面介绍的箭头函数没有arguments属性，如果箭头函数内要实现不定参，上述方式就是一个不错的选择了。</p>
+<h4 id="2，箭头函数"><a href="#2，箭头函数" class="headerlink" title="2，箭头函数"></a>2，箭头函数</h4><p>　　箭头函数实现了一种更加简洁的书写方式，并且也解决了关键字声明方式的一些麻烦事儿。箭头函数内部没有arguments，也没有prototype属性，所以不能用new关键字调用箭头函数。</p>
+<p>　　箭头函数的书写方式：参数 &#x3D;&gt; 函数体。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ini">let <span class="hljs-attr">add</span> = (a,b) =&gt; &#123;<br>    return a+b<span class="hljs-comment">;</span><br>&#125;<br>let <span class="hljs-attr">print</span> = () =&gt; &#123;<br>    console.log(&#x27;hi&#x27;)<span class="hljs-comment">;</span><br>&#125;<br>let <span class="hljs-attr">fn</span> = a =&gt; a * a<span class="hljs-comment">;</span><br>//当只有一个参数时，括号可以省略，函数体只有单行return语句时，大括号也可以省略，强烈建议不要省略它们，是真的难以阅读<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　当函数需要直接返回对象时，你必须使用小括号把对象包裹起来。否则将抛出错误。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs markdown">const fn = () =&gt;&#123;name:&#x27;ren&#x27;,age:12&#125;;<br>// SyntaxError<br><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">**<span class="hljs-emphasis">*</span></span><br><span class="hljs-emphasis"><span class="hljs-strong">const fn = () =&gt;(&#123;name:&#x27;ren&#x27;,age:12&#125;);</span></span><br><span class="hljs-emphasis"><span class="hljs-strong">复制代码</span></span><br></code></pre></td></tr></table></figure>
+
+<p>　　箭头函数和普通函数最大的区别在于其内部this永远指向其父级AO对象的this。</p>
+<p>　　普通函数在预编译环节会在AO对象上添加this属性，保存一个对象（请参照《JavaScript之深入对象（二）》）。每个普通函数在执行时都有一个特定的this对象，而箭头函数执行时并不直接拥有this属性，如果你在箭头函数中使用this，将根据函数作用域链，直接引用父级AO对象上this绑定的对象。普通函数的AO对象只有在函数执行时才产生，换言之，普通函数的this是由函数执行时的环境决定。而箭头函数的特别之处在于，当函数被定义时，就引用了其父级AO对象的this，即箭头函数的this由定义时的环境决定。</p>
+<p>　　根据箭头函数的特点，不难推测：如果定义对象的方法直接使用箭头函数，那么函数内的this将直接指向window。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ini">var <span class="hljs-attr">age</span> = <span class="hljs-number">123</span><span class="hljs-comment">;</span><br> let <span class="hljs-attr">obj</span> = &#123;<br>     age:456,<br>     say:() =&gt; &#123;<br>         console.log(this.age)<span class="hljs-comment">;</span><br>     &#125;<br> &#125;<span class="hljs-comment">;</span><br>obj.say()<span class="hljs-comment">;   //123</span><br>//对象是没有执行期上下文的（AO对象），定义对象的方法实际上是在全局作用域下，即window<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　如果你一定要在箭头函数中让this指向当前对象，其实也还是有办法的（但是没必要这么麻烦啊，直接使用普通函数不是更好吗？）：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ini">var <span class="hljs-attr">age</span> = <span class="hljs-number">123</span><span class="hljs-comment">;</span><br> let <span class="hljs-attr">obj</span> = &#123;<br>     age:456,<br>     say:function()&#123;<br>         var <span class="hljs-attr">fn</span> = () =&gt; &#123;<br>         console.log(this.age)<span class="hljs-comment">;</span><br>        &#125;<br>         return fn()<span class="hljs-comment">;</span><br>      &#125;<br> &#125;<span class="hljs-comment">;</span><br>obj.say()<span class="hljs-comment">;  //456</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　我们来分析一下这是怎么做到的：首先，我们使用obj调用say方法时，say内创建了AO对象，并且该AO对象的this属性指向了obj（这里不明白的请回去复习一下我的《JavaScript之深入函数&#x2F;对象》），然后，say内部又声明了一个箭头函数。我们说箭头函数在声明时就要强行引用父级AO的this属性，那么现在该箭头函数的父级AO是谁呢？当然就是say的AO啦，所以这里箭头函数的this直接就绑定了obj，最后箭头函数在执行时拿到的this，实际上就是say方法的AO.this，即obj本身。</p>
+<p>　　上面是在对象中使用箭头函数，如果那让你难于理解，那么请看下面这种方式：在普通函数中使用箭头函数。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">var</span> obj = &#123;name:<span class="hljs-string">&#x27;ren&#x27;</span>&#125;;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">var</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> = (<span class="hljs-params"></span>) =&gt;</span> &#123;<br>        console.<span class="hljs-title function_ invoke__">log</span>(this);<br>    &#125;;<br>    <span class="hljs-function"><span class="hljs-keyword">fn</span>(<span class="hljs-params"></span>)</span>;<br>&#125;<br><span class="hljs-title function_ invoke__">test</span>();  <span class="hljs-comment">//window</span><br>test.<span class="hljs-title function_ invoke__">call</span>(obj);  <span class="hljs-comment">//&#123;name:&#x27;ren&#x27;&#125;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　test函数在全局执行时，其this指向window，这时也产生了箭头函数的定义，于是箭头函数内的this也被指向了window，所以最终打印出window对象。</p>
+<p>　　当我们手动改变test函数执行时this的指向时，箭头函数定义所绑定的this实际上也被我们修改了。所以最终打印出obj。</p>
+<h3 id="四、class（类）"><a href="#四、class（类）" class="headerlink" title="四、class（类）"></a>四、class（类）</h3><p>　　class 作为对象的模板被引入ES6，你可以通过 class 关键字定义类。class 的本质依然是一个函数。</p>
+<h4 id="1，创建类"><a href="#1，创建类" class="headerlink" title="1，创建类"></a>1，创建类</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Ex</span> &#123;   <span class="hljs-comment">//关键字声明方式</span><br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>)&#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">say</span> = <span class="hljs-function">() =&gt;</span> &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-title function_">methods</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;hello &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);<br>    &#125;<br>    <span class="hljs-keyword">static</span> a = <span class="hljs-number">123</span>;<br>    <span class="hljs-keyword">static</span> m = <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">a</span>);<br>    &#125;;<br>&#125;<br><span class="hljs-comment">//let ex = class&#123;&#125;  字面量方式</span><br><span class="hljs-keyword">var</span> example = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Ex</span>(<span class="hljs-string">&#x27;ren&#x27;</span>);<br>example.<span class="hljs-title function_">say</span>();    <span class="hljs-comment">//&#x27;ren&#x27;</span><br><span class="hljs-title class_">Ex</span>.<span class="hljs-title function_">m</span>();   <span class="hljs-comment">//123</span><br>example.<span class="hljs-title function_">methods</span>();  <span class="hljs-comment">//&#x27;hello ren&#x27;</span><br>复制代码<br>constructor是创建类必须的方法，当使用<span class="hljs-keyword">new</span>调用类创建实例时，将自动执行该方法，该方法和构造函数类似，默认返回<span class="hljs-variable language_">this</span>对象。实例的方法和属性都定义在constructor内部。相当于构造函数的<span class="hljs-variable language_">this</span>方式。<br>类保留了prototype属性，类中的方法不需要使用<span class="hljs-keyword">function</span>关键字，并且方法之间不需要逗号隔开。类中定义的方法实际上还是保存在类的prototype属性上。<br></code></pre></td></tr></table></figure>
+
+<p>　　</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 使用static关键字定义类的静态属性和方法。类中不能定义共有属性，要想定义实例的共有属性还是需要使用prototype属性：Ex.prototype.属性名">复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　创建实例依然使用new关键字。</p>
+<h4 id="2、类的继承"><a href="#2、类的继承" class="headerlink" title="2、类的继承"></a>2、类的继承</h4><p>　</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs scala">类的继承通过<span class="hljs-keyword">extends</span>关键字实现。<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;<br>    constructor (name,age)&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.age = age;<br>    &#125;<br>    say()&#123;<br>        console.log(<span class="hljs-keyword">this</span>.name + &#x27;:&#x27; + <span class="hljs-keyword">this</span>.age);<br>    &#125;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span></span>&#123;<br>    constructor (name,age,sex)&#123;<br>        <span class="hljs-keyword">super</span>(name,age);<br>        <span class="hljs-keyword">this</span>.sex = sex;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">var</span> student = <span class="hljs-keyword">new</span> <span class="hljs-type">Student</span>(&#x27;ren&#x27;,<span class="hljs-number">12</span>,&#x27;male&#x27;);<br>student.name;  <span class="hljs-comment">//&#x27;ren&#x27;</span><br>student.sex;  <span class="hljs-comment">//&#x27;male&#x27;</span><br>student.say();  <span class="hljs-comment">//&#x27;ren:12&#x27;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　子类继承自父类，不会隐式的创建自己的this对象，而是通过super()引用父类的this。这个过程和在子构造函数内使用父构造函数call(this)很像，但他们有本质的区别。另外，ES6规定，super()必须在子类的this之前执行。所以一般我们把super()放在子类constructor方法的第一行，这样准没错！</p>
+<h3 id="五、模块导入和导出"><a href="#五、模块导入和导出" class="headerlink" title="五、模块导入和导出"></a>五、模块导入和导出</h3><h4 id="1，导入"><a href="#1，导入" class="headerlink" title="1，导入"></a>1，导入</h4><p>　　ES6使用关键字 import 导入模块（文件），有两种常用的方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> ‘模块名称’ <span class="hljs-keyword">from</span> ‘路径’；<br><span class="hljs-keyword">import</span>  ‘路径’；<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　通过 import…from 的方式引入模块，模块名称实际上相当于定义一个变量，用来接收即将导入的模块。</p>
+<p>　　路径可以有很多方式，既可以是绝对路径，也可以是相对路径，甚至只是一个简单的模块名称，更甚至连文件后缀都不需要。当你使用该命令时，系统会自动从配置文件中指定的路径中去寻找并加载正确的文件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue&quot;</span>;<br><span class="hljs-comment">//完整路劲其实是 &quot;../node_modules/vue/dist/vue.js&quot;;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　通过 import… 的方式一般用来引入样式文件或预处理文件，因为他们不需要用变量来接收。</p>
+<h4 id="2，导出"><a href="#2，导出" class="headerlink" title="2，导出"></a>2，导出</h4><p>　　ES6 通过 export 和export default 导出模块。导出的含义是向外暴露、输出，在一个文件中通过 import 导入另一个文件，通过变量即可以接收到导出的数据了。一般情况下，JS文件可以向外输出变量、函数和对象。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini">let <span class="hljs-attr">name</span> = <span class="hljs-string">&#x27;ren&#x27;</span>,age = <span class="hljs-number">12</span><span class="hljs-comment">;</span><br>export &#123;name,age&#125;<span class="hljs-comment">;</span><br>//注意：变量需要用大括号包裹，然后才能向外输出<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　如果仅需向外暴露一个变量：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini">export var <span class="hljs-attr">name</span> = <span class="hljs-string">&#x27;ren&#x27;</span><span class="hljs-comment">;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　使用 export 向外输出函数的用法和变量相同，这里不再举例。</p>
+<p>　　总结：使用 export 向外输出成员时，可以同时输出多个，并且必须用‘｛｝’大括号包裹，在其他地方使用 import 导入时，接收成员的变量名必须和这里输出的名称一致，同时，可以根据实际情况，仅接收实际需要的的成员（接收的时候也要用大括号包裹）。</p>
+<p>　　如果希望通过 export 向外暴露成员，并且在导入的时候自定义接收名称，那么你可以使用 as 关键字重命名。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> name = <span class="hljs-string">&#x27;ren&#x27;</span>, age = <span class="hljs-number">12</span>;<br><span class="hljs-keyword">export</span> &#123;name, age&#125;;<br> <br><span class="hljs-keyword">import</span> &#123;name <span class="hljs-keyword">as</span> myName, age <span class="hljs-keyword">as</span> myAge&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;url&#x27;</span>;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　与 export 相比，export default 有以下几点不同：首先，在同一个模块中，export default 只允许向外暴露一次成员；然后，这种方式可以使用任意的名称接收，不像 export 那样有严格的要求；最后，export 和 export default 可以在同一模块中同时存在。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ini">let <span class="hljs-attr">person</span> = &#123;name:<span class="hljs-string">&#x27;ren&#x27;</span>&#125;<span class="hljs-comment">;</span><br>let <span class="hljs-attr">age</span> = <span class="hljs-number">12</span><span class="hljs-comment">;</span><br>let <span class="hljs-attr">address</span> = <span class="hljs-string">&#x27;cd&#x27;</span><span class="hljs-comment">;</span><br>export default person<span class="hljs-comment">;</span><br>export &#123;age&#125;<span class="hljs-comment">;</span><br>export &#123;address&#125;<span class="hljs-comment">;</span><br> <br>import man,&#123;age,address&#125; from &#x27;url&#x27;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>　　小技巧：通常 import 无法直接被浏览器识别，即如果在HTML文档中引入的 JS 文件直接使用了 import 关键字，浏览器会报错。要想直接在被HTML文档引用的 JS 文件中使用 import，需要给该 </p>
+<h3 id="六-异步机制"><a href="#六-异步机制" class="headerlink" title="六　　异步机制"></a>六　　异步机制</h3><p>　　ES6新增了两种实现异步的新机制，Promise和Generator。文笔有限，怕讲的不清楚，误人子弟，请有兴趣的同学去下面的链接继续学习，廖老师的教程也是受很多人推崇的，当然MDN更官方。</p>
+<p>　　1，Promise</p>
+<p>　　<a href="https://link.juejin.cn/?target=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;…</a></p>
+<p>　　<a href="https://link.juejin.cn/?target=https://www.liaoxuefeng.com/wiki/1022910821149312/1023024413276544">www.liaoxuefeng.com/wiki/102291…</a></p>
+<p>　　2，Generator</p>
+<p>　　[developer.mozilla.org&#x2F;zh-CN&#x2F;docs&#x2F;…](</p>
+<h2 id="7"><a href="#7" class="headerlink" title="7"></a>7</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1/" class="category-chain-item">前端八股</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+      
+        <a href="/blog/tags/%E8%AE%A1%E7%AE%97/">#计算</a>
+      
+        <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">#工具</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>前端八股 ｜ 工具篇</div>
+      <div>https://yoonalis.github.io/blog/2023/04/06/前端八股 ｜ 工具篇/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Azure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2023/04/06/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%20%EF%BD%9C%20React%E7%AF%87/" title="前端八股 ｜ react篇">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端八股 ｜ react篇</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2023/04/06/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%20%EF%BD%9Cjs%E7%AF%87/" title="前端八股 ｜ js篇">
+                        <span class="hidden-mobile">前端八股 ｜ js篇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
