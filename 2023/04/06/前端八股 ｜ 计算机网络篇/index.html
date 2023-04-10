@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
 <meta property="article:published_time" content="2023-04-06T13:30:26.331Z">
-<meta property="article:modified_time" content="2023-04-07T06:13:43.160Z">
+<meta property="article:modified_time" content="2023-04-10T02:08:58.404Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="计算">
@@ -250,7 +250,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          62k 字
+          81k 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
           <!-- compatible with older versions-->
-          514 分钟
+          675 分钟
         
       </span>
     
@@ -1731,7 +1731,399 @@
 <p>关于这个事件队列的执行机制，以及对于 <code>微任务</code> 与 <code>宏任务</code> 云里雾里的，可以查阅<a target="_blank" rel="noopener" href="https://juejin.cn/post/6886602875225833480">一文搞懂JS系列（六）之微任务与宏任务，Event Loop</a></p>
 <h3 id="一图概览"><a href="#一图概览" class="headerlink" title="一图概览"></a>一图概览</h3><p>所以，综上所述，浏览器的进程和线程可以用下面的一张图概括：</p>
 <p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0a8d76c9f5cf445bb752b61eed7a99a5~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.image" srcset="/blog/img/loading.gif" lazyload alt="image.png"></p>
-<h2 id="13"><a href="#13" class="headerlink" title="13"></a>13</h2><h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
+<h2 id="13-计算机分层模型"><a href="#13-计算机分层模型" class="headerlink" title="13 计算机分层模型"></a>13 计算机分层模型</h2><h3 id="1-计算机网络的分层"><a href="#1-计算机网络的分层" class="headerlink" title="1. 计算机网络的分层"></a>1. 计算机网络的分层</h3><p>在计算机网络体系中，采用<strong>层次化</strong>的思想，将通信协议中必要的功能进行分层，每一层都接收由它下一层所提供的特定服务，并且负责为自己的上一层提供特定的服务。上下层之间进行交互所遵循的约定叫做『接口』，同一层之间进行交互所遵循的约定叫做『协议』。</p>
+<ul>
+<li>『接口』即相邻两层之间交换位置的连接点，是上层使用下层服务的入口。</li>
+<li>『协议』即通信双方所做的一些约定，比如怎么开始通信、信息的格式与顺序、怎么结束通信等。协议非常重要，我们在学习计算机网络过程中，重点就是理解各种协议，如 HTTP、DNS、TCP 等。只有通信双方同时支持相同协议，才能进行通信。就像人类之间通信交流一样，假如一个人只会英文，那么给他说中文，就会不知所云。</li>
+</ul>
+<p>计算机网络为什么要采用分层模型呢？主要原因在于分层存在以下优势：</p>
+<ul>
+<li>分层是软件设计中的一个常见套路，它也是一种常见解耦的思路，可以有效减少程序中出现『牵一发而动全身』的情况。将每个分层独立使用，灵活性更强，<strong>即使系统中某些分层发生变化，也不会波及整个系统。</strong></li>
+<li>分层也可以将复杂的网络问题分解为许多比较小的、界线比较清晰简单的部分来处理，从而<strong>更易于单独实现每个分层的协议，并界定各个分层的具体责任和义务。</strong></li>
+</ul>
+<p>当然也不是分层越多越好，即分层可能也存在一些劣势，比如有时可能会过分模块化，使处理变得更加沉重以及不同模块可能要处理相似的逻辑，从而出现冗余等问题。</p>
+<h3 id="2-常见参考模型"><a href="#2-常见参考模型" class="headerlink" title="2. 常见参考模型"></a>2. 常见参考模型</h3><p>在计算机通信的初期，每家计算机厂商都生产各自的网络产品来实现计算机通信。而由于缺乏标准化，不同厂商设定的各种协议之间不兼容，无法跨厂商通信，非常不方便。</p>
+<p>为了解决上述问题，国际标准化组织 ISO 制定了一个国际标准 <code>OSI 参考模型</code> ，将计算机网络体系划分为 7 层，对通信系统进行了标准化。此模型概念清晰，但非常复杂，实现较为困难，并没有得到普及。</p>
+<p>出于实用的目的， ARPA 提出了 <code>TCP/IP 参考模型</code>（其实比 OSI 模型出现更早），将计算机网络划分为 4 层。此模型在标准制定过程中将真正能够实现通信的技术作为首要任务（更看重的是如何实现，而不是理论），并且一旦发现有什么问题，就及时修改程序、协议或相应文档，模型更加简洁，且实用性更强，最终成为了<strong>业界标准</strong>。但是 TCP&#x2F;IP 最下面的网络接口层概念并不清晰，没有什么具体内容。</p>
+<p>为了方便理解计算机网络原理，在计算机网络教程中，通常综合 OSI 7 层模型和 TCP&#x2F;IP 4 层模型的优缺点，将计算机网络分为 5 层，既简洁又能将概念阐述更加清楚（当然实际上应用的还是 TCP&#x2F;IP 模型）。</p>
+<p>几种计算机网络参考模型的示意图如下：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/89ad704c862d4a70a0cd6f2af1a6ef6d~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="image-20221202222222759.png"></p>
+<h3 id="3-5-层参考模型简介"><a href="#3-5-层参考模型简介" class="headerlink" title="3. 5 层参考模型简介"></a>3. 5 层参考模型简介</h3><ul>
+<li><p><strong>应用层</strong></p>
+<p>应用层的传输单位是<code>报文</code>，<strong>任务是完成特定网络应用，比如传输电子邮件、传送文件、请求与响应 Web 文档等具体网络功能</strong>，用户直接接触到的就是这一层，常见协议有 HTTP、FTP、DNS、SMTP。</p>
+</li>
+<li><p><strong>传输层</strong></p>
+<p>传输层的传输单位是<code>报文段</code>，<strong>任务是为不同进程之间提供通信服务。</strong> 一台主机上可能运行着很多进程（比如用户可能一边听着歌，一边聊着天，运行着不同的进程，那么就需要知道数据应该发送给哪个进程），通过端口号进行区分。常见协议有 TCP、UDP。</p>
+</li>
+<li><p><strong>网络层</strong></p>
+<p>网络层的传输单位是<code>数据报（包）</code>，<strong>任务是为不同网络主机之间提供通信服务，把数据从源端传到目的端。</strong> 使用 IP 地址来标识网络上的设备。除了<strong>寻址</strong>之外还需要进行<strong>路由选择</strong>，从主机 A 向主机 B 传输数据的时候，有很多条可以选择的路由，网络层利用相应的路由算法计算出⼀条合适的道路。常见协议有 IP、ICMP。</p>
+</li>
+<li><p><strong>数据链路层</strong></p>
+<p>数据链路层的传输单位是<code>帧</code>，<strong>任务是为物理层面上互连的、同一链路上的不同节点（主机或路由器）之间提供通信服务</strong>。例如与 1 个以太网相连的 2 个节点之间的通信。使用 MAC 地址来标识网络上的设备。数据链路层还提供流量控制、差错控制等功能。</p>
+<p>网络把许多计算机连接在一起，而互联网则把许多网络通过路由器连接在一起，因此互联网也称为『网络的网络』。通常把单个的网络简化成一条链路，数据链路层服务于同一个链路中的不同节点。</p>
+<p>通信链路分为多种（如以太网、WIFI、电缆接入网），由不同类型的物理媒体组成（如光纤、双绞线、同轴电缆）。不同网络主机之间可能相距很远，之间跨越很多条链路。就像我们从北京公司去南京老家，可能会经过高速公路、城市道路、乡村小道等不同道路。</p>
+</li>
+<li><p><strong>物理层</strong></p>
+<p>物理层的传输单位是<code>⽐特</code>，<strong>任务是透明的传输比特流（0&#x2F;1 信号）</strong> 。（透明传输就是不管所传数据是什么样的比特组合，都应当能在链路上传送）</p>
+</li>
+</ul>
+<p>当两台计算机在进行通信的过程中，数据将会经过计算机网络的不同层级。<strong>发送端在层与层之间传输数据时，每经过一层都会添加一个该层所属的首部信息</strong>（封装），比如传输层会加上源端口号和目的端口号等信息、网络层会加上源 IP 地址和目标 IP 地址等信息、数据链路层会加上源 MAC 地址和目标 MAC 地址。反之，<strong>接收端在层与层传输数据时，每经过一层时会把对应的首部消去</strong>（解封装）。</p>
+<p>这就类似于寄快递，商家寄件的时候会加上包装盒、包装袋、寄件信息贴纸等，一层层包装，而消费者收件的时候则需要一层层去掉包装，得到最终的商品。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/22bd47144eea47bab94ddd029639dfef~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="image-20221201221832522.png"></p>
+<h2 id="14-死锁"><a href="#14-死锁" class="headerlink" title="14 死锁"></a>14 死锁</h2><h3 id="一、死锁的概念"><a href="#一、死锁的概念" class="headerlink" title="一、死锁的概念"></a><strong>一、死锁的概念</strong></h3><p>在许多应用中进程需要以<strong>独占</strong>的方式访问资源，当操作系统允许多个进程并发执行时可能会出现进程永远被阻塞现象，如两个进程分别等待对方所占的资源，于是两者都不能执行而<strong>处于永远等待状态</strong>，此现象称为<strong>死锁</strong>。</p>
+<blockquote>
+<p>死锁通常被定义为：如果一个进程集合中的每个进程都在等待只能由此集合中的其他进程才能引发的事件，而无限期陷入僵持的局面称为死锁。</p>
+</blockquote>
+<h3 id="二、死锁产生的条件"><a href="#二、死锁产生的条件" class="headerlink" title="二、死锁产生的条件"></a><strong>二、死锁产生的条件</strong></h3><ul>
+<li>互斥条件<br>临界资源是独占资源，进程应互斥且排他的使用这些资源。</li>
+<li>占有和等待条件<br>进程在请求资源得不到满足而等待时，不释放已占有资源。</li>
+<li>不剥夺条件<br>又称不可抢占，已获资源只能由进程自愿释放，不允许被其他进程剥夺。</li>
+<li>循环等待条件<br>又称环路条件，存在循环等待链，其中，每个进程都在等待链中等待下一个进程所持有的资源，造成这组进程处于永远等待状态。</li>
+</ul>
+<p><strong>死锁只有在这四个条件同时满足时出现。</strong></p>
+<h3 id="三、死锁产生的原因"><a href="#三、死锁产生的原因" class="headerlink" title="三、死锁产生的原因"></a><strong>三、死锁产生的原因</strong></h3><p>死锁产生的原因有很多，如：</p>
+<ul>
+<li>进程顺序不当</li>
+<li>PV操作使用不妥</li>
+<li>同类资源分配不均</li>
+<li>对某些资源的使用未加限制</li>
+</ul>
+<p>等等。</p>
+<blockquote>
+<p>可见，产生死锁的原因不仅与系统拥有的资源数量有关，而且与资源分配策略、进程对资源的使用要求以及进程的推进顺序有关。</p>
+</blockquote>
+<h3 id="四、死锁解决的方法"><a href="#四、死锁解决的方法" class="headerlink" title="四、死锁解决的方法"></a><strong>四、死锁解决的方法</strong></h3><p>主要有一下三种方法：</p>
+<ul>
+<li>死锁防止</li>
+<li>死锁避免</li>
+<li>死锁检测和恢复</li>
+</ul>
+<h4 id="4-1-死锁防止"><a href="#4-1-死锁防止" class="headerlink" title="4.1 死锁防止"></a><strong>4.1 死锁防止</strong></h4><p><strong>在程序运行之前防止发生死锁。</strong></p>
+<p>前面说了死锁产生的条件有四个，分别是：互斥条件、占有和等待条件、不剥夺条件、循环等待条件。</p>
+<p><strong>而死锁防止的策略就是至少破坏这四个条件其中一项。</strong></p>
+<h5 id="4-1-1-破坏互斥条件"><a href="#4-1-1-破坏互斥条件" class="headerlink" title="4.1.1 破坏互斥条件"></a><strong>4.1.1 破坏互斥条件</strong></h5><p>使资源同时访问而非互斥使用，就没有进程会阻塞在资源上，从而不发生死锁。</p>
+<blockquote>
+<p>只读数据文件、磁盘等软硬件资源均可采用这种办法管理；<br>但是许多资源是独占性资源，如可写文件、键盘等只能互斥的占有；<br>所以这种做法在许多场合是不适用的。</p>
+</blockquote>
+<h5 id="4-1-2-破坏占有和等待条件"><a href="#4-1-2-破坏占有和等待条件" class="headerlink" title="4.1.2 破坏占有和等待条件"></a><strong>4.1.2 破坏占有和等待条件</strong></h5><p>采用静态分配的方式，静态分配的方式是指进程必须在执行之前就申请需要的全部资源，且直至所要的资源全部得到满足后才开始执行。</p>
+<blockquote>
+<p>实现简单，但是严重的减低了资源利用率。<br>因为在每个进程占有的资源中，有些资源在运行后期使用，有些资源在例外情况下才被使用，可能会造成进程占有一些几乎用不到的资源，而使其他想使用这些资源的进程等待。</p>
+</blockquote>
+<h5 id="4-1-3-破坏不剥夺条件"><a href="#4-1-3-破坏不剥夺条件" class="headerlink" title="4.1.3 破坏不剥夺条件"></a><strong>4.1.3 破坏不剥夺条件</strong></h5><p>剥夺调度能够防止死锁，但是只适用于内存和处理器资源。</p>
+<p>方法一：占有资源的进程若要申请新资源，必须主动释放已占有资源，若需要此资源，应该向系统重新申请。</p>
+<p>方法二：资源分配管理程序为进程分配新资源时，若有则分配；否则将剥夺此进程已占有的全部资源，并让进程进入等待资源状态，资源充足后再唤醒它重新申请所有所需资源。</p>
+<h5 id="4-1-4-破坏循环等待条件"><a href="#4-1-4-破坏循环等待条件" class="headerlink" title="4.1.4 破坏循环等待条件"></a><strong>4.1.4 破坏循环等待条件</strong></h5><p>给系统的所有资源编号，规定进程请求所需资源的顺序必须按照资源的编号依次进行。</p>
+<blockquote>
+<p>采用层次分配策略，将系统中所有的资源排列到不同层次中</p>
+</blockquote>
+<ul>
+<li>一个进程得到某层的一个资源后，只能申请较高一层的资源</li>
+<li>当进程释放某层的一个资源时，必须先释放所占有的较高层的资源</li>
+<li>当进程获得某层的一个资源时，如果想申请同层的另一个资源，必须先释放此层中已占有的资源</li>
+</ul>
+<h4 id="4-2死锁避免"><a href="#4-2死锁避免" class="headerlink" title="4.2死锁避免"></a><strong>4.2死锁避免</strong></h4><blockquote>
+<p>各种死锁防止方法能够防止发生死锁，但必然会降低系统并发性，导致低效的资源利用率。</p>
+</blockquote>
+<p><strong>在程序运行时避免发生死锁。</strong></p>
+<h5 id="4-2-1-安全状态"><a href="#4-2-1-安全状态" class="headerlink" title="4.2.1 安全状态"></a><strong>4.2.1 安全状态</strong></h5><p><img src="https://pic2.zhimg.com/80/v2-72ae2b390bb3628b373265661676079d_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图 a 的第二列 Has 表示已拥有的资源数，第三列 Max 表示总共需要的资源数，Free 表示还有可以使用的资源数。从图 a 开始出发，先让 B 拥有所需的所有资源（图 b），运行结束后释放 B，此时 Free 变为 5（图 c）；接着以同样的方式运行 C 和 A，使得所有进程都能成功运行，因此可以称图 a 所示的状态时安全的。</p>
+<p>定义：如果没有死锁发生，并且即使所有进程突然请求对资源的最大需求，也仍然存在某种调度次序能够使得每一个进程运行完毕，则称该状态是安全的。</p>
+<p>安全状态的检测与死锁的检测类似，因为安全状态必须要求不能发生死锁。下面的银行家算法与死锁检测算法非常类似，可以结合着做参考对比。</p>
+<h5 id="4-2-2单个资源的银行家算法"><a href="#4-2-2单个资源的银行家算法" class="headerlink" title="4.2.2单个资源的银行家算法"></a><strong>4.2.2单个资源的银行家算法</strong></h5><p>一个小城镇的银行家，他向一群客户分别承诺了一定的贷款额度，算法要做的是判断对请求的满足是否会进入不安全状态，如果是，就拒绝请求；否则予以分配。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-849e1f710f9a7cf648c07c69f81a5da3_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>上图 c 为不安全状态，因此算法会拒绝之前的请求，从而避免进入图 c 中的状态。</p>
+<h5 id="4-2-3-多个资源的银行家算法"><a href="#4-2-3-多个资源的银行家算法" class="headerlink" title="4.2.3 多个资源的银行家算法"></a><strong>4.2.3 多个资源的银行家算法</strong></h5><p><img src="https://pic3.zhimg.com/80/v2-7ae7ff0a84197797b63e38184a466fc6_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>上图中有五个进程，四个资源。左边的图表示已经分配的资源，右边的图表示还需要分配的资源。最右边的 E、P 以及 A 分别表示：总资源、已分配资源以及可用资源，注意这三个为向量，而不是具体数值，例如 A&#x3D;(1020)，表示 4 个资源分别还剩下 1&#x2F;0&#x2F;2&#x2F;0。</p>
+<p>检查一个状态是否安全的算法如下：</p>
+<ul>
+<li>查找右边的矩阵是否存在一行小于等于向量 A。如果不存在这样的行，那么系统将会发生死锁，状态是不安全的。</li>
+<li>假若找到这样一行，将该进程标记为终止，并将其已分配资源加到 A 中。</li>
+<li>重复以上两步，直到所有进程都标记为终止，则状态时安全的。</li>
+</ul>
+<p>如果一个状态不是安全的，需要拒绝进入这个状态。</p>
+<h4 id="4-3-死锁检测和恢复"><a href="#4-3-死锁检测和恢复" class="headerlink" title="4.3 死锁检测和恢复"></a><strong>4.3 死锁检测和恢复</strong></h4><blockquote>
+<p>对资源的分配加以适当限制可防止或避免死锁发生，但不利于进程对系统资源的充分共享。</p>
+</blockquote>
+<p><strong>不试图阻止死锁，而是当检测到死锁发生时，采取措施进行恢复。</strong></p>
+<blockquote>
+<p>如果进程 - 资源分配图中无环路，此时系统没有发生死锁。<br>如果进程 - 资源分配图中有环路，则可分为以下两种情况：</p>
+</blockquote>
+<ul>
+<li>每种资源类中仅有一个资源，则系统发生了死锁。此时，环路是系统发生死锁的<strong>充分必要条件</strong>，环路中的进程就是死锁进程。</li>
+<li>每种资源类中有多个资源，则环路的存在只是产生死锁的<strong>必要不充分条件</strong>，系统未必会发生死锁。</li>
+</ul>
+<p><strong>下面详细说一下这两种情况：</strong></p>
+<h5 id="4-3-1-每种资源类中仅有一个资源的死锁检测"><a href="#4-3-1-每种资源类中仅有一个资源的死锁检测" class="headerlink" title="4.3.1 每种资源类中仅有一个资源的死锁检测"></a><strong>4.3.1 每种资源类中仅有一个资源的死锁检测</strong></h5><p><img src="https://pic2.zhimg.com/80/v2-15d05471cb6d97558eac7c026f2fc7d5_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>上图为资源分配图，其中方框表示资源，圆圈表示进程。资源指向进程表示该资源已经分配给该进程，进程指向资源表示进程请求获取该资源。</p>
+<p>图 a 可以抽取出环，如图 b，它满足了环路等待条件，因此会发生死锁。</p>
+<blockquote>
+<p>比如：进程D需要的资源是U、T；进程G需要的资源是V、U；进程E需要的资源是T、V<br>此时进程D占有资源U，进程E占有资源T，进程G占有资源V<br>所以此时导致进程D、E、G所申请的资源不能得到全部满足，陷入死锁。</p>
+</blockquote>
+<p><strong>死锁检测算法：</strong></p>
+<p>每种类型一个资源的死锁检测算法是通过检测有向图是否存在环来实现，从一个节点出发进行深度优先搜索，对访问过的节点进行标记，如果访问了已经标记的节点，就表示有向图存在环，也就是检测到死锁的发生。</p>
+<h5 id="4-3-2-每种资源类中有多个资源的死锁检测"><a href="#4-3-2-每种资源类中有多个资源的死锁检测" class="headerlink" title="4.3.2 每种资源类中有多个资源的死锁检测"></a><strong>4.3.2 每种资源类中有多个资源的死锁检测</strong></h5><p><img src="https://pic1.zhimg.com/80/v2-b7e8ba213e6589be48c923a4b0bb43b4_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>每个资源类用一个方框表示，方框中的原点表示此资源类中的各个资源；</p>
+<p>每个进程用一个圆圈来表示，用有向边表示进程申请资源和资源分配情况。</p>
+<p>约定方框→圆圈表示资源分配，圆圈→方框表示申请资源。</p>
+<p>这种情况下，图3-6 发生了死锁，而图3-7没有发生死锁。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-7f7aaa0aaa4d147df95c9a931b146809_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><strong>死锁检测算法:</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-fda5b7573cc9383034d75d8993277ed5_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>上图中，有三个进程四个资源，每个数据代表的含义如下：</p>
+<ul>
+<li>E 向量：资源总量</li>
+<li>A 向量：资源剩余量</li>
+<li>C 矩阵：每个进程所拥有的资源数量，每一行都代表一个进程拥有资源的数量</li>
+<li>R 矩阵：每个进程请求的资源数量</li>
+</ul>
+<p>进程 P1 和 P2 所请求的资源都得不到满足，只有进程 P3 可以，让 P3 执行，之后释放 P3 拥有的资源，此时 A &#x3D; (2 2 2 0)。P2 可以执行，执行后释放 P2 拥有的资源，A &#x3D; (4 2 2 1) 。P1 也可以执行。所有进程都可以顺利执行，没有死锁。</p>
+<p>算法总结如下：</p>
+<p>每个进程最开始时都不被标记，执行过程有可能被标记。当算法结束时，任何没有被标记的进程都是死锁进程。</p>
+<ol>
+<li>寻找一个没有标记的进程 Pi，它所请求的资源小于等于 A。</li>
+<li>如果找到了这样一个进程，那么将 C 矩阵的第 i 行向量加到 A 中，标记该进程，并转回 1。</li>
+<li>如果没有这样一个进程，算法终止。</li>
+</ol>
+<h5 id="4-3-3-死锁恢复"><a href="#4-3-3-死锁恢复" class="headerlink" title="4.3.3 死锁恢复"></a><strong>4.3.3 死锁恢复</strong></h5><ul>
+<li><p>资源剥夺法<br>剥夺陷于死锁的进程所占用的资源，但并不撤销此进程，直至死锁解除。</p>
+</li>
+<li><p>进程回退法<br>根据系统保存的检查点让所有的进程回退，直到足以解除死锁，这种措施要求系统建立保存检查点、回退及重启机制。</p>
+</li>
+<li><p>进程撤销法</p>
+</li>
+<li><ul>
+<li>撤销陷入死锁的所有进程，解除死锁，继续运行。</li>
+<li>逐个撤销陷入死锁的进程，回收其资源并重新分配，直至死锁解除。</li>
+</ul>
+</li>
+</ul>
+<p>可选择符合下面条件之一的先撤销： 1.CPU消耗时间最少者 2.产生的输出量最小者<br>3.预计剩余执行时间最长者 4.分得的资源数量最少者后优先级最低者</p>
+<ul>
+<li>系统重启法<br>结束所有进程的执行并重新启动操作系统。这种方法很简单，但先前的工作全部作废，损失很大。</li>
+</ul>
+<h2 id="15-tls的实现过程"><a href="#15-tls的实现过程" class="headerlink" title="15 tls的实现过程"></a>15 tls的实现过程</h2><h3 id="TLS-x2F-SSL-基础概念"><a href="#TLS-x2F-SSL-基础概念" class="headerlink" title="TLS&#x2F;SSL 基础概念"></a>TLS&#x2F;SSL 基础概念</h3><p>概念源自百度百科：传输层安全性协议 TLS（Transport Layer Security），及其前身安全套接层 SSL（Secure Sockets Layer）是一种安全协议，目的是为互联网通信提供安全及数据完整性保障。网景公司（Netscape）在 1994 年推出首版网页浏览器，网景导航者时，推出 HTTPS 协议，以 SSL 进行加密，这是 SSL 的起源。IETF 将 SSL 进行标准化，1999 年公布第一版 TLS 标准文件。随后又公布RFC 5246（2008年8月）与RFC 6176（2011年3月）。在浏览器、邮箱、即时通信、VoIP、网络传真等应用程序中，广泛支持这个协议。主要的网站，如 Google、Facebook 等也以这个协议来创建安全连线，发送数据。目前已成为互联网上保密通信的工业标准。</p>
+<p>TLS&#x2F;SSL 的功能实现主要依赖于三类基本算法：散列函数 Hash、对称加密和非对称加密，其利用非对称加密实现身份认证和密钥协商，对称加密算法采用协商的密钥对数据加密，基于散列函数验证信息的完整性。  </p>
+<h3 id="散列函数-Hash"><a href="#散列函数-Hash" class="headerlink" title="散列函数 Hash"></a>散列函数 Hash</h3><p>常见的有 MD5、SHA1、SHA256，该类函数特点是函数单向不可逆、对输入非常敏感、输出长度固定，针对数据的任何修改都会改变散列函数的结果，用于防止信息篡改并验证数据的完整性。在信息传输过程中，散列函数不能单独实现信息防篡改，因为明文传输，中间人可以修改信息之后重新计算信息摘要，因此需要对传输的信息以及信息摘要进行加密。</p>
+<h3 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h3><p>常见的有 AES-CBC、DES、3DES、AES-GCM 等，信息的加密和解密用相同的密钥，掌握密钥才能获取信息。在对称加密中，信息安全的基础是保证密钥的安全。</p>
+<h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><p>即常见的 RSA 算法，还包括 ECC、DH 等算法，算法特点是，密钥成对出现，一般称为公钥(公开)和私钥(保密)。因此掌握公钥的不同客户端之间不能互相解密信息，只能和掌握私钥的服务器进行加密通信。服务器持有私钥可以实现一对多的通信，而客户端可以用公钥来验证服务器发送的数字签名。服务器只需要维持一个私钥就能够和多个客户端进行加密通信，但该算法的计算复杂，加密速度慢。</p>
+<p>结合三类算法的特点，TLS&#x2F;SSL 的基本工作方式是，客户端使用非对称加密与服务器进行通信，实现身份验证并协商对称加密使用的密钥，然后对称加密算法采用协商密钥对信息以及信息摘要进行加密通信，不同的节点之间采用的对称密钥不同，从而可以保证信息只能通信双方获取。</p>
+<h3 id="密钥协商过程中存在的问题及解决办法"><a href="#密钥协商过程中存在的问题及解决办法" class="headerlink" title="密钥协商过程中存在的问题及解决办法"></a>密钥协商过程中存在的问题及解决办法</h3><h4 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h4><p>上面介绍了 TLS&#x2F;SSL 在 HTTPS 信息传递中扮演的角色，我们知道了要用非对称加密与服务器进行通信，实现身份验证并协商对称加密使用的密钥。可是这个公钥是怎么传递给客户端的？</p>
+<p>上面图中的过程是不安全的，接下来对该问题进行说明。与公钥密码加密系统相伴的一个重要挑战就是正确地决定某个主体或身份的公钥。如果 A 向 B 发送自已的公钥，M 能够在传输过程中将其修改为自己的公钥。B (也被称为依赖方)可能察觉不到自已使用的是 M 的公钥，而认为这是 A 的公钥。这样就使得 M 能够轻易地扮演 A 的角色，即如下图所示：</p>
+<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><p>一种常见的方法是依靠中心化的机构，其中包括对公钥基础设施 PKI (Public Key Infrastructure) 的使用。这一方法在特定的理论假设下容易被证明是安全的。 PKI 负责提供创建、吊销、分发以及更新密钥对与证书的服务。它需要一些证书颁发机构 CA  (Certificate Authority) 才能运行。证书颁发机构是用于管理与认证一些个体与它们的公钥间的绑定关系的实体。目前有数百家商业证书颁发机构。一个证书颁发机构通常采用层次的签名构架。这意味着一个公钥可能会被一个父密钥签名，而这个父密钥可能会被一个祖父密钥签名，依次类推。最终，一个证书颁发机构会拥有一个或多个根证书，许多下属的证书都会依赖根证书来建立信任。</p>
+<p>在实践中，系统往往要求公钥操作应当拥有知名 CA 的根证书。这些根证书是在配置时安装的 (例如，微软公司的 Intemet ExpIorer 浏览器、 Mozilia 公司的 Firefox 浏览器以及 Google 公司的 Chrome 浏览器都能够访问一个预先配置的根证书数据库)。</p>
+<h3 id="TLS-x2F-SSL-握手过程"><a href="#TLS-x2F-SSL-握手过程" class="headerlink" title="TLS&#x2F;SSL 握手过程"></a>TLS&#x2F;SSL 握手过程</h3><ol>
+<li><h4 id="client-hello"><a href="#client-hello" class="headerlink" title="client_hello"></a>client_hello</h4></li>
+</ol>
+<p>客户端发起请求，以明文传输请求信息，包含版本信息，加密套件候选列表，压缩算法候选列表，随机数，扩展字段等信息，相关信息如下：</p>
+<p>(1) 支持的最高TSL协议版本version，从低到高依次 SSLv2，SSLv3，TLSv1，TLSv1.1，TLSv1.2，TLSv1.3。</p>
+<p>(2) 客户端支持的加密套件 cipher suites 列表， 每个加密套件对应前面 TLS 原理中的四个功能的组合：认证算法 Au (身份验证)、密钥交换算法 Key Exchange(密钥协商)、对称加密算法 Enc (信息加密)和信息摘要 Mac(完整性校验)。</p>
+<p>(3) 支持的压缩算法 compression methods 列表，用于后续的信息压缩传输。</p>
+<p>(4) 随机数 random_C，用于后续的密钥的生成。</p>
+<p>(5) 扩展字段 extensions，支持协议与算法的相关参数以及其它辅助信息等，常见的 SNI 就属于扩展字段，后续单独讨论该字段作用。</p>
+<ol start="2">
+<li><h4 id="server-hello-server-certificate-sever-hello-done"><a href="#server-hello-server-certificate-sever-hello-done" class="headerlink" title="server_hello + server_certificate + sever_hello_done"></a>server_hello + server_certificate + sever_hello_done</h4></li>
+</ol>
+<p>(1) server_hello， 服务端返回协商的信息结果，包括选择使用的协议版本 version，选择的加密套件 cipher suite，选择的压缩算法 compression method、随机数 random_S 等，其中随机数用于后续的密钥协商。</p>
+<p>(2) server_certificates，服务器端配置对应的证书链，用于身份验证与密钥交换。</p>
+<p>(3) server_hello_done，通知客户端 server_hello 信息发送结束。</p>
+<ol start="3">
+<li><h4 id="证书校验"><a href="#证书校验" class="headerlink" title="证书校验"></a>证书校验</h4></li>
+</ol>
+<p>客户端验证证书的合法性，如果验证通过才会进行后续通信，否则根据错误情况不同做出提示和操作，合法性验证包括如下：</p>
+<p>(1) 证书链的可信性 trusted certificate path。</p>
+<p>(2) 证书是否吊销 revocation，有两类方式离线 CRL 与在线 OCSP，不同的客户端行为会不同。</p>
+<p>(3) 有效期 expiry date，证书是否在有效时间范围。</p>
+<p>(4) 域名 domain，核查证书域名是否与当前的访问域名匹配，匹配规则后续分析。</p>
+<ol start="4">
+<li><h4 id="client-key-exchange-change-cipher-spec-encrypted-handshake-message"><a href="#client-key-exchange-change-cipher-spec-encrypted-handshake-message" class="headerlink" title="client_key_exchange + change_cipher_spec + encrypted_handshake_message"></a>client_key_exchange + change_cipher_spec + encrypted_handshake_message</h4></li>
+</ol>
+<p>(1) client_key_exchange，合法性验证通过之后，客户端计算产生随机数字 Pre-master，并用证书公钥加密，发送给服务器。</p>
+<p>(2) 此时客户端已经获取全部的计算协商密钥需要的信息：两个明文随机数 random_C 和 random_S 与自己计算产生的 Pre-master，计算得到协商密钥： enc_key &#x3D; Function(random_C, random_S, Pre-Master); 。</p>
+<p>(3) change_cipher_spec，客户端通知服务器后续的通信都采用协商的通信密钥和加密算法进行加密通信。</p>
+<p>(4) encrypted_handshake_message，结合之前所有通信参数的 hash 值与其它相关信息生成一段数据，采用协商密钥 session secret 与算法进行加密，然后发送给服务器用于数据与握手验证。</p>
+<ol start="5">
+<li><h4 id="change-cipher-spec-encrypted-handshake-message"><a href="#change-cipher-spec-encrypted-handshake-message" class="headerlink" title="change_cipher_spec + encrypted_handshake_message"></a>change_cipher_spec + encrypted_handshake_message</h4></li>
+</ol>
+<p>(1) 服务器用私钥解密加密的 Pre-master 数据，基于之前交换的两个明文随机数 random_C 和 random_S，计算得到协商密钥：enc_key &#x3D; Function(random_C, random_S, Pre-Master); 。</p>
+<p>(2) 计算之前所有接收信息的 hash 值，然后解密客户端发送的 encrypted_handshake_message，验证数据和密钥正确性。</p>
+<p>(3) change_cipher_spec， 验证通过之后，服务器同样发送 change_cipher_spec 以告知客户端后续的通信都采用协商的密钥与算法进行加密通信。</p>
+<p>(4) encrypted_handshake_message， 服务器也结合所有当前的通信参数信息生成一段数据并采用协商密钥 session secret 与算法加密并发送到客户端。(将随机密码加密的数据响应给客户端)</p>
+<ol start="6">
+<li><h4 id="握手结束"><a href="#握手结束" class="headerlink" title="握手结束"></a>握手结束</h4></li>
+</ol>
+<p>客户端计算所有接收信息的 hash 值，并采用协商密钥解密 encrypted_handshake_message，验证服务器发送的数据和密钥，验证通过则握手完成。</p>
+<ol start="7">
+<li><h4 id="加密通信"><a href="#加密通信" class="headerlink" title="加密通信"></a>加密通信</h4></li>
+</ol>
+<p>开始使用协商密钥与算法进行加密通信。注意：</p>
+<p>(1) 服务器也可以要求验证客户端，即双向认证，可以在过程 2 要发送 client_certificate_request 信息，客户端在过程 4 中先发送  client_certificate 与 certificate_verify_message 信息，证书的验证方式基本相同，certificate_verify_message 是采用 client 的私钥加密的一段基于已经协商的通信信息得到数据，服务器可以采用对应的公钥解密并验证。</p>
+<p>(2) 根据使用的密钥交换算法的不同，如 ECC 等，协商细节略有不同，总体相似。</p>
+<p>(3) sever key exchange 的作用是 server certificate 没有携带足够的信息时，发送给客户端以计算 pre-master，如基于 DH 的证书，公钥不被证书中包含，需要单独发送。</p>
+<p>(4) change cipher spec 实际可用于通知对端改版当前使用的加密通信方式，当前没有深入解析。</p>
+<p>(5) alter message 用于指明在握手或通信过程中的状态改变或错误信息，一般告警信息触发条件是连接关闭，收到不合法的信息，信息解密失败，用户取消操作等，收到告警信息之后，通信会被断开或者由接收方决定是否断开连接。</p>
+<h4 id="签名过程"><a href="#签名过程" class="headerlink" title="签名过程"></a>签名过程</h4><p>发送报文时，发送方用一个哈希函数从报文文本中生成报文摘要，然后用发送方的私钥对这个摘要进行加密，这个加密后的摘要将作为报文的数字签名和报文一起发送给接收方。接收方首先用与发送方一样的哈希函数从接收到的原始报文中计算出报文摘要，接着再用公钥来对报文附加的数字签名进行解密，如果这两个摘要相同、那么接收方就能确认该报文是发送方的。</p>
+<p>数字签名有两种功效：一是能确定消息确实是由发送方签名并发出来的，因为别人假冒不了发送方的签名。二是数字签名能确定消息的完整性。因为数字签名的特点是它代表了文件的特征，文件如果发生改变，数字摘要的值也将发生变化。不同的文件将得到不同的数字摘要。 一次数字签名涉及到一个哈希函数、接收者的公钥、发送方的私钥。</p>
+<h2 id="16-http1-0-1-1-2-0-3-0"><a href="#16-http1-0-1-1-2-0-3-0" class="headerlink" title="16 http1.0 1.1 2.0 3.0"></a>16 http1.0 1.1 2.0 3.0</h2><ol>
+<li>HTTP&#x2F;0.9: 这是最初的 HTTP 协议版本，只支持 GET 方法，且响应只能是 HTML 文件，又叫单行版本。</li>
+<li>HTTP&#x2F;1.0: 在 1996 年发布，支持多种文件类型的传输和多种请求方法（如 GET、POST、HEAD），但每个请求需要重新建立连接，因此性能较低，存在线头阻塞和标头冗余的问题。</li>
+<li>HTTP&#x2F;1.1: 在 1999 年发布，引入了持久连接、管道机制、分块传输编码等技术，大大提高了性能。此外还引入了缓存机制、虚拟主机等功能。</li>
+<li>HTTP&#x2F;2: 在 2015 年发布，引入了二进制协议、多路复用、头部压缩、双向数据流等技术，进一步提高了性能。通过使用一些先进的技术，HTTP&#x2F;2 能够更快地传输数据，节省带宽和连接资源。</li>
+<li>HTTP&#x2F;3: 在 2020 年发布，采用 QUIC 协议作为基础，使用 UDP 代替 TCP 传输，可以更快地传输数据，提高性能和安全性。</li>
+</ol>
+<h2 id="17-两个-Node-js-进程如何通信？"><a href="#17-两个-Node-js-进程如何通信？" class="headerlink" title="17 两个 Node.js 进程如何通信？"></a>17 两个 Node.js 进程如何通信？</h2><p>两个 Node.js 进程之间如何进行通信呢？这里要分两种场景：</p>
+<ol>
+<li>不同电脑上的两个 Node.js 进程间通信</li>
+<li>同一台电脑上两个 Node.js 进程间通信</li>
+</ol>
+<p>对于第一种场景，通常使用 TCP 或 HTTP 进行通信，而对于第二种场景，又分为两种子场景：</p>
+<ol>
+<li>Node.js 进程和自己创建的 Node.js 子进程通信</li>
+<li>Node.js 进程和另外不相关的 Node.js 进程通信</li>
+</ol>
+<p>前者可以使用内置的 IPC 通信通道，后者可以使用自定义管道，接下来进行详细介绍：</p>
+<h3 id="不同电脑上的两个-Node-js-进程间通信"><a href="#不同电脑上的两个-Node-js-进程间通信" class="headerlink" title="不同电脑上的两个 Node.js 进程间通信"></a>不同电脑上的两个 Node.js 进程间通信</h3><p>要想进行通信，首先得搞清楚如何标识网络中的进程？网络层的 ip 地址可以唯一标识网络中的主机，而传输层的协议和端口可以唯一标识主机中的应用程序（进程），这样利用三元组（ip 地址，协议，端口）就可以标识网络的进程了。</p>
+<h4 id="使用-TCP-套接字"><a href="#使用-TCP-套接字" class="headerlink" title="使用 TCP 套接字"></a>使用 TCP 套接字</h4><p>TCP 套接字（socket）是一种基于 TCP&#x2F;IP 协议的通信方式，可以让通过网络连接的计算机上的进程进行通信。一个作为 server 另一个作为 client，server.js 代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> net = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;net&#x27;</span>)<br><span class="hljs-keyword">const</span> server = net.<span class="hljs-title function_">createServer</span>(<span class="hljs-function"><span class="hljs-params">socket</span> =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;socket connected&#x27;</span>)<br>  socket.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;close&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;socket disconnected&#x27;</span>))<br>  socket.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err.<span class="hljs-property">message</span>))<br>  socket.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`receive: <span class="hljs-subst">$&#123;data&#125;</span>`</span>)<br>    socket.<span class="hljs-title function_">write</span>(data)<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`send: <span class="hljs-subst">$&#123;data&#125;</span>`</span>)<br>  &#125;)<br>&#125;)<br>server.<span class="hljs-title function_">listen</span>(<span class="hljs-number">8888</span>)<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>client.js 代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> net = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;net&#x27;</span>)<br><span class="hljs-keyword">const</span> client = net.<span class="hljs-title function_">connect</span>(<span class="hljs-number">8888</span>, <span class="hljs-string">&#x27;192.168.10.105&#x27;</span>)<br><br>client.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;connect&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;connected.&#x27;</span>))<br>client.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`receive: <span class="hljs-subst">$&#123;data&#125;</span>`</span>))<br>client.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;end&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;disconnected.&#x27;</span>))<br>client.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err.<span class="hljs-property">message</span>))<br><br><span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> msg = <span class="hljs-string">&#x27;hello&#x27;</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`send: <span class="hljs-subst">$&#123;msg&#125;</span>`</span>)<br>  client.<span class="hljs-title function_">write</span>(msg)<br>&#125;, <span class="hljs-number">3000</span>)<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>运行效果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ node server.js<br>client connected<br>receive: hello<br>send: hello<br><br>$ node client.js<br>connect to server<br>send: hello<br>receive: hello<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用-HTTP-协议"><a href="#使用-HTTP-协议" class="headerlink" title="使用 HTTP 协议"></a>使用 HTTP 协议</h4><p>因为 HTTP 协议也是基于 TCP 的，所以从通信角度看，这种方式本质上并无区别，只是封装了上层协议。server.js 代码为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>)<br>http.<span class="hljs-title function_">createServer</span>(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> res.<span class="hljs-title function_">end</span>(req.<span class="hljs-property">url</span>)).<span class="hljs-title function_">listen</span>(<span class="hljs-number">8888</span>)<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>client.js 代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>)<br><span class="hljs-keyword">const</span> options = &#123;<br>  <span class="hljs-attr">hostname</span>: <span class="hljs-string">&#x27;192.168.10.105&#x27;</span>,<br>  <span class="hljs-attr">port</span>: <span class="hljs-number">8888</span>,<br>  <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/hello&#x27;</span>,<br>  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,<br>&#125;<br><span class="hljs-keyword">const</span> req = http.<span class="hljs-title function_">request</span>(options, <span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`statusCode: <span class="hljs-subst">$&#123;res.statusCode&#125;</span>`</span>)<br>  res.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-function"><span class="hljs-params">d</span> =&gt;</span> process.<span class="hljs-property">stdout</span>.<span class="hljs-title function_">write</span>(d))<br>&#125;)<br>req.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(error))<br>req.<span class="hljs-title function_">end</span>()<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>运行效果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ node server.js<br>url /hello<br><br>$ node client.js<br>statusCode: 200<br>hello<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h3 id="同一台电脑上两个-Node-js-进程间通信"><a href="#同一台电脑上两个-Node-js-进程间通信" class="headerlink" title="同一台电脑上两个 Node.js 进程间通信"></a>同一台电脑上两个 Node.js 进程间通信</h3><p>虽然网络 socket 也可用于同一台主机的进程间通讯（通过 loopback 地址 127.0.0.1），但是这种方式需要经过网络协议栈、需要打包拆包、计算校验和、维护序号和应答等，就是为网络通讯设计的，而同一台电脑上的两个进程可以有更高效的通信方式，即 IPC（Inter-Process Communication），在 unix 上具体的实现方式为 unix domain socket，这是服务器端和客户端之间通过本地打开的套接字文件进行通信的一种方法，与 TCP 通信不同，通信时指定本地文件，因此不进行域解析和外部通信，所以比 TCP 快，在同一台主机的传输速度是 TCP 的两倍。</p>
+<h4 id="使用内置-IPC-通道"><a href="#使用内置-IPC-通道" class="headerlink" title="使用内置 IPC 通道"></a>使用内置 IPC 通道</h4><p>如果是跟自己创建的子进程通信，是非常方便的，<a href="https://link.juejin.cn/?target=https://nodejs.org/api/child_process.html">child_process</a> 模块中的 fork 方法自带通信机制，无需关注底层细节，例如父进程 parent.js 代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> fork = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;child_process&quot;</span>).<span class="hljs-property">fork</span><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>)<br><span class="hljs-keyword">const</span> child = <span class="hljs-title function_">fork</span>(path.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">&quot;child.js&quot;</span>), [], &#123; <span class="hljs-attr">stdio</span>: <span class="hljs-string">&quot;inherit&quot;</span> &#125;);<br>child.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;message from child:&quot;</span>, message)<br>  child.<span class="hljs-title function_">send</span>(<span class="hljs-string">&quot;hi&quot;</span>)<br>&#125;)<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>子进程 child.js 代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;message from parent:&quot;</span>, message);<br>&#125;)<br><br><span class="hljs-keyword">if</span> (process.<span class="hljs-property">send</span>) &#123;<br>  <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> process.<span class="hljs-title function_">send</span>(<span class="hljs-string">&quot;hello&quot;</span>), <span class="hljs-number">3000</span>)<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>运行效果如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ node parent.js<br>message from child: hello<br>message from parent: hi<br>message from child: hello<br>message from parent: hi<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用自定义管道"><a href="#使用自定义管道" class="headerlink" title="使用自定义管道"></a>使用自定义管道</h4><p>如果是两个独立的 Node.js 进程，如何建立通信通道呢？在 Windows 上可以使用命名管道（Named PIPE），在 unix 上可以使用 unix domain socket，也是一个作为 server，另外一个作为 client，其中 server.js 代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> net = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;net&#x27;</span>)<br><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>)<br><br><span class="hljs-keyword">const</span> pipeFile = process.<span class="hljs-property">platform</span> === <span class="hljs-string">&#x27;win32&#x27;</span> ? <span class="hljs-string">&#x27;\\\\.\\pipe\\mypip&#x27;</span> : <span class="hljs-string">&#x27;/tmp/unix.sock&#x27;</span><br><br><span class="hljs-keyword">const</span> server = net.<span class="hljs-title function_">createServer</span>(<span class="hljs-function"><span class="hljs-params">connection</span> =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;socket connected.&#x27;</span>)<br>  connection.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;close&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;disconnected.&#x27;</span>))<br>  connection.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`receive: <span class="hljs-subst">$&#123;data&#125;</span>`</span>)<br>    connection.<span class="hljs-title function_">write</span>(data)<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`send: <span class="hljs-subst">$&#123;data&#125;</span>`</span>)<br>  &#125;)<br>  connection.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err.<span class="hljs-property">message</span>))<br>&#125;)<br><br><span class="hljs-keyword">try</span> &#123;<br>  fs.<span class="hljs-title function_">unlinkSync</span>(pipeFile)<br>&#125; <span class="hljs-keyword">catch</span> (error) &#123;&#125;<br><br>server.<span class="hljs-title function_">listen</span>(pipeFile)<br><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>client.js 代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> net = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;net&#x27;</span>)<br><br><span class="hljs-keyword">const</span> pipeFile = process.<span class="hljs-property">platform</span> === <span class="hljs-string">&#x27;win32&#x27;</span> ? <span class="hljs-string">&#x27;\\\\.\\pipe\\mypip&#x27;</span> : <span class="hljs-string">&#x27;/tmp/unix.sock&#x27;</span><br><br><span class="hljs-keyword">const</span> client = net.<span class="hljs-title function_">connect</span>(pipeFile)<br>client.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;connect&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;connected.&#x27;</span>))<br>client.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`receive: <span class="hljs-subst">$&#123;data&#125;</span>`</span>))<br>client.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;end&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;disconnected.&#x27;</span>))<br>client.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err.<span class="hljs-property">message</span>))<br><br><span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> msg = <span class="hljs-string">&#x27;hello&#x27;</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`send: <span class="hljs-subst">$&#123;msg&#125;</span>`</span>)<br>  client.<span class="hljs-title function_">write</span>(msg)<br>&#125;, <span class="hljs-number">3000</span>)<br><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>运行效果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ node server.js <br>socket connected.<br>receive: hello<br>send: hello<br><br>$ node client.js<br>connected.<br>send: hello<br>receive: hello<br></code></pre></td></tr></table></figure>
+
+<h2 id="18-进程间通信的方式"><a href="#18-进程间通信的方式" class="headerlink" title="18 进程间通信的方式"></a>18 进程间通信的方式</h2><h3 id="1、常见的通信方式"><a href="#1、常见的通信方式" class="headerlink" title="1、常见的通信方式"></a>1、常见的通信方式</h3><p>管道pipe：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</p>
+<p>命名管道FIFO：有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。</p>
+<p>消息队列MessageQueue：消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</p>
+<p>共享存储SharedMemory：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号量，配合使用，来实现进程间的同步和通信。</p>
+<p>信号量Semaphore：信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。</p>
+<p>套接字Socket：套解口也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同及其间的进程通信。</p>
+<p>信号 ( sinal ) ： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</p>
+<h3 id="2、按通信类型区分"><a href="#2、按通信类型区分" class="headerlink" title="2、按通信类型区分"></a>2、按通信类型区分</h3><p>共享存储器系统</p>
+<p>1.基于共享数据结构的通信方式</p>
+<p>（仅适用于传递相对少量的数据，通信效率低，属于低级通信）</p>
+<p>2.基于共享存储区的通信方式</p>
+<p>管道通信系统</p>
+<p>管道是指用于连接一个读进程和一个写进程以实现它们之间通信的一个共享文件（pipe文件）</p>
+<p>管道机制需要提供一下几点的协调能力</p>
+<p>1.互斥，即当一个进程正在对pipe执行读&#x2F;写操作时，其它进程必须等待</p>
+<p>2.同步，当一个进程将一定数量的数据写入，然后就去睡眠等待，直到读进程将数据取走，再去唤醒。读进程与之类似</p>
+<p>3.确定对方是否存在</p>
+<p>消息传递系统</p>
+<p>1.直接通信方式</p>
+<p>发送进程利用OS所提供的发送原语直接把消息发给目标进程</p>
+<p>2.间接通信方式</p>
+<p>发送和接收进程都通过共享实体（邮箱）的方式进行消息的发送和接收</p>
+<p>客户机服务器系统</p>
+<p>1.套接字 – 通信标识型的数据结构是进程通信和网络通信的基本构件</p>
+<p>基于文件型的 （当通信进程都在同一台服务器中）其原理类似于管道</p>
+<p>基于网络型的（非对称方式通信，发送者需要提供接收者命名。通信双方的进程运行在不同主机环境下被分配了一对套接字，一个属于发送进程，一个属于接收进程）</p>
+<p>2.远程过程调用和远程方法调用</p>
+<p>3、详解</p>
+<p>3.1 管道</p>
+<p>管道，通常指无名管道，是 UNIX 系统IPC最古老的形式。</p>
+<p>1、特点：</p>
+<p>它是半双工的（即数据只能在一个方向上流动），具有固定的读端和写端。</p>
+<p>它只能用于具有亲缘关系的进程之间的通信（也是父子进程或者兄弟进程之间）。</p>
+<p>它可以看成是一种特殊的文件，对于它的读写也可以使用普通的read、write 等函数。但是它不是普通的文件，并不属于其他任何文件系统，并且只存在于内存中。</p>
+<p>管道分为pipe（无名管道）和fifo（命名管道）两种，除了建立、打开、删除的方式不同外，这两种管道几乎是一样的。他们都是通过内核缓冲区实现数据传输。</p>
+<p>pipe用于相关进程之间的通信，例如父进程和子进程，它通过pipe()系统调用来创建并打开，当最后一个使用它的进程关闭对他的引用时，pipe将自动撤销。</p>
+<p>FIFO即命名管道，在磁盘上有对应的节点，但没有数据块——换言之，只是拥有一个名字和相应的访问权限，通过mknode()系统调用或者mkfifo()函数来建立的。一旦建立，任何进程都可以通过文件名将其打开和进行读写，而不局限于父子进程，当然前提是进程对FIFO有适当的访问权。当不再被进程使用时，FIFO在内存中释放，但磁盘节点仍然存在。</p>
+<p>管道的实质是一个内核缓冲区，进程以先进先出的方式从缓冲区存取数据：管道一端的进程顺序地将进程数据写入缓冲区，另一端的进程则顺序地读取数据，该缓冲区可以看做一个循环队列，读和写的位置都是自动增加的，一个数据只能被读一次，读出以后再缓冲区都不复存在了。当缓冲区读空或者写满时，有一定的规则控制相应的读进程或写进程是否进入等待队列，当空的缓冲区有新数据写入或慢的缓冲区有数据读出时，就唤醒等待队列中的进程继续读写。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190426140549553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW9ob25nX2Jv,size_16,color_FFFFFF,t_70" srcset="/blog/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>3.2 无名管道</p>
+<p>pipe的例子：父进程创建管道，并在管道中写入数据，而子进程从管道读出数据</p>
+<p><img src="https://img-blog.csdnimg.cn/20190426140634887.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW9ob25nX2Jv,size_16,color_FFFFFF,t_70" srcset="/blog/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>3.3 命名管道</p>
+<p>和无名管道的主要区别在于，命名管道有一个名字，命名管道的名字对应于一个磁盘索引节点，有了这个文件名，任何进程有相应的权限都可以对它进行访问。</p>
+<p>而无名管道却不同，进程只能访问自己或祖先创建的管道，而不能访任意访问已经存在的管道——因为没有名字。</p>
+<p>Linux中通过系统调用mknod()或makefifo()来创建一个命名管道。最简单的方式是通过直接使用shell</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkfifo</span> myfifo<br></code></pre></td></tr></table></figure>
+
+
+<p>等价于</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mknod</span> myfifo p<br></code></pre></td></tr></table></figure>
+
+<p>以上命令在当前目录下创建了一个名为myfifo的命名管道。用ls -p命令查看文件的类型时，可以看到命名管道对应的文件名后有一条竖线”|”，表示该文件不是普通文件而是命名管道。</p>
+<p>使用open()函数通过文件名可以打开已经创建的命名管道，而无名管道不能由open来打开。当一个命名管道不再被任何进程打开时，它没有消失，还可以再次被打开，就像打开一个磁盘文件一样。</p>
+<p>可以用删除普通文件的方法将其删除，实际删除的事磁盘上对应的节点信息。</p>
+<p>例子：用命名管道实现聊天程序，一个张三端，一个李四端。两个程序都建立两个命名管道，fifo1,fifo2,张三写fifo1，李四读fifo1；李四写fifo2，张三读fifo2。</p>
+<p>用select把，管道描述符和stdin假如集合，用select进行阻塞，如果有i&#x2F;o的时候唤醒进程。（粉红色部分为select部分，黄色部分为命名管道部分）</p>
+<p><img src="https://img-blog.csdnimg.cn/20190426140748405.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW9ob25nX2Jv,size_16,color_FFFFFF,t_70" srcset="/blog/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190426140755878.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW9ob25nX2Jv,size_16,color_FFFFFF,t_70" srcset="/blog/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>3.4 消息队列</p>
+<p>消息队列，就是一个消息的链表，是一系列保存在内核中消息的列表。用户进程可以向消息队列添加消息，也可以向消息队列读取消息。</p>
+<p>消息队列与管道通信相比，其优势是对每个消息指定特定的消息类型，接收的时候不需要按照队列次序，而是可以根据自定义条件接收特定类型的消息。</p>
+<p>可以把消息看做一个记录，具有特定的格式以及特定的优先级。对消息队列有写权限的进程可以向消息队列中按照一定的规则添加新消息，对消息队列有读权限的进程可以从消息队列中读取消息。</p>
+<p>消息队列的常用函数如下表：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190426140938100.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW9ob25nX2Jv,size_16,color_FFFFFF,t_70" srcset="/blog/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>进程间通过消息队列通信，主要是：创建或打开消息队列，添加消息，读取消息和控制消息队列。</p>
+<p>3.5 共享内存</p>
+<p>共享内存允许两个或多个进程共享一个给定的存储区，这一段存储区可以被两个或两个以上的进程映射至自身的地址空间中，一个进程写入共享内存的信息，可以被其他使用这个共享内存的进程，通过一个简单的内存读取错做读出，从而实现了进程间的通信。</p>
+<p>采用共享内存进行通信的一个主要好处是效率高，因为进程可以直接读写内存，而不需要任何数据的拷贝，对于像管道和消息队里等通信方式，则需要再内核和用户空间进行四次的数据拷贝，而共享内存则只拷贝两次：一次从输入文件到共享内存区，另一次从共享内存到输出文件。</p>
+<p><img src="https://img-blog.csdnimg.cn/2019042614103483.png" srcset="/blog/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>一般而言，进程之间在共享内存时，并不总是读写少量数据后就解除映射，有新的通信时在重新建立共享内存区域；而是保持共享区域，直到通信完毕为止，这样，数据内容一直保存在共享内存中，并没有写回文件。共享内存中的内容往往是在解除映射时才写回文件，因此，采用共享内存的通信方式效率非常高。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190426141107202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW9ob25nX2Jv,size_16,color_FFFFFF,t_70" srcset="/blog/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>共享内存有两种实现方式：1、内存映射 2、共享内存机制</p>
+<p>3.6 信号量</p>
+<p>信号量（semaphore）与已经介绍过的 IPC 结构不同，它是一个计数器。信号量用于实现进程间的互斥与同步，而不是用于存储进程间通信数据。</p>
+<p>1、特点</p>
+<p>信号量用于进程间同步，若要在进程间传递数据需要结合共享内存。</p>
+<p>信号量基于操作系统的 PV 操作，程序对信号量的操作都是原子操作。</p>
+<p>每次对信号量的 PV 操作不仅限于对信号量值加 1 或减 1，而且可以加减任意正整数。</p>
+<p>支持信号量组。</p>
+<p>2、原型</p>
+<p>最简单的信号量是只能取 0 和 1 的变量，这也是信号量最常见的一种形式，叫做二值信号量（Binary Semaphore）。而可以取多个正整数的信号量被称为通用信号量。</p>
+<p>Linux 下的信号量函数都是在通用的信号量数组上进行操作，而不是在一个单一的二值信号量上进行操作。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/sem.h&gt;</span></span><br><span class="hljs-comment">// 创建或获取一个信号量组：若成功返回信号量集ID，失败返回-1</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">semget</span><span class="hljs-params">(<span class="hljs-type">key_t</span> key, <span class="hljs-type">int</span> num_sems, <span class="hljs-type">int</span> sem_flags)</span>;<br><span class="hljs-comment">// 对信号量组进行操作，改变信号量的值：成功返回0，失败返回-1</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">semop</span><span class="hljs-params">(<span class="hljs-type">int</span> semid, <span class="hljs-keyword">struct</span> sembuf semoparray[], <span class="hljs-type">size_t</span> numops)</span>;  <br><span class="hljs-comment">// 控制信号量的相关信息</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">semctl</span><span class="hljs-params">(<span class="hljs-type">int</span> semid, <span class="hljs-type">int</span> sem_num, <span class="hljs-type">int</span> cmd, ...)</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="19-http的头部包括哪些"><a href="#19-http的头部包括哪些" class="headerlink" title="19 http的头部包括哪些"></a>19 http的头部包括哪些</h2><p>HTTP（Hypertext Transfer Protocol，超文本传输协议）头部是HTTP请求和响应的一部分，它包含了关于请求或响应的元数据和其他信息。下面是HTTP头部可能包含的一些字段：</p>
+<ol>
+<li>Accept：指定客户端可以接受的MIME类型。</li>
+<li>Accept-Encoding：指定客户端可以接受的编码格式，如gzip、deflate等。</li>
+<li>Accept-Language：指定客户端可以接受的语言类型，如en、zh等。</li>
+<li>Authorization：指定客户端的身份验证信息，如用户名和密码。</li>
+<li>Cache-Control：指定请求或响应的缓存行为，如no-cache、max-age等。</li>
+<li>Connection：指定是否保持连接，如keep-alive、close等。</li>
+<li>Content-Encoding：指定响应主体的编码格式，如gzip、deflate等。</li>
+<li>Content-Length：指定响应主体的长度。</li>
+<li>Content-Type：指定响应主体的MIME类型。</li>
+<li>Cookie：指定请求中包含的cookie值。</li>
+<li>Host：指定请求的目标主机和端口号。</li>
+<li>If-Modified-Since：指定缓存的响应是否已经过期。</li>
+<li>Origin：指定请求的来源。</li>
+<li>Referer：指定请求的来源页面的URL。</li>
+<li>User-Agent：指定客户端使用的用户代理，如浏览器类型和版本号等。</li>
+</ol>
+<p>需要注意的是，HTTP头部是可扩展的，因此可能包含其他字段。此外，不同的HTTP版本可能支持不同的头部字段。</p>
+<h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
                 
               </div>
             

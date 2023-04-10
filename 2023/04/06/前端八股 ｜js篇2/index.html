@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
 <meta property="article:published_time" content="2023-04-06T13:31:21.932Z">
-<meta property="article:modified_time" content="2023-04-07T06:38:06.117Z">
+<meta property="article:modified_time" content="2023-04-10T03:34:31.084Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="计算">
@@ -250,7 +250,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          18 字
+          3.2k 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
           <!-- compatible with older versions-->
-          1 分钟
+          27 分钟
         
       </span>
     
@@ -305,7 +305,69 @@
             
               <div class="markdown-body">
                 
-                <h1 id="前端八股-｜js篇2"><a href="#前端八股-｜js篇2" class="headerlink" title="前端八股 ｜js篇2"></a>前端八股 ｜js篇2</h1><h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
+                <h1 id="前端八股-｜js篇2"><a href="#前端八股-｜js篇2" class="headerlink" title="前端八股 ｜js篇2"></a>前端八股 ｜js篇2</h1><h2 id="35-如何根据class选取元素"><a href="#35-如何根据class选取元素" class="headerlink" title="35 如何根据class选取元素"></a>35 如何根据class选取元素</h2><p>可以使用以下两种方式根据 class 选取元素：</p>
+<ol>
+<li><p>使用 <code>document.getElementsByClassName()</code> 方法：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml">htmlCopy code<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example&quot;</span>&gt;</span>Example<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example&quot;</span>&gt;</span>Example<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example&quot;</span>&gt;</span>Example<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">  <span class="hljs-keyword">const</span> elements = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByClassName</span>(<span class="hljs-string">&#x27;example&#x27;</span>);</span><br><span class="language-javascript">  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(elements); <span class="hljs-comment">// NodeList of matched elements</span></span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用 <code>document.querySelectorAll()</code> 方法，使用 CSS 选择器选取：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml">htmlCopy code<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example&quot;</span>&gt;</span>Example<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example&quot;</span>&gt;</span>Example<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example&quot;</span>&gt;</span>Example<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">  <span class="hljs-keyword">const</span> elements = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;.example&#x27;</span>);</span><br><span class="language-javascript">  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(elements); <span class="hljs-comment">// NodeList of matched elements</span></span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>这两种方式都会返回一个 NodeList 对象，可以使用 NodeList 提供的方法和属性对选取的元素进行操作和遍历。</p>
+<h2 id="36-事件"><a href="#36-事件" class="headerlink" title="36 事件"></a>36 事件</h2><p>事件</p>
+<p>文档和浏览器窗口中发生的特定交互</p>
+<p>事件流</p>
+<p>页面接受事件的先后顺序</p>
+<p>事件类型</p>
+<p>事件捕获：由外往内，从事件发生的根节点开始，逐级往下查找，一直到目标元素。</p>
+<p>事件冒泡：由内往外，从具体的目标元素触发，逐级向上传递，直到根节点。</p>
+<p>事件委托（⭐手写）</p>
+<p>又名事件代理。事件委托就是利用事件冒泡，就是把子元素的事件都绑定到父元素上。</p>
+<p>好处：提高性能，减少了事件绑定，从而减少内存占用</p>
+<p>阻止事件冒泡：event.stopPropagation() .stop修饰符</p>
+<ol>
+<li>给”ul”标签添加点击事件</li>
+<li>当点击某”li”标签时，该标签内容拼接”.”符号。如：某”li”标签被点击时，该标签内容为”..”<br>注意：</li>
+<li>必须使用DOM0级标准事件（onclick）</li>
+</ol>
+<p>target表示当前触发事件的元素</p>
+<p>currentTarget是绑定处理函数的元素</p>
+<p>只有当事件处理函数绑定在自身的时候，target才会和currentTarget一样</p>
+<h2 id="37-JS预解析（变量提升）"><a href="#37-JS预解析（变量提升）" class="headerlink" title="37 JS预解析（变量提升）"></a>37 JS预解析（变量提升）</h2><p><strong>预编译&#x2F;解析</strong>：JS代码在执行前，浏览器会对js代码进行扫描，默认的把所有带<strong>var和function声明</strong>的变量进行定义，创建执行<strong>上下文</strong>，初始化一些代码执行时需要用到的对象。</p>
+<h2 id="38-Iterator，for-in，for-of，forEach，map循环遍历"><a href="#38-Iterator，for-in，for-of，forEach，map循环遍历" class="headerlink" title="38 Iterator，for in，for of，forEach，map循环遍历"></a>38 Iterator，for in，for of，forEach，map循环遍历</h2><h3 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h3><p>一种接口，为各种不同的数据结构提供统一的访问机制</p>
+<p>例如Array.prototype<a href="">@@iterator</a></p>
+<p>Array 对象的 @@iterator 方法实现了迭代协议，并允许数组被大多数期望可迭代的语法所使用，例如展开语法和 for…of 循环。它返回一个迭代器，生成数组中每个索引的值。</p>
+<h3 id="for-in"><a href="#for-in" class="headerlink" title="for in"></a>for in</h3><p>[“a”, “b”, “c”, “d”];for…in 循环读取键名 &#x2F;&#x2F; 0 1 2 3</p>
+<p>适用于遍历对象的可枚举属性</p>
+<p>无法遍历 symbol 属性 可以遍历到公有中可枚举的</p>
+<p>使用 for…in 遍历时，还需要使用 hasOwnProperty() 方法来判断属性是否来自对象本身，并避免遍历原型链上的属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> object1 = &#123;&#125;;<br>object1.<span class="hljs-property">property1</span> = <span class="hljs-number">42</span>;<br> <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(object1.<span class="hljs-title function_">hasOwnProperty</span>(<span class="hljs-string">&#x27;property1&#x27;</span>));<br><span class="hljs-comment">// Expected output: true</span><br> <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(object1.<span class="hljs-title function_">hasOwnProperty</span>(<span class="hljs-string">&#x27;hasOwnProperty&#x27;</span>));<br><span class="hljs-comment">// Expected output: false</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="for-of"><a href="#for-of" class="headerlink" title="for of"></a>for of</h3><p>[“a”, “b”, “c”, “d”];for…of 循环读取键值&#x2F;&#x2F; a b c d</p>
+<p>支持迭代协议的数据结构（数组、字符串、Set、Map 等），不包括对象。</p>
+<p>对于字符串，类数组，类型数组的迭代，循环内部调用的是数据结构的Symbol.iterator方法。</p>
+<p>for…of 不能循环普通的对象，需要通过和 Object.keys()搭配使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> object1 = &#123;<br>  <span class="hljs-attr">a</span>: <span class="hljs-string">&#x27;somestring&#x27;</span>,<br>  <span class="hljs-attr">b</span>: <span class="hljs-number">42</span>,<br>  <span class="hljs-attr">c</span>: <span class="hljs-literal">false</span><br>&#125;;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(object1));<br><span class="hljs-comment">// Expected output: Array [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h3><p>arr.forEach（value[，index，默认隐藏参数arr]）</p>
+<p>适用于需要知道索引值的数组遍历，但是不能中断（ break 和 return ）</p>
+<p>如果需要跳出循环可以使用 some() 或 every() 方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"> <br><span class="hljs-keyword">const</span> <span class="hljs-title function_">isBelowThreshold</span> = (<span class="hljs-params">currentValue</span>) =&gt; currentValue &lt; <span class="hljs-number">30</span>;<br> <br><span class="hljs-keyword">const</span> array1 = [<span class="hljs-number">1</span>, <span class="hljs-number">30</span>, <span class="hljs-number">39</span>, <span class="hljs-number">29</span>, <span class="hljs-number">10</span>, <span class="hljs-number">13</span>];<br> <br>array1.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(element));<br> <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(array1.<span class="hljs-title function_">every</span>(isBelowThreshold));<br><span class="hljs-comment">// Expected output: false</span><br> <br><span class="hljs-comment">//是不是至少有 1 个元素</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(array1.<span class="hljs-title function_">some</span>(isBelowThreshold));<span class="hljs-comment">//空数组,则返回false。</span><br><span class="hljs-comment">// Expected output: true</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p>map 方法，基本用法与 forEach 一致</p>
+<p>forEach()方法不会返回执行结果，而是undefined</p>
+<p>map()方法会得到一个新的数组并返回</p>
+<p>同样的一组数组，map()的执行速度优于 forEach()（map() 底层做了深度优化）</p>
+<h2 id="39-严格模式"><a href="#39-严格模式" class="headerlink" title="39 严格模式"></a>39 严格模式</h2><p>严格模式通过抛出错误来消除了一些原有静默错误。</p>
+<p>严格模式下，不允许给未声明的变量赋值</p>
+<p>严格模式修复了一些导致 JavaScript 引擎难以执行优化的缺陷：有时候，相同的代码，严格模式可以比非严格模式下运行得更快。</p>
+<p>严格模式禁用了在 ECMAScript 的未来版本中可能会定义的一些语法。</p>
+<h2 id="40-JS延迟加载的方式"><a href="#40-JS延迟加载的方式" class="headerlink" title="40 JS延迟加载的方式"></a>40 JS延迟加载的方式</h2><p>JavaScript 是单线程（js不走完下面不会走是因为同步）会阻塞DOM的解析，因此也就会阻塞DOM的加载。所以有时候我们希望延迟JS的加载来提高页面的加载速度。</p>
+<p>1.把JS放在页面的最底部（css放顶部，js放底部是框架常见优化）</p>
+<p>2.script标签的defer属性：脚本会立即下载但延迟到整个页面加载完毕再执行。该属性对于内联脚本无作用 (即没有 「src」 属性的脚本）。</p>
+<p>3.是在外部JS加载完成后，浏览器空闲时，Load事件触发前执行，标记为async的脚本并不保证按照指定他们的先后顺序执行， 该属性对于内联脚本无作用 (即没有 「src」 属性的脚本）。</p>
+<p>4.动态创建script标签，监听dom加载完毕再引入js文件</p>
+<h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
                 
               </div>
             

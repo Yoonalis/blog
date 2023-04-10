@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
 <meta property="article:published_time" content="2023-04-06T13:32:15.961Z">
-<meta property="article:modified_time" content="2023-04-07T06:37:04.769Z">
+<meta property="article:modified_time" content="2023-04-10T05:17:30.685Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="react">
@@ -250,7 +250,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          40k 字
+          48k 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
           <!-- compatible with older versions-->
-          335 分钟
+          401 分钟
         
       </span>
     
@@ -701,7 +701,147 @@
 <li>🤙提取不变的值</li>
 </ul>
 <p>这些优化的手段可以在不同的情况使用，所以你如果在使用过程中，一定要结合代码的情况，使用合适的优化手段。</p>
-<h2 id="6"><a href="#6" class="headerlink" title="6"></a>6</h2>
+<h2 id="6-类组件和函数组件的区别"><a href="#6-类组件和函数组件的区别" class="headerlink" title="6 类组件和函数组件的区别"></a>6 类组件和函数组件的区别</h2><p>React 中的类组件和函数组件各有优缺点，主要的区别在于它们的语法和使用方式。下面是它们的优缺点对比：</p>
+<h3 id="类组件的优点："><a href="#类组件的优点：" class="headerlink" title="类组件的优点："></a>类组件的优点：</h3><ul>
+<li>有完整的生命周期方法，可以更好地控制组件的行为；</li>
+<li>支持使用 ref 来访问组件实例或 DOM 元素；</li>
+<li>支持使用状态（state）和属性（props）；</li>
+<li>可以使用 PropTypes 来验证传递给组件的 props 类型；</li>
+<li>适合实现较为复杂的组件。</li>
+</ul>
+<h3 id="类组件的缺点："><a href="#类组件的缺点：" class="headerlink" title="类组件的缺点："></a>类组件的缺点：</h3><ul>
+<li>代码量较大，可读性稍差；</li>
+<li>组件的逻辑和渲染过程容易混淆；</li>
+<li>缺少复用性，难以将组件的逻辑进行抽象和封装。</li>
+</ul>
+<h3 id="函数组件的优点："><a href="#函数组件的优点：" class="headerlink" title="函数组件的优点："></a>函数组件的优点：</h3><ul>
+<li>代码量较小，可读性较好；</li>
+<li>逻辑和渲染过程分离，易于组件的抽象和封装；</li>
+<li>使用 Hooks 可以拥有状态和生命周期函数，进一步增加了组件的可控性和复用性；</li>
+<li>渲染性能相对于类组件较高。</li>
+</ul>
+<h3 id="函数组件的缺点："><a href="#函数组件的缺点：" class="headerlink" title="函数组件的缺点："></a>函数组件的缺点：</h3><ul>
+<li>缺少完整的生命周期方法，控制组件行为的能力相对较弱；</li>
+<li>无法使用 ref 访问组件实例或 DOM 元素；</li>
+<li>不能直接使用状态（state），需要使用 Hooks 进行状态管理；</li>
+<li>不能直接使用 PropTypes 验证传递给组件的 props 类型；</li>
+<li>不适合实现较为复杂的组件。</li>
+</ul>
+<p>综上所述，类组件和函数组件各有优缺点，选择哪种方式来定义组件需要根据具体的业务场景和开发需求进行综合考虑。在实际开发中，常常会根据组件的复杂度和重用性等因素来决定使用哪种方式来定义组件。</p>
+<h3 id="一、类组件的问题"><a href="#一、类组件的问题" class="headerlink" title="一、类组件的问题"></a>一、类组件的问题</h3><p>自从React推出Hooks之后，函数组件写法大行其道，而类组件写法日渐式微。为什么会这样呢？ 我觉得有以下三个原因：</p>
+<h4 id="原因一、因为this带来的问题："><a href="#原因一、因为this带来的问题：" class="headerlink" title="原因一、因为this带来的问题："></a>原因一、因为this带来的问题：</h4><p>有一个著名的案例展示了类组件this带来的问题，下面我将其本土化复现一下这个案例。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">ProfileFunction</span>: <span class="hljs-title class_">React</span>.<span class="hljs-property">FC</span>&lt;&#123;<span class="hljs-attr">goods</span>:<span class="hljs-built_in">string</span>&#125;&gt; = <span class="hljs-function">(<span class="hljs-params">props</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">showMessage</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>        <span class="hljs-title function_">alert</span>(<span class="hljs-string">`你下单的是“<span class="hljs-subst">$&#123;props.goods&#125;</span>”！`</span> )<br>    &#125;<br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleClick</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>        <span class="hljs-built_in">setTimeout</span>(showMessage, <span class="hljs-number">3</span> * <span class="hljs-number">1000</span>)<br>    &#125;<br>    <span class="hljs-keyword">return</span> (<br>        <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;handleClick&#125;</span>&gt;</span>购买<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>    )<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ProfileClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span>&lt;<br>    &#123; <span class="hljs-attr">goods</span>: <span class="hljs-built_in">string</span> &#125;,  <span class="hljs-comment">// props 类型</span><br>    &#123;&#125;  <span class="hljs-comment">// state 类型</span><br>&gt; &#123;<br>    showMessage = <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-title function_">alert</span>(<span class="hljs-string">`你下单的是“<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.props.goods&#125;</span>”！`</span> )<br>    &#125;<br>    handleClick = <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">showMessage</span>, <span class="hljs-number">3</span> * <span class="hljs-number">1000</span>)<br>    &#125;<br>    <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;this.handleClick&#125;</span>&gt;</span>购买<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>    &#125;<br>&#125;<br><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span> &#123;<br>    state = &#123;<br>        <span class="hljs-attr">goods</span>: <span class="hljs-string">&#x27;苹果&#x27;</span>,<br>    &#125;;<br>    <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> (<br>            <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span></span><br><span class="language-xml">                    请选择：</span><br><span class="language-xml">                    <span class="hljs-tag">&lt;<span class="hljs-name">select</span></span></span><br><span class="hljs-tag"><span class="language-xml">                        <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;this.state.goods&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">                        <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;e</span> =&gt;</span> this.setState(&#123; goods: e.target.value &#125;)&#125;</span><br><span class="language-xml">                    &gt;</span><br><span class="language-xml">                        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;苹果&quot;</span>&gt;</span>苹果<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">                        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;香蕉&quot;</span>&gt;</span>香蕉<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">                        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;西瓜&quot;</span>&gt;</span>西瓜<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span><br><span class="language-xml">                    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;this.state.goods&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">                    <span class="hljs-tag">&lt;<span class="hljs-name">ProfileFunction</span> <span class="hljs-attr">goods</span>=<span class="hljs-string">&#123;this.state.goods&#125;</span> /&gt;</span></span><br><span class="language-xml">                    <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span> (function)<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">                    <span class="hljs-tag">&lt;<span class="hljs-name">ProfileClass</span> <span class="hljs-attr">goods</span>=<span class="hljs-string">&#123;this.state.goods&#125;</span> /&gt;</span></span><br><span class="language-xml">                    <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span> (class)<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;/&gt;</span></span><br>        )<br>    &#125;<br>&#125;<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>这里有<a href="https://link.juejin.cn/?target=https://codesandbox.io/s/func-vs-class-tw7rr0">在线案例</a>，有兴趣的朋友可以在线体验一下这个案例。</p>
+<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6d13816f3cdb4227af7c92c9c62f0a43~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<ul>
+<li>函数组件：当用户选择苹果，点击购买后，再切换浏览香蕉，提示信息反馈用户下单的是苹果。</li>
+<li>类 组 件 ：当用户选择苹果，点击购买后，再切换浏览西瓜，提示信息反馈用户下单的是西瓜！</li>
+</ul>
+<h4 id="问题解析"><a href="#问题解析" class="headerlink" title="问题解析"></a>问题解析</h4><p>粗看函数组件和类组件的代码，都是返回一个按钮，该按钮3秒(模拟网络延迟)后会弹出一个alert提示用户下单的商品。为什么结果不一致呢？ 参数props本身是不可变的，函数组件中的showMessage在3秒延迟后拿到的仍然是原来的props.goods。 但是类组件中实例的this是可变的，类组件中的showMessage在3秒延迟后去拿this.props.goods时，由于this发生了变化，所以造成取到的值不是原来的值。</p>
+<h4 id="原因二、类组件代码量比函数组件多："><a href="#原因二、类组件代码量比函数组件多：" class="headerlink" title="原因二、类组件代码量比函数组件多："></a>原因二、类组件代码量比函数组件多：</h4><p>这个从上面的案例中可见一斑，同样功能的函数组件代码量比类组件少一些。</p>
+<h4 id="原因三、类组件过于臃肿不易拆分："><a href="#原因三、类组件过于臃肿不易拆分：" class="headerlink" title="原因三、类组件过于臃肿不易拆分："></a>原因三、类组件过于臃肿不易拆分：</h4><p>类组件和函数组件最大的不同还在于代码思路方面的不同。类组件是面向对象编程思维方式，函数组件是面向过程编程思维方式。React的设计思路更推崇组合，而不是继承。在类组件中大量使用继承会造成组件过重，功能难以拆分。</p>
+<h3 id="二、函数组件的问题"><a href="#二、函数组件的问题" class="headerlink" title="二、函数组件的问题"></a>二、函数组件的问题</h3><p>函数组件以前被叫做无状态组件，就是因为函数组件内部不能保存state。自从react官方推出各类hooks后，函数式组件变得越来越流行。react官方宣称将来会推出更多hooks以实现所有类组件的功能，不过这个flag立了挺久的，至今还有很多没有实现。 下面来按生命周期的顺序盘点一下类组件的方法与函数组件对应的hooks。</p>
+<h4 id="挂载阶段：getDerviedStateFromProps-VS-无"><a href="#挂载阶段：getDerviedStateFromProps-VS-无" class="headerlink" title="挂载阶段：getDerviedStateFromProps VS 无"></a>挂载阶段：getDerviedStateFromProps VS 无</h4><ul>
+<li>该方法用于在props被传入后根据props更新state。</li>
+<li>函数组件中也可以写代码根据props更新state，但这样做会造成重复渲染。如果遇到需要根据props更新state的情况，应该考虑做状态提升。如果你发现在某个组件中必须要根据props更新state又无法做状态提升，那么该组件应该写成类式组件，而不是函数式组件。</li>
+</ul>
+<h4 id="挂载阶段：UNSAFE-componentWillMount-VS-无"><a href="#挂载阶段：UNSAFE-componentWillMount-VS-无" class="headerlink" title="挂载阶段：UNSAFE_componentWillMount VS 无"></a>挂载阶段：UNSAFE_componentWillMount VS 无</h4><ul>
+<li>该方法用于在组件挂载之前处理一些逻辑，但它在异步渲染模式下容易造成重复调用，react官方已将其标记为废弃。</li>
+<li>函数组件可以无视该方法。</li>
+</ul>
+<h4 id="挂载阶段：componentDidMount-VS-useEffect"><a href="#挂载阶段：componentDidMount-VS-useEffect" class="headerlink" title="挂载阶段：componentDidMount VS useEffect"></a>挂载阶段：componentDidMount VS useEffect</h4><ul>
+<li>该方法用于在组件挂载以后执行副作用操作，如发起网络请求、设置计时器、创建订阅等。</li>
+<li>函数组件有useEffect。</li>
+</ul>
+<h4 id="render："><a href="#render：" class="headerlink" title="render："></a>render：</h4><ul>
+<li>在类组件的render方法中返回要渲染的内容。render里不能有副作用和setState！</li>
+<li>函数组件的return和类组件render方法的return效果一致。</li>
+</ul>
+<h4 id="生命周期，更新阶段：UNSAFE-componentWillRerciveProps-VS-无"><a href="#生命周期，更新阶段：UNSAFE-componentWillRerciveProps-VS-无" class="headerlink" title="生命周期，更新阶段：UNSAFE_componentWillRerciveProps VS 无"></a>生命周期，更新阶段：UNSAFE_componentWillRerciveProps VS 无</h4><ul>
+<li>该方法作用跟getDerviedStateFromProps的一样，都是在组件挂载之前处理一些逻辑，但react官方已将其标记为废弃。</li>
+<li>函数组件可以无视该方法。</li>
+</ul>
+<h4 id="生命周期，更新阶段：getDerviedStateFromProps-VS-无"><a href="#生命周期，更新阶段：getDerviedStateFromProps-VS-无" class="headerlink" title="生命周期，更新阶段：getDerviedStateFromProps VS 无"></a>生命周期，更新阶段：getDerviedStateFromProps VS 无</h4><p>同挂载阶段的同名方法一样。</p>
+<h4 id="生命周期，更新阶段：shouldComponentUpdate-VS-memo、useMemo、useCallback"><a href="#生命周期，更新阶段：shouldComponentUpdate-VS-memo、useMemo、useCallback" class="headerlink" title="生命周期，更新阶段：shouldComponentUpdate VS memo、useMemo、useCallback"></a>生命周期，更新阶段：shouldComponentUpdate VS memo、useMemo、useCallback</h4><ul>
+<li>该方法返回true表示需要更新、返回false表示无需更新。可在此添加判断条件做性能优化，另外PureComponent实现原理也相同。</li>
+<li>函数组件对应的hooks有很多，常用的有memo、useMemo、useCallback，同样可以做性能优化。</li>
+</ul>
+<h4 id="生命周期，更新阶段：UNSAFE-componentWillUpdate-VS-无"><a href="#生命周期，更新阶段：UNSAFE-componentWillUpdate-VS-无" class="headerlink" title="生命周期，更新阶段：UNSAFE_componentWillUpdate VS 无"></a>生命周期，更新阶段：UNSAFE_componentWillUpdate VS 无</h4><ul>
+<li>该方法原来在组件重新渲染之前做一些操作，react官方已将其标记为废弃。</li>
+<li>函数组件可以无视该方法。</li>
+</ul>
+<h4 id="render：-1"><a href="#render：-1" class="headerlink" title="render："></a>render：</h4><p>同挂载阶段一样。</p>
+<h4 id="生命周期，更新阶段：getSnapshotBeforeUpdate-VS-无"><a href="#生命周期，更新阶段：getSnapshotBeforeUpdate-VS-无" class="headerlink" title="生命周期，更新阶段：getSnapshotBeforeUpdate VS 无"></a>生命周期，更新阶段：getSnapshotBeforeUpdate VS 无</h4><ul>
+<li>该方法在最近一次渲染输出(提交到DOM节点)之前调用。它使得组件能在发生更改之前从DOM中捕获一些信息(如滚动位置等)。此生命周期方法的任何返回值将作为参数传递给componentDidUpdate()。此用法并不常见，但它可能出现在UI 处理中，如以特殊方式处理滚动位置的聊天线程等。</li>
+<li>函数组件无该方法对应的hooks。</li>
+</ul>
+<h4 id="生命周期，更新阶段：componentDidUpdate-VS-无"><a href="#生命周期，更新阶段：componentDidUpdate-VS-无" class="headerlink" title="生命周期，更新阶段：componentDidUpdate VS 无"></a>生命周期，更新阶段：componentDidUpdate VS 无</h4><ul>
+<li>组件更新后会立即调用该方法，首次渲染不会调用。当组件更新后，可以在此处对DOM进行操作。注意：在该方法中慎用setState，如果要用必须将其包裹在条件语句里。</li>
+<li>函数组件无该方法对应的hooks，因为React本身设计是减少直接操作DOM，在React中除了useRef外直接操作DOM的场景很少，函数组件没有该方法对应的hooks不算什么问题。</li>
+</ul>
+<h4 id="生命周期，卸载阶段：componentWillUnmount-VS-useEffect"><a href="#生命周期，卸载阶段：componentWillUnmount-VS-useEffect" class="headerlink" title="生命周期，卸载阶段：componentWillUnmount VS useEffect"></a>生命周期，卸载阶段：componentWillUnmount VS useEffect</h4><ul>
+<li>该方法会在组件卸载及销毁之前直接调用。在此方法中执行必要的清理操作，例如：清除计时器、取消网络请求或清除订阅等。</li>
+<li>函数组件有useEffect。</li>
+</ul>
+<h4 id="其他，错误边界：componentDidCatch、static-getDerivedStateFromError-VS-无"><a href="#其他，错误边界：componentDidCatch、static-getDerivedStateFromError-VS-无" class="headerlink" title="其他，错误边界：componentDidCatch、static getDerivedStateFromError VS 无"></a>其他，错误边界：componentDidCatch、static getDerivedStateFromError VS 无</h4><ul>
+<li>在类组件中定义了static getDerivedStateFromError或componentDidCatch这两个生命周期方法中的任意一个或两个时，那么它就变成一个错误边界。当抛出错误后，请使用static getDerivedStateFromError渲染备用UI，使用componentDidCatch打印错误信息。</li>
+<li>函数组件无错误边界对应的hooks</li>
+</ul>
+<h3 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h3><p>函数组件和类组件各有优势。类组件功能最为完备和强大，某些特殊用途(如错误边界)组件只能写成类式组件。函数组件没有this困扰且代码简洁，大部分的普通组件都可以写成函数组件。</p>
+<h2 id="7-React使用Virtual-DOM（虚拟DOM）的原因"><a href="#7-React使用Virtual-DOM（虚拟DOM）的原因" class="headerlink" title="7 React使用Virtual DOM（虚拟DOM）的原因"></a>7 React使用Virtual DOM（虚拟DOM）的原因</h2><ol>
+<li>提高渲染效率：虚拟DOM使React可以在内存中操作DOM，而不是直接操作浏览器中的DOM。因为操作内存中的数据比操作浏览器中的DOM元素要快得多，所以使用虚拟DOM可以提高React的渲染效率。</li>
+<li>减少DOM操作：React在更新组件时，会先计算出新的虚拟DOM树与旧的虚拟DOM树的差异（Diff算法），然后再只更新需要更新的部分，避免了大量无谓的DOM操作，从而提高了性能。</li>
+<li>跨平台：虚拟DOM使React可以支持跨平台开发，例如使用React Native开发移动应用程序。</li>
+<li>方便实现组件化：虚拟DOM使得React组件可以更容易地进行复用和封装，可以更好地实现组件化开发。</li>
+</ol>
+<h2 id="8-引用hook的原因"><a href="#8-引用hook的原因" class="headerlink" title="8 引用hook的原因"></a>8 引用hook的原因</h2><p>React Hooks 的出现主要是为了解决类组件在复杂业务场景下代码复杂度和重用性问题。在使用类组件时，需要进行大量的组件生命周期管理和状态管理的代码编写，代码逻辑容易混乱，而且组件复用存在一定的限制。Hooks 的引入可以让函数组件获得更多类组件的能力，例如组件状态、副作用、上下文等的使用，使得组件编写更加简单明了，且能够更加灵活地复用代码。</p>
+<p>优点：</p>
+<ol>
+<li>更加简洁：函数组件通过 Hooks 可以让代码更加简洁，不再需要类组件繁琐的生命周期管理和状态管理。</li>
+<li>更加灵活：使用 Hooks 可以让函数组件获得更多类组件的能力，可以更加灵活地处理组件状态和副作用等。</li>
+<li>更加易于复用：使用 Hooks 的函数组件相对于类组件更加容易被复用。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>学习成本高：Hooks 相对于类组件的使用有一定的学习成本，需要掌握新的概念和用法。</li>
+<li>缺乏一些成熟的实践经验：Hooks 的使用还不是很成熟，缺乏一些现有的最佳实践经验。</li>
+</ol>
+<h2 id="9-受控组件和非受控组件"><a href="#9-受控组件和非受控组件" class="headerlink" title="9 受控组件和非受控组件"></a>9 受控组件和非受控组件</h2><h3 id="非受控组件"><a href="#非受控组件" class="headerlink" title="非受控组件"></a>非受控组件</h3><p>现用现取，官方建议尽量少用ref，用多了有一定的效率影响</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js">handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> &#123;<br>            event.<span class="hljs-title function_">preventDefault</span>() <span class="hljs-comment">//阻止表单提交</span><br>            <span class="hljs-keyword">const</span> &#123;username, password&#125; = <span class="hljs-variable language_">this</span><span class="hljs-comment">//拿到的是form下的username, password结点</span><br>            <span class="hljs-title function_">alert</span>(<span class="hljs-string">`你输入的用户名是：<span class="hljs-subst">$&#123;username.value&#125;</span>,你输入的密码是：<span class="hljs-subst">$&#123;password.value&#125;</span>`</span>)<br>        &#125;<br> <br><span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">&#123;this.handleSubmit&#125;</span>&gt;</span></span><br><span class="language-xml">    用户名：<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;c</span> =&gt;</span> this.username = c&#125; type=&quot;text&quot; name=&quot;username&quot;/&gt;</span><br><span class="language-xml">    密码：<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;c</span> =&gt;</span> this.password = c&#125; type=&quot;password&quot; name=&quot;password&quot;/&gt;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>登录<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">  )</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="受控组件"><a href="#受控组件" class="headerlink" title="受控组件"></a>受控组件</h3><p>将输入维护到state，等需要时再从state取出来</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Login</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span> &#123;<br><br>  <span class="hljs-comment">//state最好要初始化状态</span><br>  state = &#123;<br>    <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-comment">//用户名</span><br>    <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-comment">//密码</span><br>  &#125;<br><br>  <span class="hljs-comment">//保存用户名到状态中</span><br>  saveUsername = <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setState</span>(&#123;<span class="hljs-attr">username</span>: event.<span class="hljs-property">target</span>.<span class="hljs-property">value</span>&#125;)<br>  &#125;<br><br>  <span class="hljs-comment">//保存密码到状态中</span><br>  savePassword = <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setState</span>(&#123;<span class="hljs-attr">password</span>: event.<span class="hljs-property">target</span>.<span class="hljs-property">value</span>&#125;)<br>  &#125;<br><br>  <span class="hljs-comment">//表单提交的回调</span><br>  handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> &#123;<br>    event.<span class="hljs-title function_">preventDefault</span>() <span class="hljs-comment">//阻止表单提交</span><br>    <span class="hljs-keyword">const</span> &#123;username, password&#125; = <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span><span class="hljs-comment">//获得的是state下的username,password值</span><br>    <span class="hljs-title function_">alert</span>(<span class="hljs-string">`你输入的用户名是：<span class="hljs-subst">$&#123;username&#125;</span>,你输入的密码是：<span class="hljs-subst">$&#123;password&#125;</span>`</span>)<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="10-事件event"><a href="#10-事件event" class="headerlink" title="10 事件event"></a>10 事件event</h2><p>React中的事件都是采用<strong>事件委托</strong>的形式，所有的事件都<strong>挂载</strong>到<strong>组件</strong>容器上，其次event对象是合成处理过的</p>
+<h3 id="事件处理的几种方法"><a href="#事件处理的几种方法" class="headerlink" title="事件处理的几种方法"></a>事件处理的几种方法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span>&#123;<br>    <br>    <span class="hljs-title function_">handleClick2</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;click2&#x27;</span>)<br>    &#125;<br> <br>    hangleClick4 = <span class="hljs-function">() =&gt;</span>&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;click4&#x27;</span>)<br>    &#125;<br>    <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-keyword">return</span>(<br>            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;</span> <span class="hljs-attr">console.log</span>(&#x27;<span class="hljs-attr">click1</span>&#x27;)&#125;&gt;</span>click1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;</span> <span class="hljs-attr">this.handleClick2.bind</span>(<span class="hljs-attr">this</span>)&#125;&gt;</span>click2<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;</span> () =&gt;</span> &#123;console.log(&#x27;click3&#x27;)&#125;&gt;click3<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;</span> <span class="hljs-attr">this.hangleClick4</span> &#125;&gt;</span>click3<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>        )<br>    &#125;<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Test</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="事件中this的处理"><a href="#事件中this的处理" class="headerlink" title="事件中this的处理"></a>事件中this的处理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Welcome</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span> &#123;<br>    handleClick = <span class="hljs-function">(<span class="hljs-params">ev</span>) =&gt;</span> &#123;  <span class="hljs-comment">//推荐 public class fields语法，箭头函数不会创建自己的                                      this，它只会从自己的作用域链的上一层继承 this。</span><br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>);   <span class="hljs-comment">//对象</span><br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(ev);<br>    &#125;<br>    <span class="hljs-title function_">handleClick</span>(<span class="hljs-params"></span>)&#123;           <span class="hljs-comment">//不推荐 要注意修正指向</span><br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>);   <span class="hljs-comment">//按钮 </span><br>    &#125;<br>    <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-keyword">return</span> (<br>            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;this.handleClick&#125;</span>&gt;</span>点击<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">                hello world</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>        );<br>    &#125;<br>&#125;<br><span class="hljs-keyword">let</span> element = (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Welcome</span> /&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="事件传参处理"><a href="#事件传参处理" class="headerlink" title="事件传参处理"></a>事件传参处理</h3><p>推荐采用<strong>函数的高阶</strong>方式，具体代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Welcome</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span> &#123;<br>    handleClick = <span class="hljs-function">(<span class="hljs-params">num</span>) =&gt;</span> &#123;   <span class="hljs-comment">// 高阶函数</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">ev</span>) =&gt;</span> &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num);<br>        &#125;<br>    &#125;<br>    <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-keyword">return</span> (<br>            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;this.handleClick(123)&#125;</span>&gt;</span>点击<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">                hello world</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>        );<br>    &#125;<br>&#125;<br><span class="hljs-keyword">let</span> element = (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Welcome</span> /&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
                 
               </div>
             

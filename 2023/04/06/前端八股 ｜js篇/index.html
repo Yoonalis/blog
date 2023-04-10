@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
 <meta property="article:published_time" content="2023-04-06T13:31:21.932Z">
-<meta property="article:modified_time" content="2023-04-07T06:04:57.476Z">
+<meta property="article:modified_time" content="2023-04-10T03:23:32.866Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="计算">
@@ -250,7 +250,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          154k 字
+          155k 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
           <!-- compatible with older versions-->
-          1282 分钟
+          1295 分钟
         
       </span>
     
@@ -3222,6 +3222,35 @@
 <li><p>“&#x3D;&#x3D;&#x3D;” 既要判断值是否相等，也要判断类型是否相同，即全等才能返回 true</p>
 </li>
 </ul>
+<h3 id="x3D-x3D-的实现"><a href="#x3D-x3D-的实现" class="headerlink" title="&#x3D;&#x3D;的实现"></a>&#x3D;&#x3D;的实现</h3><p>在 JavaScript 中，使用双等号（&#x3D;&#x3D;）进行比较时，会进行类型转换，比较的是两个值是否相等。</p>
+<p>如果比较的两个值类型相同，则直接比较它们的值。如果值相等，返回 <code>true</code>，否则返回 <code>false</code>。</p>
+<p>如果比较的两个值类型不同，则 JavaScript 会尝试将其中一个值转换为另一个值的类型，然后再进行比较。类型转换的规则如下：</p>
+<ol>
+<li>如果比较的两个值类型相同，则直接比较它们的值。</li>
+<li>如果其中一个值为 <code>null</code>，另一个值为 <code>undefined</code>，返回 <code>true</code>。</li>
+<li>如果其中一个值为布尔值（<code>true</code> 或 <code>false</code>），另一个值为非布尔值，将布尔值转换为数字类型（<code>1</code> 或 <code>0</code>），然后再进行比较。</li>
+<li>如果其中一个值为字符串，另一个值为数字，将字符串转换为数字，然后再进行比较。</li>
+<li>如果其中一个值为对象，另一个值为字符串、数字或布尔值，则将对象调用 <code>valueOf()</code> 方法后得到的原始值，再进行比较。如果 <code>valueOf()</code> 方法返回的值不是原始值，则继续调用 <code>toString()</code> 方法，得到的字符串再进行比较。</li>
+<li>如果其中一个值为字符串、数字或布尔值，另一个值为对象，则调用对象的 <code>valueOf()</code> 和 <code>toString()</code> 方法，得到的值再进行比较。</li>
+<li>如果比较的两个值都是对象，则比较它们的引用是否相等。</li>
+</ol>
+<p>以下是一些示例：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs abnf">javascriptCopy code<br><span class="hljs-attribute">null</span> <span class="hljs-operator">=</span><span class="hljs-operator">=</span> undefined<span class="hljs-comment">; // true</span><br><span class="hljs-attribute">true</span> <span class="hljs-operator">=</span><span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-comment">; // true</span><br><span class="hljs-attribute">false</span> <span class="hljs-operator">=</span><span class="hljs-operator">=</span> <span class="hljs-number">0</span><span class="hljs-comment">; // true</span><br><span class="hljs-string">&quot;1&quot;</span> <span class="hljs-operator">=</span><span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-comment">; // true</span><br>[] <span class="hljs-operator">=</span><span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-comment">; // true</span><br>&#123;&#125; <span class="hljs-operator">=</span><span class="hljs-operator">=</span> <span class="hljs-string">&quot;[object Object]&quot;</span><span class="hljs-comment">; // true</span><br><span class="hljs-string">&quot;abc&quot;</span> <span class="hljs-operator">=</span><span class="hljs-operator">=</span> new String(<span class="hljs-string">&quot;abc&quot;</span>)<span class="hljs-comment">; // true</span><br></code></pre></td></tr></table></figure>
+
+<p>由于双等号存在类型转换的问题，容易导致一些意想不到的问题，因此在实际开发中，建议使用三等号（&#x3D;&#x3D;&#x3D;）进行比较，它不会进行类型转换，只有两个值的类型和值都相同，才会返回 <code>true</code>。</p>
+<h3 id="x3D-x3D-x3D-的实现"><a href="#x3D-x3D-x3D-的实现" class="headerlink" title="&#x3D;&#x3D;&#x3D;的实现"></a>&#x3D;&#x3D;&#x3D;的实现</h3><p>在 JavaScript 中，”&#x3D;&#x3D;&#x3D;” 运算符又称为严格相等运算符，它用于比较两个值是否严格相等，包括类型和值。</p>
+<p>其实现过程如下：</p>
+<ol>
+<li>如果两个操作数的数据类型不同，则它们不相等，直接返回 false。</li>
+<li>如果两个操作数都是 null 或者都是 undefined，则它们相等。</li>
+<li>如果两个操作数都是布尔类型 true 或 false，则它们相等。</li>
+<li>如果其中一个操作数是 NaN，则它们不相等。</li>
+<li>如果两个操作数都是数字，并且值相等（包括 +0 和 -0），则它们相等。</li>
+<li>如果两个操作数都是字符串，而且内容相同，则它们相等。</li>
+<li>如果两个操作数指向同一个对象、数组或函数，则它们相等。</li>
+<li>如果以上条件均不满足，则它们不相等。</li>
+</ol>
+<p>需要注意的是，当使用 “&#x3D;&#x3D;&#x3D;” 运算符比较两个引用类型的值时，比较的是它们在内存中的地址，而不是对象中存储的数据。因此，即使两个对象中存储的数据相同，它们也不会被认为是相等的，除非它们是同一个对象的引用。</p>
 <h2 id="34-JavaScript中-null-和-undefined-的区别"><a href="#34-JavaScript中-null-和-undefined-的区别" class="headerlink" title="34 JavaScript中 null 和 undefined 的区别"></a>34 JavaScript中 null 和 undefined 的区别</h2><h3 id="一、JS-中的-null"><a href="#一、JS-中的-null" class="headerlink" title="一、JS 中的 null"></a>一、JS 中的 null</h3><h4 id="1-描述："><a href="#1-描述：" class="headerlink" title="1. 描述："></a>1. 描述：</h4><p>① 是 JavaScript 基本类型之一，特指对象的值未设置，是表示缺少的标识，指示变量未指向任何对象，把 null 看为尚未创建的对象，也许更好理解；<br> ② 是一个字面量，不像 undefined，它不是全局对象的一个属性；<br> ③ 在布尔运算中被认为是 false；<br> ④ 与其他任何对象一样永远不会被 JavaScript 隐式赋值给变量。</p>
 <p>注：如果 JavaScript 预期某个位置应该是布尔值，会将该位置上现有的值自动转为布尔值。转换规则是除了下面六个值被转为 false，其他值都视为 true。</p>
 <p>undefined<br> null<br> false<br> 0<br> NaN<br> “” 或 ‘’（空字符串）</p>
@@ -3261,6 +3290,11 @@
 <p>个人理解：</p>
 <p> 以上例子可以理解为，在比较过程中， [] 、[null] 和 [undefined] 都隐式转换为 ‘’；</p>
 <p> 对于最里层的 [] ，不管外层嵌套多少个 [] ，最终都可看成只有最里层一个 [] 。</p>
+<h3 id="Null，NaN，Undefined"><a href="#Null，NaN，Undefined" class="headerlink" title="Null，NaN，Undefined"></a>Null，NaN，Undefined</h3><p>null：空对象，一般作为对象的初值</p>
+<p>Nan：浮点数中表示未定义或不可表示的值，例如0&#x2F;0、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E2%88%9E?fromModule=lemma_inlink">∞</a>&#x2F;∞、∞&#x2F;−∞、−∞&#x2F;∞、−∞&#x2F;−∞</p>
+<p>undefined：未定义，声明但未定义，例如，形参未传参，获取return的函数返回，对象属性名不存在</p>
+<h3 id="toString，valueOf"><a href="#toString，valueOf" class="headerlink" title="toString，valueOf"></a>toString，valueOf</h3><p>javascript中所有数据类型都拥有valueOf和toString这两个方法，null和undefined除外（String() 都能转）</p>
+<p>valueOf偏向于运算，toString偏向于显示</p>
 <h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
                 
               </div>

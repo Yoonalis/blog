@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
 <meta property="article:published_time" content="2023-04-06T13:32:15.961Z">
-<meta property="article:modified_time" content="2023-04-07T06:34:12.077Z">
+<meta property="article:modified_time" content="2023-04-10T01:21:57.484Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="计算">
@@ -250,7 +250,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          38k 字
+          52k 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
           <!-- compatible with older versions-->
-          316 分钟
+          430 分钟
         
       </span>
     
@@ -737,7 +737,541 @@
 <p>　　<a href="https://link.juejin.cn/?target=https://www.liaoxuefeng.com/wiki/1022910821149312/1023024413276544">www.liaoxuefeng.com/wiki/102291…</a></p>
 <p>　　2，Generator</p>
 <p>　　[developer.mozilla.org&#x2F;zh-CN&#x2F;docs&#x2F;…](</p>
-<h2 id="7"><a href="#7" class="headerlink" title="7"></a>7</h2><h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
+<h2 id="7-说说对前端工程化的理解，以及使用过的工程化工具"><a href="#7-说说对前端工程化的理解，以及使用过的工程化工具" class="headerlink" title="7 说说对前端工程化的理解，以及使用过的工程化工具"></a>7 说说对前端工程化的理解，以及使用过的工程化工具</h2><h3 id="什么是前端工程化"><a href="#什么是前端工程化" class="headerlink" title="什么是前端工程化"></a>什么是前端工程化</h3><p>前端工程化，就是<strong>降本提效</strong>的体现</p>
+<p>广义上，前端工程化包含一切以<strong>降低成本、提高效率、保障质量</strong>为目的的手段</p>
+<p>通过一系列的规范、流程、工具达到<strong>研发提效、自动化、保障质量、服务稳定、预警监控</strong>等</p>
+<p>一个优秀的前端工程师，需要对所开发项目的效率、性能、质量等工程化维度，去制定和实施技术优化指标，只有具备这方面能力，才能应对和优化复杂项目，保证团队高效产出</p>
+<h3 id="为什么要进行前端工程化"><a href="#为什么要进行前端工程化" class="headerlink" title="为什么要进行前端工程化"></a>为什么要进行前端工程化</h3><p>项目发展过程中，随着项目成员增加，系统复杂度上升，会引发如下问题：</p>
+<ol>
+<li><strong>系统质量的下降</strong></li>
+</ol>
+<p>项目开发人员频繁变更，系统功能新增和迭代，都会导致缺陷的增加，需要通过系统上线前的质量监测来尽早发现问题</p>
+<p>为降低系统复杂度，到了一定阶段，对系统进行局部或者整体的架构调整，引入新技术，但也可能引发新问题：</p>
+<ul>
+<li>部分功能无法与新技术兼容</li>
+<li>影响面广，可能有缺陷无法及时发现</li>
+</ul>
+<ol>
+<li><strong>开发效率的下降</strong></li>
+</ol>
+<p>系统上线之后，开发工作内容变得复杂，需要关注的事情更多，不停切换不同工作内容，容易遗漏工作步骤，导致流程出现问题，导致系统质量不稳定，技术债务更多，团队开发效率下降</p>
+<p>前端工程化，就是要解决如上两大类问题，提升系统质量和开发效率，提升团队的人工投入产出比</p>
+<h3 id="如何进行前端工程化"><a href="#如何进行前端工程化" class="headerlink" title="如何进行前端工程化"></a>如何进行前端工程化</h3><h4 id="系统质量"><a href="#系统质量" class="headerlink" title="系统质量"></a>系统质量</h4><h5 id="设计前端项目"><a href="#设计前端项目" class="headerlink" title="设计前端项目"></a>设计前端项目</h5><p>设计项目时，需明确技术选型的影响因素（具体如下），再具体做对应决策</p>
+<ul>
+<li><strong>项目规模、功能交互</strong></li>
+</ul>
+<p>影响框架、工具选型，可考虑使用开源&#x2F;现有框架，目前三大主流框架包含Angular、Vue、React</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/96c33fa6fdfd40199268d785f7aa3e5e~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<ul>
+<li><strong>用户体系</strong></li>
+</ul>
+<p>影响兼容性的倾向，比如APP主要群体是老年人，需要考虑旧版本手机的兼容性</p>
+<ul>
+<li><strong>多人协作、团队规模</strong>：考虑完善规范，尽量使用工具保证规范进行<ul>
+<li>使用一致的代码开发规范<ul>
+<li>使用 Eslint 监测代码规范</li>
+<li>使用 Prettier 自动化格式代码</li>
+<li>使用 Git Commit Hooks 拒绝不符合规范的代码提交</li>
+<li>使用流水线检测出不规范代码，并拒绝合入主干分支，拒绝进入发布流程</li>
+</ul>
+</li>
+<li>合入代码前，进行 Code Review，遇到分歧时，可通过投票</li>
+<li>制定合适的代码流程规范<ul>
+<li>关联需求单&#x2F;bug 单的分支命名</li>
+<li>检查代码是否符合规范、进行 Code Review</li>
+<li>自动化构建和测试代码</li>
+<li>灰度发布代码</li>
+</ul>
+</li>
+<li>通过自动化工具确保流程正常进行，比如使用 CI&#x2F;CD</li>
+</ul>
+</li>
+<li><strong>团队技术栈</strong><ul>
+<li>考虑团队现有的技术栈、团队成员对框架&#x2F;工具的熟悉程度，团队成员倾向的框架&#x2F;工具</li>
+<li>使用团队成员比较熟悉的技术栈，可减少开发问题，提升开发效率</li>
+<li>针对新技术方案，则可通过成员讨论和投票</li>
+</ul>
+</li>
+</ul>
+<h5 id="搭建前端监控体系"><a href="#搭建前端监控体系" class="headerlink" title="搭建前端监控体系"></a>搭建前端监控体系</h5><p>搭建前端监控体系是为了及时发现问题，快速定位并解决问题，监控页面整体访问情况包括常见的 PV、UV、用户操作行为，监控页面性能</p>
+<p><strong>前端监控需关注的数据</strong></p>
+<ul>
+<li>系统的生命周期数据：包括页面加载的关键时间点，比如页面打开、更新、关闭等<ul>
+<li>PerformanceTiming 属性可获取用于页面跳转、加载等数据</li>
+<li>document.DOMContentLoader、document.readystatechange，可获取页面加载数据</li>
+<li>Vue 的生命周期函数也可进行数据收集</li>
+<li>MutationObserver 接口可结合 performance.now() 获取到具体的时间</li>
+</ul>
+</li>
+<li>HTTP 测速数据</li>
+</ul>
+<p>PerformanceTiming 属性也可获取 HTTP 请求相关数据，比如 HTTP 跳转开始&#x2F;结束，域名查询开始&#x2F;结束等时间戳，用于观察后端服务稳定情况、可优化空间</p>
+<ul>
+<li>系统异常数据</li>
+</ul>
+<p>包括逻辑错误、代码健壮性、网络错误、系统错误、页面内容异常等数据</p>
+<p>前4种的异常数据，可用 window.onerror、document.addEvenetListener(error)、XMLHttpRequest status 等方法拦截，第5种异常可通过回归测试、UI 界面测试等方式获取</p>
+<ul>
+<li>用户行为数据</li>
+</ul>
+<p>包括页面浏览点击量、页面停留时间、访问入口、用户操作、用户链路数据，用于监控页面功能是否正常、分析用户行为，定位问题，以便更好地调整产品功能</p>
+<p>可通过 DOM 元素的时间监听、页面加载情况</p>
+<ul>
+<li>用户日志</li>
+</ul>
+<p>使用用户日志定位系统异常信息</p>
+<p>自动打印日志的方式：添加装饰器、对类方法进行劫持</p>
+<p>存放系统输出日志：上报到服务器和本地存储两种方式配合使用</p>
+<p><strong>数据采集</strong></p>
+<ul>
+<li>数据埋点</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/13015402916944358214d41f682ed420~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="image.png"></p>
+<ul>
+<li>数据上报<ul>
+<li>定期&#x2F;定量上报：收集数据到一定数量之后，再一次性打包，或者按照一定的时间间隔打包上传</li>
+<li>关键生命周期上报</li>
+<li>用户主动提交：引导用户主动上传异常和使用体验问题</li>
+</ul>
+</li>
+</ul>
+<p><strong>搭建可视化管理端</strong></p>
+<ul>
+<li>日常监控：配置告警阈值，结合邮件、机器人推送，发现问题</li>
+<li>版本发布和灰度：关注错误告警、全版本监控观察、分版本监控观察，出现数据异常，配合告警渠道通知负责人</li>
+</ul>
+<h5 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h5><p><strong>常见的性能优化方案</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/550ebd54b95a425cb5f098924bc780ef~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><strong>如何在项目中进行性能优化</strong></p>
+<ul>
+<li>确定优化的目标和预期</li>
+</ul>
+<ol>
+<li>明确性能数据<ul>
+<li>网络资源请求时间</li>
+<li>Time To Start Render(TTSR)：浏览器开始渲染的时间</li>
+<li>Dom Ready：页面解析完成的时间</li>
+<li>Time To Interact(TTI))：页面可交互时间</li>
+<li>Total Blocking Time (TBT)：总阻塞时间，代表页面处于不可交互状态的耗时</li>
+<li>First Input Delay(FID)：从用户首次交互，到浏览器响应的时间</li>
+</ul>
+</li>
+<li>对性能数据进行目标和预期的确定：比如对比原先数据优化到多少比例，分析竞品确定目标</li>
+</ol>
+<ul>
+<li>确定技术方案<ul>
+<li>技术方案调研<ul>
+<li>分析项目背景，挖掘项目痛点</li>
+<li>分析项目现状</li>
+<li>调研业界方案</li>
+</ul>
+</li>
+<li>技术方案设计，方案选型&#x2F;对比<ol>
+<li>梳理项目现状：比如项目规模大，开发多</li>
+<li>梳理项目痛点：比如不同模块变更导致性能下降，问题往往在测试时才发现</li>
+<li>调研性能分析方案：通过 Performace 火焰图、Lighthouse、Chrome Devtools Protocol 等工具</li>
+<li>根据对比和分析确定最优方案，并跟领导解释</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="开发效率"><a href="#开发效率" class="headerlink" title="开发效率"></a>开发效率</h4><p>主要分析项目在开发过程中的效率提升点，学会如何在未来的项目中选择和搭建最适合自己的开发工具</p>
+<h5 id="开发构建"><a href="#开发构建" class="headerlink" title="开发构建"></a>开发构建</h5><h5 id="热更新"><a href="#热更新" class="headerlink" title="热更新"></a>热更新</h5><p>当本地代码文件发生变化时，浏览器自动更新页面内容</p>
+<p>webpack 热更新配置：</p>
+<ul>
+<li>手动配置</li>
+<li>watch 模式，配置 watch:true，无需手动执行打包构建，但需要手动刷新浏览器</li>
+<li>Live Reload 模式，配置 contentBase：文件路径，open：true，浏览器内容自动更新，但页面状态无法保存</li>
+<li>Hot Module Replacement（HMR、 模块热替换），配置 hot: true</li>
+</ul>
+<p>模块热替换插件实现热替换功能，主要依赖 module.hot 的属性</p>
+<ol>
+<li>module.hot.accept(模块名称，回调方法)：当依赖模块发生更新时，执行回调方法</li>
+<li>module.hot.dispose(回调方法)：当代码上下文的模块被移除时，执行回调方法</li>
+</ol>
+<p><strong>webpack 热更新原理</strong>：</p>
+<ol>
+<li>监控源代码文件内容的变更</li>
+<li>进行服务端和网页端的 socket 通信</li>
+<li>进行模块解析和替换，依次执行匹配 module.hot 对应 moduleId 的回调函数，进行热替换，若未命中，则触发重新加载</li>
+</ol>
+<h5 id="sourceMap"><a href="#sourceMap" class="headerlink" title="sourceMap"></a>sourceMap</h5><p>在调试时将产物代码显示回源代码</p>
+<p>sourceMap 的基本原理：在编译处理过程中，产物代码在被转换时，与源码生成了映射关系表，利用这映射表来实现调试时的显示与定位源代码功能</p>
+<p>在开发环境中，通常关注构建速度快、质量高，以便于提升开发效率，不关注生成文件的大小和访问方式，建议使用 cheap-module-source-map，可以在浏览器下看到正确的错误提示</p>
+<p>在生产环境为了防止源码泄露，建议使用 false，不使用 source-map</p>
+<h5 id="Mock-工具"><a href="#Mock-工具" class="headerlink" title="Mock 工具"></a>Mock 工具</h5><p>模拟数据的工具，用于测试或者预先联调</p>
+<p>选择 Mock 方案需注重：</p>
+<ul>
+<li>仿真度：尽可能与后端实际提供接口的各方面保持一致</li>
+<li>易用性：需要具备将接口文档自动转换为 Mock 接口的能力</li>
+<li>灵活性：根据不同条件下返回值的差异做不同的交互处理</li>
+</ul>
+<p>四种主流 Mock 工具：</p>
+<ul>
+<li>Mock.js：Mock 数据生成工具<ul>
+<li>提供生成模拟数据的规范和方法</li>
+<li>Ajax 请求拦截：拦截特定 url 的请求，直接将模拟数据作为响应值返回</li>
+<li>数据验证：验证指定数据和数据模板是否匹配</li>
+<li>模板导出：将 Mock.js 风格的数据模板转换为 JSONSchema</li>
+</ul>
+</li>
+<li>Faker.js：Mock 数据生成工具<ul>
+<li>提供指定类型的随机数据</li>
+<li>在 API 的使用方面较直观</li>
+<li>支持多种语言的本地化包</li>
+</ul>
+</li>
+<li>YApi：开发、产品、测试人员共同使用的接口管理服务<ul>
+<li>支持接口的定义、修改、运行、集合测试等</li>
+<li>提供 Mock 服务，以定义的接口可以通过服务直接获取 Mock 数据</li>
+<li>支持 Swagger 多种接口描述的数据导入与导出</li>
+<li>支持部署到内网服务以及自定义插件</li>
+</ul>
+</li>
+<li>Apifox：桌面应用类的接口管理工具<ul>
+<li>支持接口调试工具 Postman 的特色功能</li>
+<li>对同一个接口支持多种用例管理</li>
+<li>支持自定义期望数据，支持自定义占位符规则等</li>
+<li>支持生成自动业务代码和接口请求代码，支持自定义代码模板等</li>
+</ul>
+</li>
+</ul>
+<h5 id="编码效率工具"><a href="#编码效率工具" class="headerlink" title="编码效率工具"></a>编码效率工具</h5><p><strong>使用预处理语言和预处理器</strong>：</p>
+<ul>
+<li>CSS 的主流预处理器：Less&#x2F;Sass&#x2F;Stylus<ul>
+<li>使用人数从多到少排序：Sass &gt; Less&gt; Stylus</li>
+<li>Less 缺少自定义函数的功能，Stylus 提供了超过 60 个内建函数</li>
+<li>Sass 支持 .scss 与 .sass 两种文件格式，Less 的整体语法更接近 .scss，Stylus 则同时支持类似 .sass 的精简语法和普通 CSS 语法</li>
+<li>sass-loader 和 stylus-loader 安装时都需要同时安装独立编译包 Sass &#x2F; node-sass 和 Stylus，而 less-loader 则不强制要求</li>
+</ul>
+</li>
+<li>HTML 模板的主流预处理器：Pug</li>
+</ul>
+<p>功能：简化标签书写、支持迭代、条件、拓展、包含、混合等逻辑功能</p>
+<p>Vue 内置 pug-loader 作为预处理器，React 需要通过 babel 插件获得支持</p>
+<p><strong>使用代码生成工具</strong>：</p>
+<ul>
+<li>Snippet</li>
+</ul>
+<p>开发过程中用户在 IDE 使用的可复用代码片段</p>
+<p>可编写自身开发常用的个性预设片段，提升编码效率</p>
+<p>可以在团队中共享和共同维护，提升团队效率</p>
+<ul>
+<li>Emmet</li>
+</ul>
+<p>面向各类编辑器的 Web 开发插件，用于快速编写和编辑结构化的代码</p>
+<p>支持功能：缩写代码块、CSS 缩写、自定义片段</p>
+<h5 id="云开发"><a href="#云开发" class="headerlink" title="云开发"></a>云开发</h5><p>将开发环境托管至云服务，开发服务器变更为云服务</p>
+<p>优点：</p>
+<ul>
+<li>集成开发环境所需基础设施，提升开发环境准备的效率</li>
+<li>流程简化，易上手</li>
+<li>统一流程规范、开发工具共享</li>
+<li>提升资源利用率，降低硬件资产成本</li>
+</ul>
+<p>注意点：</p>
+<ul>
+<li>代码安全问题：设置访问权限，首选支持内部部署的云服务或者搭建自己维护的云服务</li>
+<li>服务搭建与维护：考虑成本</li>
+<li>服务降级与备份：考虑当系统异常时的策略</li>
+</ul>
+<h4 id="构建效率"><a href="#构建效率" class="headerlink" title="构建效率"></a>构建效率</h4><p>主要分析影响 webpack 构建时间的关键因素，并分析对应的解决方案和工具</p>
+<h5 id="webpack-编译阶段提效"><a href="#webpack-编译阶段提效" class="headerlink" title="webpack 编译阶段提效"></a>webpack 编译阶段提效</h5><p><strong>减少执行构建的模块</strong></p>
+<ul>
+<li>ignorePlugin：剔除需要被排除的模块</li>
+<li>按需引入库模块：减少执行模块，在导入声明时只导入依赖包内的特定模块</li>
+<li>将项目依赖的框架等模块单独构建打包<ul>
+<li>DllPlugin 和 DllReferencePlugin：独立的配置文件，包含依赖包的独立构建流程，无须更改引用依赖包的子模块</li>
+<li>Externals：配置简单，使用已传入 CDN 的依赖包，配置的依赖包需要单独指定依赖模块的加载方式，将引用依赖包的子模块打入项目包中</li>
+</ul>
+</li>
+</ul>
+<p><strong>提升单个模块构建的速度</strong></p>
+<ul>
+<li>include&#x2F;exclude：include 只对符合条件的模块进行 loader 转换，而 exclude 相反，若出现冲突，优先 include</li>
+<li>noParse：省略使用 js 模块编译器进行编译的时间</li>
+<li>Source Map：本地调试时，显示回源代码的工具</li>
+<li>TypeScript 编译优化：ts-loader 配合 transpileOnly: true，babel-loader 配合 @babel&#x2F;preset-typescript，两种形式都可配合使用 ForkTsCheckerWebpackPlugin将检查过程移至单独的进程，加快 TypeScript 的类型检查和 ESLint 插入的速度</li>
+</ul>
+<p><strong>并发构建（大中型项目的生产环境构建）</strong></p>
+<ul>
+<li>HappyPack 和 thread-loader：以开启多进程的方式加速编译特定 loader</li>
+<li>parallel-webpack：实现不同配置的并行构建</li>
+</ul>
+<h5 id="webpack-打包阶段提效"><a href="#webpack-打包阶段提效" class="headerlink" title="webpack 打包阶段提效"></a>webpack 打包阶段提效</h5><p><strong>提升当前任务工作效率</strong></p>
+<p>主要方式是压缩 Chunk 产物</p>
+<ul>
+<li>面向 JS 的压缩工具<ul>
+<li>UglifyJSWebpackPlugin：早期压缩工具，基于 UglifyJS</li>
+<li>TerserWebpackPlugin：基于 Terser，整体效率与质量略胜于 UglifyJSWebpackPlugin<ul>
+<li>Cache 选项：默认开启，使用缓存能够极大程度上提升再次构建时的工作效率</li>
+<li>Parallel 选项：默认开启，并发选项在大多数情况下能够提升该插件的工作效率</li>
+<li>terserOptions 选项：对具体压缩处理过程产生影响，compress 参数用于执行特定的压缩策略，mangle 参数用于对源代码中的变量与函数名称进行压缩</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>面向 CSS 的压缩工具<ul>
+<li>OptimizeCssAssetsPlugin：在 Create-React-App 中使用</li>
+<li>OptimizeCssNanoPlugin：在 VUE-CLI 中使用</li>
+<li>CSSMinimizerWebpackPlugin：2020 年 Webpack 社区新发布的 CSS 压缩插件，比起前两款压缩工具，它支持缓存和多进程，对项目构建效率影响明显，推荐使用</li>
+</ul>
+</li>
+</ul>
+<p><strong>提升后续环节工作效率</strong></p>
+<ul>
+<li>Split Chunks(分包)：将 Chunks 根据一定的规则分离出子 Chunk，通过分包来抽离多个入口点引用的公共依赖</li>
+<li>Tree Shaking：在构建打包过程中，移除那些引入但未被使用的无效代码，影响因素包含:<ul>
+<li>ES6 模块：只有 ES6 类型的模块才能进行Tree Shaking</li>
+<li>引入方式：以 default 方式引入的模块，无法被 Tree Shaking，而引入单个导出对象的方式则可以</li>
+<li>sideEffects：只有 sideEffects 为 false 的依赖包，才能进行Tree Shaking</li>
+<li>Babel：在 Babel 7 之前的 babel-preset-env ，modules 选项默认为 commonjs，无法被 Tree Shaking，在 Babel 7 之后的 @babel&#x2F;preset-env，modules 选项默认为 auto，可以 Tree Shaking</li>
+</ul>
+</li>
+</ul>
+<h5 id="缓存优化"><a href="#缓存优化" class="headerlink" title="缓存优化"></a>缓存优化</h5><p><strong>基本原理</strong></p>
+<p>初次构建的压缩代码过程中，结果会写入缓存目录，再次构建进行到压缩代码阶段时，即可对比读取缓存</p>
+<p><strong>编译阶段的缓存优化</strong></p>
+<ul>
+<li>Babel-loader<ul>
+<li>cacheDirectory：开启缓存</li>
+<li>cacheIdentifier：计算缓存标识符</li>
+<li>cacheCompression：将缓存内容压缩为 gz 包</li>
+</ul>
+</li>
+<li>Cache-loader<ul>
+<li>添加在 babel-loader 之前</li>
+<li>对比 babel-loader，构建时间更短，存储的 Buffer 形式的数据处理效率更高</li>
+</ul>
+</li>
+</ul>
+<p><strong>打包阶段的缓存优化</strong></p>
+<ul>
+<li>生成 ChunksAsset 时的缓存优化：只有在 watch 模式下且配置开启 cache时才能执行缓存逻辑</li>
+<li>代码压缩时的缓存优化<ul>
+<li>JS 的压缩：TerserWebpackPlugin 和 UglifyJSPlugin 都支持缓存设置</li>
+<li>CSS 的压缩：CSSMinimizerWebpackPlugin 默认开启缓存</li>
+</ul>
+</li>
+<li>减少缓存的失效<ul>
+<li>缓存标识符发生变化导致的缓存失效：尽可能地减少标识符变化</li>
+<li>优化打包阶段的缓存失效：尽可能地把那些不变的处理成本高昂的模块打入单独的 Chunk 中，使用 splitChunks 优化缓存利用率</li>
+</ul>
+</li>
+</ul>
+<p><strong>其他使用缓存的注意事项</strong></p>
+<ul>
+<li>为保持 CI&#x2F;CD 中的持久化缓存，备份与还原.cache 文件</li>
+<li>定期清理缓存区域</li>
+</ul>
+<h5 id="webpack-增量构建"><a href="#webpack-增量构建" class="headerlink" title="webpack 增量构建"></a>webpack 增量构建</h5><p>webpack 只编译打包改动的文件，并将编译后的代码推送到浏览器端</p>
+<p><strong>影响因素</strong></p>
+<ul>
+<li>watch 配置</li>
+</ul>
+<p>使用 devServer 时，用于监控文件的变化</p>
+<p>实现原理：构建完成并不自动退出，构建上下文的对象都可以保留在内存中，并在 rebuild 时重复使用</p>
+<ul>
+<li>cache配置</li>
+</ul>
+<p>用于使用缓存</p>
+<p>实现原理：在编译阶段添加模块时，若命中缓存 module，则跳过该模块的编译过程，在创建 chunk 产物代码阶段，若命中缓存 chunk，则跳过该 chunk 的产物代码生成过程</p>
+<p><strong>生产环境使用增量构建的阻碍</strong></p>
+<ul>
+<li>集成部署系统通常不可接受增量构建所需的保留进程和长时间占用内存</li>
+<li>在生产环境下提升构建速度，需要将缓存写入到文件系统中，但 webpack4 的 cache 配置并不支持</li>
+<li>webpack 5 已正式支持基于文件系统的持久化缓存</li>
+</ul>
+<h4 id="部署效率"><a href="#部署效率" class="headerlink" title="部署效率"></a>部署效率</h4><p>代码从构建到部署是前端能力的延申，学习如何提升自己前端项目的部署效率</p>
+<h5 id="部署工具介绍"><a href="#部署工具介绍" class="headerlink" title="部署工具介绍"></a>部署工具介绍</h5><p>如果所在企业需要选择一款 CI&#x2F;CD 工具，需要考虑选择付费或免费系统，选择云服务还是自运维，是否需要对接上下游系统流程，使用配置是否便捷，对用户是否有学习成本，如下是四款工具简要介绍：</p>
+<p><strong>Jenkins</strong></p>
+<p>功能特点</p>
+<ul>
+<li>提供各系统搭建方式，提供基于 Docker 的容器化搭建方式</li>
+<li>免费</li>
+<li>多类型 Job</li>
+<li>插件系统丰富</li>
+<li>Job 配置灵活</li>
+<li>提供 Restful 的 API 接口</li>
+</ul>
+<p>胜在插件系统丰富且完全开源免费</p>
+<p>缺点是缺少语言环境工作流的模板，使用成本高，服务器需要独立部署和运维</p>
+<p><strong>CircleCI</strong></p>
+<p>功能特点</p>
+<ul>
+<li>基于云端的持续集成服务</li>
+<li>免费版本受限制，收费提供更多功能</li>
+<li>缓存依赖安装的数据</li>
+<li>基于 SSH 访问构建容器</li>
+<li>开箱即用，配置简化</li>
+<li>提供 Restful 的 API 接口</li>
+</ul>
+<p>胜在对接 Github 中的项目，支持 BitBucket、Heroku 等平台的对接</p>
+<p><strong>Github Actions</strong></p>
+<p>功能特点</p>
+<ul>
+<li>多系统</li>
+<li>矩阵运行</li>
+<li>多语言</li>
+<li>多容器测试</li>
+<li>社区支持</li>
+<li>公开仓库以及自运维执行器免费，私有仓库免费或收费</li>
+</ul>
+<p>胜在是 Github 内置的 CI&#x2F;CD 工具，使用成本最低，提供矩阵运行，多容器测试，多工作流模板等特色功能</p>
+<p><strong>Gitlab CI</strong></p>
+<p>功能特点</p>
+<ul>
+<li>多功能</li>
+<li>免费的社区版本和免费或收费的商用版本</li>
+<li>内置 CI&#x2F;CD 功能</li>
+</ul>
+<p>企业比较受欢迎的版本管理工具，Gitlab 内置的 CI&#x2F;CD 工具，使用 yml 的配置文件，但是要独立安装和配置执行器 Gitlab Runner</p>
+<h5 id="流程策略优化"><a href="#流程策略优化" class="headerlink" title="流程策略优化"></a>流程策略优化</h5><p>项目部署流程包含获取代码、依赖安装、代码构建、产物打包、推送代码、重启服务，常见的流程策略优化主要是在依赖安装、代码构建、产物打包这三个阶段：</p>
+<p><strong>依赖安装阶段的提效</strong></p>
+<ul>
+<li>提升依赖安装速度<ul>
+<li>依赖包下载使用国内镜像</li>
+<li>二进制下载源单独配置下载路径</li>
+</ul>
+</li>
+<li>多项目共用缓存，最大化命中缓存<ul>
+<li>依赖工具相同的项目使用相同服务器</li>
+<li>技术栈相同的项目使用相同服务器</li>
+</ul>
+</li>
+<li>安装目录缓存<ol>
+<li>缓存写入：package-lock.json 文件的 hash 值作为缓存目录的 key 值，压缩 node_modules 文件存储在缓存目录中</li>
+<li>缓存读取：判断 package-lock.json 文件的 hash 值是否命中缓存目录的 key 值，若命中则解压并使用缓存目录中的 node_modules 文件</li>
+</ol>
+</li>
+<li>检查 lock 文件</li>
+</ul>
+<p>项目开发人员需保存和维护 lock 文件，在 CI 流程中检测 lock 文件</p>
+<p><strong>代码构建阶段的提效</strong></p>
+<p>保持 CI 流程中的项目持久化缓存：</p>
+<ol>
+<li>备份：在项目构建结束时，将 .cache 文件依据其相对项目根目录的路径生成备份目录名称</li>
+<li>还原：再次重新构建时，查看备份空间是否存在对应项目的持久化缓存目录，若是则解析目录结构，将 .cache 文件还原到项目响应的目录中</li>
+</ol>
+<p><strong>产物打包阶段的提效</strong></p>
+<p>考虑提升产物压缩效率，使用 Gzip&#x2F;Pigz&#x2F;Zstd</p>
+<ul>
+<li>压缩体积不大可使用 Gzip</li>
+<li>Pigz 和 Zstd 都使用并行处理，CPU 和内存占用都比 Gzip 高</li>
+<li>Pigz 产物与 Gzip 格式兼容，较广泛地作为 Gzip 的替代</li>
+<li>Zstd 产物与 Gzip 格式不兼容，Zstd 产物在解压时也需要 Zstd，适合压缩和解压流程闭环的场景</li>
+</ul>
+<h5 id="容器化部署"><a href="#容器化部署" class="headerlink" title="容器化部署"></a>容器化部署</h5><p><strong>容器化基础概念</strong></p>
+<ul>
+<li>容器化：以 Docker 为代表，将操作系统内核虚拟化的技术</li>
+<li>Docker：运行在 Windows&#x2F;linux&#x2F;macOS 中开源的虚拟化引擎，用于管理容器</li>
+<li>镜像：用于创建容器实例的虚拟化模板</li>
+<li>容器：Docker 的核心功能单元，包含一个或多个应用程序以及运行它们所需要的环境依赖</li>
+<li>数据挂载：挂载容器的宿主环境目录</li>
+<li>数据卷：由 Docker 创建的宿主环境下的独立磁盘空间</li>
+</ul>
+<p><strong>容器化构建部署</strong></p>
+<p>把原先在部署服务器中执行的项目部署流程中的各个环节，改为使用容器化的技术来完成</p>
+<ul>
+<li>镜像操作阶段：创建工作镜像，包含特定版本的 node 环境、git、项目构建所需要的依赖库</li>
+<li>操作容器阶段：基于工作镜像，创建容器，操作各部署环节</li>
+</ul>
+<p><strong>容器化部署优势</strong></p>
+<ul>
+<li>环境隔离：每个项目在独立的容器内执行构建部署过程</li>
+<li>多环节构建：可针对同一个项目生成多套不同的构建过程</li>
+<li>便于调试：可使用浏览器访问容器环境，有问题则可第一时间进入容器环境调试</li>
+<li>环境一致性与迁移效率：工作环境一致，可以一键迁移</li>
+</ul>
+<p><strong>容器化部署的挑战与建议</strong></p>
+<ul>
+<li>缓存问题<ul>
+<li>依赖缓存：缓存目录不互通，无法持久化缓存，通过挂载宿主环境依赖缓存目录，使用安装目录缓存等方式解决</li>
+<li>构建缓存：缓存数据随着新容器部署而消失，通过在宿主环境中创建缓存目录并挂载到容器中，持久化数据的备份与还原等方式解决</li>
+</ul>
+</li>
+<li>性能问题<ul>
+<li>容器资源限制：容器创建时，CPU 核心数和内存大小受限制，通过更改设置，分配更多资源的方式解决</li>
+<li>修改镜像层数据：如果涉及对镜像层数据的修改，比普通服务器消耗更多时间，所以尽可能避免将可变数据写入镜像中</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-babel"><a href="#8-babel" class="headerlink" title="8 babel"></a>8 babel</h2><p>谈到前端工程化，脑海中就会浮现<code>Webpack</code>、<code>Eslint</code>、<code>Babel</code>、<code>Gulp</code>、<code>Rollup</code>等字眼，甚至还有<code>CI/CD</code>（持续集成&#x2F;持续部署）、自动化测试等高深概念。这篇文章将尝试用最简单的白话来了解Babel的概貌，认识Babel在前端工程流中的角色定位，以及基础用法，为之后的前端工程化深入学习做铺垫。</p>
+<h3 id="概貌"><a href="#概貌" class="headerlink" title="概貌"></a>概貌</h3><p><strong>Babel 是什么？Babel 是一个 JavaScript 编译器。</strong></p>
+<p>上面这句话就是Babel的本质，更简单的说，Babel可以把使用ES6&#x2F;ES7等“高级”语法编写的Javascript代码转换为ES5&#x2F;ES3的“通俗”语法（也可以把JSX语法转为Javascript）。</p>
+<p>随着ECMAScript 标准规范发展越来越快，新语法层出不穷，然而浏览器更新却存在着滞后性，对ECMAScript新标准支持程度不一，Web前端开发者眼巴巴看着各种“高大上”、“简洁”、“实用”的语法和API，却不敢在实际项目中直接使用，以免由于浏览器不兼容导致各种问题，于是Babel诞生了！</p>
+<p>从此以后，我们也可以尽情地使用“高大上”的ES6+高级语法了，只要经过Babel转换，最终输出的代码是啥样的我们不再那么关心，只要浏览器能读懂并执行就行。</p>
+<p>也许你会担心经过Babel转换后的代码太过难以阅读，调试起来会非常困难。幸好Babel支持了一个叫做Source map的特性，使我们调试起来也和直接写ES5&#x2F;ES3代码的调试方式一样简单，而这对我们来说，只需要启用一个配置项就可以做到。</p>
+<h3 id="Babel在前端工程流中的角色定位"><a href="#Babel在前端工程流中的角色定位" class="headerlink" title="Babel在前端工程流中的角色定位"></a>Babel在前端工程流中的角色定位</h3><p>我们知道，如今前端工程流中最耳熟能详的一个词是：<code>Webpack</code>. 现在很多前端项目脚手架都内置依赖了webpack，且提供了一套默认配置，做到开箱即用。我们只需要按照官网文档给出的步骤，一个命令一个命令去执行，如<code>npm run serve</code>、<code>npm run build</code>…，即可实现大部分开发场景需求，在需要定制化的情况下，甚至自己建一个<code>vue.config.js</code>文件去按照文档说明扩展配置即可，不再需要了解webpack的具体用法就能“叱咤Vue界”。</p>
+<p>这是前端工程化发展的必然，有句话说得好，“懒人改变世界”，技术的发展造福了更多的懒人。在这样的大背景下，Webpack的细节被隐藏和弱化，更别提Babel了。我们可以在项目看到一个<code>.babelrc</code>文件，却大部分时间都不会注意到它，更别说打开它和编辑它了。</p>
+<p>但就是这么一个低存在感的小透明，却承担起了巨大的责任，在背后默默工作，辛苦地把你新编写的ES6 <code>class</code>转换成了平凡的构造函数，在你<code>Ctrl + S</code>之后看到浏览器页面焕然一新的瞬间，你可会想到这个小透明做的事情有多么伟大？当然，这一切也离不开老大哥Webpack的提携，在Webpack的Loader机制下，Babel在这里作为<strong>Webpack loader角色</strong>的一员勤勤恳恳工作着。</p>
+<p>除了作为Webpack loader，Babel当然也能孤军奋战，独当一面，文章后面将介绍Babel单独使用和结合Webpack使用两种用法。</p>
+<h3 id="Babel工具集"><a href="#Babel工具集" class="headerlink" title="Babel工具集"></a>Babel工具集</h3><p>在使用Babel之前，我们先要知道Babel包含哪些东西，是的，它不是一个单一的工具，一开始它确实是一个单一的Javascript转换器，但现在它变成了一个工具集……别慌，它并没有因此变得很复杂，之所以这么设计是有原因的：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">在<span class="hljs-keyword">Babel </span><span class="hljs-number">6</span>以前，<span class="hljs-keyword">Babel是一个专注且单一的Javascript转换器，然而Babel团队的志向不仅于此，更想把Babel打造成一个平台，由各个不同的功能模块和可插拔插件组成，用于创建下一代JavaScript工具集。</span><br><span class="hljs-keyword"></span>复制代码<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>详见<a href="https://link.juejin.cn/?target=http://linyk.me/2017/03/31/babel-usage/">Babel 6.0之babel-cli和babel-core的用法和区别</a></p>
+</blockquote>
+<p>自Babel 7起，Babel团队改用作用域软件包，因此您现在必须使用<code>@babel/core</code>而不是<code>babel-core</code>.但实质上，<code>@babel/core</code>只是<code>babel-core</code>的较新版本。这样做是为了更好地区分哪些软件包是官方软件包，哪些是第三方软件包。</p>
+<p>Babel7包含了核心包<code>@babel/core</code>、终端命令行界面工具<code>@babel/cli</code>以及各种语法转换规则包（官方称之为<code>preset</code>，即“预设”）如<code>@babel/preset-env</code>、<code>@babel/preset-react</code>、<code>@babel/preset-typescript</code>、<code>@babel/preset-flow</code>，这些都是按需安装使用的，后面介绍用法时你将了解它们的用途。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">在Babel 7之前，存在按年度区分的语法预设包如preset-es2015、preset-es2016、preset-es2017等，从Babel 7开始，Babel团队删除（并停止发布）了任何年度的preset（preset-es2015 等）， @babel/preset-env取代了对这些内容的需求，因为它包含了所有年度所添加内容以及针对特定浏览器集兼容的能力。<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>Babel工具集还包含一个叫做<code>@babel/polyfill</code>的库，作用是针对ES6+的一些新的内置API使用基础JS语法进行模拟实现，以适用较低版本的浏览器。而<code>@babel/core</code>只做语法（Syntax）转换（如class、箭头函数等），不实现Api polyfill。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs typescript">polyfill在英文中有垫片的意思，意为兜底的东西。<br><br><span class="hljs-meta">@babel</span>/polyfill模拟一个完全的 <span class="hljs-title class_">ES2015</span>+ 的环境，实现了新的特性比如 <span class="hljs-title class_">Promise</span> 或者 <span class="hljs-title class_">WeakMap</span>， 静态方法比如<span class="hljs-title class_">Array</span>.<span class="hljs-property">from</span> 或 <span class="hljs-title class_">Object</span>.<span class="hljs-property">assign</span>, 实例方法 比如 <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">includes</span> 和 generator 函数。<br><br>从babel <span class="hljs-variable constant_">V7</span><span class="hljs-number">.4</span><span class="hljs-number">.0</span>版本开始，已经不建议使用该包，建议使用core-js/stable、regenerator-runtime/runtime替代。<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>找个时间另外写一下这块的细节，可以先查阅官网文档<a href="https://link.juejin.cn/?target=https://babeljs.io/docs/en/babel-polyfill">@babel&#x2F;polyfill</a></p>
+</blockquote>
+<p>除此之外，这里简单提一下Babel插件（Plugin）的概念，不做深入。在Babel中，代码转换功能以插件的形式出现，插件是小型的 JavaScript 程序，用于指导 Babel 如何对代码进行转换。你甚至可以编写自己的插件将你所需要的任何代码转换功能应用到你的代码上。Babel插件分为语法插件和转换插件两种：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql">语法插件：大多数语法都可以被 Babel 转换。在极少数情况下（如果转换还没有实现，或者没有默认的方式来实现），你可以使用语法插件，例如<span class="hljs-variable">@babel</span><span class="hljs-operator">/</span>plugin<span class="hljs-operator">-</span>syntax<span class="hljs-operator">-</span><span class="hljs-type">bigint</span>只允许 Babel解析特定类型的语法。<br><br>转换插件：转换您的代码，转换插件将启用相应的语法插件，因此您不必同时指定两者。<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>实际上Babel预设（Preset）就是一组Babel插件的集合，比如Babel 6.0中的 <code>babel-preset-es2015</code> 包含所有跟ES6转换有关的插件。如果没有预设，babel转化是需要指定用什么插件的，虽然颗粒度小，效率高，但是插件需要逐个安装，还有严格的配置声明顺序。本文后面不再深入叙述插件相关的概念，等有时间将写一篇文章进一步深入学习Babel的原理。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><h4 id="单独使用Babel"><a href="#单独使用Babel" class="headerlink" title="单独使用Babel"></a>单独使用Babel</h4><h5 id="babel-x2F-core-babel-x2F-cli-babel-x2F-preset-env"><a href="#babel-x2F-core-babel-x2F-cli-babel-x2F-preset-env" class="headerlink" title="@babel&#x2F;core + @babel&#x2F;cli + @babel&#x2F;preset-env"></a>@babel&#x2F;core + @babel&#x2F;cli + @babel&#x2F;preset-env</h5><p>Babel 的核心功能包含在 @babel&#x2F;core 模块中。通过以下命令安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install --save-dev @babel/core<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>你也可以在 JavaScript 程序中直接 require 并使用它：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> babel = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/core&quot;</span>);<br><br>babel.<span class="hljs-title function_">transformSync</span>(<span class="hljs-string">&quot;code&quot;</span>, optionsObject);<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>一般情况下，如果单独使用Babel来完成整个工作流，我们会借助<code>@babel/cli</code>实现在终端（命令行）中快速使用babel命令进行代码转换。</p>
+<p><code>@babel/cli</code> 是一个能够从终端（命令行）便捷使用<code>@babel/core</code>能力的工具。下面是其安装命令和基本用法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install --save-dev @babel/core @babel/cli<br><br>./node_modules/.bin/babel src --out-dir lib<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>你可以利用 <a href="https://link.juejin.cn/?target=mailto:npm@5.2.0">npm@5.2.0</a> 所自带的 npm 包运行器将 <code>./node_modules/.bin/babel</code> 命令缩短为 <code>npx babel</code>. 后文将使用<code>npx</code>方式执行，不再赘述</p>
+</blockquote>
+<p>这将解析 src 目录下的所有 JavaScript 文件，并应用我们所指定的代码转换功能，然后把每个文件输出到 lib 目录下。<strong>由于我们还没有指定任何代码转换功能，所以输出的代码将与输入的代码相同（不保留原代码格式）</strong>。</p>
+<p>实际场景中，我们还需要安装其他转换插件作为参数传递进去，将它们集成到 <code>@babel/core</code> 工作流程中，来实现我们所需的指定规则代码转换功能。我们将只使用 <code>@babel/preset-env</code> 这一个插件预设来实现我们的基础功能。</p>
+<p>在上面的基础上，继续执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install --save-dev @babel/preset-env<br><br>npx babel src --out-dir lib --presets=@babel/env<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>上面相比于之前的执行多了一个传参<code>--presets=@babel/env</code>，这将告诉 <code>@babel/cli</code> 使用 <code>@babel/core</code> 结合 <code>@babel/preset-env</code> 预设进行代码转换，在通过命令行传递 <code>preset</code> 时，我们也可以指定该 <code>preset</code> 的一些相关参数，对转换后的代码进行细节上的控制（例如可以控制转换后的JS代码版本需要支持哪些浏览器），但是因为这样的话命令会显得很长且十分繁琐，我们更喜欢将这些参数以JSON的格式存放到一个固定的配置文件中。</p>
+<p>现在，我们首先创建一个名为 <code>babel.config.json</code> 的文件（需要 v7.8.0 或更高版本），并包含如下内容：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;presets&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">[</span><br>      <span class="hljs-string">&quot;@babel/preset-env&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;targets&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&gt; 0.25%, not dead&quot;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>该配置表示仅包含浏览器市场份额 &gt;0.25％ 的用户所需的代码转换。</p>
+<p>官方也建议使用.browserslistrc文件来代替targets的配置：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-quote">&gt; 0.25%</span><br>not dead<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>或者package.json：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;browserslist&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&gt; 0.25%, not dead&quot;</span><br><span class="hljs-punctuation">&#125;</span><br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>有了上述配置文件之后，我们只需要这么执行就可以了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">npx babel src --out-dir lib<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>Babel支持更多的配置方式，详见<a href="https://link.juejin.cn/?target=https://www.babeljs.cn/docs/usage">配置 Babel</a>，目前来说我们这么用就可以了。</p>
+<h4 id="结合Webpack使用Babel"><a href="#结合Webpack使用Babel" class="headerlink" title="结合Webpack使用Babel"></a>结合Webpack使用Babel</h4><p>实际项目中单独使用Babel的命令行工具来实现工作流的情况不是很多，更多的是结合Webpack使用。</p>
+<p>在webpack.config.js中添加以下loader配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">module.exports</span> <span class="hljs-string">=</span> &#123;<br>  <span class="hljs-attr">module:</span> &#123;<br>    <span class="hljs-attr">rules:</span> [<br>      &#123;<br>        <span class="hljs-attr">test:</span> <span class="hljs-string">/.js$/</span>,<br>        <span class="hljs-attr">exclude:</span> <span class="hljs-string">/node_modules/</span>,<br>        <span class="hljs-attr">use:</span> [<br>          &#123;<br>            <span class="hljs-attr">loader:</span> <span class="hljs-string">&#x27;babel-loader&#x27;</span>,<br>            <span class="hljs-attr">options:</span> &#123;<br>              <span class="hljs-attr">presets:</span> [<span class="hljs-string">&quot;@babel/preset-env&quot;</span>]<br>            &#125;<br>          &#125;<br>        ]<br>      &#125;<br>    ]<br>  &#125;<br>&#125;<br><span class="hljs-string">复制代码</span><br></code></pre></td></tr></table></figure>
+
+<p>然后安装相应的依赖：babel-loader、@babel&#x2F;core、@babel&#x2F;preset-env:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install --save-dev babel-loader @babel/core @babel/preset-env<br>复制代码<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面是将babel的preset参数配置在了webpack.config.js中，实际上也可以将它按照babel配置文件的原则提取出来单独一个babel.config.json文件，效果是一样的。</p>
+</blockquote>
+<p>这样就完成了在webpack项目中添加Babel转换ES6+代码的功能。在webpack打包的过程中，会将源代码经由<code>babel-loader</code>处理转换为目标代码，这一执行过程对我们来只说是打包时“顺势而为”的，我们再也不用关心Babel本身的命令细节了。</p>
+<h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
                 
               </div>
             
