@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
 <meta property="article:published_time" content="2023-04-06T13:32:15.961Z">
-<meta property="article:modified_time" content="2023-04-10T05:17:30.685Z">
+<meta property="article:modified_time" content="2023-04-10T05:27:01.549Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="react">
@@ -306,17 +306,17 @@
               <div class="markdown-body">
                 
                 <h1 id="前端八股-｜-React篇"><a href="#前端八股-｜-React篇" class="headerlink" title="前端八股 ｜ React篇"></a>前端八股 ｜ React篇</h1><h2 id="1-react特性"><a href="#1-react特性" class="headerlink" title="1 react特性"></a>1 react特性</h2><p>React 是 Facebook 在2013年开源的用于构建用户界面的 JavaScript 库。</p>
-<p><img src="https://img-blog.csdnimg.cn/0ab281e534c644969948a9c50a9e96f5.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5LiN5aS056eD55qE56CB5Yac,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20230410132400132-20230410%2013:24:01.png" srcset="/blog/img/loading.gif" lazyload alt="image-20230410132400132"></p>
 <h3 id="1、React-独立架构"><a href="#1、React-独立架构" class="headerlink" title="1、React 独立架构"></a>1、React 独立架构</h3><p>React 是 MVC 中薄薄的一层 V，把数据变成 DOM 显示出来，它只关注表现层。</p>
 <p>自带的 View 和 Controller 库，在实现应用时，不需要任何其他的库也可以自运行。</p>
 <p>React 独立架构的核心是单向数据流，模型图如下：</p>
-<p><img src="https://img-blog.csdnimg.cn/ecb8a42803c549e19950820c45817aa7.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5LiN5aS056eD55qE56CB5Yac,size_18,color_FFFFFF,t_70,g_se,x_16" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20230410132418383-20230410%2013:24:18.png" srcset="/blog/img/loading.gif" lazyload alt="image-20230410132418383"></p>
 <p>其实 React 还有一个很重要的设计思想 &#x3D;&gt; 声明式表达 + 数据驱动DOM</p>
 <p>只需要定义数据和 DOM 的对应关系，在数据变化的时候，DOM 会自动变化 &#x3D;&gt; React是个响应式框架</p>
 <p>拓展：Flux 架构</p>
 <p>React 中有很多地方都用到了 Flux 架构，比如 React Hooks，Redux 也是用的 Flux 架构。</p>
 <p>Flux 是由 Facebook 在2014年开源的一款用于构建用户界面的应用程序架构。它不同于 MVC&#x2F;MVVM，是基于 dispatcher 的前端应用架构模式，如果用 MVC 的命名习惯，它应该叫 ADSV（Action Dispatcher Store View）。流程图如下👇👇👇</p>
-<p><img src="https://img-blog.csdnimg.cn/c6d83fede1d44c8e886c73e23cf76b21.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5LiN5aS056eD55qE56CB5Yac,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20230410132444229-20230410%2013:24:44.png" srcset="/blog/img/loading.gif" lazyload alt="image-20230410132444229"></p>
 <p>Flux 应用是由三部分组成的：</p>
 <p>dispatcher（分发事件）</p>
 <p>store（保存数据、响应事件、更新数据 ）</p>
@@ -356,7 +356,7 @@
 <p>注意： 不要在 render 里面 setState，否则会触发死循环导致内存崩溃</p>
 </blockquote>
 <p>React 生命周期</p>
-<p><img src="https://img-blog.csdnimg.cn/2197e246cea94c249ee89337f7a24ac3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5LiN5aS056eD55qE56CB5Yac,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20230410132517279-20230410%2013:25:17.png" srcset="/blog/img/loading.gif" lazyload alt="image-20230410132517279"></p>
 <h3 id="4、JSX-语法"><a href="#4、JSX-语法" class="headerlink" title="4、JSX 语法"></a>4、JSX 语法</h3><p>React 为了方便 View 层组件开发模式，承载了构建 HTML 结构化页面的职责，我们可以通过 JSX 处理数据和 DOM 之间的关系，而不需要直接操作 DOM。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 基本使用</span><br><span class="hljs-keyword">const</span> element = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;<br><span class="hljs-comment">// 通过引号，给属性值赋值</span><br><span class="hljs-keyword">const</span> element = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;title&quot;</span> <span class="hljs-attr">desc</span>=<span class="hljs-string">&quot;标题&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br><span class="hljs-comment">// 通过大括号，在属性值中插入一个 JavaScript 表达式</span><br><span class="hljs-keyword">const</span> element = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/Users/azure/Desktop/面筋/&#123;user.avatarUrl&#125;&quot;</span> /&gt;</span></span>;<br><br><span class="hljs-comment">// JSX + 判断语句</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getGreeting</span>(<span class="hljs-params">user</span>) &#123;<br>  <span class="hljs-keyword">if</span> (user) &#123;<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, &#123;formatName(user)&#125;!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, Stranger.<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;<br>&#125;<br><br><span class="hljs-comment">// JSX + 循环表达式</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getGreeting</span>(<span class="hljs-params">user</span>) &#123;<br>  arr.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">item,index</span>)=&gt;</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;index&#125;</span>&gt;</span>&#123;item&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br>  &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -378,10 +378,10 @@
 <p>React DOM 在渲染所有输入内容之前，默认会进行转义。所有的内容在渲染之前都被转换成了字符串，它可以确保在你的应用中，永远不会注入那些并非自己明确编写的内容。这样可以有效地防止 XSS（cross-site-scripting, 跨站脚本）攻击。</p>
 </blockquote>
 <h3 id="5、虚拟DOM（Virtual-DOM）"><a href="#5、虚拟DOM（Virtual-DOM）" class="headerlink" title="5、虚拟DOM（Virtual DOM）"></a>5、虚拟DOM（Virtual DOM）</h3><p>在传统页面的开发模式中，每次需要更新页面时，都要手动操作 DOM 来进行更新，如下图👇👇👇</p>
-<p><img src="https://img-blog.csdnimg.cn/3d873539176d4b50ab64cecb896ad229.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5LiN5aS056eD55qE56CB5Yac,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20230410132538329-20230410%2013:25:38.png" srcset="/blog/img/loading.gif" lazyload alt="image-20230410132538329"></p>
 <p>然而我们都知道 DOM 操作既复杂（难以维护）又昂贵（性能消耗极大），所以之前会格外注意重排与重绘来保证性能。</p>
 <p>React 中，在基建层会统一把我们的编写的代码先编译成 JavaScript 对象树，存在内存里，然后再进一步映射成真实DOM。每次数据更新后，重新计算 Virtual DOM，并和上一次生成的 Virtual DOM 做对比（diff），对发生变化的部分做批量更新，减少低效操作。</p>
-<p><img src="https://img-blog.csdnimg.cn/9eaa98ae09564a98a3beec45c33b53b4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5LiN5aS056eD55qE56CB5Yac,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20230410132601699-20230410%2013:26:01.png" srcset="/blog/img/loading.gif" lazyload alt="image-20230410132601699"></p>
 <p>React 也提供了直观的 shouldComponentUpdate 生命周期回调，来减少数据变化后不必要的 Virtual DOM 对比过程，以保证性能。 shouldComponentUpdate(){return false}</p>
 <p>使用虚拟DOM最大的好处其实还在于方便和其他平台集成，比如 react-native 是基于 Virtual DOM 渲染出原生控件，因为 React 组件可以映射为对应的原生控件。在输出的时候，是输出 Web DOM，还是 Android 控件，还是 iOS 控件，就由平台本身决定了。因此，react-native 有一个口号——Learn Once，Write Anywhere。</p>
 <h3 id="总结：虚拟-DOM-优势"><a href="#总结：虚拟-DOM-优势" class="headerlink" title="总结：虚拟 DOM 优势"></a>总结：虚拟 DOM 优势</h3><p>操作 DOM 前对数据进行对比，只有数据变化的时候才去操作 DOM；</p>
@@ -393,7 +393,7 @@
 <p>数据流就是：数据在组件之间的传递。</p>
 <h3 id="单向数据流是什么意思？"><a href="#单向数据流是什么意思？" class="headerlink" title="单向数据流是什么意思？"></a>单向数据流是什么意思？</h3><p>单向数据流就是：数据在某个节点被改动后，只会影响一个方向上的其他节点。</p>
 <h3 id="为什么是自顶向下的？"><a href="#为什么是自顶向下的？" class="headerlink" title="为什么是自顶向下的？"></a>为什么是自顶向下的？</h3><p>就是说：数据只会影响到下一个层级的节点，不会影响上一个层级的节点。用下面的图来说就是：L2数据改变，只会影响到L3，不会影响到L1或者其他的节点。这就是自顶向下的单向数据流。那么我们在react框架中，就可以明确定义单向数据流：规范数据的流向，数据由外层组件向内层组件进行传递和更新。</p>
-<p><img src="https://img-blog.csdnimg.cn/6506d09685434f49bf8a2fe8728ed29a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAd2VpeGluXzM4MjQ1OTQ3,size_12,color_FFFFFF,t_70,g_se,x_16#pic_center" srcset="/blog/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20230410132630942-20230410%2013:26:31.png" srcset="/blog/img/loading.gif" lazyload alt="image-20230410132630942"></p>
 <p>为什么是单向的？不能是双向的么？</p>
 <p>因为：我们设想这样的情景：</p>
 <p>父组件的数据通过props传递给子组件，而子组件更新了props，导致父组件和其他关联组件的数据更新，UI渲染也会随着数据而更新。毫无疑问，这是会导致严重的数据紊乱和不可控制的。</p>
