@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
 <meta property="article:published_time" content="2023-04-06T13:30:26.331Z">
-<meta property="article:modified_time" content="2023-04-10T07:01:59.349Z">
+<meta property="article:modified_time" content="2023-04-11T08:10:03.698Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="计算">
@@ -250,7 +250,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          82k 字
+          81k 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
           <!-- compatible with older versions-->
-          681 分钟
+          675 分钟
         
       </span>
     
@@ -880,7 +880,10 @@
 <p>得到服务器的 ip 地址后，浏览器根据这个 ip 以及相应的端口号，构造一 个 http 请求 ，这个请求报文会包括这次请求的信息，主要是请求方法，请求说明和请求附带的数据 ，并将这个 http 请求封装在一个 tcp 包中，这个 tcp 包会依次经过传输层，网络层，数据链路层，物理层到达服务器，服务器解析这个请求来作出响应，返回相应的 html 给浏览器，</p>
 <p>因为 html 是一个树形结构，浏览器根据这个html 来构建 DOM树，在dom树的构建过程中如果遇到JS脚本和外部JS连接，则会停止构建DOM树来执行和下载相应的代码 ，这会造成阻塞，这就是为什么推荐 JS 代码应该放在html 代码的后面，之后根据外部样式，内部样式，内联样式构建一个 CSS 对象模型树 CSSOM 树，构建完成后和 DOM 树合并为渲染树，这里主要做的是排除非视觉节点，比如 script，meta 标签和排除 display 为none 的节点，之后进行布局，布局主要是确定各个元素的位置和尺寸，之后是渲染页面，因为 html 文件中会含有图片，视频，音频等 资源 ，在解析 DOM 的过程中，遇到这些都会进行并行下载，浏览器对每个域的并行下载数量有一定的限制，一般是 4-6 个，</p>
 <p>当然在这些所有的请求中我们还需要关注的就是缓存，缓存一般通过 Cache-Control、Last-Modify、Expires 等首部字段控制。 Cache- Control和Expires的区别在于Cache-Control使用相对时间，Expires使用的是基于服务器端的绝对时间，因为存在时差问题，一般采用 Cache-Control，在请求 这些有设置了缓存的数据时，会先查看是否过期，如果没有过期则直接使用本地缓 存，过期则请求并在服务器校验文件是否修改，如果上一次响应设置了 ETag 值会在 这次请求的时候作为 If-None-Match 的值交给服务器校验，如果一致，继续校验 Last-Modified，没有设置 ETag 则直接验证 Last-Modified，再决定是否返回 304。</p>
-<h2 id="6-http2-0的特性"><a href="#6-http2-0的特性" class="headerlink" title="6 http2.0的特性"></a>6 http2.0的特性</h2><p>http2.0 的特性如下： 1、内容安全，应为 http2.0 是基于https 的，天然具有安全特性，通过 http2.0 的特 性可以 避免单纯使用https的性能下降 2、二进制格式，http1.X 的解析是基于文本的，http2.0 将所有的传输信息分割为更 小 的消息和帧，并对他们采用二进制格式编码，基于二进制可以让协议有更多的扩展 性，比如引入了帧来传输数据和指令 3、多路复用，这个功能相当于是长连接的增强，每个 request 请求可以随机的混杂在 一起，接收方可以根据request 的id将request 再归属到各自不同的服务端请求里 面，另 外多路复用中也支持了流的优先级，允许客户端告诉服务器那些内容是更优先 级的资 源，可以优先传输。</p>
+<h2 id="6-http2-0的特性"><a href="#6-http2-0的特性" class="headerlink" title="6 http2.0的特性"></a>6 http2.0的特性</h2><p>http2.0 的特性如下： </p>
+<p>1、内容安全，因为http2.0是基于https 的，天然具有安全特性，通过 http2.0 的特性可以避免单纯使用https的性能下降 </p>
+<p>2、二进制格式，http1.X 的解析是基于文本的，http2.0 将所有的传输信息分割为更小的消息和帧，并对他们采用二进制格式编码，基于二进制可以让协议有更多的扩展 性，比如引入了帧来传输数据和指令 </p>
+<p>3、多路复用，这个功能相当于是长连接的增强，每个 request 请求可以随机的混杂在 一起，接收方可以根据request 的id将request 再归属到各自不同的服务端请求里 面，另外多路复用中也支持了流的优先级，允许客户端告诉服务器那些内容是更优先级的资源，可以优先传输。</p>
 <h2 id="7-csrf和xss网络攻击及防范"><a href="#7-csrf和xss网络攻击及防范" class="headerlink" title="7 csrf和xss网络攻击及防范"></a>7 csrf和xss网络攻击及防范</h2><p>CSRF：跨站请求伪造，可以理解为攻击者盗用了用户的身份，以用户的名义发送了 恶 意请求，比如用户登录了一个网站后，立刻在另一个ｔａｂ页面访问量攻击者用 来制 造攻击的网站，这个网站要求访问刚刚登陆的网站，并发送了一个恶意请求，这时候 CSRF 就产生了，比如这个制造攻击的网站使用一张图片，但是这种图片的链接却是 可 以修改数据库的，这时候攻击者就可以以用户的名义操作这个数据库，防御方式的 话：使用验证码，检查 https 头部的 refer，使用 token </p>
 <p>XSS：跨站脚本攻击，是说攻击者通过注入恶意的脚本，在用户浏览网页的时候进行 攻 击，比如获取 cookie，或者其他用户身份信息，可以分为存储型和反射型，存储型 是 攻击者输入一些数据并且存储到了数据库中，其他浏览者看到的时候进行攻击，反 射 型的话不存储在数据库中，往往表现为将攻击代码放在 url 地址的请求参数中，防御 的话为 cookie 设置 httpOnly 属性，对用户的输入进行检查，进行特殊字符过滤。</p>
 <p>XSS 防御的总体思路是：对输入(和 URL 参数)进行过滤，对输出进行编码。也就是对提 交的所有内容进行过滤，对 url 中的参数进行过滤，过滤掉会导致脚本执行的相关内 容 ；然后对动态输出到页面的内容进行 html 编码，使脚本无法在浏览器中执行。虽然 对 输入过滤可以被绕过，但是也还是会拦截很大一部分的 XSS 攻击。 </p>
@@ -2123,25 +2126,16 @@
 <p>Linux 下的信号量函数都是在通用的信号量数组上进行操作，而不是在一个单一的二值信号量上进行操作。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/sem.h&gt;</span></span><br><span class="hljs-comment">// 创建或获取一个信号量组：若成功返回信号量集ID，失败返回-1</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">semget</span><span class="hljs-params">(<span class="hljs-type">key_t</span> key, <span class="hljs-type">int</span> num_sems, <span class="hljs-type">int</span> sem_flags)</span>;<br><span class="hljs-comment">// 对信号量组进行操作，改变信号量的值：成功返回0，失败返回-1</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">semop</span><span class="hljs-params">(<span class="hljs-type">int</span> semid, <span class="hljs-keyword">struct</span> sembuf semoparray[], <span class="hljs-type">size_t</span> numops)</span>;  <br><span class="hljs-comment">// 控制信号量的相关信息</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">semctl</span><span class="hljs-params">(<span class="hljs-type">int</span> semid, <span class="hljs-type">int</span> sem_num, <span class="hljs-type">int</span> cmd, ...)</span>;<br></code></pre></td></tr></table></figure>
 
-<h2 id="19-http的头部包括哪些"><a href="#19-http的头部包括哪些" class="headerlink" title="19 http的头部包括哪些"></a>19 http的头部包括哪些</h2><p>HTTP（Hypertext Transfer Protocol，超文本传输协议）头部是HTTP请求和响应的一部分，它包含了关于请求或响应的元数据和其他信息。下面是HTTP头部可能包含的一些字段：</p>
-<ol>
-<li>Accept：指定客户端可以接受的MIME类型。</li>
-<li>Accept-Encoding：指定客户端可以接受的编码格式，如gzip、deflate等。</li>
-<li>Accept-Language：指定客户端可以接受的语言类型，如en、zh等。</li>
-<li>Authorization：指定客户端的身份验证信息，如用户名和密码。</li>
-<li>Cache-Control：指定请求或响应的缓存行为，如no-cache、max-age等。</li>
-<li>Connection：指定是否保持连接，如keep-alive、close等。</li>
-<li>Content-Encoding：指定响应主体的编码格式，如gzip、deflate等。</li>
-<li>Content-Length：指定响应主体的长度。</li>
-<li>Content-Type：指定响应主体的MIME类型。</li>
-<li>Cookie：指定请求中包含的cookie值。</li>
-<li>Host：指定请求的目标主机和端口号。</li>
-<li>If-Modified-Since：指定缓存的响应是否已经过期。</li>
-<li>Origin：指定请求的来源。</li>
-<li>Referer：指定请求的来源页面的URL。</li>
-<li>User-Agent：指定客户端使用的用户代理，如浏览器类型和版本号等。</li>
-</ol>
-<p>需要注意的是，HTTP头部是可扩展的，因此可能包含其他字段。此外，不同的HTTP版本可能支持不同的头部字段。</p>
+
+
+
+
+
+
+
+
+
+
 <h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
                 
               </div>
