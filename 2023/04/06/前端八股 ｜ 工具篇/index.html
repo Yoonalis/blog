@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
 <meta property="article:published_time" content="2023-04-06T13:32:15.961Z">
-<meta property="article:modified_time" content="2023-04-10T01:21:57.484Z">
+<meta property="article:modified_time" content="2023-04-11T01:41:11.888Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="计算">
@@ -250,7 +250,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          52k 字
+          53k 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
           <!-- compatible with older versions-->
-          430 分钟
+          440 分钟
         
       </span>
     
@@ -333,7 +333,15 @@
 <h3 id="vite缺点2"><a href="#vite缺点2" class="headerlink" title="vite缺点2"></a>vite缺点2</h3><p>1.prod环境的构建，目前用的Rollup，原因在于esbuild对于css和代码分割不是很友好</p>
 <h3 id="vite缺点3"><a href="#vite缺点3" class="headerlink" title="vite缺点3"></a>vite缺点3</h3><p>1.还没有被大规模使用,很多问题或者诉求没有真正暴露出来，vite真正崛起那一天，是跟vue3有关系的,当vue3广泛开始使用在生产环境的时候，vite也就大概率意味着被大家慢慢开始接受了</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Vite，就像刚出来的M1芯片Mac,都说好，但是一开始买的人不多，担心生态问题，后面都说真香，相信vue3作者的大力支持下，vite即将大放异彩！我已经在我自己项目的生产环境中，开始使用vite!还是很好的生态。</p>
-<h2 id="2-CommonJS-和-ES-Module-的区别"><a href="#2-CommonJS-和-ES-Module-的区别" class="headerlink" title="2 CommonJS 和 ES Module 的区别"></a>2 CommonJS 和 ES Module 的区别</h2><p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/4/170a35ca2f91c25e~tplv-t2oaga2asx-zoom-crop-mark:1512:1512:1512:851.image" srcset="/blog/img/loading.gif" lazyload alt="CommonJS 和 ES6 Module 究竟有什么区别？"></p>
+<h2 id="2-CommonJS-和-ES-Module-的区别"><a href="#2-CommonJS-和-ES-Module-的区别" class="headerlink" title="2 CommonJS 和 ES Module 的区别"></a>2 CommonJS 和 ES Module 的区别</h2><p>两者的主要区别如下：</p>
+<ol>
+<li>加载方式不同：CommonJS 使用 <code>require</code> 函数加载模块，而 ES Module 使用 <code>import</code> 语句加载模块。</li>
+<li>导出方式不同：CommonJS 使用 <code>module.exports</code> 导出模块，而 ES Module 使用 <code>export</code> 关键字导出模块。</li>
+<li>加载时机不同：CommonJS 是同步加载模块，而 ES Module 是异步加载模块。</li>
+<li>变量绑定方式不同：CommonJS 是值拷贝，即加载模块时，会将模块中导出的值复制一份给变量。而 ES Module 是动态绑定，即导入变量与导出变量是实时绑定的，相当于建立了一个指针，指向导出变量。</li>
+</ol>
+<p>需要注意的是，虽然 CommonJS 和 ES Module 有一些差异，但是在现代开发中，两者可以互相转换。Node.js 也已经支持 ES Module，而浏览器端也可以使用打包工具将 ES Module 转换为 CommonJS 或 AMD 规范。</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/4/170a35ca2f91c25e~tplv-t2oaga2asx-zoom-crop-mark:1512:1512:1512:851.image" srcset="/blog/img/loading.gif" lazyload alt="CommonJS 和 ES6 Module 究竟有什么区别？"></p>
 <p>作为前端开发者，你是否也曾有过疑惑，为什么可以代码中可以直接使用 <code>require</code> 方法加载模块，为什么加载第三方包的时候 Node 会知道选择哪个文件作为入口，以及常被问到的，为什么 ES6 Module export 基础数据类型的时候会有【引用类型】的效果？</p>
 <p>带着这些疑问和好奇，希望阅读这篇文章能解答你的疑惑。</p>
 <h3 id="CommonJS-规范"><a href="#CommonJS-规范" class="headerlink" title="CommonJS 规范"></a>CommonJS 规范</h3><p>在 ES6 之前，ECMAScript 并没有提供代码组织的方式，那时候通常是基于 IIFE 来实现“模块化”，随着 JavaScript 在前端大规模的应用，以及服务端 Javascript 的推动，原先浏览器端的模块规范不利于大规模应用。于是早期便有了 <a href="https://link.juejin.cn/?target=http://www.commonjs.org/">CommonJS 规范</a>，其目标是为了定义模块，提供通用的模块组织方式。</p>
@@ -1271,6 +1279,18 @@
 <p>上面是将babel的preset参数配置在了webpack.config.js中，实际上也可以将它按照babel配置文件的原则提取出来单独一个babel.config.json文件，效果是一样的。</p>
 </blockquote>
 <p>这样就完成了在webpack项目中添加Babel转换ES6+代码的功能。在webpack打包的过程中，会将源代码经由<code>babel-loader</code>处理转换为目标代码，这一执行过程对我们来只说是打包时“顺势而为”的，我们再也不用关心Babel本身的命令细节了。</p>
+<h2 id="9-wasm"><a href="#9-wasm" class="headerlink" title="9 wasm"></a>9 wasm</h2><p>Web Assembly（缩写为WASM）是一种可移植的二进制代码格式，可以在现代Web浏览器中运行。它是一种低级别的汇编语言，可以被编译成适用于浏览器的二进制格式，并且可以在Web平台上与JavaScript一起使用。</p>
+<p>Web Assembly的目标是通过提供比JavaScript更快的执行速度来改善Web应用程序的性能。与JavaScript相比，Web Assembly不是解释执行的，而是在浏览器中编译为机器码，并直接在浏览器的虚拟机中运行。这使得Web应用程序可以在近乎原生的速度下运行，从而使得计算密集型任务、游戏和多媒体应用程序等更加高效。</p>
+<p>Web Assembly还具有可移植性、安全性和跨平台性等优点，因为它不依赖于特定的操作系统或硬件平台，并且可以与各种编程语言一起使用，包括C、C++、Rust和Python等。</p>
+<p>Web Assembly已经被广泛应用于各种Web应用程序和游戏中，并且正在成为Web开发中的一个重要组成部分。</p>
+<h2 id="10-esbuild为什么快"><a href="#10-esbuild为什么快" class="headerlink" title="10 esbuild为什么快"></a>10 esbuild为什么快</h2><ol>
+<li>使用 Go 语言编写：Go 语言天生具有高并发和高性能的特性，而且它的编译速度非常快，这使得 esbuild 的性能表现非常优秀。</li>
+<li>采用增量式的解析和构建：esbuild 在每次增量式地解析和构建时，会尽可能地复用已经存在的缓存，减少了不必要的重复工作，从而提高了构建速度。</li>
+<li>并行处理和多线程：esbuild 在构建时会充分利用 CPU 的多核处理能力，将不同的任务分配到不同的线程中执行，从而提高了构建速度。</li>
+<li>使用了高效的算法和数据结构：esbuild 在解析和构建时使用了一些高效的算法和数据结构，如字符串哈希表、按位运算等，从而进一步提高了构建速度。</li>
+</ol>
+<p>总的来说，esbuild 通过优化算法、数据结构、并行处理和多线程等方面，极大地提高了构建速度。同时，由于它使用 Go 语言编写，因此具有天生的高并发和高性能特性。</p>
+<p> Vite 使用了 esbuild 进行快速的编译</p>
 <h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
                 
               </div>

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/coding.jpg">
 <meta property="article:published_time" content="2023-04-06T13:32:15.961Z">
-<meta property="article:modified_time" content="2023-04-10T05:27:01.549Z">
+<meta property="article:modified_time" content="2023-04-11T01:06:35.905Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="react">
@@ -250,7 +250,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          48k 字
+          49k 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
           <!-- compatible with older versions-->
-          401 分钟
+          405 分钟
         
       </span>
     
@@ -582,15 +582,20 @@
 <p>没错，<code>this.setState()</code> 如果是函数，那么函数会依次从上往下执行，而如果是一个对象， React 会将多次 <code>this.setState()</code> 的调用合并为一次执行，如果修改的了相同的值，则会将前面的修改替换成最后一次的修改数据。</p>
 <p>这一点在项目编码中一定要牢记，避免出现意外的逻辑 Bug 。</p>
 <p>当然，你可能也发现了一个问题，我们说了那么多关于组件状态的问题，各种实验编码都是在 class 类组件中完成的，那函数组件中是不是和类组件一样呢？</p>
-<h2 id="5-避免重复渲染的方法"><a href="#5-避免重复渲染的方法" class="headerlink" title="5 避免重复渲染的方法"></a>5 避免重复渲染的方法</h2><p>使用React已经三年了，在这三年里面也沉积了不少关于React代码优化的最佳实践，今天先写一部分出来和大家分享分享。后续看文章是否受欢迎再觉得是否分享后面的。</p>
-<p>这篇文章的每一个最佳实践我都会提供两个例子，一好一坏作为对比，和提供<code>.gif</code> 图片预览。</p>
+<h2 id="5-避免重复渲染的方法"><a href="#5-避免重复渲染的方法" class="headerlink" title="5 避免重复渲染的方法"></a>5 避免重复渲染的方法</h2><p>React 有多种避免重复渲染的方法，下面列举几种常用的方法：</p>
+<ol>
+<li>使用 <code>React.memo</code>：<code>React.memo</code> 是一个高阶组件，它可以将纯函数组件包装起来，使得组件仅在其 props 发生变化时重新渲染。这种方式适用于仅仅依赖于 props 的无状态组件，可以避免不必要的重新渲染。</li>
+<li>使用 <code>useCallback</code>：<code>useCallback</code> 是一个钩子函数，它会返回一个 memoized 的函数。当依赖项不变时，返回的函数引用不变。这样可以避免在每次渲染时创建新的函数，从而避免子组件的不必要渲染。</li>
+<li>使用 <code>useMemo</code>：<code>useMemo</code> 是一个钩子函数，它可以缓存组件的计算结果。当依赖项不变时，返回缓存的计算结果，避免重复计算。这种方式适用于需要复杂计算或渲染的组件，可以避免不必要的重新计算或渲染。</li>
+<li>使用 <code>useRef</code>：<code>useRef</code> 是一个钩子函数，它可以创建一个持久化的对象引用。这种方式适用于需要在多个渲染周期中保持一些状态的组件。由于 <code>useRef</code> 创建的对象引用在每次渲染时都是相同的，因此可以避免不必要的重新渲染。</li>
+</ol>
+<p>需要注意的是，以上这些方法并不能完全避免所有的重新渲染，但它们可以有效地减少重新渲染的次数。在实际开发中，可以根据具体情况选择合适的方法来优化组件的性能。</p>
 <p>本片文章主要对以下这三种情况进行优化：</p>
 <ul>
 <li>父组件更新导致子组件渲染</li>
 <li>Props的错误写法导致组件渲染</li>
 <li>Context的更新导致组件渲染</li>
 </ul>
-<p>看完文章如果你觉得对你有了帮助，请帮忙点个赞，你的点赞是我创作的最大动力。<strong>评论点赞可以获得源码！！</strong></p>
 <h3 id="父组件更新导致子组件渲染"><a href="#父组件更新导致子组件渲染" class="headerlink" title="父组件更新导致子组件渲染"></a>父组件更新导致子组件渲染</h3><h3 id="Class-示例"><a href="#Class-示例" class="headerlink" title="Class 示例"></a>Class 示例</h3><h4 id="❎-错误示例预览"><a href="#❎-错误示例预览" class="headerlink" title="❎ 错误示例预览"></a>❎ 错误示例预览</h4><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a35acb5e75a64b1ca1ee523e1501d063~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" srcset="/blog/img/loading.gif" lazyload alt="1.classBad.gif"></p>
 <h4 id="❎-错误示例"><a href="#❎-错误示例" class="headerlink" title="❎ 错误示例"></a>❎ 错误示例</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; <span class="hljs-title class_">Component</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Parent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Component</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">props</span>) &#123;<br>    <span class="hljs-variable language_">super</span>(props);<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> = &#123;<br>      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>,<br>    &#125;;<br>  &#125;<br>  handleClick = <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; count &#125; = <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setState</span>(&#123;<br>      <span class="hljs-attr">count</span>: count + <span class="hljs-number">1</span>,<br>    &#125;);<br>  &#125;;<br>  <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> &#123; count &#125; = <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span>;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;parent&quot;</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span>错误示例<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>父组件Count--&#123;count&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;this.handleClick&#125;</span>&gt;</span>增加<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Son</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Son</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Component</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">props</span>) &#123;<br>    <span class="hljs-variable language_">super</span>(props);<br>  &#125;<br>  <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;子组件重新渲染了！！&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;son&quot;</span>&gt;</span>子组件<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">export</span> &#123; <span class="hljs-title class_">Parent</span>, <span class="hljs-title class_">Son</span> &#125;;<br><br>复制代码<br></code></pre></td></tr></table></figure>
 
@@ -823,24 +828,12 @@
 <h3 id="事件传参处理"><a href="#事件传参处理" class="headerlink" title="事件传参处理"></a>事件传参处理</h3><p>推荐采用<strong>函数的高阶</strong>方式，具体代码如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Welcome</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span> &#123;<br>    handleClick = <span class="hljs-function">(<span class="hljs-params">num</span>) =&gt;</span> &#123;   <span class="hljs-comment">// 高阶函数</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">ev</span>) =&gt;</span> &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num);<br>        &#125;<br>    &#125;<br>    <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-keyword">return</span> (<br>            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;this.handleClick(123)&#125;</span>&gt;</span>点击<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">                hello world</span><br><span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>        );<br>    &#125;<br>&#125;<br><span class="hljs-keyword">let</span> element = (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Welcome</span> /&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h2 id="11-react18的更新"><a href="#11-react18的更新" class="headerlink" title="11 react18的更新"></a>11 react18的更新</h2><ul>
+<li>Concurrent Mode:渲染模型的变化</li>
+<li>Automatic Batching ：自动批量更新 state 变化，减少渲染次数</li>
+<li>Transition：指定渲染优先级</li>
+<li>Suspense：更方便地组织并行请求和 loading 状态的代码</li>
+</ul>
 <h1 id="over-point"><a href="#over-point" class="headerlink" title="over point"></a>over point</h1>
                 
               </div>
