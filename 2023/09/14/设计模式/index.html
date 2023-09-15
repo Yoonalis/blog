@@ -1,0 +1,955 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.jpg">
+  <link rel="icon" href="/blog/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Azure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式">
+<meta property="og:url" content="https://yoonalis.github.io/blog/2023/09/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Azure&#39;s blog">
+<meta property="og:description" content="前端">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yoonalis.github.io/blog/img/design.jpg">
+<meta property="article:published_time" content="2023-09-14T09:03:45.624Z">
+<meta property="article:modified_time" content="2023-09-15T08:23:16.604Z">
+<meta property="article:author" content="Azure">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yoonalis.github.io/blog/img/design.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>设计模式 - Azure&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yoonalis.github.io","root":"/blog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>Azure</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/album/">
+                <i class="iconfont icon-images"></i>
+                album
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="设计模式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-14 17:03" pubdate>
+          2023年9月14日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          21k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          178 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">设计模式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h3 id="1、单例模式：在我们的应用程序中共享一个全局实例"><a href="#1、单例模式：在我们的应用程序中共享一个全局实例" class="headerlink" title="1、单例模式：在我们的应用程序中共享一个全局实例"></a>1、单例模式：在我们的应用程序中共享一个全局实例</h3><p>单例是可以实例化一次并可以全局访问的类。这个<em>单一实例</em>可以在我们的应用程序中共享，这使得单例非常适合管理应用程序中的全局状态。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> instance;<br><span class="hljs-keyword">let</span> counter = <span class="hljs-number">0</span>;<br> <br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Counter</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">if</span> (instance) &#123;<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;You can only create one instance!&quot;</span>);<br>    &#125;<br>    instance = <span class="hljs-variable language_">this</span>;<br>  &#125;<br> <br>  <span class="hljs-title function_">getInstance</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;<br>  &#125;<br> <br>  <span class="hljs-title function_">getCount</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> counter;<br>  &#125;<br> <br>  <span class="hljs-title function_">increment</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> ++counter;<br>  &#125;<br> <br>  <span class="hljs-title function_">decrement</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> --counter;<br>  &#125;<br>&#125;<br> <br><span class="hljs-keyword">const</span> singletonCounter = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">freeze</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Counter</span>());<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> singletonCounter;<br></code></pre></td></tr></table></figure>
+
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>全局变量污染</p>
+<p>拥有全局变量通常被认为是一个糟糕的设计决策。全局范围污染最终可能会意外覆盖全局变量的值，这可能会导致许多意外行为。</p>
+<p>在 ES2015 中，创建全局变量相当罕见。new<code>let</code>和<code>const</code>关键字通过将使用这两个关键字声明的变量保留在块范围内，可以防止开发人员意外污染全局范围。JavaScript 中的新<code>module</code>系统可以更轻松地创建全局可访问的值，而不会污染全局范围，因为能够<code>export</code>从模块中获取值以及<code>import</code>其他文件中的值。</p>
+<p>然而，单例的常见用例是在整个应用程序中拥有某种<strong>全局状态</strong>。让代码库的多个部分依赖于同一个可变对象可能会导致意外的行为。</p>
+<p>通常，代码库的某些部分会修改全局状态中的值，而其他部分则使用该数据。这里的执行顺序很重要：我们不想在没有数据可供使用时意外地首先使用数据！随着应用程序的增长，并且数十个组件相互依赖，理解使用全局状态时的数据流可能会变得非常棘手。</p>
+<p><strong>在 React 中，我们经常通过Redux</strong>或<strong>React Context</strong>等状态管理工具来依赖全局状态，而不是使用单例。尽管它们的全局状态行为可能看起来与单例的行为类似，但这些工具提供<strong>只读状态</strong>而不是单例的<em>可变状态。</em>使用 Redux 时，在组件通过<em>dispatcher发送<strong>发送action后，只有纯函数</strong>Reducer</em>才能更新状态。</p>
+<h3 id="2、代理模式：拦截并控制与目标对象的交互"><a href="#2、代理模式：拦截并控制与目标对象的交互" class="headerlink" title="2、代理模式：拦截并控制与目标对象的交互"></a>2、代理模式：拦截并控制与目标对象的交互</h3><p>通过代理对象，我们可以更好地控制与某些对象的交互。每当我们与对象交互时，代理对象都可以确定行为，例如当我们获取值或设置值时。一般来说，代理人是指代替他人的人。您无需直接与该人交谈，而是与代表您试图联系的人的代理人交谈。JavaScript 中也会发生同样的情况：我们将与 Proxy 对象交互，而不是直接与目标对象交互。</p>
+<h4 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h4><p>让我们创建一个<code>person</code>代表 John Doe 的对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> person = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;John Doe&quot;</span>,<br>  <span class="hljs-attr">age</span>: <span class="hljs-number">42</span>,<br>  <span class="hljs-attr">nationality</span>: <span class="hljs-string">&quot;American&quot;</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>我们不想直接与该对象交互，而是希望与代理对象交互。在 JavaScript 中，我们可以通过创建<code>Proxy</code>.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> person = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;John Doe&quot;</span>,<br>  <span class="hljs-attr">age</span>: <span class="hljs-number">42</span>,<br>  <span class="hljs-attr">nationality</span>: <span class="hljs-string">&quot;American&quot;</span>,<br>&#125;;<br> <br><span class="hljs-keyword">const</span> personProxy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(person, &#123;<br>  <span class="hljs-attr">get</span>: <span class="hljs-function">(<span class="hljs-params">obj, prop</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`The value of <span class="hljs-subst">$&#123;prop&#125;</span> is <span class="hljs-subst">$&#123;obj[prop]&#125;</span>`</span>);<br>  &#125;,<br>  <span class="hljs-attr">set</span>: <span class="hljs-function">(<span class="hljs-params">obj, prop, value</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Changed <span class="hljs-subst">$&#123;prop&#125;</span> from <span class="hljs-subst">$&#123;obj[prop]&#125;</span> to <span class="hljs-subst">$&#123;value&#125;</span>`</span>);<br>    obj[prop] = value;<br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>Proxy的第二个参数是代表<em>处理程序的</em><code>Proxy</code>对象。在处理程序对象中，我们可以根据交互类型定义特定的行为。尽管可以将<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">许多方法</a>添加到代理处理程序中，但最常见的两个是和：<code>get</code>、<code>set</code></p>
+<ul>
+<li><code>get</code>：尝试访问<strong>属性</strong>时被调用</li>
+<li><code>set</code>：尝试<strong>修改</strong>属性时被调用</li>
+</ul>
+<p>当访问该<code>name</code>属性时，代理返回了一个听起来更好听的句子：<code>The value of name is John Doe</code>。</p>
+<p>修改<code>age</code>属性时，代理返回该属性的先前值和新值：<code>Changed age from 42 to 43</code>。</p>
+<h4 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h4><ul>
+<li>添加验证</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> personProxy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(person, &#123;<br>  <span class="hljs-attr">get</span>: <span class="hljs-function">(<span class="hljs-params">obj, prop</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span> (!obj[prop]) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<br>        <span class="hljs-string">`Hmm.. this property doesn&#x27;t seem to exist on the target object`</span><br>      );<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`The value of <span class="hljs-subst">$&#123;prop&#125;</span> is <span class="hljs-subst">$&#123;obj[prop]&#125;</span>`</span>);<br>    &#125;<br>  &#125;,<br>  <span class="hljs-attr">set</span>: <span class="hljs-function">(<span class="hljs-params">obj, prop, value</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">&quot;age&quot;</span> &amp;&amp; <span class="hljs-keyword">typeof</span> value !== <span class="hljs-string">&quot;number&quot;</span>) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Sorry, you can only pass numeric values for age.`</span>);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">&quot;name&quot;</span> &amp;&amp; value.<span class="hljs-property">length</span> &lt; <span class="hljs-number">2</span>) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`You need to provide a valid name.`</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Changed <span class="hljs-subst">$&#123;prop&#125;</span> from <span class="hljs-subst">$&#123;obj[prop]&#125;</span> to <span class="hljs-subst">$&#123;value&#125;</span>.`</span>);<br>      obj[prop] = value;<br>    &#125;<br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>格式化</li>
+</ul>
+<h4 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h4><p>JavaScript 提供了一个名为 的内置对象<code>Reflect</code>，它使我们在使用代理时更容易操作目标对象。</p>
+<p>以前，我们尝试通过直接获取或设置带有括号表示法的值来修改和访问代理内目标对象的属性。相反，我们可以使用该<code>Reflect</code>对象。对象上的方法<code>Reflect</code>与对象上的方法具有相同的名称<code>handler</code>。</p>
+<p>我们可以通过 和 访问或修改目标对象的属性，而不是通过 访问属性或设置<code>obj[prop]</code>属性。这些方法接收与处理程序对象上的方法相同的参数。<code>obj[prop] = value``Reflect.get()``Reflect.set()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> personProxy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(person, &#123;<br>  <span class="hljs-attr">get</span>: <span class="hljs-function">(<span class="hljs-params">obj, prop</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`The value of <span class="hljs-subst">$&#123;prop&#125;</span> is <span class="hljs-subst">$&#123;<span class="hljs-built_in">Reflect</span>.get(obj, prop)&#125;</span>`</span>);<br>  &#125;,<br>  <span class="hljs-attr">set</span>: <span class="hljs-function">(<span class="hljs-params">obj, prop, value</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Changed <span class="hljs-subst">$&#123;prop&#125;</span> from <span class="hljs-subst">$&#123;obj[prop]&#125;</span> to <span class="hljs-subst">$&#123;value&#125;</span>`</span>);<br>    <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(obj, prop, value);<br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="3、提供者模式：使数据可供多个子组件使用"><a href="#3、提供者模式：使数据可供多个子组件使用" class="headerlink" title="3、提供者模式：使数据可供多个子组件使用"></a>3、提供者模式：使数据可供多个子组件使用</h3><p>主要针对props方式传递数据时需要层层传递且改造成本大的问题。</p>
+<p>通过提供者模式，我们可以使数据可供多个组件使用。我们可以将所有组件包装在<code>Provider</code>. Provider 是对象提供给我们的高阶组件<code>Context</code>。我们可以使用<code>createContext</code>React 为我们提供的方法创建一个 Context 对象。</p>
+<p>Provider 接收一个<code>value</code>prop，其中包含我们想要传递的数据。<em>包含在该提供程序中的所有</em>组件都可以访问该 prop 的值<code>value</code>。</p>
+<h4 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">DataContext</span> = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createContext</span>()<br> <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> data = &#123; ... &#125;<br> <br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">DataContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;data&#125;</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">SideBar</span> /&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Content</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">DataContext.Provider</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如何使用？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">ListItem</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> &#123; data &#125; = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">DataContext</span>);<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&#123;data.listItem&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>;<br>&#125;<br> <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Text</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> &#123; data &#125; = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">DataContext</span>);<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;data.text&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;<br>&#125;<br> <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Header</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> &#123; data &#125; = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">DataContext</span>);<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;data.title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>提供者模式对于共享全局数据非常有用。提供者模式的一个常见用例是与许多组件共享主题 UI 状态。</p>
+<h4 id="优化：使用hooks-x2F-hoc"><a href="#优化：使用hooks-x2F-hoc" class="headerlink" title="优化：使用hooks&#x2F;hoc"></a>优化：使用hooks&#x2F;hoc</h4><p>我们可以创建一个钩子来为组件提供上下文。我们可以使用一个返回我们需要的上下文的钩子，而不必<code>useContext</code>在每个组件中导入上下文。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">useThemeContext</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> theme = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">ThemeContext</span>);<br>  <span class="hljs-keyword">if</span> (!theme) &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;useThemeContext must be used within ThemeProvider&quot;</span>);<br>  &#125;<br>  <span class="hljs-keyword">return</span> theme;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们可以创建一个 HOC 来包装组件以提供其值，而不是直接用组件来包装组件。这样，我们可以将上下文逻辑与渲染组件分离，从而提高提供者的可重用性。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">ThemeProvider</span>(<span class="hljs-params">&#123; children &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> [theme, setTheme] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;dark&quot;</span>);<br> <br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">toggleTheme</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-title function_">setTheme</span>(theme === <span class="hljs-string">&quot;light&quot;</span> ? <span class="hljs-string">&quot;dark&quot;</span> : <span class="hljs-string">&quot;light&quot;</span>);<br>  &#125;<br> <br>  <span class="hljs-keyword">const</span> providerValue = &#123;<br>    <span class="hljs-attr">theme</span>: themes[theme],<br>    toggleTheme,<br>  &#125;;<br> <br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ThemeContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;providerValue&#125;</span>&gt;</span></span><br><span class="language-xml">      &#123;children&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ThemeContext.Provider</span>&gt;</span></span><br>  );<br>&#125;<br> <br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">App</span> <span class="hljs-attr">theme-</span>$&#123;<span class="hljs-attr">theme</span>&#125;`&#125;&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">ThemeProvider</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Toggle</span> /&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">List</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">ThemeProvider</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>每个需要访问 的组件<code>ThemeContext</code>现在可以简单地使用该<code>useThemeContext</code>钩子。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">TextBox</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> theme = <span class="hljs-title function_">useThemeContext</span>();<br> <br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;theme.theme&#125;</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过为不同的上下文创建挂钩，可以轻松地将提供者的逻辑与呈现数据的组件分开。</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>我们不再需要处理<em>prop-drilling</em>，这可以被视为一种反模式。以前，理解应用程序的数据流可能很困难，因为并不总是清楚某些 prop 值的来源。使用 Provider 模式，我们不再需要将 props 不必要地传递给不关心此数据的组件。</p>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><p>在某些情况下，过度使用提供者模式可能会导致性能问题。<em>所有使用</em>上下文的组件都会在每次状态更改时重新渲染。消耗了useContext的组件都会重新渲染。</p>
+<h3 id="4、原型模式：在同一类型的许多对象之间共享属性"><a href="#4、原型模式：在同一类型的许多对象之间共享属性" class="headerlink" title="4、原型模式：在同一类型的许多对象之间共享属性"></a>4、原型模式：在同一类型的许多对象之间共享属性</h3><p>原型模式是在同一类型的许多对象之间共享属性的有用方法。原型是 JavaScript 原生的对象，可以通过原型链被对象访问。</p>
+<p>当处理应该有权访问相同属性的对象时，原型模式非常强大。我们可以简单地将属性添加到原型中，而不是每次都创建属性的副本，因为所有实例都可以访问原型对象。</p>
+<p>由于所有实例都可以访问原型，因此即使在创建实例之后也可以轻松地将属性添加到原型。</p>
+<h4 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h4><p><code>Object.create</code>方法允许我们创建一个新对象，我们可以显式地将其原型值传递给该对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> dog = &#123;<br>  <span class="hljs-title function_">bark</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`Woof!`</span>;<br>  &#125;,<br>&#125;;<br> <br><span class="hljs-keyword">const</span> pet1 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(dog);<br></code></pre></td></tr></table></figure>
+
+<p>虽然<code>pet1</code>它本身没有任何属性，但它确实可以访问其原型链上的属性！由于我们将<code>dog</code>对象作为<code>pet1</code>的原型传递，因此我们可以访问该<code>bark</code>属性。</p>
+<p><code>Object.create</code>是一种简单的方法，通过指定新创建的对象的原型，让对象直接从其他对象继承属性。新对象可以通过沿着原型链向下访问新属性。</p>
+<h3 id="5、容器-x2F-展示模式：通过将视图与应用程序逻辑分离来强制关注点分离"><a href="#5、容器-x2F-展示模式：通过将视图与应用程序逻辑分离来强制关注点分离" class="headerlink" title="5、容器&#x2F;展示模式：通过将视图与应用程序逻辑分离来强制关注点分离"></a>5、容器&#x2F;展示模式：通过将视图与应用程序逻辑分离来强制关注点分离</h3><p>在 React 中，强制关注点分离的一种方法是使用<strong>容器&#x2F;演示模式</strong>。通过这种模式，我们可以将视图与应用程序逻辑分开。</p>
+<p>理想情况下，我们希望通过将此过程分为两部分来强制关注点分离：</p>
+<ol>
+<li><strong>展示组件</strong>：关心<em><strong>如何</strong></em>向用户显示数据的组件。在此示例中，这是<em>渲染狗图像列表</em>。</li>
+<li><strong>容器组件</strong>：关心向用户显示<em><strong>哪些数据的组件。</strong></em>在此示例中，这是<em>获取狗图像</em>。</li>
+</ol>
+<p>获取狗图像涉及<strong>应用程序逻辑</strong>，而显示图像仅涉及<strong>视图</strong>。</p>
+<h4 id="hooks实现"><a href="#hooks实现" class="headerlink" title="hooks实现"></a>hooks实现</h4><p>在许多情况下，容器&#x2F;演示模式可以用 React Hooks 代替。Hooks 的引入使开发人员可以轻松添加状态，而无需容器组件来提供该状态。</p>
+<p><code>DogImagesContainer</code>我们可以创建一个自定义挂钩来获取图像并返回狗数组，而不是在组件中包含数据获取逻辑。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useDogImages</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [dogs, setDogs] = <span class="hljs-title function_">useState</span>([]);<br> <br>  <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&quot;https://dog.ceo/api/breed/labrador/images/random/6&quot;</span>)<br>      .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> res.<span class="hljs-title function_">json</span>())<br>      .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">&#123; message &#125;</span>) =&gt;</span> <span class="hljs-title function_">setDogs</span>(message));<br>  &#125;, []);<br> <br>  <span class="hljs-keyword">return</span> dogs;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过使用这个钩子，我们不再需要包装<code>DogImagesContainer</code>容器组件来获取数据并将其发送到展示<code>DogImages</code>组件。相反，我们可以直接在我们的演示<code>DogImages</code>组件中使用这个钩子！</p>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><p>容器&#x2F;表示模式鼓励关注点分离。展示组件可以是负责 UI 的纯函数，而容器组件则负责应用程序的状态和数据。这使得强制实施关注点分离变得容易。</p>
+<p>展示组件很容易实现可重用，因为它们只是<em>显示</em>数据而不改变这些数据。我们可以在整个应用程序中出于不同目的重用演示组件。</p>
+<p>由于表示组件不会改变应用程序逻辑，因此不了解代码库的人（例如设计人员）可以轻松更改表示组件的外观。如果演示组件在应用程序的许多部分被重用，则更改可以在整个应用程序中保持一致。</p>
+<p>测试演示组件很容易，因为它们通常是纯函数。我们知道组件将根据我们传递的数据呈现什么，而无需模拟数据存储。</p>
+<h3 id="6、观察者模式：当事件发生时使用可观察量通知订阅者"><a href="#6、观察者模式：当事件发生时使用可观察量通知订阅者" class="headerlink" title="6、观察者模式：当事件发生时使用可观察量通知订阅者"></a>6、观察者模式：当事件发生时使用可观察量通知订阅者</h3><p>一个可观察对象通常包含 3 个重要部分：</p>
+<ul>
+<li><code>observers</code>：一组观察者，每当特定事件发生时就会收到通知</li>
+<li><code>subscribe()</code>：将观察者添加到观察者列表的方法</li>
+<li><code>unsubscribe()</code>：从观察者列表中删除观察者的方法</li>
+<li><code>notify()</code>：每当特定事件发生时通知所有观察者的方法</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Observable</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">observers</span> = [];<br>  &#125;<br><br>  <span class="hljs-title function_">subscribe</span>(<span class="hljs-params">f</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">observers</span>.<span class="hljs-title function_">push</span>(f);<br>  &#125;<br><br>  <span class="hljs-title function_">unsubscribe</span>(<span class="hljs-params">f</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">observers</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">observers</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">subscriber</span> =&gt;</span> subscriber !== f);<br>  &#125;<br><br>  <span class="hljs-title function_">notify</span>(<span class="hljs-params">data</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">observers</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">observer</span> =&gt;</span> <span class="hljs-title function_">observer</span>(data));<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Observable</span>();<br></code></pre></td></tr></table></figure>
+
+<p><strong>尽管我们可以通过多种方式使用观察者模式，但它在处理异步、基于事件的数据</strong>时非常有用。也许您希望每当某些数据下载完成时，或者每当用户向留言板发送新消息时，某些组件都会收到通知，并且所有其他成员都应该收到通知。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Button</span>, <span class="hljs-title class_">Switch</span>, <span class="hljs-title class_">FormControlLabel</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@material-ui/core&quot;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">ToastContainer</span>, toast &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-toastify&quot;</span>;<br><span class="hljs-keyword">import</span> observable <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./Observable&quot;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">handleClick</span>(<span class="hljs-params"></span>) &#123;<br>  observable.<span class="hljs-title function_">notify</span>(<span class="hljs-string">&quot;User clicked button!&quot;</span>);<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">handleToggle</span>(<span class="hljs-params"></span>) &#123;<br>  observable.<span class="hljs-title function_">notify</span>(<span class="hljs-string">&quot;User toggled switch!&quot;</span>);<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">logger</span>(<span class="hljs-params">data</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;<span class="hljs-built_in">Date</span>.now()&#125;</span> <span class="hljs-subst">$&#123;data&#125;</span>`</span>);<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">toastify</span>(<span class="hljs-params">data</span>) &#123;<br>  <span class="hljs-title function_">toast</span>(data, &#123;<br>    <span class="hljs-attr">position</span>: toast.<span class="hljs-property">POSITION</span>.<span class="hljs-property">BOTTOM_RIGHT</span>,<br>    <span class="hljs-attr">closeButton</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-attr">autoClose</span>: <span class="hljs-number">2000</span><br>  &#125;);<br>&#125;<br><br>observable.<span class="hljs-title function_">subscribe</span>(logger);<br>observable.<span class="hljs-title function_">subscribe</span>(toastify);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;App&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">variant</span>=<span class="hljs-string">&quot;contained&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;handleClick&#125;</span>&gt;</span></span><br><span class="language-xml">        Click me!</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">FormControlLabel</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">control</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">Switch</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;handleToggle&#125;</span> /&gt;</span>&#125;</span><br><span class="language-xml">        label=&quot;Toggle me!&quot;</span><br><span class="language-xml">      /&gt;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">ToastContainer</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用可观察模式的流行库是 RxJS。</p>
+<h4 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h4><p>使用观察者模式是强制关注点分离和单一职责原则的好方法。观察者对象与可观察对象并不紧密耦合，并且可以随时解耦合。可观察对象负责监视事件，而观察者只处理接收到的数据。</p>
+<h4 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h4><p>如果观察者变得过于复杂，则在通知所有订阅者时可能会导致性能问题。</p>
+<h3 id="7、模块模式：将您的代码分割成更小的、可重用的部分"><a href="#7、模块模式：将您的代码分割成更小的、可重用的部分" class="headerlink" title="7、模块模式：将您的代码分割成更小的、可重用的部分"></a>7、模块模式：将您的代码分割成更小的、可重用的部分</h3><p>import &#x2F; export &#x2F; export default &#x2F; as</p>
+<h4 id="动态导入"><a href="#动态导入" class="headerlink" title="动态导入"></a>动态导入</h4><p>当导入文件顶部的所有模块时，所有模块都会先于文件的其余部分加载。在某些情况下，我们只需要根据某种条件导入一个模块。通过<strong>动态导入</strong>，我们可以按需导入模块。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;module&quot;</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params"><span class="hljs-variable language_">module</span></span>) =&gt;</span> &#123;<br>  <span class="hljs-variable language_">module</span>.<span class="hljs-title function_">default</span>();<br>  <span class="hljs-variable language_">module</span>.<span class="hljs-title function_">namedExport</span>();<br>&#125;);<br> <br><span class="hljs-comment">// Or with async/await</span><br>(<span class="hljs-keyword">async</span> () =&gt; &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-variable language_">module</span> = <span class="hljs-keyword">await</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;module&quot;</span>);<br>  <span class="hljs-variable language_">module</span>.<span class="hljs-title function_">default</span>();<br>  <span class="hljs-variable language_">module</span>.<span class="hljs-title function_">namedExport</span>();<br>&#125;)();<br></code></pre></td></tr></table></figure>
+
+<p>通过动态导入模块，我们可以减少页面加载时间。我们只需要在用户需要的<em>时候</em>加载、解析和编译用户真正需要的代码。</p>
+<h3 id="8、混合模式：向对象或类添加功能而无需继承"><a href="#8、混合模式：向对象或类添加功能而无需继承" class="headerlink" title="8、混合模式：向对象或类添加功能而无需继承"></a>8、混合模式：向对象或类添加功能而无需继承</h3><p>mixin是一个对象，我们可以使用它向另一个对象或类添加可重用的功能，而无需使用继承<strong>。</strong>我们不能单独使用 mixin：它们的唯一目的是在没有继承的情况下向对象或类<em>添加功能</em>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Dog</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>  &#125;<br>&#125;<br> <br><span class="hljs-keyword">const</span> dogFunctionality = &#123;<br>  <span class="hljs-attr">bark</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Woof!&quot;</span>),<br>  <span class="hljs-attr">wagTail</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Wagging my tail!&quot;</span>),<br>  <span class="hljs-attr">play</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Playing!&quot;</span>),<br>&#125;;<br> <br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(<span class="hljs-title class_">Dog</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>, dogFunctionality);<br></code></pre></td></tr></table></figure>
+
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><p>并不推荐，在引入 ES6 类之前，Mixin 通常用于向 React 组件添加功能。React 团队<a target="_blank" rel="noopener" href="https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html">不鼓励使用 mixins</a>，因为它很容易给组件增加不必要的复杂性，使其难以维护和重用。React 团队<a target="_blank" rel="noopener" href="https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750">鼓励使用更高阶的组件</a>，这些组件现在通常可以被 Hook 取代。</p>
+<p>修改对象的原型被认为是不好的做法，因为它可能导致原型污染以及函数起源的一定程度的不确定性。</p>
+<h3 id="9、中介者-x2F-中间件模式：使用中央中介对象来处理组件之间的通信"><a href="#9、中介者-x2F-中间件模式：使用中央中介对象来处理组件之间的通信" class="headerlink" title="9、中介者&#x2F;中间件模式：使用中央中介对象来处理组件之间的通信"></a>9、中介者&#x2F;中间件模式：使用中央中介对象来处理组件之间的通信</h3><p>对象的请求由调解器处理，而不是让每个对象直接与其他对象通信，从而形成多对多关系。中介器处理该请求，并将其转发到需要的位置。</p>
+<p><img src="https://www.patterns.dev/_next/image?url=https://res.cloudinary.com/ddxwdqwkr/image/upload/f_auto/v1609056523/patterns.dev/Screen_Shot_2020-12-23_at_11.23.32_PM_wjft0a.png&w=3840&q=75" srcset="/blog/img/loading.gif" lazyload alt="流动"></p>
+<p>调解者模式的一个很好的用例是聊天室！聊天室中的用户不会直接相互交谈。相反，聊天室充当用户之间的中介。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ChatRoom</span> &#123;<br>  <span class="hljs-title function_">logMessage</span>(<span class="hljs-params">user, message</span>) &#123;<br>    <span class="hljs-keyword">const</span> time = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>    <span class="hljs-keyword">const</span> sender = user.<span class="hljs-title function_">getName</span>();<br> <br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;time&#125;</span> [<span class="hljs-subst">$&#123;sender&#125;</span>]: <span class="hljs-subst">$&#123;message&#125;</span>`</span>);<br>  &#125;<br>&#125;<br> <br><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name, chatroom</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">chatroom</span> = chatroom;<br>  &#125;<br> <br>  <span class="hljs-title function_">getName</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>;<br>  &#125;<br> <br>  <span class="hljs-title function_">send</span>(<span class="hljs-params">message</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">chatroom</span>.<span class="hljs-title function_">logMessage</span>(<span class="hljs-variable language_">this</span>, message);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p><a target="_blank" rel="noopener" href="https://expressjs.com/">Express.js</a>是一种流行的 Web 应用程序服务器框架。我们可以向用户可以访问的某些路由添加回调。</p>
+<p>假设如果用户点击 root ，我们希望向请求添加一个标头<code>&#39;/&#39;</code>。我们可以在中间件回调中添加此标头。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;express&quot;</span>)();<br> <br>app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> &#123;<br>  req.<span class="hljs-property">headers</span>[<span class="hljs-string">&quot;test-header&quot;</span>] = <span class="hljs-number">1234</span>;<br>  <span class="hljs-title function_">next</span>();<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>中间件模式让所有通信都流经一个中心点，使我们能够轻松简化对象之间的多对多关系。</p>
+<h3 id="10、HOC模式：将可重用逻辑作为-props-传递给整个应用程序的组件"><a href="#10、HOC模式：将可重用逻辑作为-props-传递给整个应用程序的组件" class="headerlink" title="10、HOC模式：将可重用逻辑作为 props 传递给整个应用程序的组件"></a>10、HOC模式：将可重用逻辑作为 props 传递给整个应用程序的组件</h3><p>高阶组件 (HOC) 是接收另一个组件的组件。HOC 包含我们想要应用于作为参数传递的组件的某些逻辑。应用该逻辑后，HOC 返回具有附加逻辑的元素。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">withStyles</span>(<span class="hljs-params">Component</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> style = &#123; <span class="hljs-attr">padding</span>: <span class="hljs-string">&#x27;0.2rem&#x27;</span>, <span class="hljs-attr">margin</span>: <span class="hljs-string">&#x27;1rem&#x27;</span> &#125;<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Component</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;style&#125;</span> &#123;<span class="hljs-attr">...props</span>&#125; /&gt;</span></span><br>  &#125;<br>&#125;<br> <br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Button</span> = () = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>Click me!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Text</span> = (<span class="hljs-params"></span>) =&gt; <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello World!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br> <br><span class="hljs-keyword">const</span> <span class="hljs-title class_">StyledButton</span> = <span class="hljs-title function_">withStyles</span>(<span class="hljs-title class_">Button</span>)<br><span class="hljs-keyword">const</span> <span class="hljs-title class_">StyledText</span> = <span class="hljs-title function_">withStyles</span>(<span class="hljs-title class_">Text</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="hooks方案"><a href="#hooks方案" class="headerlink" title="hooks方案"></a>hooks方案</h4><p>在某些情况下，我们可以用 React Hooks 替换 HOC 模式。</p>
+<p>正如 React 文档告诉我们的，使用 Hooks 可以减少组件树的深度。使用 HOC 模式，很容易得到深度嵌套的组件树。</p>
+<p>使用高阶组件可以为许多组件提供相同的逻辑，同时将该逻辑全部保留在一个位置。钩子允许我们从组件内部添加自定义行为，如果多个组件依赖于此行为，则与 HOC 模式相比，这可能会增加引入错误的风险。</p>
+<p><strong>HOC 的最佳用例</strong>：</p>
+<ul>
+<li>整个应用程序中的许多组件需要使用相同<em>的、未定制的行为。</em></li>
+<li>该组件可以独立工作，无需添加自定义逻辑。</li>
+</ul>
+<p><strong>Hooks 的最佳用例</strong>：</p>
+<ul>
+<li>必须为使用它的每个组件定制该行为。</li>
+<li>该行为不会传播到整个应用程序，只有一个或几个组件使用该行为。</li>
+<li>该行为向组件添加了许多属性</li>
+</ul>
+<h4 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h4><p>使用高阶组件模式允许我们将想要重用的逻辑保留在一个地方。这降低了通过一遍又一遍地复制代码而在整个应用程序中意外传播错误的风险，每次都可能引入新的错误。通过将逻辑全部保留在一处，我们可以保留代码<code>DRY</code>并轻松实施关注点分离。</p>
+<h4 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h4><p>HOC 可以传递给元素的 prop 的名称可能会导致命名冲突。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">withStyles</span>(<span class="hljs-params">Component</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> style = &#123;<br>      <span class="hljs-attr">padding</span>: <span class="hljs-string">&#x27;0.2rem&#x27;</span>,<br>      <span class="hljs-attr">margin</span>: <span class="hljs-string">&#x27;1rem&#x27;</span>,<br>      ...props.<span class="hljs-property">style</span><br>    &#125;<br> <br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Component</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;style&#125;</span> &#123;<span class="hljs-attr">...props</span>&#125; /&gt;</span></span><br>  &#125;<br>&#125;<br> <br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Button</span> = () = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">color:</span> &#x27;<span class="hljs-attr">red</span>&#x27; &#125;&#125;&gt;</span>Click me!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">StyledButton</span> = <span class="hljs-title function_">withStyles</span>(<span class="hljs-title class_">Button</span>)<br></code></pre></td></tr></table></figure>
+
+<p>当使用多个组合HOC 并将 props 传递给包含在其中的元素时，很难确定哪个 HOC 负责哪个 prop。这可能会阻碍应用程序的调试和扩展。</p>
+<h3 id="11、渲染道具模式：通过-props-将-JSX-元素传递给组件"><a href="#11、渲染道具模式：通过-props-将-JSX-元素传递给组件" class="headerlink" title="11、渲染道具模式：通过 props 将 JSX 元素传递给组件"></a>11、渲染道具模式：通过 props 将 JSX 元素传递给组件</h3><p><a target="_blank" rel="noopener" href="https://www.patterns.dev/posts/hoc-pattern">在高阶组件</a>部分中，我们看到，如果多个组件需要访问相同的数据或包含相同的逻辑，那么能够重用组件逻辑会非常方便。</p>
+<p>使组件非常可重用的另一种方法是使用<strong>render prop</strong>模式。render prop 是组件上的 prop，其值是返回 JSX 元素的函数。除了 render prop 之外，组件本身不会渲染任何内容。相反，该组件只是调用 render prop，而不是实现自己的渲染逻辑。</p>
+<p>想象一下我们有一个<code>Title</code>组件。在这种情况下，<code>Title</code>除了呈现我们传递的值之外，组件不应该执行任何操作。我们可以为此使用渲染道具！<code>Title</code>让我们将希望组件渲染的值传递给<code>render</code>prop。</p>
+<p>想象一下我们有一个<code>Title</code>组件。在这种情况下，<code>Title</code>除了呈现我们传递的值之外，组件不应该执行任何操作。我们可以为此使用渲染道具！<code>Title</code>让我们将希望组件渲染的值传递给<code>render</code>prop。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx">&lt;<span class="hljs-title class_">Title</span> render=&#123;<span class="hljs-function">() =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>I am a render prop!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>&#125; /&gt;<br></code></pre></td></tr></table></figure>
+
+<p>在组件内<code>Title</code>，我们可以通过返回调用的<code>render</code>prop 来渲染这些数据！</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">Title</span> = (<span class="hljs-params">props</span>) =&gt; props.<span class="hljs-title function_">render</span>();<br></code></pre></td></tr></table></figure>
+
+<p>对于该<code>Component</code>元素，我们必须传递一个名为 的 prop <code>render</code>，它是一个返回 React 元素的函数。</p>
+<p>接受 render prop 的组件通常不仅仅只是调用<code>render</code>prop。相反，我们通常希望将数据从采用 render prop 的组件传递到我们作为 render prop 传递的元素！</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Component</span>(<span class="hljs-params">props</span>) &#123;<br>  <span class="hljs-keyword">const</span> data = &#123; ... &#125;<br> <br>  <span class="hljs-keyword">return</span> props.<span class="hljs-title function_">render</span>(data)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>render prop 现在可以接收我们作为参数传递的值。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx">&lt;<span class="hljs-title class_">Component</span> render=&#123;<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ChildComponent</span> <span class="hljs-attr">data</span>=<span class="hljs-string">&#123;data&#125;</span> /&gt;</span></span>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="children作为函数"><a href="#children作为函数" class="headerlink" title="children作为函数"></a>children作为函数</h4><p>除了常规的 JSX 组件之外，我们还可以将函数作为子组件传递给 React 组件。我们可以通过<code>children</code>prop 来使用此功能，从技术上讲，它也是一个 render prop。</p>
+<p>让我们改变一下<code>Input</code>组件。我们不会显式传递<code>render</code>prop，而是只传递一个函数作为组件的子组件<code>Input</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;App&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>☃️ Temperature Converter 🌞<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Input</span>&gt;</span></span><br><span class="language-xml">        &#123;(value) =&gt; (</span><br><span class="language-xml">          <span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">Kelvin</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;value&#125;</span> /&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">Fahrenheit</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;value&#125;</span> /&gt;</span></span><br><span class="language-xml">          <span class="hljs-tag">&lt;/&gt;</span></span><br><span class="language-xml">        )&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">Input</span>&gt;</span></span><br>    &lt;/div&gt;<br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>props.children</code>我们可以通过组件上可用的 prop访问此函数<code>Input</code>。<code>props.render</code>我们将使用用户输入的值进行调用，而不是<code>props.children</code>使用用户输入的值进行调用。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Input</span>(<span class="hljs-params">props</span>) &#123;<br>  <span class="hljs-keyword">const</span> [value, setValue] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&quot;&quot;</span>);<br> <br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">input</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;value&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;(e)</span> =&gt;</span> setValue(e.target.value)&#125;</span><br><span class="language-xml">        placeholder=&quot;Temp in °C&quot;</span><br><span class="language-xml">      /&gt;</span><br><span class="language-xml">      &#123;props.children(value)&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="12、hooks模式：使用函数在整个应用程序的多个组件之间重用有状态逻辑"><a href="#12、hooks模式：使用函数在整个应用程序的多个组件之间重用有状态逻辑" class="headerlink" title="12、hooks模式：使用函数在整个应用程序的多个组件之间重用有状态逻辑"></a>12、hooks模式：使用函数在整个应用程序的多个组件之间重用有状态逻辑</h3><p><a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-intro.html"><strong>React 16.8 引入了一个名为Hooks</strong></a>的新功能。Hooks 使得使用 React 状态和生命周期方法成为可能，而无需使用 ES2015 类组件。</p>
+<p>虽然 Hook 不一定是一种设计模式，但 Hook 在您的应用程序设计中发挥着非常重要的作用。很多传统的设计模式都可以被 Hook 所取代。</p>
+<p>为了解决 React 开发人员在使用类组件时可能遇到的常见问题，React 引入了<strong>React Hooks</strong>。React Hooks 是可用于管理组件状态和生命周期方法的函数。React Hooks 可以：</p>
+<ul>
+<li>向功能组件添加状态</li>
+<li>管理组件的生命周期，而无需使用生命周期方法，例如<code>componentDidMount</code>和<code>componentWillUnmount</code></li>
+<li>在整个应用程序的多个组件之间重用相同的状态逻辑</li>
+</ul>
+<p>通过<code>useEffect</code>钩子，我们可以<em>“钩入”</em>组件的生命周期。该<code>useEffect</code>钩子有效地结合了<code>componentDidMount</code>、<code>componentDidUpdate</code>和<code>componentWillUnmount</code>生命周期方法。</p>
+<p>除了 React 提供的内置钩子（<code>useState</code>, <code>useEffect</code>, <code>useReducer</code>, <code>useRef</code>, <code>useContext</code>, <code>useMemo</code>, <code>useImperativeHandle</code>, <code>useLayoutEffect</code>, <code>useDebugValue</code>, <code>useCallback</code>）之外，我们还可以轻松创建自己的自定义钩子。</p>
+<p>您可能已经注意到所有钩子都以 开头<code>use</code>。<code>use</code>为了让 React 检查它是否违反了<a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-rules.html">Hooks 的规则，</a>开始你的 Hooks 是很重要的。</p>
+<h4 id="附加-Hook-指南"><a href="#附加-Hook-指南" class="headerlink" title="附加 Hook 指南"></a>附加 Hook 指南</h4><p>与其他组件一样，当您想要将 Hooks 添加到您编写的代码中时，可以使用一些特殊的函数。下面简单介绍一下一些常见的 Hook 函数：</p>
+<h5 id="useState"><a href="#useState" class="headerlink" title="useState"></a><code>useState</code></h5><p>Hook<code>useState</code>使开发人员能够更新和操作函数组件内部的状态，而无需将其转换为类组件。这个 Hook 的优点之一是它很简单，不需要像其他 React Hook 那样复杂。</p>
+<h5 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a><code>useEffect</code></h5><p>Hook<code>useEffect</code>用于在功能组件中的主要生命周期事件期间运行代码。函数组件的主体不允许突变、订阅、计时器、日志记录和其他副作用。如果允许，可能会导致用户界面中出现令人困惑的错误和不一致。useEffect 挂钩可以防止所有这些“副作用”并允许 UI 顺利运行。<code>componentDidMount</code>它是、<code>componentDidUpdate</code>、 和的组合<code>componentWillUnmount</code>，全部集中在一处。</p>
+<h5 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a><code>useContext</code></h5><p>Hook<code>useContext</code>接受一个上下文对象，它是从 返回的值<code>React.createcontext</code>，并返回该上下文的当前上下文值。useContext Hook 还可以与 React Context API 配合使用，以便在整个应用程序中共享数据，而无需通过各个级别向下传递应用程序属性。</p>
+<p>应该注意的是，传递给钩子的参数<code>useContext</code>必须是上下文对象本身，并且<code>useContext</code>只要上下文值发生变化，任何调用该函数的组件都会重新渲染。</p>
+<h5 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a><code>useReducer</code></h5><p>当您具有涉及多个子值的复杂状态逻辑或当下一个状态依赖于前一个状态时， Hook<code>useReducer</code>提供了一种替代方案，<code>setState</code>并且特别优选。它接受一个函数和一个初始状态输入，并通过数组解构 <code>reducer</code>返回当前状态和一个函数作为输出。还优化了触发深度更新的组件的性能。<code>dispatch``useReducer</code></p>
+<h4 id="优点-4"><a href="#优点-4" class="headerlink" title="优点"></a>优点</h4><h5 id="更少的代码行"><a href="#更少的代码行" class="headerlink" title="更少的代码行"></a>更少的代码行</h5><p>Hooks 允许您按关注点和功能而不是生命周期对代码进行分组。这使得代码不仅更干净、简洁，而且更短。</p>
+<h5 id="简化复杂组件"><a href="#简化复杂组件" class="headerlink" title="简化复杂组件"></a>简化复杂组件</h5><p>JavaScript 类可能难以管理，难以使用热重载，并且也可能无法缩小。React Hooks 解决了这些问题并确保函数式编程变得简单。通过 Hooks 的实现，我们不需要类组件。</p>
+<h5 id="重用状态逻辑"><a href="#重用状态逻辑" class="headerlink" title="重用状态逻辑"></a>重用状态逻辑</h5><p>JavaScript 中的类鼓励多层次的继承，这会迅速增加整体复杂性和潜在的错误。但是，Hook 允许您使用状态和其他 React 功能，而无需编写类。使用 React，您始终可以重用有状态逻辑，而无需一遍又一遍地重写代码。这减少了出错的机会，并允许使用简单的函数进行组合。</p>
+<h5 id="共享非视觉逻辑"><a href="#共享非视觉逻辑" class="headerlink" title="共享非视觉逻辑"></a>共享非视觉逻辑</h5><p>在 Hooks 实现之前，React 无法提取和共享非可视逻辑。这最终导致了更多的复杂性，例如 HOC 模式和渲染道具，只是为了解决一个常见问题。但是，Hooks 的引入解决了这个问题，因为它允许将状态逻辑提取到简单的 JavaScript 函数中。</p>
+<p>当然，Hooks 有一些潜在的缺点值得记住：</p>
+<ul>
+<li>必须尊重它的规则，如果没有linter插件，很难知道哪个规则被打破了。</li>
+<li>需要大量时间练习才能正确使用（例如：useEffect）。</li>
+<li>注意错误的使用（例如：useCallback、useMemo）。</li>
+</ul>
+<h3 id="13、享元模式：处理相同对象时重用现有实例"><a href="#13、享元模式：处理相同对象时重用现有实例" class="headerlink" title="13、享元模式：处理相同对象时重用现有实例"></a>13、享元模式：处理相同对象时重用现有实例</h3><p>当我们创建大量相似的对象时，享元模式是节省内存的一种有用方法。</p>
+<p>在我们的应用程序中，我们希望用户能够添加书籍。所有书籍都有一个<code>title</code>、一个<code>author</code>和一个<code>isbn</code>编号！然而，图书馆通常不仅仅拥有一本书的一本：它通常拥有同一本书的多本。</p>
+<p>如果同一本书有多个副本，那么每次创建一个新的书籍实例并不是很有用。相反，我们想要创建<code>Book</code>代表一本书的构造函数的多个实例。</p>
+<h4 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Book</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">title, author, isbn</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">title</span> = title;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">author</span> = author;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">isbn</span> = isbn;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>让我们创建将新书添加到列表中的功能。如果一本书具有相同的 ISBN 编号，因此是完全相同的书籍类型，我们不想创建一个全新的<code>Book</code>实例。相反，我们应该首先检查这本书是否已经存在。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> books = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();<br> <br><span class="hljs-keyword">const</span> <span class="hljs-title function_">createBook</span> = (<span class="hljs-params">title, author, isbn</span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> existingBook = books.<span class="hljs-title function_">has</span>(isbn);<br> <br>  <span class="hljs-keyword">if</span> (existingBook) &#123;<br>    <span class="hljs-keyword">return</span> books.<span class="hljs-title function_">get</span>(isbn);<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>如果它还不包含图书的 ISBN 编号，我们将创建一本新图书并将其 ISBN 编号添加到集合中<code>isbnNumbers</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">createBook</span> = (<span class="hljs-params">title, author, isbn</span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> existingBook = books.<span class="hljs-title function_">has</span>(isbn);<br> <br>  <span class="hljs-keyword">if</span> (existingBook) &#123;<br>    <span class="hljs-keyword">return</span> books.<span class="hljs-title function_">get</span>(isbn);<br>  &#125;<br> <br>  <span class="hljs-keyword">const</span> book = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Book</span>(title, author, isbn);<br>  books.<span class="hljs-title function_">set</span>(isbn, book);<br> <br>  <span class="hljs-keyword">return</span> book;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>该<code>createBook</code>函数帮助我们创建一种类型的书籍的新实例。然而，图书馆通常包含同一本书的多本！让我们创建一个<code>addBook</code>函数，它允许我们添加同一本书的多个副本。它应该调用该<code>createBook</code>函数，该函数返回新创建的<code>Book</code>实例，或返回已经存在的实例。</p>
+<p>为了跟踪总册数，让我们创建一个<code>bookList</code>包含图书馆中图书总数的数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> bookList = [];<br> <br><span class="hljs-keyword">const</span> <span class="hljs-title function_">addBook</span> = (<span class="hljs-params">title, author, isbn, availability, sales</span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> book = &#123;<br>    ...<span class="hljs-title function_">createBook</span>(title, author, isbn),<br>    sales,<br>    availability,<br>    isbn,<br>  &#125;;<br> <br>  bookList.<span class="hljs-title function_">push</span>(book);<br>  <span class="hljs-keyword">return</span> book;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>完美的！<code>Book</code>我们可以有效地使用<code>Book</code>该特定副本的现有实例，而不是每次添加副本时创建一个新实例。让我们创建 3 本书的 5 个副本：《哈利·波特》、《杀死一只知更鸟》和《了不起的盖茨比》。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">addBook</span>(<span class="hljs-string">&quot;Harry Potter&quot;</span>, <span class="hljs-string">&quot;JK Rowling&quot;</span>, <span class="hljs-string">&quot;AB123&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-number">100</span>);<br><span class="hljs-title function_">addBook</span>(<span class="hljs-string">&quot;Harry Potter&quot;</span>, <span class="hljs-string">&quot;JK Rowling&quot;</span>, <span class="hljs-string">&quot;AB123&quot;</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">50</span>);<br><span class="hljs-title function_">addBook</span>(<span class="hljs-string">&quot;To Kill a Mockingbird&quot;</span>, <span class="hljs-string">&quot;Harper Lee&quot;</span>, <span class="hljs-string">&quot;CD345&quot;</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">10</span>);<br><span class="hljs-title function_">addBook</span>(<span class="hljs-string">&quot;To Kill a Mockingbird&quot;</span>, <span class="hljs-string">&quot;Harper Lee&quot;</span>, <span class="hljs-string">&quot;CD345&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-number">20</span>);<br><span class="hljs-title function_">addBook</span>(<span class="hljs-string">&quot;The Great Gatsby&quot;</span>, <span class="hljs-string">&quot;F. Scott Fitzgerald&quot;</span>, <span class="hljs-string">&quot;EF567&quot;</span>, <span class="hljs-literal">false</span>, <span class="hljs-number">20</span>);<br></code></pre></td></tr></table></figure>
+
+<p>虽然有5个副本，但我们只有3个<code>Book</code>实例！</p>
+<p>当您创建大量对象时，享元模式非常有用，这可能会耗尽所有可用RAM 。它允许我们最大限度地减少消耗的内存量。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain">在JavaScript中，我们可以通过原型继承</a>轻松解决这个问题。如今，硬件拥有 GB 的RAM ，这使得享元模式不再那么重要。</p>
+<h3 id="14、工厂模式：使用工厂函数来创建对象"><a href="#14、工厂模式：使用工厂函数来创建对象" class="headerlink" title="14、工厂模式：使用工厂函数来创建对象"></a>14、工厂模式：使用工厂函数来创建对象</h3><p>通过工厂模式，我们可以使用<strong>工厂函数</strong>来创建新对象。当一个函数不使用关键字返回一个新对象时，它就是一个工厂函数<code>new</code>！</p>
+<h4 id="优点-5"><a href="#优点-5" class="headerlink" title="优点"></a>优点</h4><p>当我们必须创建多个共享相同属性的较小对象时，工厂模式非常有用。工厂函数可以根据当前环境或用户特定的配置轻松返回自定义对象。</p>
+<h4 id="缺点-4"><a href="#缺点-4" class="headerlink" title="缺点"></a>缺点</h4><p>在 JavaScript 中，工厂模式只不过是一个不使用关键字返回对象的函数<code>new</code>。<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions#Arrow_functions">ES6 箭头函数</a>允许我们创建每次隐式返回一个对象的小型工厂函数。</p>
+<p>然而，在许多情况下，每次创建新实例而不是新对象可能会更有效地存储内存。</p>
+<h3 id="15、复合模式：创建多个组件一起工作以执行单个任务"><a href="#15、复合模式：创建多个组件一起工作以执行单个任务" class="headerlink" title="15、复合模式：创建多个组件一起工作以执行单个任务"></a>15、复合模式：创建多个组件一起工作以执行单个任务</h3><p>不是很理解，但确实antd里面有使用，是组件库常用。</p>
+<h4 id="优点-6"><a href="#优点-6" class="headerlink" title="优点"></a>优点</h4><p>复合组件管理自己的内部状态，并在多个子组件之间共享这些状态。在实现复合组件时，我们不必担心自己管理状态。</p>
+<p>导入复合组件时，我们不必显式导入该组件上可用的子组件。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">FlyOut</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./FlyOut&quot;</span>;<br> <br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">FlyoutMenu</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FlyOut</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">FlyOut.Toggle</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">FlyOut.List</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">FlyOut.Item</span>&gt;</span>Edit<span class="hljs-tag">&lt;/<span class="hljs-name">FlyOut.Item</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">FlyOut.Item</span>&gt;</span>Delete<span class="hljs-tag">&lt;/<span class="hljs-name">FlyOut.Item</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">FlyOut.List</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">FlyOut</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="缺点-5"><a href="#缺点-5" class="headerlink" title="缺点"></a>缺点</h4><p>当使用<code>React.Children.map</code>提供值时，组件嵌套受到限制。只有父组件的<em>直接子</em>组件才能访问<code>open</code>和<code>toggle</code>属性，这意味着我们不能将这些组件中的任何一个包装在另一个组件中。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">FlyoutMenu</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FlyOut</span>&gt;</span></span><br><span class="language-xml">      &#123;/* This breaks */&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">FlyOut.Toggle</span> /&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">FlyOut.List</span>&gt;</span></span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">FlyOut.Item</span>&gt;</span>Edit<span class="hljs-tag">&lt;/<span class="hljs-name">FlyOut.Item</span>&gt;</span></span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">FlyOut.Item</span>&gt;</span>Delete<span class="hljs-tag">&lt;/<span class="hljs-name">FlyOut.Item</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">FlyOut.List</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">FlyOut</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>克隆元素<code>React.cloneElement</code>执行浅合并。已经存在的道具将与我们传递的新道具合并在一起。如果已经存在的 props 与我们传递给该方法的 props 同名，这可能会导致命名冲突。当 props 被浅层合并时，该 prop 的值将被我们传递的最新值覆盖。<code>React.cloneElement</code></p>
+<h3 id="16、命令模式：通过向指挥官发送命令来解耦执行任务的方法"><a href="#16、命令模式：通过向指挥官发送命令来解耦执行任务的方法" class="headerlink" title="16、命令模式：通过向指挥官发送命令来解耦执行任务的方法"></a>16、命令模式：通过向指挥官发送命令来解耦执行任务的方法</h3><p>使用<strong>命令模式</strong>，我们可以将执行某个任务的对象与调用该方法的对象<em>解耦。</em></p>
+<p>假设我们有一个在线食品配送平台。用户可以下达、跟踪和取消订单。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderManager</span>() &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">orders</span> = []<br>  &#125;<br> <br>  <span class="hljs-title function_">placeOrder</span>(<span class="hljs-params">order, id</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">orders</span>.<span class="hljs-title function_">push</span>(id)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`You have successfully ordered <span class="hljs-subst">$&#123;order&#125;</span> (<span class="hljs-subst">$&#123;id&#125;</span>)`</span>;<br>  &#125;<br> <br>  <span class="hljs-title function_">trackOrder</span>(<span class="hljs-params">id</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`Your order <span class="hljs-subst">$&#123;id&#125;</span> will arrive in 20 minutes.`</span><br>  &#125;<br> <br>  <span class="hljs-title function_">cancelOrder</span>(<span class="hljs-params">id</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">orders</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">orders</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">order</span> =&gt;</span> order.<span class="hljs-property">id</span> !== id)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`You have canceled your order <span class="hljs-subst">$&#123;id&#125;</span>`</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在类上<code>OrderManager</code>，我们可以访问<code>placeOrder</code>,<code>trackOrder</code>和<code>cancelOrder</code>方法。直接使用这些方法将是完全有效的 JavaScript！</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> manager = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OrderManager</span>();<br> <br>manager.<span class="hljs-title function_">placeOrder</span>(<span class="hljs-string">&quot;Pad Thai&quot;</span>, <span class="hljs-string">&quot;1234&quot;</span>);<br>manager.<span class="hljs-title function_">trackOrder</span>(<span class="hljs-string">&quot;1234&quot;</span>);<br>manager.<span class="hljs-title function_">cancelOrder</span>(<span class="hljs-string">&quot;1234&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>但是，直接在实例上调用方法也有缺点<code>manager</code>。我们可能会决定稍后重命名某些方法，或者方法的功能发生变化。</p>
+<p>假设<code>placeOrder</code>我们现在不再调用它，而是将其重命名为<code>addOrder</code>！这意味着我们必须确保不会<code>placeOrder</code>在代码库中的任何位置调用该方法，这在大型应用程序中可能非常棘手。相反，我们希望将方法与<code>manager</code>对象解耦，并为每个命令创建单独的命令函数！</p>
+<p>让我们重构该类<code>OrderManager</code>：它不再具有<code>placeOrder</code>、<code>cancelOrder</code>和<code>trackOrder</code>方法，而是只有一个方法：<code>execute</code>。该方法将执行它给出的任何命令。</p>
+<p>每个命令都应该有权访问<code>orders</code>管理器，我们将其作为第一个参数传递。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderManager</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">orders</span> = [];<br>  &#125;<br> <br>  <span class="hljs-title function_">execute</span>(<span class="hljs-params">command, ...args</span>) &#123;<br>    <span class="hljs-keyword">return</span> command.<span class="hljs-title function_">execute</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">orders</span>, ...args);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们需要<code>Command</code>为订单管理器创建三个：</p>
+<ul>
+<li><code>PlaceOrderCommand</code></li>
+<li><code>CancelOrderCommand</code></li>
+<li><code>TrackOrderCommand</code></li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Command</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">execute</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">execute</span> = execute;<br>  &#125;<br>&#125;<br> <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">PlaceOrderCommand</span>(<span class="hljs-params">order, id</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Command</span>(<span class="hljs-function">(<span class="hljs-params">orders</span>) =&gt;</span> &#123;<br>    orders.<span class="hljs-title function_">push</span>(id);<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`You have successfully ordered <span class="hljs-subst">$&#123;order&#125;</span> (<span class="hljs-subst">$&#123;id&#125;</span>)`</span>;<br>  &#125;);<br>&#125;<br> <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">CancelOrderCommand</span>(<span class="hljs-params">id</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Command</span>(<span class="hljs-function">(<span class="hljs-params">orders</span>) =&gt;</span> &#123;<br>    orders = orders.<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">order</span>) =&gt;</span> order.<span class="hljs-property">id</span> !== id);<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`You have canceled your order <span class="hljs-subst">$&#123;id&#125;</span>`</span>;<br>  &#125;);<br>&#125;<br> <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">TrackOrderCommand</span>(<span class="hljs-params">id</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Command</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-string">`Your order <span class="hljs-subst">$&#123;id&#125;</span> will arrive in 20 minutes.`</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>完美的！<code>OrderManager</code>现在，它们不是将方法直接耦合到实例，而是独立的、解耦的函数，我们<code>execute</code>可以通过<code>OrderManager</code>.</p>
+<h4 id="优点-7"><a href="#优点-7" class="headerlink" title="优点"></a>优点</h4><p>命令模式允许我们将方法与执行操作的对象解耦。如果您正在处理具有一定生命周期的命令或应排队并在特定时间执行的命令，它可以为您提供更多控制。</p>
+<h4 id="缺点-6"><a href="#缺点-6" class="headerlink" title="缺点"></a>缺点</h4><p>命令模式的用例非常有限，并且经常向应用程序添加不必要的样板。</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="http://www.patterns.dev/">www.patterns.dev</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="category-chain-item">最佳实践</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+      
+        <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">#设计模式</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>设计模式</div>
+      <div>https://yoonalis.github.io/blog/2023/09/14/设计模式/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Azure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2023/09/15/React%20&amp;%20TypeScript%E5%A4%87%E5%BF%98%E5%BD%95/" title="React &amp; TypeScript备忘录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">React &amp; TypeScript备忘录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2023/04/06/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%20%EF%BD%9C%20React%E7%AF%87/" title="前端八股 ｜ react篇">
+                        <span class="hidden-mobile">前端八股 ｜ react篇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

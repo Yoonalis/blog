@@ -1,0 +1,1037 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.jpg">
+  <link rel="icon" href="/blog/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Azure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React &amp; TypeScript备忘录">
+<meta property="og:url" content="https://yoonalis.github.io/blog/2023/09/15/React%20&%20TypeScript%E5%A4%87%E5%BF%98%E5%BD%95/index.html">
+<meta property="og:site_name" content="Azure&#39;s blog">
+<meta property="og:description" content="前端">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yoonalis.github.io/blog/img/type2.jpg">
+<meta property="article:published_time" content="2023-09-15T08:12:51.284Z">
+<meta property="article:modified_time" content="2023-09-15T08:23:08.060Z">
+<meta property="article:author" content="Azure">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yoonalis.github.io/blog/img/type2.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>React &amp; TypeScript备忘录 - Azure&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yoonalis.github.io","root":"/blog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>Azure</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/album/">
+                <i class="iconfont icon-images"></i>
+                album
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="React &amp; TypeScript备忘录"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-15 16:12" pubdate>
+          2023年9月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          23k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          191 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">React &amp; TypeScript备忘录</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="React-amp-TypeScript备忘录"><a href="#React-amp-TypeScript备忘录" class="headerlink" title="React &amp; TypeScript备忘录"></a>React &amp; TypeScript备忘录</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://react-typescript-cheatsheet.netlify.app/docs/basic/setup">https://react-typescript-cheatsheet.netlify.app/docs/basic/setup</a></p>
+</blockquote>
+<h3 id="React-和-TypeScript-入门套件"><a href="#React-和-TypeScript-入门套件" class="headerlink" title="React 和 TypeScript 入门套件"></a>React 和 TypeScript 入门<a target="_blank" rel="noopener" href="https://react-typescript-cheatsheet.netlify.app/docs/basic/setup#react-and-typescript-starter-kits">套件</a></h3><p>React 提供了有关如何使用一些最流行的框架<a target="_blank" rel="noopener" href="https://react.dev/learn/start-a-new-react-project">启动新的 React 项目的文档。</a>以下是如何使用 TypeScript 启动它们：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://nextjs.org/docs/basic-features/typescript">Next.js</a>：<code>npx create-next-app@latest --ts</code></li>
+<li><a target="_blank" rel="noopener" href="https://remix.run/docs/tutorials/blog">混音</a>：<code>npx create-remix@latest</code></li>
+<li><a target="_blank" rel="noopener" href="https://www.gatsbyjs.com/docs/how-to/custom-configuration/typescript/">盖茨比</a>：<code>npm init gatsby --ts</code></li>
+<li><a target="_blank" rel="noopener" href="https://docs.expo.dev/guides/typescript/">世博会</a>：<code>npx create-react-native-app -t with-typescript</code></li>
+</ul>
+<h3 id="在线尝试-React-和-TypeScript"><a href="#在线尝试-React-和-TypeScript" class="headerlink" title="在线尝试 React 和 TypeScript"></a><a target="_blank" rel="noopener" href="https://react-typescript-cheatsheet.netlify.app/docs/basic/setup#try-react-and-typescript-online">在线</a>尝试 React 和 TypeScript</h3><p>有一些工具可以让您在线运行 React 和 TypeScript，这有助于调试或制作可共享的复制品。</p>
+<ul>
+<li><a href="https://www.typescriptlang.org/play?target=8&jsx=4#code/JYWwDg9gTgLgBAbzgVwM4FMDKMCGN0A0KGAogGZnoDG8AvnGVBCHAORTo42sDcAsAChB6AB6RYcKhAB2qeAGEIyafihwAvHAAUASg0A+RILiSZcuAG0pymEQwxFNgLobiWXPi0AGHfyECTNHRyShotXQMjAJM4ABMIKmQQdBUAOhhgGAAbdFcAAwBNJUks4CoAa3RYuAASBGsVegzk1Dy-E1pfQWM4DhhkKGltHpMAHn0RmNGwfSLkErLK6vqlRrhm9FRRgHoZybGAI2QYGBk4GXlSivUECPVDe0cVLQb4AGo4AEYdWgnomJil0WcGS+zgOyOJxkfwBOxhcC6AlogiAA">TypeScript 游乐场</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackblitz.com/fork/react-ts">堆栈闪电战</a></li>
+<li><a target="_blank" rel="noopener" href="https://ts.react.new/">代码沙箱</a></li>
+</ul>
+<h3 id="1、常用类型"><a href="#1、常用类型" class="headerlink" title="1、常用类型"></a>1、常用类型</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">type</span> <span class="hljs-title class_">AppProps</span> = &#123;<br>  <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>;<br>  <span class="hljs-attr">count</span>: <span class="hljs-built_in">number</span>;<br>  <span class="hljs-attr">disabled</span>: <span class="hljs-built_in">boolean</span>;<br>  <span class="hljs-comment">/** array of a type! */</span><br>  <span class="hljs-attr">names</span>: <span class="hljs-built_in">string</span>[];<br>  <span class="hljs-comment">/** string literals to specify exact string values, with a union type to join them together */</span><br>  <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;waiting&quot;</span> | <span class="hljs-string">&quot;success&quot;</span>;<br>  <span class="hljs-comment">/** an object with known properties (but could have more at runtime) */</span><br>  <span class="hljs-attr">obj</span>: &#123;<br>    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;<br>    <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;<br>  &#125;;<br>  <span class="hljs-comment">/** array of objects! (common) */</span><br>  <span class="hljs-attr">objArr</span>: &#123;<br>    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;<br>    <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;<br>  &#125;[];<br>  <span class="hljs-comment">/** any non-primitive value - can&#x27;t access any properties (NOT COMMON but useful as placeholder) */</span><br>  <span class="hljs-attr">obj2</span>: <span class="hljs-built_in">object</span>;<br>  <span class="hljs-comment">/** an interface with no required properties - (NOT COMMON, except for things like `React.Component&lt;&#123;&#125;, State&gt;`) */</span><br>  <span class="hljs-attr">obj3</span>: &#123;&#125;;<br>  <span class="hljs-comment">/** a dict object with any number of properties of the same type */</span><br>  <span class="hljs-attr">dict1</span>: &#123;<br>    [<span class="hljs-attr">key</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-title class_">MyTypeHere</span>;<br>  &#125;;<br>  <span class="hljs-attr">dict2</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-title class_">MyTypeHere</span>&gt;; <span class="hljs-comment">// equivalent to dict1</span><br>  <span class="hljs-comment">/** function that doesn&#x27;t take or return anything (VERY COMMON) */</span><br>  <span class="hljs-attr">onClick</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>;<br>  <span class="hljs-comment">/** function with named prop (VERY COMMON) */</span><br>  <span class="hljs-attr">onChange</span>: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;<br>  <span class="hljs-comment">/** function type syntax that takes an event (VERY COMMON) */</span><br>  <span class="hljs-attr">onChange</span>: <span class="hljs-function">(<span class="hljs-params">event: React.ChangeEvent&lt;HTMLInputElement&gt;</span>) =&gt;</span> <span class="hljs-built_in">void</span>;<br>  <span class="hljs-comment">/** alternative function type syntax that takes an event (VERY COMMON) */</span><br>  <span class="hljs-title function_">onClick</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">React</span>.<span class="hljs-property">MouseEvent</span>&lt;<span class="hljs-title class_">HTMLButtonElement</span>&gt;): <span class="hljs-built_in">void</span>;<br>  <span class="hljs-comment">/** any function as long as you don&#x27;t invoke it (not recommended) */</span><br>  <span class="hljs-attr">onSomething</span>: <span class="hljs-title class_">Function</span>;<br>  <span class="hljs-comment">/** an optional prop (VERY COMMON!) */</span><br>  optional?: <span class="hljs-title class_">OptionalType</span>;<br>  <span class="hljs-comment">/** when passing down the state setter function returned by `useState` to a child component. `number` is an example, swap out with whatever the type of your state */</span><br>  <span class="hljs-attr">setState</span>: <span class="hljs-title class_">React</span>.<span class="hljs-property">Dispatch</span>&lt;<span class="hljs-title class_">React</span>.<span class="hljs-property">SetStateAction</span>&lt;<span class="hljs-built_in">number</span>&gt;&gt;;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>object</code> 是 TypeScript 中常见的误解来源。它并不意味着“任何对象”，而是“任何非原始类型”，这意味着它代表任何不是<code>number</code>、<code>string</code>、<code>boolean</code>、<code>symbol</code>或<code>null</code>的东西<code>undefined</code>。在 React 中键入“任何非原始值”很可能不是您应该做的事情，这意味着您可能不会使用<code>object</code> 太多。</li>
+<li><code>&#123;&#125;</code>和<code>Object</code> 全部代表“任何非空值”，而不是您可能认为的“空对象”。赋值<code>null</code>或者<code>undefined</code>时会报错。</li>
+</ul>
+<p><code>React Props</code>类型：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">AppProps</span> &#123;<br>  children?: <span class="hljs-title class_">React</span>.<span class="hljs-property">ReactNode</span>; <span class="hljs-comment">// best, accepts everything React can render</span><br>  <span class="hljs-attr">childrenElement</span>: <span class="hljs-variable constant_">JSX</span>.<span class="hljs-property">Element</span>; <span class="hljs-comment">// A single React element</span><br>  style?: <span class="hljs-title class_">React</span>.<span class="hljs-property">CSSProperties</span>; <span class="hljs-comment">// to pass through style props</span><br>  onChange?: <span class="hljs-title class_">React</span>.<span class="hljs-property">FormEventHandler</span>&lt;<span class="hljs-title class_">HTMLInputElement</span>&gt;; <span class="hljs-comment">// form events! the generic parameter is the type of event.target</span><br>  <span class="hljs-comment">//  more info: https://react-typescript-cheatsheet.netlify.app/docs/advanced/patterns_by_usecase/#wrappingmirroring</span><br>  <span class="hljs-attr">props</span>: <span class="hljs-title class_">Props</span> &amp; <span class="hljs-title class_">React</span>.<span class="hljs-property">ComponentPropsWithoutRef</span>&lt;<span class="hljs-string">&quot;button&quot;</span>&gt;; <span class="hljs-comment">// to impersonate all the props of a button element and explicitly not forwarding its ref</span><br>  <span class="hljs-attr">props2</span>: <span class="hljs-title class_">Props</span> &amp; <span class="hljs-title class_">React</span>.<span class="hljs-property">ComponentPropsWithRef</span>&lt;<span class="hljs-title class_">MyButtonWithForwardRef</span>&gt;; <span class="hljs-comment">// to impersonate all the props of MyButtonForwardedRef and explicitly forwarding its ref</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>使用 Interface 直到您需要 Type。</p>
+</li>
+<li><p>这是一个有用的经验法则：</p>
+<ul>
+<li>在创作库或第 3 方环境类型定义时，始终使用<code>interface</code>公共 API 的定义，因为这允许使用者在缺少某些定义时通过<em>声明合并来扩展它们。</em></li>
+<li>考虑用于<code>type</code>您的 React 组件 Props 和 State，以保持一致性并且因为它受到更多限制。</li>
+</ul>
+</li>
+<li><p>类型对于联合类型（例如）很有用，<code>type MyType = TypeA | TypeB</code>而接口更适合声明字典形状然后<code>implementing</code>或<code>extending</code>它们。</p>
+</li>
+</ul>
+<h3 id="2、功能组件"><a href="#2、功能组件" class="headerlink" title="2、功能组件"></a>2、功能组件</h3><p>这些可以编写为带有<code>props</code>参数并返回 JSX 元素的普通函数。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// Declaring type of props - see &quot;Typing Component Props&quot; for more examples</span><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">AppProps</span> = &#123;<br>  <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>;<br>&#125;; <span class="hljs-comment">/* use `interface` if exporting so that consumers can extend */</span><br><br><span class="hljs-comment">// Easiest way to declare a Function Component; return type is inferred.</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params">&#123; message &#125;: AppProps</span>) =&gt; <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;message&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br><br><span class="hljs-comment">// you can choose annotate the return type so an error is raised if you accidentally return some other type</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">App</span> = (&#123; message &#125;: <span class="hljs-title class_">AppProps</span>): <span class="hljs-variable constant_">JSX</span>.<span class="hljs-property">Element</span> =&gt; <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;message&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br><br><span class="hljs-comment">// you can also inline the type declaration; eliminates naming the prop types, but looks repetitive</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params">&#123; message &#125;: &#123; message: <span class="hljs-built_in">string</span> &#125;</span>) =&gt; <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;message&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br><br><span class="hljs-comment">// Alternatively, you can use `React.FunctionComponent` (or `React.FC`), if you prefer.</span><br><span class="hljs-comment">// With latest React types and TypeScript 5.1. it&#x27;s mostly a stylistic choice, otherwise discouraged.</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">App</span>: <span class="hljs-title class_">React</span>.<span class="hljs-property">FunctionComponent</span>&lt;&#123; <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span> &#125;&gt; = <span class="hljs-function">(<span class="hljs-params">&#123; message &#125;</span>) =&gt;</span> (<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;message&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
+
+<p>提示：您可以使用<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=paulshen.paul-typescript-toolkit">Paul Shen 的 VS Code Extension</a>来自动执行类型解构声明（包括<a target="_blank" rel="noopener" href="https://twitter.com/_paulshen/status/1392915279466745857?s=20">键盘快捷键</a>）。</p>
+<h3 id="3、hooks"><a href="#3、hooks" class="headerlink" title="3、hooks"></a>3、hooks</h3><p><a target="_blank" rel="noopener" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a05cc538a42243c632f054e42eab483ebf1560ab/types/react/index.d.ts#L800-L1031">从 v16.8 开始</a><a target="_blank" rel="noopener" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a05cc538a42243c632f054e42eab483ebf1560ab/types/react/index.d.ts#L800-L1031">支持<code>@types/react</code></a>Hooks 。</p>
+<p>许多钩子都是用 null-ish 默认值初始化的，您可能想知道如何提供类型。显式声明类型，并使用联合类型：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> [user, setUser] = useState&lt;<span class="hljs-title class_">User</span> | <span class="hljs-literal">null</span>&gt;(<span class="hljs-literal">null</span>);<br><br><span class="hljs-comment">// later...</span><br><span class="hljs-title function_">setUser</span>(newUser);<br></code></pre></td></tr></table></figure>
+
+<p>如果状态在设置后不久初始化并且始终具有以下值，则还可以使用类型断言：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> [user, setUser] = useState&lt;<span class="hljs-title class_">User</span>&gt;(&#123;&#125; <span class="hljs-keyword">as</span> <span class="hljs-title class_">User</span>);<br><br><span class="hljs-comment">// later...</span><br><span class="hljs-title function_">setUser</span>(newUser);<br></code></pre></td></tr></table></figure>
+
+<p><code>&#123;&#125;</code>这暂时“欺骗”了类型的TypeScript 编译器<code>User</code>。您应该通过设置状态来跟进<code>user</code>- 如果您不这样做，代码的其余部分可能会依赖于<code>user</code>类型这一事实<code>User</code>，并且可能会导致运行时错误。</p>
+<h4 id="使用useCallback"><a href="#使用useCallback" class="headerlink" title="使用useCallback"></a>使用useCallback</h4><p><code>useCallback</code>您可以像输入任何其他函数一样输入。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> memoizedCallback = <span class="hljs-title function_">useCallback</span>(<br>  <span class="hljs-function">(<span class="hljs-params">param1: <span class="hljs-built_in">string</span>, param2: <span class="hljs-built_in">number</span></span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(param1, param2)<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">ok</span>: <span class="hljs-literal">true</span> &#125;<br>  &#125;,<br>  [...],<br>);<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * VSCode will show the following type:</span><br><span class="hljs-comment"> * const memoizedCallback:</span><br><span class="hljs-comment"> *  (param1: string, param2: number) =&gt; &#123; ok: boolean &#125;</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
+
+<p><code>useCallback</code>请注意，对于 React &lt; 18，默认情况下类型参数的函数签名<code>any[]</code>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">function</span> useCallback&lt;T <span class="hljs-keyword">extends</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]) =&gt; <span class="hljs-built_in">any</span>&gt;(<br>  <span class="hljs-attr">callback</span>: T,<br>  <span class="hljs-attr">deps</span>: <span class="hljs-title class_">DependencyList</span><br>): T;<br></code></pre></td></tr></table></figure>
+
+<p>在 React &gt;&#x3D; 18 中，函数签名<code>useCallback</code>更改为以下内容：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">function</span> useCallback&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Function</span>&gt;(<span class="hljs-attr">callback</span>: T, <span class="hljs-attr">deps</span>: <span class="hljs-title class_">DependencyList</span>): T;<br></code></pre></td></tr></table></figure>
+
+<p>因此，以下代码<code>Parameter &#39;e&#39; implicitly has an &#39;any&#39; type.</code>在 React &gt;&#x3D; 18 中将产生“ ”错误，但在 &lt;17 中则不会。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// @ts-expect-error Parameter &#x27;e&#x27; implicitly has &#x27;any&#x27; type.</span><br><span class="hljs-title function_">useCallback</span>(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> &#123;&#125;, []);<br><span class="hljs-comment">// Explicit &#x27;any&#x27; type.</span><br><span class="hljs-title function_">useCallback</span>(<span class="hljs-function">(<span class="hljs-params">e: <span class="hljs-built_in">any</span></span>) =&gt;</span> &#123;&#125;, []);<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用Reducer"><a href="#使用Reducer" class="headerlink" title="使用Reducer"></a>使用Reducer</h4><p>您可以使用<a target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#discriminated-unions">可区分联合</a>来执行Reducer操作。不要忘记定义reducer的返回类型，否则TypeScript会推断它。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; useReducer &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">const</span> initialState = &#123; <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> &#125;;<br><br>type <span class="hljs-variable constant_">ACTIONTYPE</span> =<br>  | &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;increment&quot;</span>; <span class="hljs-attr">payload</span>: number &#125;<br>  | &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;decrement&quot;</span>; <span class="hljs-attr">payload</span>: string &#125;;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">reducer</span>(<span class="hljs-params">state: <span class="hljs-keyword">typeof</span> initialState, action: ACTIONTYPE</span>) &#123;<br>  <span class="hljs-keyword">switch</span> (action.<span class="hljs-property">type</span>) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;increment&quot;</span>:<br>      <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">count</span>: state.<span class="hljs-property">count</span> + action.<span class="hljs-property">payload</span> &#125;;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;decrement&quot;</span>:<br>      <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">count</span>: state.<span class="hljs-property">count</span> - <span class="hljs-title class_">Number</span>(action.<span class="hljs-property">payload</span>) &#125;;<br>    <span class="hljs-attr">default</span>:<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>();<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Counter</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [state, dispatch] = <span class="hljs-title function_">useReducer</span>(reducer, initialState);<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">      Count: &#123;state.count&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> dispatch(&#123; type: &quot;decrement&quot;, payload: &quot;5&quot; &#125;)&#125;&gt;</span><br><span class="language-xml">        -</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> dispatch(&#123; type: &quot;increment&quot;, payload: 5 &#125;)&#125;&gt;</span><br><span class="language-xml">        +</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用useEffect-和-useLayoutEffect"><a href="#使用useEffect-和-useLayoutEffect" class="headerlink" title="使用useEffect 和 useLayoutEffect"></a>使用useEffect 和 useLayoutEffect</h4><p><code>useEffect</code>用于<code>useLayoutEffect</code>执行<strong>副作用</strong>并返回可选的清理函数，这意味着如果它们不处理返回值，则不需要类型。使用时<code>useEffect</code>，请注意不要返回除函数或之外的任何内容<code>undefined</code>，否则 TypeScript 和 React 都会对你大喊大叫。使用箭头函数时，这可能很微妙：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">DelayedEffect</span>(<span class="hljs-params">props: &#123; timerMs: <span class="hljs-built_in">number</span> &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> &#123; timerMs &#125; = props;<br><br>  <span class="hljs-title function_">useEffect</span>(<br>    <span class="hljs-function">() =&gt;</span><br>      <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-comment">/* do stuff */</span><br>      &#125;, timerMs),<br>    [timerMs]<br>  );<br>  <span class="hljs-comment">// bad example! setTimeout implicitly returns a number</span><br>  <span class="hljs-comment">// because the arrow function body isn&#x27;t wrapped in curly braces</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">DelayedEffect</span>(<span class="hljs-params">props: &#123; timerMs: <span class="hljs-built_in">number</span> &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> &#123; timerMs &#125; = props;<br><br>  <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-comment">/* do stuff */</span><br>    &#125;, timerMs);<br>  &#125;, [timerMs]);<br>  <span class="hljs-comment">// better; use the void keyword to make sure you return undefined</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用useRef"><a href="#使用useRef" class="headerlink" title="使用useRef"></a>使用useRef</h4><ol>
+<li>dom元素 <code>const divRef = useRef&lt;HTMLDivElement&gt;(null);</code></li>
+<li>可变值<code>const intervalRef = useRef&lt;number | null&gt;(null);</code></li>
+</ol>
+<h4 id="使用useImperativeHandle"><a href="#使用useImperativeHandle" class="headerlink" title="使用useImperativeHandle"></a>使用useImperativeHandle</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Countdown.tsx</span><br><br><span class="hljs-comment">// Define the handle types which will be passed to the forwardRef</span><br><span class="hljs-keyword">export</span> type <span class="hljs-title class_">CountdownHandle</span> = &#123;<br>  <span class="hljs-attr">start</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">void</span>;<br>&#125;;<br><br>type <span class="hljs-title class_">CountdownProps</span> = &#123;&#125;;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Countdown</span> = forwardRef&lt;<span class="hljs-title class_">CountdownHandle</span>, <span class="hljs-title class_">CountdownProps</span>&gt;(<span class="hljs-function">(<span class="hljs-params">props, ref</span>) =&gt;</span> &#123;<br>  <span class="hljs-title function_">useImperativeHandle</span>(ref, <span class="hljs-function">() =&gt;</span> (&#123;<br>    <span class="hljs-comment">// start() has type inference here</span><br>    <span class="hljs-title function_">start</span>(<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-title function_">alert</span>(<span class="hljs-string">&quot;Start&quot;</span>);<br>    &#125;,<br>  &#125;));<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Countdown<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h4 id="自定义钩子"><a href="#自定义钩子" class="headerlink" title="自定义钩子"></a>自定义钩子</h4><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useLoading</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [isLoading, setState] = <span class="hljs-title function_">useState</span>(<span class="hljs-literal">false</span>);<br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">load</span> = (<span class="hljs-params">aPromise: <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt;</span>) =&gt; &#123;<br>    <span class="hljs-title function_">setState</span>(<span class="hljs-literal">true</span>);<br>    <span class="hljs-keyword">return</span> aPromise.<span class="hljs-title function_">finally</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">setState</span>(<span class="hljs-literal">false</span>));<br>  &#125;;<br>  <span class="hljs-keyword">return</span> [isLoading, load] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>; <span class="hljs-comment">// infers [boolean, typeof load] instead of (boolean | typeof load)[]</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果您正在编写 React Hooks 库，请不要忘记您还应该公开您的类型以供用户使用。</p>
+<h4 id="React-Hooks-TypeScript-库示例"><a href="#React-Hooks-TypeScript-库示例" class="headerlink" title="React Hooks + TypeScript 库示例"></a>React Hooks + TypeScript 库示例</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/mweststrate/use-st8">https://github.com/mweststrate/use-st8</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/palmerhq/the-platform">https://github.com/palmerhq/the-platform</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sw-yx/hooks">https://github.com/sw-yx/hooks</a></li>
+</ul>
+<h4 id="更多-Hooks-TypeScript-阅读"><a href="#更多-Hooks-TypeScript-阅读" class="headerlink" title="更多 Hooks + TypeScript 阅读"></a>更多 Hooks + TypeScript 阅读</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@jrwebdev/react-hooks-in-typescript-88fce7001d0d">https://medium.com/@jrwebdev/react-hooks-in-typescript-88fce7001d0d</a></li>
+<li><a target="_blank" rel="noopener" href="https://fettblog.eu/typescript-react/hooks/#useref">https://fettblog.eu/typescript-react/hooks/#useref</a></li>
+</ul>
+<h3 id="4、类组件"><a href="#4、类组件" class="headerlink" title="4、类组件"></a>4、类组件</h3><p>在 TypeScript 中，<code>React.Component</code>是一个泛型类型（又名<code>React.Component&lt;PropType, StateType&gt;</code>），因此您需要为其提供（可选） prop 和 state 类型参数</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">class</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span>&lt;&#123; <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span> &#125;, &#123; <span class="hljs-attr">count</span>: <span class="hljs-built_in">number</span> &#125;&gt; &#123;<br>  state = &#123; <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> &#125;;<br>  <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> this.increment(1)&#125;&gt;</span><br><span class="language-xml">        &#123;this.props.message&#125; &#123;this.state.count&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    );<br>  &#125;<br>  increment = <span class="hljs-function">(<span class="hljs-params">amt: <span class="hljs-built_in">number</span></span>) =&gt;</span> &#123;<br>    <span class="hljs-comment">// like this</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setState</span>(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> (&#123;<br>      <span class="hljs-attr">count</span>: state.<span class="hljs-property">count</span> + amt,<br>    &#125;));<br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="5、context"><a href="#5、context" class="headerlink" title="5、context"></a>5、context</h3><h4 id="基本示例"><a href="#基本示例" class="headerlink" title="基本示例"></a>基本示例</h4><p>下面是创建包含活动主题的上下文的基本示例。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; createContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">ThemeContextType</span> = <span class="hljs-string">&quot;light&quot;</span> | <span class="hljs-string">&quot;dark&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">ThemeContext</span> = createContext&lt;<span class="hljs-title class_">ThemeContextType</span>&gt;(<span class="hljs-string">&quot;light&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>用上下文提供者包装需要上下文的组件：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> [theme, setTheme] = useState&lt;<span class="hljs-title class_">ThemeContextType</span>&gt;(<span class="hljs-string">&quot;light&quot;</span>);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ThemeContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;theme&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ThemeContext.Provider</span>&gt;</span></span><br>  );<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>调用<code>useContext</code>以读取并订阅上下文。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; useContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">MyComponent</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> theme = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">ThemeContext</span>);<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>The current theme is &#123;theme&#125;.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="没有默认上下文值"><a href="#没有默认上下文值" class="headerlink" title="没有默认上下文值"></a>没有默认上下文值</h4><p>如果您没有任何有意义的默认值，请指定<code>null</code>：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; createContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">CurrentUserContextType</span> &#123;<br>  <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>;<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">CurrentUserContext</span> = createContext&lt;<span class="hljs-title class_">CurrentUserContextType</span> | <span class="hljs-literal">null</span>&gt;(<span class="hljs-literal">null</span>);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> [currentUser, setCurrentUser] = useState&lt;<span class="hljs-title class_">CurrentUserContextType</span>&gt;(&#123;<br>    <span class="hljs-attr">username</span>: <span class="hljs-string">&quot;filiptammergard&quot;</span>,<br>  &#125;);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">CurrentUserContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;currentUser&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">CurrentUserContext.Provider</span>&gt;</span></span><br>  );<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>现在上下文的类型可以是<code>null</code>，您会注意到，<code>&#39;currentUser&#39; is possibly &#39;null&#39;</code>如果尝试访问该<code>username</code>属性，您将收到 TypeScript 错误。您可以使用可选链来访问<code>username</code>：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; useContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">MyComponent</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> currentUser = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">CurrentUserContext</span>);<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Name: &#123;currentUser?.username&#125;.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>然而，最好不必检查<code>null</code>，因为我们知道上下文不会是<code>null</code>。一种方法是提供一个自定义挂钩来使用上下文，如果未提供上下文，则会抛出错误：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; createContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">CurrentUserContextType</span> &#123;<br>  <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>;<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">CurrentUserContext</span> = createContext&lt;<span class="hljs-title class_">CurrentUserContextType</span> | <span class="hljs-literal">null</span>&gt;(<span class="hljs-literal">null</span>);<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">useCurrentUser</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> currentUserContext = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">CurrentUserContext</span>);<br><br>  <span class="hljs-keyword">if</span> (!currentUserContext) &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<br>      <span class="hljs-string">&quot;useCurrentUser has to be used within &lt;CurrentUserContext.Provider&gt;&quot;</span><br>    );<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> currentUserContext;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>使用运行时类型检查的好处是，当提供者未正确包装组件时，可以在控制台中打印清晰的错误消息。<code>currentUser.username</code>现在无需检查即可访问<code>null</code>：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; useContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">MyComponent</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> currentUser = <span class="hljs-title function_">useCurrentUser</span>();<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Username: &#123;currentUser.username&#125;.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="类型断言作为替代方案"><a href="#类型断言作为替代方案" class="headerlink" title="类型断言作为替代方案"></a>类型断言作为替代方案</h4><p>另一种避免检查的方法<code>null</code>是使用类型断言告诉 TypeScript 你知道上下文不是<code>null</code>：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; useContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">MyComponent</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> currentUser = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">CurrentUserContext</span>);<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Name: &#123;currentUser!.username&#125;.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>另一种选择是使用空对象作为默认值并将其转换为预期的上下文类型：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> <span class="hljs-title class_">CurrentUserContext</span> = createContext&lt;<span class="hljs-title class_">CurrentUserContextType</span>&gt;(<br>  &#123;&#125; <span class="hljs-keyword">as</span> <span class="hljs-title class_">CurrentUserContextType</span><br>);<br></code></pre></td></tr></table></figure>
+
+<p>您还可以使用非空断言来获得相同的结果：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> <span class="hljs-title class_">CurrentUserContext</span> = createContext&lt;<span class="hljs-title class_">CurrentUserContextType</span>&gt;(<span class="hljs-literal">null</span>!);<br></code></pre></td></tr></table></figure>
+
+<p>当您不知道该选择什么时，更喜欢运行时检查并放弃类型断言。</p>
+<h3 id="6、枚举"><a href="#6、枚举" class="headerlink" title="6、枚举"></a>6、枚举</h3><p><strong>我们建议尽可能避免使用枚举</strong>。</p>
+<p>枚举有一些<a target="_blank" rel="noopener" href="https://fettblog.eu/tidy-typescript-avoid-enums/">记录在案的问题</a>（TS 团队<a target="_blank" rel="noopener" href="https://twitter.com/orta/status/1348966323271987201?s=20">同意</a>）。枚举的一个更简单的替代方法是声明字符串文字的联合类型：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Position</span> = <span class="hljs-string">&quot;left&quot;</span> | <span class="hljs-string">&quot;right&quot;</span> | <span class="hljs-string">&quot;top&quot;</span> | <span class="hljs-string">&quot;bottom&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>如果必须使用枚举，请记住 TypeScript 中的枚举默认为数字。您通常希望将它们用作字符串：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">ButtonSizes</span> &#123;<br>  <span class="hljs-keyword">default</span> = <span class="hljs-string">&quot;default&quot;</span>,<br>  small = <span class="hljs-string">&quot;small&quot;</span>,<br>  large = <span class="hljs-string">&quot;large&quot;</span>,<br>&#125;<br><br><span class="hljs-comment">// usage</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">PrimaryButton</span> = (<span class="hljs-params"></span><br><span class="hljs-params">  props: Props &amp; React.HTMLProps&lt;HTMLButtonElement&gt;</span><br><span class="hljs-params"></span>) =&gt; <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">size</span>=<span class="hljs-string">&#123;ButtonSizes.default&#125;</span> &#123;<span class="hljs-attr">...props</span>&#125; /&gt;</span></span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="7、类型"><a href="#7、类型" class="headerlink" title="7、类型"></a>7、类型</h3><h4 id="使用推断"><a href="#使用推断" class="headerlink" title="使用推断"></a>使用推断</h4><p>依靠 TypeScript 的类型推断非常棒……直到您意识到需要推断出的类型，并且必须返回并显式声明类型&#x2F;接口，以便可以导出它们以供重用。</p>
+<p>幸运的是，有了<code>typeof</code>，您就不必这样做了。只需将其用于任何值即可：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> [state, setState] = <span class="hljs-title function_">useState</span>(&#123;<br>  <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>,<br>  <span class="hljs-attr">bar</span>: <span class="hljs-number">2</span>,<br>&#125;); <span class="hljs-comment">// state&#x27;s type inferred to be &#123;foo: number, bar: number&#125;</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">someMethod</span> = (<span class="hljs-params">obj: <span class="hljs-keyword">typeof</span> state</span>) =&gt; &#123;<br>  <span class="hljs-comment">// grabbing the type of state even though it was inferred</span><br>  <span class="hljs-comment">// some code using obj</span><br>  <span class="hljs-title function_">setState</span>(obj); <span class="hljs-comment">// this works</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用部分"><a href="#使用部分" class="headerlink" title="使用部分"></a>使用部分</h4><p>在 React 中使用切片状态和 props 很常见。同样，如果您使用泛型类型，您实际上不必显式地重新定义您的类型<code>Partial</code>：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">const</span> [state, setState] = <span class="hljs-title function_">useState</span>(&#123;<br>  <span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>,<br>  <span class="hljs-attr">bar</span>: <span class="hljs-number">2</span>,<br>&#125;); <span class="hljs-comment">// state&#x27;s type inferred to be &#123;foo: number, bar: number&#125;</span><br><br><span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> stale state merging is not actually encouraged in useState</span><br><span class="hljs-comment">// we are just demonstrating how to use Partial here</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">partialStateUpdate</span> = (<span class="hljs-params">obj: Partial&lt;<span class="hljs-keyword">typeof</span> state&gt;</span>) =&gt;<br>  <span class="hljs-title function_">setState</span>(&#123; ...state, ...obj &#125;);<br><br><span class="hljs-comment">// later on...</span><br><span class="hljs-title function_">partialStateUpdate</span>(&#123; <span class="hljs-attr">foo</span>: <span class="hljs-number">2</span> &#125;); <span class="hljs-comment">// this works</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="我需要的类型没有导出"><a href="#我需要的类型没有导出" class="headerlink" title="我需要的类型没有导出"></a>我需要的类型没有导出</h4><p>这可能很烦人，但这里有一些获取类型的方法！</p>
+<ul>
+<li>获取组件的 Prop 类型：使用<code>React.ComponentProps</code>和<code>typeof</code>，以及可选的<code>Omit</code>任何重叠类型</li>
+</ul>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Button</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;library&quot;</span>; <span class="hljs-comment">// but doesn&#x27;t export ButtonProps! oh no!</span><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">ButtonProps</span> = <span class="hljs-title class_">React</span>.<span class="hljs-property">ComponentProps</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">Button</span>&gt;; <span class="hljs-comment">// no problem! grab your own!</span><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">AlertButtonProps</span> = <span class="hljs-title class_">Omit</span>&lt;<span class="hljs-title class_">ButtonProps</span>, <span class="hljs-string">&quot;onClick&quot;</span>&gt;; <span class="hljs-comment">// modify</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">AlertButton</span> = (<span class="hljs-params">props: AlertButtonProps</span>) =&gt; (<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> alert(&quot;hello&quot;)&#125; &#123;...props&#125; /&gt;</span><br>);<br></code></pre></td></tr></table></figure>
+
+<p>您还可以使用<a target="_blank" rel="noopener" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a05cc538a42243c632f054e42eab483ebf1560ab/types/react/index.d.ts#L774"><code>ComponentPropsWithoutRef</code></a>（而不是 ComponentProps）和<a target="_blank" rel="noopener" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a05cc538a42243c632f054e42eab483ebf1560ab/types/react/index.d.ts#L770"><code>ComponentPropsWithRef</code></a>（如果您的组件专门转发引用）</p>
+<ul>
+<li>获取函数的返回类型：使用<code>ReturnType</code>：</li>
+</ul>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// inside some library - return type &#123; baz: number &#125; is inferred but not exported</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">bar: <span class="hljs-built_in">string</span></span>) &#123;<br>  <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">baz</span>: <span class="hljs-number">1</span> &#125;;<br>&#125;<br><br><span class="hljs-comment">//  inside your app, if you need &#123; baz: number &#125;</span><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">FooReturn</span> = <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-keyword">typeof</span> foo&gt;; <span class="hljs-comment">// &#123; baz: number &#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>事实上，您几乎可以获取任何公开的东西：<a target="_blank" rel="noopener" href="http://ikoshelev.azurewebsites.net/search/id/11/Pragmatic-uses-of-TypeScript-type-system-My-type-of-type">请参阅 Ivan Koshelev 的这篇博文</a></p>
+<h4 id="我需要的类型不存在"><a href="#我需要的类型不存在" class="headerlink" title="我需要的类型不存在"></a>我需要的类型不存在</h4><p>一种<strong>更懒惰的</strong>方法是创建一个新的类型声明文件，例如<code>typedec.d.ts</code>– 如果您还没有一个。通过检查目录根目录下文件<code>include</code>中的数组，确保 TypeScript 可解析文件路径。<code>tsconfig.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// inside tsconfig.json</span><br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-comment">// ...</span><br>  <span class="hljs-attr">&quot;include&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-string">&quot;src&quot;</span> <span class="hljs-comment">// automatically resolves if the path to declaration is src/typedec.d.ts</span><br>  <span class="hljs-punctuation">]</span><br>  <span class="hljs-comment">// ...</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>在此文件中，将<code>declare</code>所需模块的语法添加<code>my-untyped-module</code>到声明文件中：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// inside typedec.d.ts</span><br><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&quot;my-untyped-module&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>如果您只需要它能够无错误地工作，那么单单这一行就足够了。一种更黑客的、写一次就忘记的方法是使用，<code>&quot;*&quot;</code>然后将<code>Any</code>类型应用于所有现有和未来的非类型化模块。</p>
+<p>如果您的非类型化模块少于几个，则此解决方案可以作为一种很好的解决方法。更重要的是，你现在手里有一枚滴答作响的炸弹。避免此问题的唯一方法是为那些无类型模块定义缺失的类型，如以下各节所述。</p>
+<h4 id="自动生成类型"><a href="#自动生成类型" class="headerlink" title="自动生成类型"></a>自动生成<a target="_blank" rel="noopener" href="https://react-typescript-cheatsheet.netlify.app/docs/basic/troubleshooting/types#autogenerate-types">类型</a></h4><p>您可以将 TypeScript 与<code>--allowJs</code>和结合使用<code>--declaration</code>，以查看 TypeScript 对库类型的“最佳猜测”。</p>
+<p>如果这还不够好，请<a target="_blank" rel="noopener" href="https://github.com/Microsoft/dts-gen"><code>dts-gen</code></a>使用对象的运行时形状来准确枚举所有可用属性。这往往非常准确，但该工具尚不支持抓取 JSDoc 注释来填充其他类型。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g dts-gen<br>dts-gen -m &lt;your-module&gt;<br></code></pre></td></tr></table></figure>
+
+<p>还有其他自动化 JS 到 TS 转换工具和迁移策略 - 请参阅<a target="_blank" rel="noopener" href="https://react-typescript-cheatsheet.netlify.app/docs/migration/from_js">我们的迁移备忘单</a>。</p>
+<h4 id="键入导出的Hook"><a href="#键入导出的Hook" class="headerlink" title="键入导出的Hook"></a>键入导出的<a target="_blank" rel="noopener" href="https://react-typescript-cheatsheet.netlify.app/docs/basic/troubleshooting/types#typing-exported-hooks">Hook</a></h4><p>输入 Hooks 就像输入纯函数一样。</p>
+<p>以下步骤在两个假设下有效：</p>
+<ul>
+<li>您已经创建了一个类型声明文件，如本节前面所述。</li>
+<li>您可以访问源代码 - 特别是直接导出您将使用的函数的代码。在大多数情况下，它会保存在一个<code>index.js</code>文件中。通常，您至少需要<strong>两个</strong>类型声明（一个用于<strong>Input Prop</strong>，另一个用于<strong>Return Prop</strong>）才能完整定义钩子。假设您要输入的钩子遵循以下结构，</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// ...</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">useUntypedHook</span> = (<span class="hljs-params">prop</span>) =&gt; &#123;<br>  <span class="hljs-comment">// some processing happens here</span><br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-comment">/* ReturnProps */</span><br>  &#125;;<br>&#125;;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> useUntypedHook;<br></code></pre></td></tr></table></figure>
+
+<p>那么，您的类型声明很可能应该遵循以下语法。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;use-untyped-hook&#x27;</span> &#123;<br>  <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">InputProps</span> &#123; ... &#125;   <span class="hljs-comment">// type declaration for prop</span><br>  <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">ReturnProps</span> &#123; ... &#125; <span class="hljs-comment">// type declaration for return props</span><br>  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useUntypedHook</span>(<span class="hljs-params"></span><br><span class="hljs-params">    prop: InputProps</span><br><span class="hljs-params">    <span class="hljs-comment">// ...</span></span><br><span class="hljs-params">  </span>): <span class="hljs-title class_">ReturnProps</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="8、Operators"><a href="#8、Operators" class="headerlink" title="8、Operators"></a>8、Operators</h3><ul>
+<li><code>typeof</code>and <code>instanceof</code>：输入用于细化的查询</li>
+<li><code>keyof</code>：获取对象的键。<code>keyof T</code>：是一个运算符，告诉您k的值可用于哪些用途</li>
+<li><code>O[K]</code>：属性查找</li>
+<li><code>[K in O]</code>: 映射类型</li>
+<li><code>+</code>or <code>-</code>or <code>readonly</code>or <code>?</code>：加法和减法以及只读和可选修饰符</li>
+<li><code>x ? Y : Z</code>：泛型类型、类型别名、函数参数类型的条件类型</li>
+<li><code>!</code>：可空类型的非空断言</li>
+<li><code>=</code>：泛型类型参数默认的泛型类型</li>
+<li><code>as</code>: 类型断言</li>
+<li><code>is</code>：函数返回类型的类型保护</li>
+</ul>
+<h3 id="9、Utilitie"><a href="#9、Utilitie" class="headerlink" title="9、Utilitie"></a>9、Utilitie</h3><ul>
+<li><code>Awaited</code>: 模仿的行为<code>await</code></li>
+<li><code>Capitalize</code>：将字符串文字类型的第一个字符转换为大写</li>
+<li><code>ConstructorParameters</code>：类构造函数参数类型的元组</li>
+<li><code>Exclude</code>：从一种类型中排除另一种类型</li>
+<li><code>Extract</code>：选择可分配给其他类型的子类型</li>
+<li><code>InstanceType``new</code>：从类构造函数中获取的实例类型</li>
+<li><code>Lowercase</code>：将字符串文字类型转换为小写</li>
+<li><code>NonNullable</code>:从类型中排除<code>null</code>and<code>undefined</code></li>
+<li><code>Omit</code>：用另一种类型的属性构造一个类型。</li>
+<li><code>OmitThisParameter</code>：从函数类型中删除“this”参数。</li>
+<li><code>Parameters</code>：函数参数类型的元组</li>
+<li><code>Partial</code>：使对象中的所有属性可选</li>
+<li><code>Readonly</code>：使对象中的所有属性只读</li>
+<li><code>ReadonlyArray</code>：创建给定类型的不可变数组</li>
+<li><code>Pick</code>：对象类型的子类型及其键的子集</li>
+<li><code>Record</code>：从键类型到值类型的映射</li>
+<li><code>Required</code>：使对象中的所有属性成为必需</li>
+<li><code>ReturnType</code>: 函数的返回类型</li>
+<li><code>ThisParameterType</code>：提取函数类型的“this”参数的类型</li>
+<li><code>ThisType</code>：上下文“this”类型的标记</li>
+<li><code>Uncapitalize</code>：将字符串文字类型的第一个字符转换为小写</li>
+<li><code>Uppercase</code>：将字符串文字类型转换为大写</li>
+</ul>
+<h3 id="10、是时候真正学习-TypeScript-了"><a href="#10、是时候真正学习-TypeScript-了" class="headerlink" title="10、是时候真正学习 TypeScript 了"></a>10、是时候真正学习 TypeScript 了</h3><p>不管你相信与否，我们在这份备忘单中只是勉强介绍了 TypeScript。如果你仍然面临 TypeScript 故障排除问题，很可能你对 TS 的理解仍然太肤浅。</p>
+<p>您最终将进入一个泛型类型逻辑的世界，但是它远不如处理 React 而是擅长 TypeScript，所以它超出了这里的范围。但至少你现在可以在 React 中提高工作效率了:)</p>
+<p>值得一提的是一些可以帮助您入门的资源：</p>
+<ul>
+<li>逐步浏览由 @Orta 编写的<a target="_blank" rel="noopener" href="http://www.typescriptlang.org/play/index.html">Playground</a>示例部分中的 40 多个示例</li>
+<li>Anders Hejlsberg 对 TS 的概述：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ET4kT88JRXs">https://www.youtube.com/watch? v=ET4kT88JRXs</a></li>
+<li>Marius Schultz：<a target="_blank" rel="noopener" href="https://blog.mariusschulz.com/series/typescript-evolution%E4%BB%A5%E5%8F%8A[Egghead.io">https://blog.mariusschulz.com/series/typescript-evolution以及[Egghead.io</a> 课程](<a target="_blank" rel="noopener" href="https://egghead.io/courses/advanced-static-types-in-typescript">https://egghead.io/courses/advanced-static-types-in-typescript</a>)</li>
+<li>Basarat 的深入研究：<a target="_blank" rel="noopener" href="https://basarat.gitbook.io/typescript/">https://basarat.gitbook.io/typescript/</a></li>
+<li>Axel Rauschmeyer<a target="_blank" rel="noopener" href="https://exploringjs.com/tackling-ts/">应对 TypeScript</a></li>
+<li>Rares Matei：<a target="_blank" rel="noopener" href="https://egghead.io/courses/practical-advanced-typescript">Egghead.io 课程</a>Egghead.io 上的高级 TypeScript 课程非常适合较新的 TypeScript 功能和实用的类型逻辑应用（例如递归地生成类型的所有属性<code>readonly</code>）</li>
+<li>了解<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=PJjeHzvi_VQ&feature=youtu.be">泛型、条件类型和映射类型</a></li>
+<li>Shu Uesugi：<a target="_blank" rel="noopener" href="https://ts.chibicode.com/">面向初学者程序员的 TypeScript</a></li>
+<li>这是另一个<a target="_blank" rel="noopener" href="https://github.com/threehams/typescript-error-guide/">TypeScript 错误指南</a>，您可以检查错误。</li>
+</ul>
+<h3 id="11、推荐学习的-React-TypeScript-代码库"><a href="#11、推荐学习的-React-TypeScript-代码库" class="headerlink" title="11、推荐学习的 React + TypeScript 代码库"></a>11、推荐学习的 React + TypeScript 代码库</h3><ul>
+<li>应用<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/devhubapp/devhub">https://github.com/devhubapp/devhub</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/benawad/codeponder%EF%BC%88%E5%B8%A6%E6%9C%89[%E7%BC%96%E7%A0%81%E7%9B%B4%E6%92%AD%EF%BC%81](https://www.youtube.com/watch?v=D8IJOwdNSkc&amp;list=PLN3n1USn4xlnI6kwzI8WrNgSdG4Z6daCq)%EF%BC%89">https://github.com/benawad/codeponder（带有[编码直播！](https://www.youtube.com/watch?v=D8IJOwdNSkc&amp;list=PLN3n1USn4xlnI6kwzI8WrNgSdG4Z6daCq)）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress-realworld-app">https://github.com/cypress-io/cypress-realworld-app</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/alan2207/bulletproof-react">https://github.com/alan2207/bulletproof-react</a></li>
+</ul>
+</li>
+<li>设计系统&#x2F;组件库<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/seek-oss/braid-design-system/%EF%BC%88%E6%9F%A5%E7%9C%8B[%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8">https://github.com/seek-oss/braid-design-system/（查看[如何使用</a> TS 验证 props](<a target="_blank" rel="noopener" href="https://twitter.com/markdalgleish/status/1339863859469955072?s=20)%EF%BC%89">https://twitter.com/markdalgleish/status/1339863859469955072?s=20)）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/palantir/blueprint">https://github.com/palantir/blueprint</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Shopify/polaris">https://github.com/Shopify/polaris</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/microsoft/fluentui">https://github.com/microsoft/fluentui</a></li>
+</ul>
+</li>
+<li>图书馆<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/formium/formik/">https://github.com/formium/formik/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jaredpalmer/react-fns">https://github.com/jaredpalmer/react-fns</a></li>
+</ul>
+</li>
+<li>杂项<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/NullVoxPopuli/react-vs-ember/tree/master/testing/react">https://github.com/NullVoxPopuli/react-vs-ember/tree/master/testing/react</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/artsy/reaction">https://github.com/artsy/reaction</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/artsy/emission">https://github.com/artsy/emission（React</a> Native）</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/reach/reach-ui/pull/105">@reach&#x2F;ui 的社区类型</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pshrmn/curi/tree/master/packages/router">https://github.com/pshrmn/curi/tree/master/packages/router</a></li>
+</ul>
+</li>
+</ul>
+<p>较旧但仍然值得检查：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://bitbucket.org/atlassian/atlaskit-mk-2/src/master/">https://bitbucket.org/atlassian/atlaskit-mk-2/src/master/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/contiamo/operational-ui">https://github.com/contiamo/operational-ui</a></li>
+</ul>
+<p>反应样板：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/rwieruch/nextjs-firebase-authentication%EF%BC%9ANext.js">https://github.com/rwieruch/nextjs-firebase-authentication：Next.js</a> + Firebase Starter：样式化、测试、键入和身份验证</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jpavon/react-scripts-ts">@jpavon&#x2F;react-scripts-ts使用</a><a target="_blank" rel="noopener" href="https://github.com/TypeStrong/ts-loader">ts-loader</a>具有所有 TypeScript 功能的替代反应脚本</li>
+<li><a target="_blank" rel="noopener" href="https://webpack.jakoblind.no/">webpack 配置工具</a>是一个可视化工具，用于使用 React 和 TypeScript 创建 webpack 项目</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/innFactory/create-react-app-material-typescript-redux%E5%87%86%E5%A4%87%E5%A5%BD%E4%BD%BF%E7%94%A8[Material-UI](https://material-ui.com/)%E3%80%81%E8%B7%AF%E7%94%B1%E5%92%8C">https://github.com/innFactory/create-react-app-material-typescript-redux准备好使用[Material-UI](https://material-ui.com/)、路由和</a> Redux 的模板</li>
+</ul>
+<p>React Native Boilerplates：由*<a target="_blank" rel="noopener" href="https://github.com/typescript-cheatsheets/react/pull/20">@spoeck</a>*<em>贡献</em></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/GeekyAnts/react-native-seed">https://github.com/GeekyAnts/react-native-seed</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lopezjurip/ReactNativeTS">https://github.com/lopezjurip/ReactNativeTS</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/emin93/react-native-template-typescript">https://github.com/emin93/react-native-template-typescript</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Microsoft/TypeScript-React-Native-Starter">https://github.com/Microsoft/TypeScript-React-Native-Starter</a></li>
+</ul>
+<p>待研究的 TS 库代码库</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Azure/azure-sdk-for-js">https://github.com/Azure/azure-sdk-for-js</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/is">https://github.com/sindresorhus/is</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/probot/probot">https://github.com/probot/probot</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/intuit/auto">https://github.com/intuit/auto</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/polymer/tools">https://github.com/polymer/tools</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nteract/nteract">https://github.com/nteract/nteract</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pgilad/leasot">https://github.com/pgilad/leasot</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/JasonEtco/actions-toolkit">https://github.com/JasonEtco/actions-toolkit</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ferdaber/typescript-bootstrap/">https://github.com/ferdaber/typescript-bootstrap/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/contiamo/operational-scripts">https://github.com/contiamo/operational-scripts</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nobrainr/morphism">https://github.com/nobrainr/morphism</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/slackapi/node-slack-sdk">https://github.com/slackapi/node-slack-sdk</a></li>
+</ul>
+<h3 id="12、编辑器工具和集成"><a href="#12、编辑器工具和集成" class="headerlink" title="12、编辑器工具和集成"></a>12、编辑器工具和集成</h3><ul>
+<li>VS代码<ul>
+<li>swyx 的 VSCode 扩展：<a target="_blank" rel="noopener" href="https://github.com/sw-yx/swyx-react-typescript-snippets">https://github.com/sw-yx/swyx-react-typescript-snippets</a></li>
+<li>amVim：<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=auiworks.amvim">https://marketplace.visualstudio.com/items? itemName=auiworks.amvim</a></li>
+</ul>
+</li>
+<li>为什么<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Quramy/tsuquyomi">https://github.com/Quramy/tsuquyomi</a></li>
+<li>nvim 打字稿？</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/leafgarland/typescript-vim">https://github.com/leafgarland/typescript-vim</a></li>
+<li>peitalin&#x2F;vim-jsx-typescript</li>
+<li>NeoVim： https: <a target="_blank" rel="noopener" href="https://github.com/neoclide/coc.nvim">&#x2F;&#x2F;github.com&#x2F;neoclide&#x2F;coc.nvim</a></li>
+<li>其他讨论：<a target="_blank" rel="noopener" href="https://mobile.twitter.com/ryanflorence/status/1085715595994095620">https://mobile.twitter.com/ryanflorence/status/1085715595994095620</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="HOC-备忘单"><a href="#HOC-备忘单" class="headerlink" title="HOC 备忘单"></a>HOC 备忘单</h1><h3 id="1、基本HOC示例"><a href="#1、基本HOC示例" class="headerlink" title="1、基本HOC示例"></a>1、基本HOC示例</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">type</span> <span class="hljs-title class_">PropsAreEqual</span>&lt;P&gt; = <span class="hljs-function">(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-function">  prevProps: Readonly&lt;P&gt;,</span></span><br><span class="hljs-params"><span class="hljs-function">  nextProps: Readonly&lt;P&gt;</span></span><br><span class="hljs-params"><span class="hljs-function"></span>) =&gt;</span> <span class="hljs-built_in">boolean</span>;<br><br><span class="hljs-keyword">const</span> withSampleHoC = &lt;P <span class="hljs-keyword">extends</span> &#123;&#125;&gt;(<br>  <span class="hljs-attr">component</span>: &#123;<br>    (<span class="hljs-attr">props</span>: P): <span class="hljs-title class_">Exclude</span>&lt;<span class="hljs-title class_">React</span>.<span class="hljs-property">ReactNode</span>, <span class="hljs-literal">undefined</span>&gt;;<br>    displayName?: <span class="hljs-built_in">string</span>;<br>  &#125;,<br>  propsAreEqual?: <span class="hljs-title class_">PropsAreEqual</span>&lt;P&gt; | <span class="hljs-literal">false</span>,<br><br>  componentName = component.<span class="hljs-property">displayName</span> ?? component.<span class="hljs-property">name</span><br>): &#123;<br>  (<span class="hljs-attr">props</span>: P): <span class="hljs-variable constant_">JSX</span>.<span class="hljs-property">Element</span>;<br>  <span class="hljs-attr">displayName</span>: <span class="hljs-built_in">string</span>;<br>&#125; =&gt; &#123;<br><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">WithSampleHoc</span>(<span class="hljs-params">props: P</span>) &#123;<br>    <span class="hljs-comment">//Do something special to justify the HoC.</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_">component</span>(props) <span class="hljs-keyword">as</span> <span class="hljs-variable constant_">JSX</span>.<span class="hljs-property">Element</span>;<br>  &#125;<br><br>  <span class="hljs-title class_">WithSampleHoc</span>.<span class="hljs-property">displayName</span> = <span class="hljs-string">`withSampleHoC(<span class="hljs-subst">$&#123;componentName&#125;</span>)`</span>;<br><br>  <span class="hljs-keyword">let</span> wrappedComponent = propsAreEqual === <span class="hljs-literal">false</span> ? <span class="hljs-title class_">WithSampleHoc</span> : <span class="hljs-title class_">React</span>.<span class="hljs-title function_">memo</span>(<span class="hljs-title class_">WithSampleHoc</span>, propsAreEqual);<br><br>  <span class="hljs-comment">//copyStaticProperties(component, wrappedComponent);</span><br><br>  <span class="hljs-keyword">return</span> wrappedComponent <span class="hljs-keyword">as</span> <span class="hljs-keyword">typeof</span> <span class="hljs-title class_">WithSampleHoc</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>此代码满足以下条件：</p>
+<ol>
+<li>允许组件返回有效元素 ( <code>strings | array | boolean | null | number</code>) 而不仅仅是<code>JSX.Element | null</code>.</li>
+<li>除非您选择退出，否则将其包含在备忘录中。</li>
+<li>删除嵌套组件，因此 React Dev 工具将仅显示一个组件。</li>
+<li><code>displayName</code>在 React Dev Tool 中用注释指示这是一个封装在两个 HoC 中的组件</li>
+<li>可选：复制可能已在原始组件上定义的静态属性。</li>
+</ol>
+<h3 id="2、完整HOC示例"><a href="#2、完整HOC示例" class="headerlink" title="2、完整HOC示例"></a>2、完整HOC示例</h3><p><strong>注入的道具</strong></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">WithThemeProps</span> &#123;<br>  <span class="hljs-attr">primaryColor</span>: <span class="hljs-built_in">string</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>在组件中的使用</strong></p>
+<p>目标是在组件的界面上提供可用的 props，但在封装在 HoC 中时为组件的使用者减去这些 props。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Props</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">WithThemeProps</span> &#123;<br>  children?: <span class="hljs-title class_">React</span>.<span class="hljs-property">ReactNode</span>;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span>&lt;<span class="hljs-title class_">Props</span>&gt; &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// Render an the element using the theme and other props.</span><br>  &#125;<br><br>  <span class="hljs-keyword">private</span> <span class="hljs-title function_">someInternalMethod</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// The theme values are also available as props here.</span><br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">withTheme</span>(<span class="hljs-title class_">MyButton</span>);<br></code></pre></td></tr></table></figure>
+
+<p><strong>使用组件</strong></p>
+<p>现在，在使用组件时，您可以省略该<code>primaryColor</code>prop 或覆盖通过上下文提供的 prop。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tsx">&lt;<span class="hljs-title class_">MyButton</span>&gt;<span class="hljs-title class_">Hello</span> button&lt;<span class="hljs-regexp">/MyButton&gt; /</span><span class="hljs-regexp">/ Valid</span><br><span class="hljs-regexp">&lt;MyButton primaryColor=&quot;#333&quot;&gt;Hello Button&lt;/</span><span class="hljs-title class_">MyButton</span>&gt; <span class="hljs-comment">// Also valid</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>声明 HoC</strong></p>
+<p>实际的HoC。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> withTheme&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_">WithThemeProps</span> = <span class="hljs-title class_">WithThemeProps</span>&gt;(<br>  <span class="hljs-title class_">WrappedComponent</span>: <span class="hljs-title class_">React</span>.<span class="hljs-property">ComponentType</span>&lt;T&gt;<br>) &#123;<br>  <span class="hljs-comment">// Try to create a nice displayName for React Dev Tools.</span><br>  <span class="hljs-keyword">const</span> displayName =<br>    <span class="hljs-title class_">WrappedComponent</span>.<span class="hljs-property">displayName</span> || <span class="hljs-title class_">WrappedComponent</span>.<span class="hljs-property">name</span> || <span class="hljs-string">&quot;Component&quot;</span>;<br><br>  <span class="hljs-comment">// Creating the inner component. The calculated Props type here is the where the magic happens.</span><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">ComponentWithTheme</span> = (<span class="hljs-params">props: Omit&lt;T, keyof WithThemeProps&gt;</span>) =&gt; &#123;<br>    <span class="hljs-comment">// Fetch the props you want to inject. This could be done with context instead.</span><br>    <span class="hljs-keyword">const</span> themeProps = <span class="hljs-title function_">useTheme</span>();<br><br>    <span class="hljs-comment">// props comes afterwards so the can override the default ones.</span><br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">WrappedComponent</span> &#123;<span class="hljs-attr">...themeProps</span>&#125; &#123;<span class="hljs-attr">...</span>(<span class="hljs-attr">props</span> <span class="hljs-attr">as</span> <span class="hljs-attr">T</span>)&#125; /&gt;</span></span>;<br>  &#125;;<br><br>  <span class="hljs-title class_">ComponentWithTheme</span>.<span class="hljs-property">displayName</span> = <span class="hljs-string">`withTheme(<span class="hljs-subst">$&#123;displayName&#125;</span>)`</span>;<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">ComponentWithTheme</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>请注意，<code>&#123;...(props as T)&#125;</code>由于 TS 3.2 中存在当前错误，因此需要断言<a target="_blank" rel="noopener" href="https://github.com/Microsoft/TypeScript/issues/28938#issuecomment-450636046">https://github.com/Microsoft/TypeScript/issues/28938#issuecomment-450636046</a></p>
+<p>这是动态高阶组件的一个更高级的示例，该组件的一些参数基于传入组件的 props：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">// inject static values to a component so that they&#x27;re always provided</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> inject&lt;<span class="hljs-title class_">TProps</span>, <span class="hljs-title class_">TInjectedKeys</span> <span class="hljs-keyword">extends</span> keyof <span class="hljs-title class_">TProps</span>&gt;(<br>  <span class="hljs-title class_">Component</span>: <span class="hljs-title class_">React</span>.<span class="hljs-property">JSXElementConstructor</span>&lt;<span class="hljs-title class_">TProps</span>&gt;,<br>  <span class="hljs-attr">injector</span>: <span class="hljs-title class_">Pick</span>&lt;<span class="hljs-title class_">TProps</span>, <span class="hljs-title class_">TInjectedKeys</span>&gt;<br>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Injected</span>(<span class="hljs-params">props: Omit&lt;TProps, TInjectedKeys&gt;</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Component</span> &#123;<span class="hljs-attr">...</span>(<span class="hljs-attr">props</span> <span class="hljs-attr">as</span> <span class="hljs-attr">TProps</span>)&#125; &#123;<span class="hljs-attr">...injector</span>&#125; /&gt;</span></span>;<br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用forwardRef"><a href="#使用forwardRef" class="headerlink" title="使用forwardRef"></a>使用<code>forwardRef</code></h4><p>为了“真正的”可重用性，您还应该考虑公开 HOC 的引用。您可以按照<a target="_blank" rel="noopener" href="https://github.com/typescript-cheatsheets/react/blob/main/README.md#forwardrefcreateref">基本备忘单</a><code>React.forwardRef&lt;Ref, Props&gt;</code>中记录的方式使用，但我们对更多现实世界的示例感兴趣。<a target="_blank" rel="noopener" href="https://gist.github.com/OliverJAsh/d2f462b03b3e6c24f5588ca7915d010e">这是 @OliverJAsh 的一个很好的实践示例</a>（注意 - 它仍然有一些粗糙的边缘，我们需要帮助来测试它&#x2F;记录它）。</p>
+<h4 id="支持defaultProps包裹组件"><a href="#支持defaultProps包裹组件" class="headerlink" title="支持defaultProps包裹组件"></a>支持<code>defaultProps</code>包裹组件</h4><p>如果这是您需要的，请参阅<a target="_blank" rel="noopener" href="https://github.com/typescript-cheatsheets/react/issues/86">我们进行的陈旧讨论</a>并评论您的要求。如果需要，我们会再次选择它。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="category-chain-item">最佳实践</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+      
+        <a href="/blog/tags/React/">#React</a>
+      
+        <a href="/blog/tags/TypeScript/">#TypeScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>React &amp; TypeScript备忘录</div>
+      <div>https://yoonalis.github.io/blog/2023/09/15/React &amp; TypeScript备忘录/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Azure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2023/09/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">
+                        <span class="hidden-mobile">设计模式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
