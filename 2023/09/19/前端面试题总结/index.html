@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/cold.jpg">
 <meta property="article:published_time" content="2023-09-19T08:19:16.349Z">
-<meta property="article:modified_time" content="2023-10-05T14:34:48.944Z">
+<meta property="article:modified_time" content="2023-10-06T06:33:19.246Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="面试">
@@ -249,7 +249,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          193k 字
+          200k 字
         
       </span>
     
@@ -261,7 +261,7 @@
         
         
           <!-- compatible with older versions-->
-          1612 分钟
+          1671 分钟
         
       </span>
     
@@ -1244,7 +1244,7 @@
 </ol>
 <p>触发重排和重绘会导致浏览器重新计算并重新绘制页面，因此应尽量减少这些操作的频率，以提高页面性能。一种优化策略是将多次的 DOM 操作合并成一次，或者使用 CSS 动画来避免频繁的重排和重绘。</p>
 <p>此外，现代浏览器还提供了一些工具来帮助开发者识别和优化重排和重绘的问题，例如浏览器的开发者工具可以显示这些操作的发生情况，帮助你定位性能瓶颈。</p>
-<h3 id="5、浏览器安全：xss-x2F-csrf-x2F-跨域"><a href="#5、浏览器安全：xss-x2F-csrf-x2F-跨域" class="headerlink" title="5、浏览器安全：xss&#x2F;csrf&#x2F;跨域"></a>5、浏览器安全：xss&#x2F;csrf&#x2F;跨域</h3><p>浏览器安全是 Web 开发中非常重要的一部分，涉及到多个方面，包括 XSS（跨站脚本攻击）、CSRF（跨站请求伪造）以及跨域安全措施。以下是这些安全问题的简要介绍和防范措施：</p>
+<h3 id="5、浏览器安全：xss-x2F-csrf"><a href="#5、浏览器安全：xss-x2F-csrf" class="headerlink" title="5、浏览器安全：xss&#x2F;csrf"></a>5、浏览器安全：xss&#x2F;csrf</h3><p>浏览器安全是 Web 开发中非常重要的一部分，涉及到多个方面，包括 XSS（跨站脚本攻击）、CSRF（跨站请求伪造）以及跨域安全措施。以下是这些安全问题的简要介绍和防范措施：</p>
 <h5 id="XSS（跨站脚本攻击）"><a href="#XSS（跨站脚本攻击）" class="headerlink" title="XSS（跨站脚本攻击）"></a>XSS（跨站脚本攻击）</h5><p>XSS（Cross-Site Scripting）跨站脚本攻击是一种常见的网络安全漏洞，攻击者通过注入恶意脚本代码到受信任网站的输入字段，然后使其他用户在浏览该网站时执行这些恶意脚本。XSS 攻击可以导致盗取用户信息、会话劫持、恶意操作用户账户等危险后果。</p>
 <p>以下是关于 XSS 攻击的详细说明：</p>
 <ol>
@@ -1330,25 +1330,23 @@
 </ol>
 <p>一旦生成了包含这些信息的CSRF Token，它可以被嵌入到Web表单或HTTP请求头中，然后在服务器端进行验证。服务器在接收到请求时，会检查请求中的Token是否与用户的标识信息和过期时间等匹配，如果匹配则认为请求是合法的，否则会拒绝请求，从而有效地防止CSRF攻击。</p>
 <p>需要注意的是，CSRF Token的生成和验证是应用程序开发者的责任，开发者需要确保Token的安全性和合理性，以有效地保护应用程序免受CSRF攻击的威胁。常见的Web开发框架和库通常提供了一些工具和机制来简化CSRF Token的生成和验证过程。</p>
-<h5 id="跨域安全："><a href="#跨域安全：" class="headerlink" title="跨域安全："></a>跨域安全：</h5><p><strong>跨域</strong>是指在不同域名、协议或端口之间进行数据传输的情况。浏览器的同源策略限制了跨域操作，以防止潜在的安全风险。</p>
-<p><strong>防范措施</strong>：</p>
-<ol>
-<li><p><strong>同源策略：</strong> 浏览器会根据同源策略来限制不同源之间的请求。只有相同协议、域名和端口的网站才能够互相访问。</p>
-</li>
-<li><p><strong>跨域资源共享（CORS）：</strong> 服务器可以通过设置 CORS 头部来允许或拒绝其他域的请求访问资源。</p>
-</li>
-<li><p><strong>JSONP：</strong> JSONP 是一种绕过同源策略的技术，但需要谨慎使用，因为它存在一些安全风险。</p>
-</li>
-<li><p><strong>代理服务器：</strong> 可以使用服务器端代理来转发跨域请求，从而绕过浏览器的同源策略。</p>
-</li>
-<li><p><strong>使用iframe和postMessage：</strong> 可以使用 <code>postMessage</code> 在不同域之间进行安全的通信。</p>
-</li>
-</ol>
-<p>以上是一些常见的浏览器安全问题和防范措施，开发人员在编写应用程序时应该遵循最佳实践，以保护用户的数据和隐私。此外，及时更新和维护依赖项，以防止已知的安全漏洞。</p>
 <h3 id="6、浏览器的线程与进程"><a href="#6、浏览器的线程与进程" class="headerlink" title="6、浏览器的线程与进程"></a>6、浏览器的线程与进程</h3><blockquote>
 <p>写的很好的文章：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7064499913115041806">https://juejin.cn/post/7064499913115041806</a></p>
 </blockquote>
 <p>浏览器的进程和线程是浏览器实现其功能的基础。它们之间的关系和任务分工对于理解浏览器的运行原理和性能优化至关重要。简单来说，进程是操作系统资源分配的最小单位，而线程是操作系统调度（CPU 利用率）的最小单位。</p>
+<p>进程和线程之间的关系有以下 4 个特点。</p>
+<ol>
+<li><p><strong>进程中的任意一线程执行出错，都会导致整个进程的崩溃。</strong></p>
+</li>
+<li><p><strong>线程之间共享进程中的数据。</strong></p>
+</li>
+<li><p><strong>当一个进程关闭之后，操作系统会回收进程所占用的内存。</strong></p>
+<p>当一个进程退出时，操作系统会回收该进程所申请的所有资源；即使其中任意线程因为操作不当导致内存泄漏，当进程退出时，这些内存也会被正确回收。</p>
+</li>
+<li><p><strong>进程之间的内容相互隔离。</strong></p>
+<p>进程隔离是为保护操作系统中进程互不干扰的技术，每一个进程只能访问自己占有的数据，也就避免出现进程 A 写入数据到进程 B 的情况。正是因为进程之间的数据是严格隔离的，所以一个进程如果崩溃了，或者挂起了，是不会影响到其他进程的。如果进程之间需要进行数据的通信，这时候，就需要使用用于<strong>进程间通信（IPC）的机制</strong>了。</p>
+</li>
+</ol>
 <p>解决 <strong>不稳定</strong> 问题：</p>
 <ul>
 <li>由于进程是相互隔离的，所以当一个页面或者插件崩溃时，影响到的仅仅是当前的页面进程或者插件进程，并不会影响到浏览器和其他页面，这就完美地解决了页面或者插件的崩溃会导致整个浏览器崩溃，也就是不稳定的问题。</li>
@@ -1369,6 +1367,39 @@
 <li><code>网络进程</code>：主要负责页面的网络资源加载，之前是作为一个模块运行在浏览器进程里面的，直至最近才独立出来，成为一个单独的进程。</li>
 <li><code>插件进程</code>：主要是负责插件的运行，因插件易崩溃，所以需要通过插件进程来隔离，以保证插件进程崩溃不会对浏览器和页面造成影响。</li>
 </ul>
+<h5 id="页面加载的流程："><a href="#页面加载的流程：" class="headerlink" title="页面加载的流程："></a>页面加载的流程：</h5><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8c6004fc2f664f2186a727624ed39ae8~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<ol>
+<li><p><strong><a href="https://link.juejin.cn/?target=https://github.com/skyline75489/what-happens-when-zh_CN%23g">用户输入url并回车</a>。浏览器进程</strong>会<a target="_blank" rel="noopener" href="https://juejin.cn/post/7025956944028532743#heading-2">根据用户输入的信息判断</a>是搜索还是网址，如果是搜索内容，就将搜索内容+默认搜索引擎合成新的URL；如果用户输入的内容符合URL规则，<strong>浏览器进程</strong>就会根据URL协议，在这段内容上加上协议合成合法的URL。</p>
+</li>
+<li><p>浏览器导航栏显示loading状态，但是页面还是呈现之前的页面不变，因为新页面的响应数据还没有获得。</p>
+</li>
+<li><p><strong>浏览器进程</strong>构建请求行信息，通过进程间通信（IPC）把url请求发送给<strong>网络进程</strong>。</p>
+</li>
+<li><p><strong>网络进程</strong>接收到url请求后<a target="_blank" rel="noopener" href="https://juejin.cn/post/7025956944028532743#heading-5">检查本地缓存是否缓存了该请求资源</a>，如果有则将该资源返回给<strong>浏览器进程</strong>。</p>
+</li>
+<li><p>如果没有，<strong>网络进程</strong>向web服务器发起http请求（网络请求），请求流程如下：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7025956944028532743#heading-12">进行DNS解析，获取服务器ip地址</a>（先查找DNS缓存，再发起DNS网络请求）</li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7025956944028532743#heading-19">利用ip地址和服务器建立tcp连接</a>（TCP三次握手建立的连接并不是真实的物理连接，而是虚连接，连接的本质就是在客户端与服务端开辟本次连接所需要的资源（内存、进程等））</li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7025956944028532743#heading-59">完成构建请求信息并发送请求</a>（调用Socket利用TCP通过三次握手连接建立后，之前准备好的HTTP请求报文被送入发送队列，接下来就交给了TCP完成后续过程）</li>
+<li>服务器响应后，<strong>网络进程</strong>接收响应头和响应信息，并解析响应内容</li>
+</ol>
+</li>
+<li><p><strong>网络进程</strong>解析响应流程：</p>
+<ol>
+<li>检查状态码，如果是301&#x2F;302，则需要重定向，从Location自动中读取地址，重新进行第三步，如果是200，则继续处理请求。</li>
+<li>检查响应类型Content-Type，如果是字节流类型，则将该请求提交给下载管理器，该导航流程结束，不再进行后续的渲染，如果是html等资源则将其转发给<strong>浏览器进程</strong>。</li>
+</ol>
+</li>
+<li><p><strong>浏览器进程</strong>接收到网络进程的响应头数据之后，检查当前url是否和<strong>之前打开的渲染进程</strong>根域名是否相同，如果相同，则复用原来的进程，如果不同，则<strong>开启新的渲染进程</strong>（这个文章后面还会展开说）。</p>
+</li>
+<li><p><strong>渲染进程</strong>准备好后，<strong>浏览器进程</strong>发送<code>CommitNavigation</code>消息到<strong>渲染进程</strong>，发送<code>CommitNavigation</code>时会携带响应头、等基本信息。<strong>渲染进程</strong>接收到消息和<strong>网络进程</strong>建立传输数据的“管道”。</p>
+</li>
+<li><p><strong>渲染进程</strong>接收完数据后，向<strong>浏览器进程</strong>发送“确认提交”。</p>
+</li>
+<li><p><strong>浏览器进程</strong>接收到确认消息后更新浏览器界面状态：安全、地址栏url、前进后退的历史状态、更新web页面。</p>
+</li>
+</ol>
 <p><strong>浏览器渲染进程的线程</strong>：</p>
 <p>（1）GUI渲染线程</p>
 <p>负责渲染浏览器页面，解析HTML、CSS，构建DOM树、构建CSSOM树、构建渲染树和绘制页面；当界面需要重绘或由于某种操作引发回流时，该线程就会执行。 注意：GUI渲染线程和JS引擎线程是互斥的，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行。</p>
@@ -1380,6 +1411,159 @@
 <p>定时器触发进程即setInterval与setTimeout所在线程；浏览器定时计数器并不是由JS引擎计数的，因为JS引擎是单线程的，如果处于阻塞线程状态就会影响记计时的准确性；因此使用单独线程来计时并触发定时器，计时完毕后，添加到事件队列中，等待JS引擎空闲后执行，所以定时器中的任务在设定的时间点不一定能够准时执行，定时器只是在指定时间点将任务添加到事件队列中； 注意：W3C在HTML标准中规定，定时器的定时时间不能小于4ms，如果是小于4ms，则默认为4ms。</p>
 <p>（5）异步http请求线程</p>
 <p>●XMLHttpRequest连接后通过浏览器新开一个线程请求； ●检测到状态变更时，如果设置有回调函数，异步线程就产生状态变更事件，将回调函数放入事件队列中，等待JS引擎空闲后执行；</p>
+<h5 id="完整的渲染流程"><a href="#完整的渲染流程" class="headerlink" title="完整的渲染流程"></a>完整的渲染流程</h5><p><strong>一旦文档被提交，渲染进程便开始页面解析和子资源加载了。</strong> 为了能更好地理解下文，你可以先结合下图快速抓住 HTML、CSS 和 JavaScript 的含义：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9e8dbd186b604834a56069ad23f66225~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>由于渲染机制过于复杂，所以渲染模块在执行过程中会被划分为很多子阶段，输入的 HTML 经过这些子阶段，最后输出像素。我们把这样的一个处理流程叫做渲染流水线，其大致流程如下图所示：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/63a9b7a52df041da922e45b0a18d62ee~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>按照渲染的时间顺序，流水线可分为如下几个子阶段：<strong>构建 DOM 树、样式计算、布局阶段、分层、绘制、分块、光栅化和合成。</strong></p>
+<p>过程很多，但是我们都可以从下面三个方面去理解每一个阶段：</p>
+<ul>
+<li>开始每个子阶段都有其<strong>输入的内容</strong></li>
+<li>然后每个子阶段有其<strong>处理过程</strong></li>
+<li>最终每个子阶段会生成<strong>输出内容</strong></li>
+</ul>
+<p>理解了这三部分内容，能让你更加清晰地理解每个子阶段。</p>
+<p><strong>构建DOM树</strong></p>
+<p>因为浏览器无法直接理解和使用 HTML，所以需要将 HTML 转换为浏览器能够理解的结构——DOM 树。何为DOM树，可以参考下图加以理解：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/85bca2eba7f74892856a29a1b7e42d0d~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>从图中可以看出，构建 DOM 树的输入内容是一个非常简单的 HTML 文件，然后经由 HTML 解析器解析，最终输出树状结构的 DOM。同样我们可以在控制台中的<code>Console</code>标签中输入<code>document</code>后回车，这样我们也能看到一个完整的DOM树。</p>
+<p>DOM 和 HTML 内容几乎是一样的，但是和 HTML 不同的是，DOM 是保存在内存中树状结构，可以通过 JavaScript 来查询或修改其内容。</p>
+<p><strong>样式计算</strong></p>
+<p>样式计算的目的是为了计算出 DOM 节点中每个元素的具体样式，这个阶段大体可分为三步来完成。</p>
+<ol>
+<li>把 CSS 转换为浏览器能够理解的结构</li>
+</ol>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cabb65ba8d0b46d18055fb0f09a1c5e0~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>从图中可以看出，CSS 样式来源主要有三种：</p>
+<ul>
+<li>通过 link 引用的外部 CSS 文件</li>
+<li><style>标记内的 CSS</li>
+<li>元素的 style 属性内嵌的 CSS</li>
+</ul>
+<p>和 HTML 文件一样，浏览器也是无法直接理解这些纯文本的 CSS 样式，所以<strong>当渲染引擎接收到 CSS 文本时，会执行一个转换操作，将 CSS 文本转换为浏览器可以理解的结构——styleSheets</strong>。</p>
+<p>为了加深理解，你可以在 Chrome 控制台中查看其结构，只需要在控制台中输入 <code>document.styleSheets</code>，然后就看到如下图所示的结构：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bf663f523fe64e1a9a0deec4ac012f6b~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>从图中可以看出，这个样式表包含了很多种样式，已经把那三种来源的样式都包含进去了，并且该结构同时具备了查询和修改功能，这会为后面的样式操作提供基础。</p>
+<ol start="2">
+<li>转换样式表中的属性值，使其标准化</li>
+</ol>
+<p>现在我们已经把现有的 CSS 文本转化为浏览器可以理解的结构了，那么<strong>接下来就要对其进行属性值的标准化操作</strong>。</p>
+<p>要理解什么是属性值标准化，你可以看下面这样一段 CSS 文本：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css">css<br>复制代码<span class="hljs-selector-tag">body</span> &#123; <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2em</span> &#125;<br><span class="hljs-selector-tag">p</span> &#123;<span class="hljs-attribute">color</span>:blue;&#125;<br><span class="hljs-selector-tag">span</span> &#123;<span class="hljs-attribute">display</span>: none&#125;<br><span class="hljs-selector-tag">div</span> &#123;<span class="hljs-attribute">font-weight</span>: bold&#125;<br><span class="hljs-selector-tag">div</span> <span class="hljs-selector-tag">p</span> &#123;<span class="hljs-attribute">color</span>:green;&#125;<br><span class="hljs-selector-tag">div</span> &#123;<span class="hljs-attribute">color</span>:red; &#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以看到上面的 CSS 文本中有很多属性值，如 2em、blue、bold，这些类型数值不容易被渲染引擎理解，所以<strong>需要将所有值转换为渲染引擎容易理解的、标准化的计算值</strong>，这个过程就是属性值标准化。下图就是标准化的结果：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/241469942d794a6e9ba786c4e068fa5a~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<ol start="3">
+<li>计算出 DOM 树中每个节点的具体样式</li>
+</ol>
+<p>现在样式的属性已被标准化了，接下来就需要计算 DOM 树中每个节点的样式属性了，<strong>这就涉及到 CSS 的继承规则和层叠规则了。</strong></p>
+<p>首先是 CSS 继承。<strong>CSS 继承就是每个 DOM 节点都包含有父节点的样式。</strong> 这么说可能有点抽象，我们可以结合具体例子，看下面这样一张样式表是如何应用到 DOM 节点上的。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">css<br>复制代码<span class="hljs-selector-tag">body</span> &#123; <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span> &#125;<br><span class="hljs-selector-tag">p</span> &#123;<span class="hljs-attribute">color</span>:blue;&#125;<br><span class="hljs-selector-tag">span</span>  &#123;<span class="hljs-attribute">display</span>: none&#125;<br><span class="hljs-selector-tag">div</span> &#123;<span class="hljs-attribute">font-weight</span>: bold;<span class="hljs-attribute">color</span>:red&#125;<br><span class="hljs-selector-tag">div</span>  <span class="hljs-selector-tag">p</span> &#123;<span class="hljs-attribute">color</span>:green;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这张样式表最终应用到 DOM 节点的效果如下图所示：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cb9b69a5f40d4f87bcad5154128e0c7e~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>从图中可以看出，所有子节点都继承了父节点样式。比如 body 节点的 <code>font-size</code> 属性是 20，那 body 节点下面的所有节点的 <code>font-size</code> 都等于 20。</p>
+<p><strong>这里需要特别提下 UserAgent 样式，它是浏览器提供的一组默认样式，如果你不提供任何样式，默认使用的就是 UserAgent 样式。</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dae336e8414e444c92e1864453c17108~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>样式计算过程中的第二个规则是样式层叠。<strong>层叠是 CSS 的一个基本特征，它是一个定义了如何合并来自多个源的属性值的算法。它在 CSS 处于核心地位，CSS 的全称“层叠样式表”正是强调了这一点。</strong></p>
+<p>总之，样式计算阶段的目的是为了计算出 DOM 节点中每个元素的具体样式，在计算过程中需要遵守 CSS 的继承和层叠两个规则。这个阶段最终输出的内容是每个 DOM 节点的样式，并被保存在 <code>ComputedStyle</code> 的结构内。</p>
+<p><strong>布局阶段</strong></p>
+<p>现在，我们有 DOM 树和 DOM 树中元素的样式，但这还不足以显示页面，因为我们还不知道 DOM 元素的几何位置信息。<strong>那么接下来就需要计算出 DOM 树中可见元素的几何位置，我们把这个计算过程叫做布局。</strong></p>
+<p><code>Chrome</code> 在布局阶段需要完成两个任务：<strong>创建布局树和布局计算</strong>。</p>
+<ol>
+<li>创建布局树</li>
+</ol>
+<p>DOM 树还含有很多不可见的元素，比如 <code>head</code> 标签，还有使用了 <code>display:none</code> 属性的元素。所以在显示之前，还要额外地构建一棵只包含可见元素布局树。</p>
+<p>我们结合下图来看看布局树的构造过程：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/05f42c09057d48a397beb75d5ed83511~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>从上图可以看出，DOM 树中所有不可见的节点都没有包含到布局树中。</p>
+<p>为了构建布局树，浏览器大体上完成了下面这些工作：</p>
+<ul>
+<li>遍历 DOM 树中的所有可见节点，并把这些节点加到布局树中</li>
+<li>而不可见的节点会被布局树忽略掉，如 head 标签下面的全部内容，再比如 <code>body.p.span</code> 这个元素，因为它的属性包含 <code>dispaly:none</code>，所以这个元素也没有被包进布局树</li>
+</ul>
+<ol start="2">
+<li>布局计算</li>
+</ol>
+<p>现在我们有了一棵完整的布局树。那么接下来，就要计算布局树节点的坐标位置。</p>
+<p>在执行布局操作的时候，会把布局运算的结果重新写回布局树中，<strong>所以布局树既是输入内容也是输出内容</strong>，这是布局阶段一个不合理的地方，因为在布局阶段并没有清晰地将输入内容和输出内容区分开来。</p>
+<p>针对这个问题，Chrome 团队正在重构布局代码，下一代布局系统叫 LayoutNG，试图更清晰地分离输入和输出，从而让新设计的布局算法更加简单。</p>
+<p><strong>分层</strong></p>
+<p>到这里我们先总结一下前三个阶段：</p>
+<p>在 HTML 页面内容被提交给渲染引擎之后，渲染引擎首先将 HTML 解析为浏览器可以理解的 DOM；然后根据 CSS 样式表，计算出 DOM 树所有节点的样式；接着又计算每个元素的几何坐标位置，并将这些信息保存在布局树中。</p>
+<p>现在我们有了布局树，而且每个元素的具体位置信息都计算出来了，那么接下来是不是就要开始着手绘制页面了？</p>
+<p>答案依然是否定的。</p>
+<p>因为页面中有很多复杂的效果，如一些复杂的 3D 变换、页面滚动，或者使用 <code>z-index</code> 做 z 轴排序等，为了更加方便地实现这些效果，<strong>渲染引擎还需要为特定的节点生成专用的图层，并生成一棵对应的图层树（LayerTree）。</strong> 如果你熟悉 PS，相信你会很容易理解图层的概念，正是这些图层叠加在一起构成了最终的页面图像。</p>
+<p>要想直观地理解什么是图层，你可以打开 Chrome 的“开发者工具”，选择“Layers”标签，就可以可视化页面的分层情况。</p>
+<p>现在你知道了浏览器的页面实际上被分成了很多图层，这些图层叠加后合成了最终的页面。下面我们再来看看这些图层和布局树节点之间的关系，如文中图所示：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fd24059335a6465ea1613451a7a9eead~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>通常情况下，<strong>并不是布局树的每个节点都包含一个图层，如果一个节点没有对应的层，那么这个节点就从属于父节点的图层</strong>。如上图中的 <code>span</code> 标签没有专属图层，那么它们就从属于它们的父节点图层。但不管怎样，最终每一个节点都会直接或者间接地从属于一个层。</p>
+<p>那么需要满足什么条件，渲染引擎才会为特定的节点创建新的图层呢？通常满足下面两点中任意一点的元素就可以被提升为单独的一个图层。</p>
+<p><strong>第一点，拥有层叠上下文属性的元素会被提升为单独的一层。</strong></p>
+<p>页面是个二维平面，但是层叠上下文能够让 HTML 元素具有三维概念，这些 HTML 元素按照自身属性的优先级分布在垂直于这个二维平面的 z 轴上。你可以结合下图来直观感受下：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fda8eea299184b9aab380e42279a8c9c~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>从图中可以看出，明确定位属性的元素、定义透明属性的元素、使用 CSS 滤镜的元素等，都拥有层叠上下文属性。</p>
+<p><strong>第二点，需要剪裁（clip）的地方也会被创建为图层。</strong></p>
+<p>不过首先你需要了解什么是剪裁，结合下面的 HTML 代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs html">html<br>复制代码<br><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span><br><span class="language-css">      <span class="hljs-selector-tag">div</span> &#123;</span><br><span class="language-css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">200</span>;</span><br><span class="language-css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">200</span>;</span><br><span class="language-css">            <span class="hljs-attribute">overflow</span>:auto;</span><br><span class="language-css">            <span class="hljs-attribute">background</span>: gray;</span><br><span class="language-css">        &#125; </span><br><span class="language-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> &gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>所以元素有了层叠上下文的属性或者需要被剪裁，那么就会被提升成为单独一层，你可以参看下图：<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>从上图我们可以看到，document层上有A和B层，而B层之上又有两个图层。这些图层组织在一起也是一颗树状结构。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>图层树是基于布局树来创建的，为了找出哪些元素需要在哪些层中，渲染引擎会遍历布局树来创建层树（Update LayerTree）。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span> <br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>在这里我们把 div 的大小限定为 200 * 200 像素，而 <code>div</code> 里面的文字内容比较多，文字所显示的区域肯定会超出 200 * 200 的面积，这时候就产生了剪裁，渲染引擎会把裁剪文字内容的一部分用于显示在 <code>div</code> 区域，下图是运行时的执行结果：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a5e6edd290574f6f994455e7c968940f~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>出现这种裁剪情况的时候，渲染引擎会为文字部分单独创建一个层，如果出现滚动条，滚动条也会被提升为单独的层。你可以参考下图：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4a19ec877e3b47fb8440746f72885f15~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>所以说，元素有了层叠上下文的属性或者需要被剪裁，满足其中任意一点，就会被提升成为单独一层。</p>
+<p><strong>图层绘制</strong></p>
+<p>在完成图层树的构建之后，渲染引擎会对图层树中的每个图层进行绘制，那么接下来我们看看渲染引擎是怎么实现图层绘制的。</p>
+<p>试想一下，如果给你一张纸，让你先把纸的背景涂成蓝色，然后在中间位置画一个红色的圆，最后再在圆上画个绿色三角形。你会怎么操作呢？</p>
+<p>通常，你会把你的绘制操作分解为三步：</p>
+<ol>
+<li>绘制蓝色背景</li>
+<li>在中间绘制一个红色的圆</li>
+<li>再在圆上绘制绿色三角形</li>
+</ol>
+<p>渲染引擎实现图层的绘制与之类似，会把一个图层的绘制拆分成很多小的<strong>绘制指令</strong>，然后再把这些指令按照顺序组成一个待绘制列表，如下图所示：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/08b22ddf1964485c830b63a37b4bbcf5~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>从图中可以看出，绘制列表中的指令其实非常简单，就是让其执行一个简单的绘制操作，比如绘制粉色矩形或者黑色的线等。而绘制一个元素通常需要好几条绘制指令，因为每个元素的背景、前景、边框都需要单独的指令去绘制。所以在图层绘制阶段，输出的内容就是这些待绘制列表。</p>
+<p>你也可以打开“开发者工具”的<code>Layers</code>标签，选择<code>document</code>层，来实际体验下绘制列表，如下图所示：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b8405bd2dbb54e1391fbf87a2492097e~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>在该图中，区域 1 就是 document 的绘制列表，拖动区域 2 中的进度条可以重现列表的绘制过程。</p>
+<p><strong>栅格化操作</strong></p>
+<p>绘制列表只是用来记录绘制顺序和绘制指令的列表，而实际上绘制操作是由渲染引擎中的合成线程来完成的。你可以结合下图来看下渲染主线程和合成线程之间的关系：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/582e09ed4aab40c5bcddf1ec05b10d7b~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>如上图所示，当图层的绘制列表准备好之后，主线程会把该绘制列表提交（commit）给合成线程，那么接下来合成线程是怎么工作的呢？</p>
+<p>那我们得先来看看什么是视口，<strong>屏幕上页面的可见区域就叫视口（ViewPort）</strong>，通俗点来说就是，一个页面可能很大，但是用户只能看到其中的一部分，我们把用户可以看到的这个部分叫做视口。</p>
+<p>在有些情况下，有的图层可以很大，比如有的页面你使用滚动条要滚动好久才能滚动到底部，但是通过视口，用户只能看到页面的很小一部分，所以在这种情况下，要绘制出所有图层内容的话，就会产生太大的开销，而且也没有必要。</p>
+<p>基于这个原因，合成线程会将图层划分为图块（tile），这些图块的大小通常是 256x256 或者 512x512，如下图所示：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/079265826ab141ea9d6d746c6fd45402~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>然后<strong>合成线程会按照视口附近的图块来优先生成位图，实际生成位图的操作是由栅格化来执行的。所谓栅格化，是指将图块转换为位图。而图块是栅格化执行的最小单位。</strong> 渲染进程维护了一个栅格化的线程池，所有的图块栅格化都是在线程池内执行的，运行方式如下图所示：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/225fb615e24d4577917460514604bb0f~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>通常，栅格化过程都会使用 GPU 来加速生成，使用 GPU 生成位图的过程叫快速栅格化，或者 GPU 栅格化，生成的位图被保存在 GPU 内存中。</p>
+<p>相信你还记得，GPU 操作是运行在 GPU 进程中，如果栅格化操作使用了 GPU，那么最终生成位图的操作是在 GPU 中完成的，这就涉及到了跨进程操作。具体形式你可以参考下图：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8b6e16bf08df423bac9719b9efce4ab0~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>从图中可以看出，渲染进程把生成图块的指令发送给 GPU，然后在 GPU 中执行生成图块的位图，并保存在 GPU 的内存中。</p>
+<p><strong>合成和显示</strong></p>
+<p>一旦所有图块都被光栅化，合成线程就会生成一个绘制图块的命令<code>DrawQuad</code>，然后将该命令提交给浏览器进程。</p>
+<p>浏览器进程里面有一个叫 <code>viz</code> 的组件，用来接收合成线程发过来的 <code>DrawQuad</code> 命令，然后根据 <code>DrawQuad</code> 命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</p>
+<p>到这里，经过这一系列的阶段，编写好的 HTML、CSS、JavaScript 等文件，经过浏览器就会显示出漂亮的页面了。</p>
+<p><strong>渲染流水线大总结</strong></p>
+<p>好了，我们现在已经分析完了整个渲染流程，从 HTML 到 DOM、样式计算、布局、图层、绘制、光栅化、合成和显示。下面我用一张图来总结下这整个渲染流程：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/748f7f523d104f7e93f5c5523e6f2e13~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>结合上图，一个完整的渲染流程大致可总结为如下：</p>
+<ol>
+<li>渲染进程将 HTML 内容转换为能够读懂的 <strong>DOM树</strong> 结构。</li>
+<li>渲染引擎将 CSS 样式表转化为浏览器可以理解的 <strong>styleSheets</strong>，计算出 DOM 节点的样式。</li>
+<li>创建<strong>布局树</strong>，并计算元素的布局信息。</li>
+<li>对布局树进行分层，并生成<strong>分层树</strong>。</li>
+<li>为每个图层生成<strong>绘制列表</strong>，并将其提交到合成线程。</li>
+<li>合成线程将图层分成<strong>图块</strong>，并在<strong>光栅化线程</strong>池中将图块转换成位图。</li>
+<li>合成线程发送绘制图块命令 <code>DrawQuad</code> 给浏览器进程。</li>
+<li>浏览器进程根据 <code>DrawQuad</code> 消息生成页面，并显示到显示器上。</li>
+</ol>
+<h5 id="面向服务的架构"><a href="#面向服务的架构" class="headerlink" title="面向服务的架构"></a>面向服务的架构</h5><p>在 2016 年，Chrome 官方团队使用“<strong>面向服务的架构</strong>”（Services Oriented Architecture，简称 <strong>SOA</strong>）的思想设计了新的 Chrome 架构。也就是说 Chrome 整体架构会朝向现代操作系统所采用的“面向服务的架构” 方向发展，原来的各种模块会被重构成独立的服务（Service），每个服务（Service）都可以在独立的进程中运行，访问服务（Service）必须使用定义好的接口，通过 IPC 来通信，从而构建<strong>一个更内聚、松耦合、易于维护和扩展的系统</strong>，更好实现 Chrome 简单、稳定、高速、安全的目标。</p>
+<p>Chrome 最终要把 UI、数据库、文件、设备、网络等模块重构为基础服务，类似操作系统底层服务，下面是 Chrome“面向服务的架构”的进程模型图：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2bd9b0dd3ffd476fab397a7a1b40b7ee~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>同时 Chrome 还提供灵活的弹性架构，在强大性能设备上会以多进程的方式运行基础服务，但是如果在资源受限的设备上（如下图），Chrome 会将很多服务整合到一个进程中，从而节省内存占用。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/61b32945c403485d8da21ba23bc6cec8~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
 <h3 id="7、浏览器缓存"><a href="#7、浏览器缓存" class="headerlink" title="7、浏览器缓存"></a>7、浏览器缓存</h3><p>浏览器缓存是一种用于提高网页加载性能和减少网络流量的技术。它通过将网页的资源（如HTML、CSS、JavaScript、图像等）存储在本地，以便在用户再次访问相同页面时可以更快地加载这些资源。浏览器缓存可以减少服务器的负载，加速页面加载速度，提高用户体验。</p>
 <p>浏览器缓存主要有两种类型：<strong>HTTP缓存</strong>和<strong>localStorage&#x2F;sessionStorage</strong>。</p>
 <ol>
