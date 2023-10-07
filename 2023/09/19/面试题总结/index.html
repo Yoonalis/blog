@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/cold.jpg">
 <meta property="article:published_time" content="2023-09-19T08:19:16.349Z">
-<meta property="article:modified_time" content="2023-10-07T04:32:58.770Z">
+<meta property="article:modified_time" content="2023-10-07T04:35:55.566Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="面试">
@@ -1436,12 +1436,9 @@
 <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cabb65ba8d0b46d18055fb0f09a1c5e0~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
 <p>从图中可以看出，CSS 样式来源主要有三种：</p>
 <ul>
-<li><p>通过 link 引用的外部 CSS 文件</p>
-</li>
-<li><style>标记内的 CSS
-</li>
-<li><p>元素的 style 属性内嵌的 CSS</p>
-</li>
+<li>通过 link 引用的外部 CSS 文件</li>
+<li><code>&lt;style&gt;</code>标记内的 CSS</li>
+<li>元素的 style 属性内嵌的 CSS</li>
 </ul>
 <p>和 HTML 文件一样，浏览器也是无法直接理解这些纯文本的 CSS 样式，所以<strong>当渲染引擎接收到 CSS 文本时，会执行一个转换操作，将 CSS 文本转换为浏览器可以理解的结构——styleSheets</strong>。</p>
 <p>为了加深理解，你可以在 Chrome 控制台中查看其结构，只需要在控制台中输入 <code>document.styleSheets</code>，然后就看到如下图所示的结构：</p>
