@@ -1,0 +1,1587 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.jpg">
+  <link rel="icon" href="/blog/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Azure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux常用命令">
+<meta property="og:url" content="https://yoonalis.github.io/blog/2023/10/10/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="Azure&#39;s blog">
+<meta property="og:description" content="Linux">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yoonalis.github.io/blog/img/Linux.jpg">
+<meta property="article:published_time" content="2023-10-10T04:56:30.702Z">
+<meta property="article:modified_time" content="2023-10-21T05:35:40.145Z">
+<meta property="article:author" content="Azure">
+<meta property="article:tag" content="Linux、运维">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yoonalis.github.io/blog/img/Linux.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Linux常用命令 - Azure&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yoonalis.github.io","root":"/blog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>Azure</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/album/">
+                <i class="iconfont icon-images"></i>
+                album
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Linux常用命令"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-10 12:56" pubdate>
+          2023年10月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          67 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux常用命令</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h1><blockquote>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2054395">https://cloud.tencent.com/developer/article/2054395</a></p>
+</blockquote>
+<h1 id="Linux终端命令格式"><a href="#Linux终端命令格式" class="headerlink" title="Linux终端命令格式"></a>Linux终端命令格式</h1><h2 id="终端命令格式"><a href="#终端命令格式" class="headerlink" title="终端命令格式"></a>终端命令格式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">command [-options] [parameter]<br></code></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li>command ：命令名，相应功能的英文单词或单词的缩写</li>
+<li>[-options] ：选项，可用来对命令进行控制，也可以省略</li>
+<li>parameter ：传给命令的<strong>参数</strong>，可以是 零个、一个 或者 多个</li>
+</ul>
+<h2 id="查阅命令帮助信息"><a href="#查阅命令帮助信息" class="headerlink" title="查阅命令帮助信息"></a>查阅命令帮助信息</h2><h3 id="help"><a href="#help" class="headerlink" title="-help"></a>-help</h3><p>说明：</p>
+<ul>
+<li>显示 command 命令的帮助信息</li>
+</ul>
+<h3 id="man"><a href="#man" class="headerlink" title="-man"></a>-man</h3><p>说明：</p>
+<ul>
+<li>查阅 command 命令的使用手册 man 是 manual 的缩写，是 Linux 提供的一个 手册，包含了绝大部分的命令、函数的详细使用</li>
+<li>说明 使用 man 时的操作键</li>
+</ul>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-8223537/e9de4c8490453f9d34c1e965ac77e3e9.png" srcset="/blog/img/loading.gif" lazyload alt="Alt"></p>
+<p>Alt</p>
+<h1 id="常用Linux命令的基本实用"><a href="#常用Linux命令的基本实用" class="headerlink" title="常用Linux命令的基本实用"></a>常用Linux命令的基本实用</h1><h2 id="学习Linux终端命令的原因"><a href="#学习Linux终端命令的原因" class="headerlink" title="学习Linux终端命令的原因"></a>学习Linux终端命令的原因</h2><ul>
+<li>Linux 刚面世时并没有图形界面，所有的操作全靠命令完成，如<strong>磁盘操作、文件存取、目录操作、进程管理、文件权限</strong> 设定等</li>
+<li>在职场中，大量的 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/act/pro/promotion-cvm?from_column=20065&from=20065"><strong>服务器</strong></a><strong>维护</strong>工作 都是在 <strong>远程</strong> 通过 <strong>SSH</strong> 客户端 来完成的，并没有图形界面，所有的维护工作都需要通过命令来完成</li>
+<li>在职场中，作为后端程序员，必须要或多或少的掌握一些 Linux 常用的终端命令</li>
+<li>Linux 发行版本的命令大概有 200 多个，但是常用的命令只有 10 多个而已</li>
+</ul>
+<h2 id="常用Linux命令的基本使用"><a href="#常用Linux命令的基本使用" class="headerlink" title="常用Linux命令的基本使用"></a>常用Linux命令的基本使用</h2><table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令</th>
+<th align="left">对应英文</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">ls</td>
+<td align="left">list</td>
+<td align="left">查看当前文件夹下的内容</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">pwd</td>
+<td align="left">print work directory</td>
+<td align="left">查看当前所在文件夹</td>
+</tr>
+<tr>
+<td align="left">03</td>
+<td align="left">cd[目录名]</td>
+<td align="left">changge directory</td>
+<td align="left">切换文件夹</td>
+</tr>
+<tr>
+<td align="left">04</td>
+<td align="left">touch[文件名]</td>
+<td align="left">touch</td>
+<td align="left">如果文件不存在，新建文件</td>
+</tr>
+<tr>
+<td align="left">05</td>
+<td align="left">mkdir[目录名]</td>
+<td align="left">make directory</td>
+<td align="left">创建目录</td>
+</tr>
+<tr>
+<td align="left">06</td>
+<td align="left">rm[文件名]</td>
+<td align="left">remove</td>
+<td align="left">删除指定文件</td>
+</tr>
+<tr>
+<td align="left">07</td>
+<td align="left">clear</td>
+<td align="left">clear</td>
+<td align="left">清屏</td>
+</tr>
+</tbody></table>
+<p><strong>小技巧：</strong></p>
+<ul>
+<li><code>ctrl + shift + =</code> <strong>放大</strong>终端窗口的字体显示</li>
+<li><code>ctrl + -</code> <strong>缩小</strong>终端窗口的字体显示</li>
+</ul>
+<h2 id="自动补全"><a href="#自动补全" class="headerlink" title="自动补全"></a>自动补全</h2><p>在敲出 <code>文件</code> ／ <code>目录</code> ／ <code>命令</code> 的前几个字母之后，按下 tab 键</p>
+<ul>
+<li>如果输入的没有歧义，系统会自动补全</li>
+<li>如果还存在其他 <code>文件</code> ／ <code>目录</code> ／ <code>命令</code> ，再按一下 tab 键，系统会提示可能存在的命令 <strong>小技巧</strong></li>
+<li>按 <code>上</code> ／ <code>下</code> 光标键可以在曾经使用过的命令之间来回切换</li>
+<li>如果想要退出选择，并且不想执行当前选中的命令，可以按 <code>ctrl + c</code></li>
+</ul>
+<h1 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h1><h2 id="查找文件"><a href="#查找文件" class="headerlink" title="查找文件"></a>查找文件</h2><p>find 命令功能非常强大，通常用来在 特定的目录下 搜索 符合条件的文件</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">find [路径] -name “*.py”</td>
+<td align="left">查找指定路径下扩展名是 .py 的文件，包括子目录</td>
+</tr>
+</tbody></table>
+<ul>
+<li>如果省略路径，表示在当前文件夹下查找</li>
+<li>之前学习的通配符，在使用 find 命令时同时可用</li>
+</ul>
+<h3 id="演练目标"><a href="#演练目标" class="headerlink" title="演练目标"></a>演练目标</h3><ul>
+<li>1.搜索桌面目录下，文件名包含 1 的文件</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">find -name <span class="hljs-string">&quot;*1*&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>2.搜索桌面目录下，所有以 .txt 为扩展名的文件</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">find -name <span class="hljs-string">&quot;*.txt&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>3.搜索桌面目录下，以数字 1 开头的文件</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">find -name <span class="hljs-string">&quot;1*&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h2><table>
+<thead>
+<tr>
+<th align="left">序 号</th>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">ln -s 被链接的源文件 链接文件</td>
+<td align="left">建立文件的软链接，用通俗的方式讲类似于 Windows 下的快捷方式</td>
+</tr>
+</tbody></table>
+<p>注意：</p>
+<ol>
+<li>没有 <code>-s</code> 选项建立的是一个 硬链接文件两个文件占用相同大小的硬盘空间，工作中<strong>几乎不会建立文件的硬链接</strong></li>
+<li>源文件要<strong>使用绝对路径</strong>，不能使用相对路径，这样可以方便移动链接文件后，仍然能够正常使用</li>
+</ol>
+<h3 id="演练目标-1"><a href="#演练目标-1" class="headerlink" title="演练目标"></a>演练目标</h3><ol>
+<li>将桌面目录下的 01.py 移动到 demo&#x2F;b&#x2F;c 目录下</li>
+<li>在桌面目录下新建 01.py 的 软链接 FirstPython分别使用 相对路径 和 绝对路径 建立 FirstPython 的软链接</li>
+<li>将 FirstPython 移动到 demo 目录下，对比使用 相对路径 和 绝对路径 的区别</li>
+</ol>
+<h3 id="硬链接简介（知道）"><a href="#硬链接简介（知道）" class="headerlink" title="硬链接简介（知道）"></a>硬链接简介（知道）</h3><p>在使用 ln 创建链接时，如果没有 -s 选项，会创建一个 硬链接，而不是软链接</p>
+<h3 id="硬链接演练"><a href="#硬链接演练" class="headerlink" title="硬链接演练"></a>硬链接演练</h3><ol>
+<li>在 <code>~/Desktop/demo</code> 目录下建立 <code>~/Desktop/demo/b/c/01.py</code> 的硬链接 <code>01_hard</code></li>
+<li>使用 ls -l 查看文件的硬链接数（硬链接——有多少种方式可以访问文件或者目录）</li>
+<li>删除 <code>~/Desktop/demo/b/c/01.py</code> ，并且使用 tree 来确认 demo 目录下的三个链接文件文件软硬链接的示意图</li>
+</ol>
+<h3 id="文件软硬链接示意图"><a href="#文件软硬链接示意图" class="headerlink" title="文件软硬链接示意图"></a>文件软硬链接示意图</h3><p><img src="https://ask.qcloudimg.com/http-save/yehe-8223537/26b69f64648ec5fa76566590ba053bba.png" srcset="/blog/img/loading.gif" lazyload alt="Alt"></p>
+<p>Alt</p>
+<p> 在 Linux 中，文件名 和 文件的数据 是分开存储的</p>
+<ul>
+<li>提示： 在 Linux 中，只有文件的 <code>硬链接数</code> &#x3D;&#x3D; 0 才会被删除 使用 <code>ls -l</code> 可以查看一个文件的硬链接的数量 在日常工作中，几乎不会建立文件的硬链接，知道即可</li>
+</ul>
+<h2 id="打包压缩"><a href="#打包压缩" class="headerlink" title="打包压缩"></a>打包压缩</h2><ul>
+<li>打包压缩 是日常工作中备份文件的一种方式</li>
+<li>在不同操作系统中，常用的打包压缩方式是不同的选项 含义 Windows 常用 rar Mac 常用 zip Linux 常用 tar.gz</li>
+</ul>
+<h3 id="打包-／-解包"><a href="#打包-／-解包" class="headerlink" title="打包 ／ 解包"></a>打包 ／ 解包</h3><p><code>tar</code> 是 Linux 中最常用的 <strong>备份</strong>工具，此命令可以 <strong>把一系列文件</strong> 打包到 一个<strong>大文件</strong>中，也可以把一个 打包的大文件恢复成一系列文件 <code>tar</code> 的命令格式如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 打包文件<br>tar -cvf 打包文件.<span class="hljs-property">tar</span> 被打包的文件／路径...<br># 解包文件<br>tar -xvf 打包文件.<span class="hljs-property">tar</span><br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><strong>tar选项说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">c</td>
+<td align="left">生成档案文件，创建打包文件</td>
+</tr>
+<tr>
+<td align="left">x</td>
+<td align="left">解开档案文件</td>
+</tr>
+<tr>
+<td align="left">v</td>
+<td align="left">列出归档解档的详细过程，显示进度</td>
+</tr>
+<tr>
+<td align="left">f</td>
+<td align="left">指定档案文件名称，f 后面一定是 .tar 文件，所以必须放选项最后</td>
+</tr>
+</tbody></table>
+<p>注意： <strong>f 选项必须放在最后，其他选项顺序可以随意</strong></p>
+<h2 id="压缩／解压缩"><a href="#压缩／解压缩" class="headerlink" title="压缩／解压缩"></a>压缩／解压缩</h2><h3 id="1）gzip"><a href="#1）gzip" class="headerlink" title="1）gzip"></a>1）gzip</h3><ul>
+<li>tar 与 gzip 命令结合可以使用实现文件 打包和压缩 tar 只负责打包文件，但不压缩 用 gzip 压缩 tar 打包后的文件，其扩展名一般用 xxx.tar.gz</li>
+</ul>
+<blockquote>
+<p> 在 Linux 中，最常见的压缩文件格式就是 xxx.tar.gz </p>
+</blockquote>
+<ul>
+<li>在 tar 命令中有一个选项 -z 可以调用 gzip ，从而可以方便的实现压缩和解压缩的</li>
+<li>功能命令格式如下：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 压缩文件<br>tar -zcvf 打包文件.<span class="hljs-property">tar</span>.<span class="hljs-property">gz</span> 被压缩的文件／路径...<br># 解压缩文件<br>tar -zxvf 打包文件.<span class="hljs-property">tar</span>.<span class="hljs-property">gz</span><br># 解压缩到指定路径<br>tar -zxvf 打包文件.<span class="hljs-property">tar</span>.<span class="hljs-property">gz</span> -C 目标路径<br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-C</td>
+<td align="left">解压缩到指定目录，注意：要解压缩的目录必须存在</td>
+</tr>
+</tbody></table>
+<h3 id="2-bzip2-two"><a href="#2-bzip2-two" class="headerlink" title="2) bzip2(two)"></a>2) bzip2(two)</h3><ul>
+<li>tar 与 bzip2 命令结合可以使用实现文件 打包和压缩（用法和 gzip 一样） tar 只负责打包文件，但不压缩 用 bzip2 压缩 tar 打包后的文件，其扩展名一般用 xxx.tar.bz2</li>
+<li>在 tar 命令中有一个选项 -j 可以调用 bzip2 ，从而可以方便的实现压缩和解压缩的功能</li>
+<li>命令格式如下：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 压缩文件<br>tar -jcvf 打包文件.<span class="hljs-property">tar</span>.<span class="hljs-property">bz2</span> 被压缩的文件／路径...<br># 解压缩文件<br>tar -jxvf 打包文件.<span class="hljs-property">tar</span>.<span class="hljs-property">bz2</span><br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><h3 id="通过-apt-安装／卸载软件"><a href="#通过-apt-安装／卸载软件" class="headerlink" title="通过 apt 安装／卸载软件"></a>通过 apt 安装／卸载软件</h3><ul>
+<li>apt 是 <code>Advanced Packaging Tool</code> ，是 Linux 下的一款安装包管理工具</li>
+<li>可以在终端中方便的 <strong>安装／卸载／更新软件包</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># <span class="hljs-number">1.</span> 安装软件<br>$ sudo apt install 软件包<br># <span class="hljs-number">2.</span> 卸载软件<br>$ sudo apt remove 软件名<br># <span class="hljs-number">3.</span> 更新已安装的包<br>$ sudo apt upgrade<br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<h1 id="文件和目录常用命令"><a href="#文件和目录常用命令" class="headerlink" title="文件和目录常用命令"></a>文件和目录常用命令</h1><h2 id="查看目录内容"><a href="#查看目录内容" class="headerlink" title="查看目录内容"></a>查看目录内容</h2><h3 id="ls-命令说明"><a href="#ls-命令说明" class="headerlink" title="ls 命令说明"></a>ls 命令说明</h3><ul>
+<li>ls 是英文单词 list 的简写，其功能为列出目录的内容，是用户最常用的命令之一，类似于 DOS下的 dir 命令</li>
+</ul>
+<h3 id="Linux-下文件和目录的特点"><a href="#Linux-下文件和目录的特点" class="headerlink" title="Linux 下文件和目录的特点"></a>Linux 下文件和目录的特点</h3><ul>
+<li>Linux 文件 或者 目录 名称最长可以有 256 个字符参数 含义</li>
+<li>以 . 开头的文件为隐藏文件，需要用 -a 参数才能显示</li>
+<li>. 代表当前目录</li>
+<li>… 代表上一级目录</li>
+</ul>
+<h3 id="ls-常用选项"><a href="#ls-常用选项" class="headerlink" title="ls 常用选项"></a>ls 常用选项</h3><table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-a</td>
+<td align="left">显示指定目录下所有子目录与文件，包括隐藏文件</td>
+</tr>
+<tr>
+<td align="left">-l</td>
+<td align="left">以列表方式显示文件的详细信息</td>
+</tr>
+<tr>
+<td align="left">-h</td>
+<td align="left">配合 -l 以人性化的方式显示文件大小</td>
+</tr>
+</tbody></table>
+<h3 id="ls通配符的使用"><a href="#ls通配符的使用" class="headerlink" title="ls通配符的使用"></a>ls通配符的使用</h3><table>
+<thead>
+<tr>
+<th align="left">通配符</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">*</td>
+<td align="left">代表任意个数个字符</td>
+</tr>
+<tr>
+<td align="left">?</td>
+<td align="left">代表任意一个字符，至少 1 个</td>
+</tr>
+<tr>
+<td align="left">[]</td>
+<td align="left">表示可以匹配字符组中的任一一个</td>
+</tr>
+<tr>
+<td align="left">[abc]</td>
+<td align="left">匹配 a、b、c 中的任意一个</td>
+</tr>
+<tr>
+<td align="left">[a-f]</td>
+<td align="left">匹配从 a 到 f 范围内的的任意一个字符</td>
+</tr>
+</tbody></table>
+<p>注意：以 . 开头的文件为隐藏文件，需要用 -a 参数才能显示</p>
+<h2 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h2><h3 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h3><p><code>cd</code> 是英文单词 change directory 的简写，其功能为更改当前的工作目录，也是用户<strong>最常用的命令之一</strong> 注意：Linux 所有的 目录 和 文件名 都是大小写敏感的</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">cd</td>
+<td align="left">切换到当前用户的主目录(&#x2F;home&#x2F;用户目录)</td>
+</tr>
+<tr>
+<td align="left">cd ~</td>
+<td align="left">切换到当前用户的主目录(&#x2F;home&#x2F;用户目录)</td>
+</tr>
+<tr>
+<td align="left">cd .</td>
+<td align="left">保持在当前目录不变</td>
+</tr>
+<tr>
+<td align="left">cd …</td>
+<td align="left">切换到上级目录</td>
+</tr>
+<tr>
+<td align="left">cd –</td>
+<td align="left">可以在最近两次工作目录之间来回切换</td>
+</tr>
+</tbody></table>
+<h3 id="相对路径和绝对路径"><a href="#相对路径和绝对路径" class="headerlink" title="相对路径和绝对路径"></a>相对路径和绝对路径</h3><p>相对路径 在输入路径时，最前面不是 &#x2F; 或者 ~，表示相对 当前目录 所在的目录位置 绝对路径 在输入路径时，最前面是 &#x2F; 或者 ~，表示从 <strong>根目录&#x2F;家目录</strong> 开始的具体目录位置</p>
+<h2 id="创建和删除操作"><a href="#创建和删除操作" class="headerlink" title="创建和删除操作"></a>创建和删除操作</h2><h3 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h3><ul>
+<li>创建文件或修改文件时间 如果文件 不存在，可以创建一个空白文件 如果文件 已经存在，可以修改文件的末次修改日期</li>
+</ul>
+<h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><ul>
+<li>创建一个新的目录</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-p</td>
+<td align="left">可以递归创建目录</td>
+</tr>
+</tbody></table>
+<p><strong>新建目录的名称 不能与当前目录中 已有的目录或文件 同名</strong></p>
+<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><ul>
+<li>删除文件或目录 使用 rm 命令要小心，因为文件删除后不能恢复</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-f</td>
+<td align="left">强制删除，忽略不存在的文件，无需提示</td>
+</tr>
+<tr>
+<td align="left">-r</td>
+<td align="left">递归地删除目录下的内容，删除文件夹 时必须加此参数</td>
+</tr>
+</tbody></table>
+<h2 id="拷贝和移动文件"><a href="#拷贝和移动文件" class="headerlink" title="拷贝和移动文件"></a>拷贝和移动文件</h2><table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令</th>
+<th align="left">对应英文</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">tree [目录名]</td>
+<td align="left">tree</td>
+<td align="left">以树状图列出文件目录结构</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">cp 源文件目标文件</td>
+<td align="left">copy</td>
+<td align="left">复制文件或者目录</td>
+</tr>
+<tr>
+<td align="left">03</td>
+<td align="left">mv 源文件 目标文件</td>
+<td align="left">move</td>
+<td align="left">移动文件或者目录／文件或者目录重命名</td>
+</tr>
+</tbody></table>
+<h3 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h3><ul>
+<li>tree 命令可以以树状图列出文件目录结构</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-d</td>
+<td align="left">只显示目录</td>
+</tr>
+</tbody></table>
+<h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><ul>
+<li>cp 命令的功能是将给出的 <strong>文件 或 目录</strong> 复制到另一个 <strong>文件 或 目录</strong> 中，相当DOS 下的 copy命令</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">选 项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-i</td>
+<td align="left">覆盖文件前提示</td>
+</tr>
+<tr>
+<td align="left">-r</td>
+<td align="left">若给出的源文件是目录文件，则 cp 将递归复制该目录下的所有子目录和文件，目标文件必</td>
+</tr>
+</tbody></table>
+<p>须为一个目录名</p>
+<h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><ul>
+<li>mv 命令可以用来 移动 文件 或 目录，也可以给 文件或目录重命名</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-i</td>
+<td align="left">覆盖文件前提示</td>
+</tr>
+</tbody></table>
+<h2 id="查看文件内容"><a href="#查看文件内容" class="headerlink" title="查看文件内容"></a>查看文件内容</h2><table>
+<thead>
+<tr>
+<th align="left">序 号</th>
+<th align="left">命令</th>
+<th align="left">对应英文</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">cat 文件名</td>
+<td align="left">concatenate</td>
+<td align="left">查看文件内容、创建文件、文件合并、追加文件内容等功能</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">more 文件名</td>
+<td align="left">more</td>
+<td align="left">分屏显示文件内容</td>
+</tr>
+<tr>
+<td align="left">03</td>
+<td align="left">grep 搜索文本 文件名</td>
+<td align="left">grep</td>
+<td align="left">搜索文本文件内容</td>
+</tr>
+</tbody></table>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>cat 命令可以用来 查看文件内容、创建文件、文件合并、追加文件内容 等功能 cat 会一次显示所有的内容，适合 查看内容较少 的文本文件</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-b</td>
+<td align="left">对非空输出行编号</td>
+</tr>
+<tr>
+<td align="left">-n</td>
+<td align="left">对输出的所有行编号</td>
+</tr>
+</tbody></table>
+<p>Linux 中还有一个 nl 的命令和 cat -b 的效果等价</p>
+<h3 id="more"><a href="#more" class="headerlink" title="more"></a>more</h3><ul>
+<li>more 命令可以用于分屏显示文件内容，每次只显示一页内容</li>
+<li>适合于 查看内容较多的文本文件</li>
+</ul>
+<p>使用 more 的操作键：</p>
+<table>
+<thead>
+<tr>
+<th align="left">操作键</th>
+<th align="left">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">空格键</td>
+<td align="left">显示手册页的下一屏</td>
+</tr>
+<tr>
+<td align="left">Enter</td>
+<td align="left">键 一次滚动手册页的一行</td>
+</tr>
+<tr>
+<td align="left">b</td>
+<td align="left">回滚一屏</td>
+</tr>
+<tr>
+<td align="left">f</td>
+<td align="left">前滚一屏</td>
+</tr>
+<tr>
+<td align="left">q</td>
+<td align="left">退出</td>
+</tr>
+<tr>
+<td align="left">&#x2F;word</td>
+<td align="left">搜索 word 字符串</td>
+</tr>
+</tbody></table>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>Linux 系统中 grep 命令是一种强大的文本搜索工具 grep 允许对文本文件进行 模式查找，所谓模式查找，又被称为正则表达式。</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-n</td>
+<td align="left">显示匹配行及行号</td>
+</tr>
+<tr>
+<td align="left">-v</td>
+<td align="left">显示不包含匹配文本的所有行（相当于求反）</td>
+</tr>
+<tr>
+<td align="left">-i</td>
+<td align="left">忽略大小写</td>
+</tr>
+</tbody></table>
+<p>常用的两种模式查找</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">^a</td>
+<td align="left">行首，搜寻以 a 开头的行</td>
+</tr>
+<tr>
+<td align="left">ke$</td>
+<td align="left">行尾，搜寻以 ke 结束的行</td>
+</tr>
+</tbody></table>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="echo-文字内容"><a href="#echo-文字内容" class="headerlink" title="echo 文字内容"></a>echo 文字内容</h3><p>echo 会在终端中显示参数指定的文字，通常会和 重定向 联合使用</p>
+<h3 id="重定向-gt-和-gt-gt"><a href="#重定向-gt-和-gt-gt" class="headerlink" title="重定向 &gt; 和 &gt;&gt;"></a>重定向 &gt; 和 &gt;&gt;</h3><p>Linux 允许将命令执行结果 重定向到一个 文件 将本应显示在终端上的内容 输出／追加 到指定文件中 其中 <strong>&gt; 表示输出，会覆盖文件原有的内容</strong> <strong>&gt;&gt; 表示追加，会将内容追加到已有文件的末尾</strong></p>
+<h3 id="管道"><a href="#管道" class="headerlink" title="管道 |"></a>管道 |</h3><ul>
+<li>Linux 允许将 一个命令的输出 可以通过管道 做为 另一个命令的输入</li>
+<li>可以理解现实生活中的管子，管子的一头塞东西进去，另一头取出来，这里 | 的左右分为两端， 左端塞东西（写），右端取东西（读）</li>
+</ul>
+<p>常用的管道命令有：</p>
+<ul>
+<li>more ：分屏显示内容</li>
+<li>grep ：在命令执行结果的基础上查询指定的文本</li>
+</ul>
+<h1 id="系统信息相关命令"><a href="#系统信息相关命令" class="headerlink" title="系统信息相关命令"></a>系统信息相关命令</h1><h2 id="时间和日期"><a href="#时间和日期" class="headerlink" title="时间和日期"></a>时间和日期</h2><table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">date</td>
+<td align="left">查看系统时间</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">cal</td>
+<td align="left">calendar 查看日历， -y 选项可以查看一年的日历</td>
+</tr>
+</tbody></table>
+<h2 id="磁盘信息"><a href="#磁盘信息" class="headerlink" title="磁盘信息"></a>磁盘信息</h2><table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">df -h</td>
+<td align="left">disk free 显示磁盘剩余空间</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">du -h [目录名]</td>
+<td align="left">disk usage 显示目录下的文件大小</td>
+</tr>
+</tbody></table>
+<h2 id="进程信息"><a href="#进程信息" class="headerlink" title="进程信息"></a>进程信息</h2><p>所谓<strong>进程</strong>，通俗地说就是 <strong>当前正在执行的一个程序</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">ps aux</td>
+<td align="left">process status 查看进程的详细状况</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">top</td>
+<td align="left">动态显示运行中的进程并且排序</td>
+</tr>
+<tr>
+<td align="left">03</td>
+<td align="left">kill [-9] 进程代号</td>
+<td align="left">终止指定代号的进程， -9 表示强行终止</td>
+</tr>
+</tbody></table>
+<p>ps 默认只会显示当前用户通过终端启动的应用程序 ps 选项说明</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">a</td>
+<td align="left">显示终端上的所有进程，包括其他用户的进程</td>
+</tr>
+<tr>
+<td align="left">u</td>
+<td align="left">显示进程的详细状态</td>
+</tr>
+<tr>
+<td align="left">x</td>
+<td align="left">显示没有控制终端的进程</td>
+</tr>
+</tbody></table>
+<p>提示：使用 kill 命令时，最好只终止由当前用户开启的进程，而不要终止 root 身份开启的进程，否则可能导致系统崩溃</p>
+<ul>
+<li>要退出 top 可以直接输入 q</li>
+</ul>
+<h1 id="用户权限相关命令"><a href="#用户权限相关命令" class="headerlink" title="用户权限相关命令"></a>用户权限相关命令</h1><h2 id="组管理"><a href="#组管理" class="headerlink" title="组管理"></a>组管理</h2><p>提示：创建组 &#x2F; 删除组 的终端命令都需要通过 sudo 执行</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">groupadd 组名</td>
+<td align="left">添加组</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">groupdel 组名</td>
+<td align="left">删除组</td>
+</tr>
+<tr>
+<td align="left">03</td>
+<td align="left">cat &#x2F;etc&#x2F;group</td>
+<td align="left">确认组信息</td>
+</tr>
+<tr>
+<td align="left">04</td>
+<td align="left">chgrp -R 组名 文件&#x2F;目录名</td>
+<td align="left">递归修改文件&#x2F;目录的所属组</td>
+</tr>
+</tbody></table>
+<p>提示： 组信息保存在 &#x2F;etc&#x2F;group 文件中 &#x2F;etc 目录是专门用来保存 系统配置信息 的目录</p>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><p>提示：创建用户 &#x2F; 删除用户 &#x2F; 修改其他用户密码 的终端命令都需要通过 sudo 执行</p>
+<h3 id="创建用户／设置密码／删除用户"><a href="#创建用户／设置密码／删除用户" class="headerlink" title="创建用户／设置密码／删除用户"></a>创建用户／设置密码／删除用户</h3><p><img src="https://ask.qcloudimg.com/http-save/yehe-8223537/8be57ad05c3b808daaf825c3c14b9a6b.png" srcset="/blog/img/loading.gif" lazyload alt="Alt"></p>
+<p>Alt</p>
+<p> 提示：</p>
+<ul>
+<li>创建用户时，如果忘记添加 -m 选项指定新用户的家目录 —— 最简单的方法就是删除用户，重新创建</li>
+<li>创建用户时，默认会创建一个和用户名同名的组名</li>
+<li>用户信息保存在 &#x2F;etc&#x2F;passwd 文件中</li>
+</ul>
+<h3 id="查看用户信息"><a href="#查看用户信息" class="headerlink" title="查看用户信息"></a>查看用户信息</h3><table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">id [用户名]</td>
+<td align="left">查看用户 UID 和 GID 信息</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">who</td>
+<td align="left">查看当前所有登录的用户列表</td>
+</tr>
+<tr>
+<td align="left">03</td>
+<td align="left">whoami</td>
+<td align="left">查看当前登录用户的账户名</td>
+</tr>
+</tbody></table>
+<h4 id="which（重要）"><a href="#which（重要）" class="headerlink" title="which（重要）"></a>which（重要）</h4><p>提示</p>
+<ul>
+<li>&#x2F;etc&#x2F;passwd 是用于保存用户信息的文件</li>
+<li>&#x2F;usr&#x2F;bin&#x2F;passwd 是用于修改用户密码的程序 which 命令可以查看执行命令所在位置，例如：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">which ls<br># 输出<br># /bin/ls<br>which useradd<br># 输出<br># /usr/sbin/useradd<br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><strong>bin 和 sbin</strong></p>
+<ul>
+<li>在 Linux 中，绝大多数可执行文件都是保存在 &#x2F;bin 、 &#x2F;sbin 、 &#x2F;usr&#x2F;bin 、 &#x2F;usr&#x2F;sbin</li>
+<li>&#x2F;bin （ binary ）是二进制执行文件目录，主要用于具体应用</li>
+<li>&#x2F;sbin （ system binary ）是系统管理员专用的二进制代码存放目录，主要用于系统管理</li>
+<li>&#x2F;usr&#x2F;bin （ user commands for applications ）后期安装的一些软件</li>
+<li>&#x2F;usr&#x2F;sbin （ super user commands for applications ）超级用户的一些管理程序</li>
+</ul>
+<p>提示： cd 这个终端命令是内置在系统内核中的，没有独立的文件，因此用 which 无法找到 cd命令的位置</p>
+<h3 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h3><table>
+<thead>
+<tr>
+<th align="left">序 号</th>
+<th align="left">命令</th>
+<th align="left">作用</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">su – 用户名</td>
+<td align="left">切换用户，并且切换目录</td>
+<td align="left">– 可以切换到用户家目录，否则保持位置不变</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">exit</td>
+<td align="left">退出当前登录账户</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>su 不接用户名，可以切换到 root ，但是不推荐使用，因为不安全 exit 示意图如下：</p>
+<h2 id="修改文件权限"><a href="#修改文件权限" class="headerlink" title="修改文件权限"></a>修改文件权限</h2><table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">chown</td>
+<td align="left">修改拥有者</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">chgrp</td>
+<td align="left">修改组</td>
+</tr>
+<tr>
+<td align="left">03</td>
+<td align="left">chmod</td>
+<td align="left">修改权限</td>
+</tr>
+</tbody></table>
+<p>命令格式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 修改文件|目录的拥有者<br>chown 用户名 文件名|目录名<br># 递归修改文件|目录的组<br>chgrp -R 组名 文件名|目录名<br># 递归修改文件权限<br>chmod -R <span class="hljs-number">755</span> 文件名|目录名<br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<h1 id="远程管理常用命令"><a href="#远程管理常用命令" class="headerlink" title="远程管理常用命令"></a>远程管理常用命令</h1><h2 id="关机-x2F-重启"><a href="#关机-x2F-重启" class="headerlink" title="关机&#x2F;重启"></a>关机&#x2F;重启</h2><table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令</th>
+<th align="left">对应英文</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">shutdown</td>
+<td align="left">选项 时间 shutdown</td>
+<td align="left">关机／重新启动</td>
+</tr>
+</tbody></table>
+<p>常用命令示例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 重新启动操作系统，其中 now 表示现在<br>$ shutdown -r now<br># 立刻关机，其中 now 表示现在<br>$ shutdown now<br># 系统在今天的 <span class="hljs-number">20</span>:<span class="hljs-number">25</span> 会关机<br>$ shutdown <span class="hljs-number">20</span>:<span class="hljs-number">25</span><br># 系统再过十分钟后自动关机<br>$ shutdown +<span class="hljs-number">10</span><br># 取消之前指定的关机计划<br>$ shutdown -c<br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p>不指定选项和参数，默认表示 1 分钟之后 关闭电脑 远程维护服务器时，最好不要关闭系统，而应该重新启动系统</p>
+<h2 id="查看配置网卡信息"><a href="#查看配置网卡信息" class="headerlink" title="查看配置网卡信息"></a>查看配置网卡信息</h2><table>
+<thead>
+<tr>
+<th align="left">序 号</th>
+<th align="left">命令</th>
+<th align="left">对应英文</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">01</td>
+<td align="left">ifconfig</td>
+<td align="left">configure a network interface</td>
+<td align="left">查看&#x2F;配置计算机当前的网卡配置信息</td>
+</tr>
+<tr>
+<td align="left">02</td>
+<td align="left">ping ip地址</td>
+<td align="left">ping</td>
+<td align="left">检测到目标 ip地址 的连接是否正常</td>
+</tr>
+</tbody></table>
+<h3 id="ifconfig"><a href="#ifconfig" class="headerlink" title="ifconfig"></a>ifconfig</h3><p>ifconfig 可以查看／配置计算机当前的网卡配置信息</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 查看网卡配置信息<br>$ ifconfig<br># 查看网卡对应的 <span class="hljs-variable constant_">IP</span> 地址<br>$ ifconfig | grep inet<br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p>提示：一台计算机中有可能会有一个 物理网卡 和 多个虚拟网卡，在 Linux 中物理网卡的名字通常以 ensXX 表示 127.0.0.1 被称为 <strong>本地回环&#x2F;环回地址</strong>，一般用来测试本机网卡是否正常</p>
+<h3 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h3><p>ping 一般用于检测当前计算机到目标计算机之间的网络 <strong>是否通畅，数值越大，速度越慢</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 检测到目标主机是否连接正常<br>$ ping <span class="hljs-variable constant_">IP</span>地址<br># 检测本地网卡工作正常<br>$ ping <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p>ping 的工作原理与潜水艇的声纳相似， ping 这个命令就是取自 声纳的声音 网络管理员之间也常将 ping 用作动词 —— ping 一下计算机X，看他是否开着</p>
+<h2 id="远程登录和赋值文件"><a href="#远程登录和赋值文件" class="headerlink" title="远程登录和赋值文件"></a>远程登录和赋值文件</h2><p><img src="https://ask.qcloudimg.com/http-save/yehe-8223537/f6b4c6816d37e5992c13ce7db1a191f4.png" srcset="/blog/img/loading.gif" lazyload alt="Alt"></p>
+<p>Alt</p>
+<h3 id="ssh-基础（重点）"><a href="#ssh-基础（重点）" class="headerlink" title="ssh 基础（重点）"></a>ssh 基础（重点）</h3><p>在 Linux 中 SSH 是 <strong>非常常用</strong> 的工具，通过 <strong>SSH 客户端</strong> 我们可以连接到运行了 <strong>SSH 服务器</strong> 的远程机器上 </p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-8223537/63aadccaf0d1238e0ead1fb405c316f3.png" srcset="/blog/img/loading.gif" lazyload alt="Alt"></p>
+<p>Alt</p>
+<p> ssh的简单使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">ssh [-p port] user@remote<br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<ul>
+<li>user 是在远程机器上的用户名，如果不指定的话默认为当前用户</li>
+<li>remote 是远程机器的地址，可以是 IP／<a target="_blank" rel="noopener" href="https://cloud.tencent.com/act/pro/domain-sales?from_column=20065&from=20065">域名</a>，或者是 后面会提到的别名</li>
+<li>port 是 SSH Server 监听的端口，如果不指定，就为默认值 22</li>
+</ul>
+<p>提示：</p>
+<ul>
+<li>使用 exit 退出当前用户的登录</li>
+<li>ssh 这个终端命令只能在 Linux 或者 UNIX 系统下使用</li>
+<li>如果在 Windows 系统中，可以安装 PuTTY 或者 XShell 客户端软件即可</li>
+<li>在工作中，SSH 服务器的端口号很有可能<strong>不是 22</strong>，如果遇到这种情况就需要<strong>使用 -p 选项</strong>，指定正确的端口号，否则无法正常连接到服务器</li>
+</ul>
+<h3 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h3><p>scp 就是 secure copy ，是一个在 Linux 下用来进行 <strong>远程拷贝文件</strong> 的命令 它的<strong>地址格式与 ssh 基本相同</strong>，需要注意的是，在指定端口时用的是大写的 -P 而不是小写的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 把本地当前目录下的 <span class="hljs-number">01</span>.<span class="hljs-property">py</span> 文件 复制到 远程 家目录下的 <span class="hljs-title class_">Desktop</span>/<span class="hljs-number">01</span>.<span class="hljs-property">py</span><br># 注意：<span class="hljs-string">`:`</span> 后面的路径如果不是绝对路径，则以用户的家目录作为参照路径<br>scp -P port <span class="hljs-number">01</span>.<span class="hljs-property">py</span> user@<span class="hljs-attr">remote</span>:<span class="hljs-title class_">Desktop</span>/<span class="hljs-number">01</span>.<span class="hljs-property">py</span><br># 把远程 家目录下的 <span class="hljs-title class_">Desktop</span>/<span class="hljs-number">01</span>.<span class="hljs-property">py</span> 文件 复制到 本地当前目录下的 <span class="hljs-number">01</span>.<span class="hljs-property">py</span><br>scp -P port user@<span class="hljs-attr">remote</span>:<span class="hljs-title class_">Desktop</span>/<span class="hljs-number">01</span>.<span class="hljs-property">py</span> <span class="hljs-number">01</span>.<span class="hljs-property">py</span><br># 加上 -r 选项可以传送文件夹<br># 把当前目录下的 demo 文件夹 复制到 远程 家目录下的 <span class="hljs-title class_">Desktop</span><br>scp -r demo user@<span class="hljs-attr">remote</span>:<span class="hljs-title class_">Desktop</span><br># 把远程 家目录下的 <span class="hljs-title class_">Desktop</span> 复制到 当前目录下的 demo 文件夹<br>scp -r user@<span class="hljs-attr">remote</span>:<span class="hljs-title class_">Desktop</span> demo<br></code></pre></td></tr></table></figure>
+
+<p>复制</p>
+<table>
+<thead>
+<tr>
+<th align="left">选 项</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-r</td>
+<td align="left">若给出的源文件是目录文件，则 scp 将递归复制该目录下的所有子目录和文件，目标文件必须为一个目录名</td>
+</tr>
+<tr>
+<td align="left">-P</td>
+<td align="left">若远程 SSH 服务器的端口不是 22，需要使用大写字母 -P 选项指定端口</td>
+</tr>
+</tbody></table>
+<p>注意： scp 这个终端命令只能在 <code>Linux</code> 或者 <code>UNIX</code> 系统下使用 如果在 Windows 系统中，可以安装 PuTTY ，使用 pscp <a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/cli?from_column=20065&from=20065">命令行工具</a>或者安装 FileZilla使用 FTP 进行文件传输</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/Linux%E3%80%81%E8%BF%90%E7%BB%B4/">#Linux、运维</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Linux常用命令</div>
+      <div>https://yoonalis.github.io/blog/2023/10/10/Linux常用命令/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Azure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2023/10/10/leetcode%E7%BB%8F%E5%85%B8%E9%A2%98%E7%9B%AE/" title="leetcode经典题目">
+                        <span class="hidden-mobile">leetcode经典题目</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
