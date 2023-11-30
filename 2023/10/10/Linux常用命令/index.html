@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/Linux.jpg">
 <meta property="article:published_time" content="2023-10-10T04:56:30.702Z">
-<meta property="article:modified_time" content="2023-10-21T05:35:40.145Z">
+<meta property="article:modified_time" content="2023-10-26T05:52:01.923Z">
 <meta property="article:author" content="Azure">
 <meta property="article:tag" content="Linux、运维">
 <meta name="twitter:card" content="summary_large_image">
@@ -248,7 +248,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          8k 字
+          7.9k 字
         
       </span>
     
@@ -325,14 +325,13 @@
 <li>说明 使用 man 时的操作键</li>
 </ul>
 <p><img src="https://ask.qcloudimg.com/http-save/yehe-8223537/e9de4c8490453f9d34c1e965ac77e3e9.png" srcset="/blog/img/loading.gif" lazyload alt="Alt"></p>
-<p>Alt</p>
-<h1 id="常用Linux命令的基本实用"><a href="#常用Linux命令的基本实用" class="headerlink" title="常用Linux命令的基本实用"></a>常用Linux命令的基本实用</h1><h2 id="学习Linux终端命令的原因"><a href="#学习Linux终端命令的原因" class="headerlink" title="学习Linux终端命令的原因"></a>学习Linux终端命令的原因</h2><ul>
+<h1 id="常用Linux命令的基本使用"><a href="#常用Linux命令的基本使用" class="headerlink" title="常用Linux命令的基本使用"></a>常用Linux命令的基本使用</h1><h2 id="学习Linux终端命令的原因"><a href="#学习Linux终端命令的原因" class="headerlink" title="学习Linux终端命令的原因"></a>学习Linux终端命令的原因</h2><ul>
 <li>Linux 刚面世时并没有图形界面，所有的操作全靠命令完成，如<strong>磁盘操作、文件存取、目录操作、进程管理、文件权限</strong> 设定等</li>
 <li>在职场中，大量的 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/act/pro/promotion-cvm?from_column=20065&from=20065"><strong>服务器</strong></a><strong>维护</strong>工作 都是在 <strong>远程</strong> 通过 <strong>SSH</strong> 客户端 来完成的，并没有图形界面，所有的维护工作都需要通过命令来完成</li>
 <li>在职场中，作为后端程序员，必须要或多或少的掌握一些 Linux 常用的终端命令</li>
 <li>Linux 发行版本的命令大概有 200 多个，但是常用的命令只有 10 多个而已</li>
 </ul>
-<h2 id="常用Linux命令的基本使用"><a href="#常用Linux命令的基本使用" class="headerlink" title="常用Linux命令的基本使用"></a>常用Linux命令的基本使用</h2><table>
+<h2 id="常用Linux命令的基本使用-1"><a href="#常用Linux命令的基本使用-1" class="headerlink" title="常用Linux命令的基本使用"></a>常用Linux命令的基本使用</h2><table>
 <thead>
 <tr>
 <th align="left">序号</th>
@@ -463,7 +462,6 @@
 <li>删除 <code>~/Desktop/demo/b/c/01.py</code> ，并且使用 tree 来确认 demo 目录下的三个链接文件文件软硬链接的示意图</li>
 </ol>
 <h3 id="文件软硬链接示意图"><a href="#文件软硬链接示意图" class="headerlink" title="文件软硬链接示意图"></a>文件软硬链接示意图</h3><p><img src="https://ask.qcloudimg.com/http-save/yehe-8223537/26b69f64648ec5fa76566590ba053bba.png" srcset="/blog/img/loading.gif" lazyload alt="Alt"></p>
-<p>Alt</p>
 <p> 在 Linux 中，文件名 和 文件的数据 是分开存储的</p>
 <ul>
 <li>提示： 在 Linux 中，只有文件的 <code>硬链接数</code> &#x3D;&#x3D; 0 才会被删除 使用 <code>ls -l</code> 可以查看一个文件的硬链接的数量 在日常工作中，几乎不会建立文件的硬链接，知道即可</li>
@@ -475,7 +473,6 @@
 <h3 id="打包-／-解包"><a href="#打包-／-解包" class="headerlink" title="打包 ／ 解包"></a>打包 ／ 解包</h3><p><code>tar</code> 是 Linux 中最常用的 <strong>备份</strong>工具，此命令可以 <strong>把一系列文件</strong> 打包到 一个<strong>大文件</strong>中，也可以把一个 打包的大文件恢复成一系列文件 <code>tar</code> 的命令格式如下:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 打包文件<br>tar -cvf 打包文件.<span class="hljs-property">tar</span> 被打包的文件／路径...<br># 解包文件<br>tar -xvf 打包文件.<span class="hljs-property">tar</span><br></code></pre></td></tr></table></figure>
 
-<p>复制</p>
 <p><strong>tar选项说明：</strong></p>
 <table>
 <thead>
@@ -534,14 +531,12 @@
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 压缩文件<br>tar -jcvf 打包文件.<span class="hljs-property">tar</span>.<span class="hljs-property">bz2</span> 被压缩的文件／路径...<br># 解压缩文件<br>tar -jxvf 打包文件.<span class="hljs-property">tar</span>.<span class="hljs-property">bz2</span><br></code></pre></td></tr></table></figure>
 
-<p>复制</p>
 <h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><h3 id="通过-apt-安装／卸载软件"><a href="#通过-apt-安装／卸载软件" class="headerlink" title="通过 apt 安装／卸载软件"></a>通过 apt 安装／卸载软件</h3><ul>
 <li>apt 是 <code>Advanced Packaging Tool</code> ，是 Linux 下的一款安装包管理工具</li>
 <li>可以在终端中方便的 <strong>安装／卸载／更新软件包</strong></li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># <span class="hljs-number">1.</span> 安装软件<br>$ sudo apt install 软件包<br># <span class="hljs-number">2.</span> 卸载软件<br>$ sudo apt remove 软件名<br># <span class="hljs-number">3.</span> 更新已安装的包<br>$ sudo apt upgrade<br></code></pre></td></tr></table></figure>
 
-<p>复制</p>
 <h1 id="文件和目录常用命令"><a href="#文件和目录常用命令" class="headerlink" title="文件和目录常用命令"></a>文件和目录常用命令</h1><h2 id="查看目录内容"><a href="#查看目录内容" class="headerlink" title="查看目录内容"></a>查看目录内容</h2><h3 id="ls-命令说明"><a href="#ls-命令说明" class="headerlink" title="ls 命令说明"></a>ls 命令说明</h3><ul>
 <li>ls 是英文单词 list 的简写，其功能为列出目录的内容，是用户最常用的命令之一，类似于 DOS下的 dir 命令</li>
 </ul>
@@ -999,7 +994,6 @@
 <p>提示： 组信息保存在 &#x2F;etc&#x2F;group 文件中 &#x2F;etc 目录是专门用来保存 系统配置信息 的目录</p>
 <h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><p>提示：创建用户 &#x2F; 删除用户 &#x2F; 修改其他用户密码 的终端命令都需要通过 sudo 执行</p>
 <h3 id="创建用户／设置密码／删除用户"><a href="#创建用户／设置密码／删除用户" class="headerlink" title="创建用户／设置密码／删除用户"></a>创建用户／设置密码／删除用户</h3><p><img src="https://ask.qcloudimg.com/http-save/yehe-8223537/8be57ad05c3b808daaf825c3c14b9a6b.png" srcset="/blog/img/loading.gif" lazyload alt="Alt"></p>
-<p>Alt</p>
 <p> 提示：</p>
 <ul>
 <li>创建用户时，如果忘记添加 -m 选项指定新用户的家目录 —— 最简单的方法就是删除用户，重新创建</li>
@@ -1037,7 +1031,8 @@
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">which ls<br># 输出<br># /bin/ls<br>which useradd<br># 输出<br># /usr/sbin/useradd<br></code></pre></td></tr></table></figure>
 
-<p>复制</p>
+
+
 <p><strong>bin 和 sbin</strong></p>
 <ul>
 <li>在 Linux 中，绝大多数可执行文件都是保存在 &#x2F;bin 、 &#x2F;sbin 、 &#x2F;usr&#x2F;bin 、 &#x2F;usr&#x2F;sbin</li>
@@ -1097,7 +1092,8 @@
 <p>命令格式如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 修改文件|目录的拥有者<br>chown 用户名 文件名|目录名<br># 递归修改文件|目录的组<br>chgrp -R 组名 文件名|目录名<br># 递归修改文件权限<br>chmod -R <span class="hljs-number">755</span> 文件名|目录名<br></code></pre></td></tr></table></figure>
 
-<p>复制</p>
+
+
 <h1 id="远程管理常用命令"><a href="#远程管理常用命令" class="headerlink" title="远程管理常用命令"></a>远程管理常用命令</h1><h2 id="关机-x2F-重启"><a href="#关机-x2F-重启" class="headerlink" title="关机&#x2F;重启"></a>关机&#x2F;重启</h2><table>
 <thead>
 <tr>
@@ -1117,7 +1113,6 @@
 <p>常用命令示例</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 重新启动操作系统，其中 now 表示现在<br>$ shutdown -r now<br># 立刻关机，其中 now 表示现在<br>$ shutdown now<br># 系统在今天的 <span class="hljs-number">20</span>:<span class="hljs-number">25</span> 会关机<br>$ shutdown <span class="hljs-number">20</span>:<span class="hljs-number">25</span><br># 系统再过十分钟后自动关机<br>$ shutdown +<span class="hljs-number">10</span><br># 取消之前指定的关机计划<br>$ shutdown -c<br></code></pre></td></tr></table></figure>
 
-<p>复制</p>
 <p>不指定选项和参数，默认表示 1 分钟之后 关闭电脑 远程维护服务器时，最好不要关闭系统，而应该重新启动系统</p>
 <h2 id="查看配置网卡信息"><a href="#查看配置网卡信息" class="headerlink" title="查看配置网卡信息"></a>查看配置网卡信息</h2><table>
 <thead>
@@ -1144,22 +1139,17 @@
 <h3 id="ifconfig"><a href="#ifconfig" class="headerlink" title="ifconfig"></a>ifconfig</h3><p>ifconfig 可以查看／配置计算机当前的网卡配置信息</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 查看网卡配置信息<br>$ ifconfig<br># 查看网卡对应的 <span class="hljs-variable constant_">IP</span> 地址<br>$ ifconfig | grep inet<br></code></pre></td></tr></table></figure>
 
-<p>复制</p>
 <p>提示：一台计算机中有可能会有一个 物理网卡 和 多个虚拟网卡，在 Linux 中物理网卡的名字通常以 ensXX 表示 127.0.0.1 被称为 <strong>本地回环&#x2F;环回地址</strong>，一般用来测试本机网卡是否正常</p>
 <h3 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h3><p>ping 一般用于检测当前计算机到目标计算机之间的网络 <strong>是否通畅，数值越大，速度越慢</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"># 检测到目标主机是否连接正常<br>$ ping <span class="hljs-variable constant_">IP</span>地址<br># 检测本地网卡工作正常<br>$ ping <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><br></code></pre></td></tr></table></figure>
 
-<p>复制</p>
-<p>ping 的工作原理与潜水艇的声纳相似， ping 这个命令就是取自 声纳的声音 网络管理员之间也常将 ping 用作动词 —— ping 一下计算机X，看他是否开着</p>
+<p>ping 的工作原理与潜水艇的声纳相似， ping 这个命令就是取自 声纳的声音 网络管理员之间也常将 ping 用作动词 —— ping 一下计算机X，看他是否开着。</p>
 <h2 id="远程登录和赋值文件"><a href="#远程登录和赋值文件" class="headerlink" title="远程登录和赋值文件"></a>远程登录和赋值文件</h2><p><img src="https://ask.qcloudimg.com/http-save/yehe-8223537/f6b4c6816d37e5992c13ce7db1a191f4.png" srcset="/blog/img/loading.gif" lazyload alt="Alt"></p>
-<p>Alt</p>
 <h3 id="ssh-基础（重点）"><a href="#ssh-基础（重点）" class="headerlink" title="ssh 基础（重点）"></a>ssh 基础（重点）</h3><p>在 Linux 中 SSH 是 <strong>非常常用</strong> 的工具，通过 <strong>SSH 客户端</strong> 我们可以连接到运行了 <strong>SSH 服务器</strong> 的远程机器上 </p>
 <p><img src="https://ask.qcloudimg.com/http-save/yehe-8223537/63aadccaf0d1238e0ead1fb405c316f3.png" srcset="/blog/img/loading.gif" lazyload alt="Alt"></p>
-<p>Alt</p>
 <p> ssh的简单使用：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">ssh [-p port] user@remote<br></code></pre></td></tr></table></figure>
 
-<p>复制</p>
 <ul>
 <li>user 是在远程机器上的用户名，如果不指定的话默认为当前用户</li>
 <li>remote 是远程机器的地址，可以是 IP／<a target="_blank" rel="noopener" href="https://cloud.tencent.com/act/pro/domain-sales?from_column=20065&from=20065">域名</a>，或者是 后面会提到的别名</li>
@@ -1282,6 +1272,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/blog/2023/11/22/PyTorch%20handbook/" title="快速上手PyTorch">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">快速上手PyTorch</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

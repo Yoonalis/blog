@@ -1,0 +1,1087 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.jpg">
+  <link rel="icon" href="/blog/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Azure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="论文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Huggingface 快速上手">
+<meta property="og:url" content="https://yoonalis.github.io/blog/2023/11/29/Huggingface%20%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/index.html">
+<meta property="og:site_name" content="Azure&#39;s blog">
+<meta property="og:description" content="论文">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yoonalis.github.io/blog/img/huggingface.jpg">
+<meta property="article:published_time" content="2023-11-29T11:54:23.958Z">
+<meta property="article:modified_time" content="2023-11-30T13:32:57.077Z">
+<meta property="article:author" content="Azure">
+<meta property="article:tag" content="论文、深度学习、nlp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yoonalis.github.io/blog/img/huggingface.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Huggingface 快速上手 - Azure&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yoonalis.github.io","root":"/blog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>Azure</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/album/">
+                <i class="iconfont icon-images"></i>
+                album
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Huggingface 快速上手"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-29 19:54" pubdate>
+          2023年11月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          22k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          185 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Huggingface 快速上手</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Huggingface-快速上手"><a href="#Huggingface-快速上手" class="headerlink" title="Huggingface 快速上手"></a>Huggingface 快速上手</h1><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/lansinuote/Huggingface_Task">https://github.com/lansinuote/Huggingface_Task</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lansinuote/Huggingface_Toturials">https://github.com/lansinuote/Huggingface_Toturials</a></p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>huggingface是一个机器学习社区，包含了模型、数据集和应用，使用huggingface的api可以帮助我们快速构建ai应用。</p>
+<p>一个基于预训练模型的简单模型构建大致分为下图的步骤：</p>
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130210448559-20231130%2021:04:48.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130210448559" style="zoom:50%;" />
+
+
+
+<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><ul>
+<li>python</li>
+<li>pytorch</li>
+<li>transformers</li>
+<li>datasets</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">pip install transformers<br>pip install datasets<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="使用词典和分词工具：tokenizer"><a href="#使用词典和分词工具：tokenizer" class="headerlink" title="使用词典和分词工具：tokenizer"></a>使用词典和分词工具：tokenizer</h2><h3 id="加载预训练字典和分词方法"><a href="#加载预训练字典和分词方法" class="headerlink" title="加载预训练字典和分词方法"></a>加载预训练字典和分词方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer<br><br><span class="hljs-comment"># 加载预训练字典和分词方法</span><br>tokenizer = BertTokenizer.from_pretrained(<br>    pretrained_model_name_or_path=<span class="hljs-string">&#x27;bert-base-chinese&#x27;</span>, <span class="hljs-comment"># 选择的模型name</span><br>    cache_dir=<span class="hljs-literal">None</span>,<br>    force_download=<span class="hljs-literal">False</span>,<br>)<br><br>sents = [<br>    <span class="hljs-string">&#x27;选择珠江花园的原因就是方便。&#x27;</span>,<br>    <span class="hljs-string">&#x27;笔记本的键盘确实爽。&#x27;</span>,<br>    <span class="hljs-string">&#x27;房间太小。其他的都一般。&#x27;</span>,<br>    <span class="hljs-string">&#x27;今天才知道这书还有第6卷,真有点郁闷.&#x27;</span>,<br>    <span class="hljs-string">&#x27;机器背面似乎被撕了张什么标签，残胶还在。&#x27;</span>,<br>]<br><br>tokenizer, sents<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129202427872-20231129%2020:24:29.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129202427872"></p>
+<h3 id="简单编码两个句子"><a href="#简单编码两个句子" class="headerlink" title="简单编码两个句子"></a>简单编码两个句子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python">out = tokenizer.encode(<br>    text=sents[<span class="hljs-number">0</span>],<br>    text_pair=sents[<span class="hljs-number">1</span>],<br><br>    <span class="hljs-comment">#当句子长度大于max_length时,截断</span><br>    truncation=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#一律补pad到max_length长度</span><br>    padding=<span class="hljs-string">&#x27;max_length&#x27;</span>,<br>    add_special_tokens=<span class="hljs-literal">True</span>,<br>    max_length=<span class="hljs-number">30</span>, <span class="hljs-comment"># 编码的结果长度，使用这个tokenizer是以每个字为一个词</span><br>    return_tensors=<span class="hljs-literal">None</span>, <span class="hljs-comment"># 不指定数据类型，默认返回list</span><br>)<br><br><span class="hljs-built_in">print</span>(out)<br><br>tokenizer.decode(out)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129202629146-20231129%2020:26:29.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129202629146"></p>
+<h3 id="增强的编码函数"><a href="#增强的编码函数" class="headerlink" title="增强的编码函数"></a>增强的编码函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python">out = tokenizer.encode_plus(<br>    text=sents[<span class="hljs-number">0</span>],<br>    text_pair=sents[<span class="hljs-number">1</span>],<br><br>    <span class="hljs-comment">#当句子长度大于max_length时,截断</span><br>    truncation=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#一律补零到max_length长度</span><br>    padding=<span class="hljs-string">&#x27;max_length&#x27;</span>,<br>    max_length=<span class="hljs-number">30</span>,<br>    add_special_tokens=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#可取值tf,pt,np,默认为返回list</span><br>    return_tensors=<span class="hljs-literal">None</span>,<br><br>    <span class="hljs-comment">#返回token_type_ids</span><br>    return_token_type_ids=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#返回attention_mask</span><br>    return_attention_mask=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#返回special_tokens_mask 特殊符号标识</span><br>    return_special_tokens_mask=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#返回offset_mapping 标识每个词的起止位置,这个参数只能BertTokenizerFast使用</span><br>    <span class="hljs-comment">#return_offsets_mapping=True,</span><br><br>    <span class="hljs-comment">#返回length 标识长度</span><br>    return_length=<span class="hljs-literal">True</span>,<br>)<br><br><span class="hljs-comment">#input_ids 就是编码后的词</span><br><span class="hljs-comment">#token_type_ids 第一个句子和特殊符号的位置是0,第二个句子的位置是1</span><br><span class="hljs-comment">#special_tokens_mask 特殊符号的位置是1,其他位置是0</span><br><span class="hljs-comment">#attention_mask pad的位置是0,其他位置是1</span><br><span class="hljs-comment">#length 返回句子长度</span><br><span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> out.items():<br>    <span class="hljs-built_in">print</span>(k, <span class="hljs-string">&#x27;:&#x27;</span>, v)<br><br>tokenizer.decode(out[<span class="hljs-string">&#x27;input_ids&#x27;</span>])<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129203426110-20231129%2020:34:26.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129203426110"></p>
+<h3 id="批量编码句子"><a href="#批量编码句子" class="headerlink" title="批量编码句子"></a>批量编码句子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python">out = tokenizer.batch_encode_plus(<br>    batch_text_or_text_pairs=[sents[<span class="hljs-number">0</span>], sents[<span class="hljs-number">1</span>]],<br>    add_special_tokens=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#当句子长度大于max_length时,截断</span><br>    truncation=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#一律补零到max_length长度</span><br>    padding=<span class="hljs-string">&#x27;max_length&#x27;</span>,<br>    max_length=<span class="hljs-number">15</span>,<br><br>    <span class="hljs-comment">#可取值tf,pt,np,默认为返回list</span><br>    return_tensors=<span class="hljs-literal">None</span>,<br><br>    <span class="hljs-comment">#返回token_type_ids</span><br>    return_token_type_ids=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#返回attention_mask</span><br>    return_attention_mask=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#返回special_tokens_mask 特殊符号标识</span><br>    return_special_tokens_mask=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#返回offset_mapping 标识每个词的起止位置,这个参数只能BertTokenizerFast使用</span><br>    <span class="hljs-comment">#return_offsets_mapping=True,</span><br><br>    <span class="hljs-comment">#返回length 标识长度</span><br>    return_length=<span class="hljs-literal">True</span>,<br>)<br><br><span class="hljs-comment">#input_ids 就是编码后的词</span><br><span class="hljs-comment">#token_type_ids 第一个句子和特殊符号的位置是0,第二个句子的位置是1</span><br><span class="hljs-comment">#special_tokens_mask 特殊符号的位置是1,其他位置是0</span><br><span class="hljs-comment">#attention_mask pad的位置是0,其他位置是1</span><br><span class="hljs-comment">#length 返回句子长度</span><br><span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> out.items():<br>    <span class="hljs-built_in">print</span>(k, <span class="hljs-string">&#x27;:&#x27;</span>, v)<br><br>tokenizer.decode(out[<span class="hljs-string">&#x27;input_ids&#x27;</span>][<span class="hljs-number">0</span>]), tokenizer.decode(out[<span class="hljs-string">&#x27;input_ids&#x27;</span>][<span class="hljs-number">1</span>])<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129204102294-20231129%2020:41:02.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129204102294"></p>
+<h3 id="批量编码成对的句子"><a href="#批量编码成对的句子" class="headerlink" title="批量编码成对的句子"></a>批量编码成对的句子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python">out = tokenizer.batch_encode_plus(<br>    batch_text_or_text_pairs=[(sents[<span class="hljs-number">0</span>], sents[<span class="hljs-number">1</span>]), (sents[<span class="hljs-number">2</span>], sents[<span class="hljs-number">3</span>])], <span class="hljs-comment"># 与上文差异点</span><br>    add_special_tokens=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#当句子长度大于max_length时,截断</span><br>    truncation=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#一律补零到max_length长度</span><br>    padding=<span class="hljs-string">&#x27;max_length&#x27;</span>,<br>    max_length=<span class="hljs-number">30</span>,<br><br>    <span class="hljs-comment">#可取值tf,pt,np,默认为返回list</span><br>    return_tensors=<span class="hljs-literal">None</span>,<br><br>    <span class="hljs-comment">#返回token_type_ids</span><br>    return_token_type_ids=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#返回attention_mask</span><br>    return_attention_mask=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#返回special_tokens_mask 特殊符号标识</span><br>    return_special_tokens_mask=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#返回offset_mapping 标识每个词的起止位置,这个参数只能BertTokenizerFast使用</span><br>    <span class="hljs-comment">#return_offsets_mapping=True,</span><br><br>    <span class="hljs-comment">#返回length 标识长度</span><br>    return_length=<span class="hljs-literal">True</span>,<br>)<br><br><span class="hljs-comment">#input_ids 就是编码后的词</span><br><span class="hljs-comment">#token_type_ids 第一个句子和特殊符号的位置是0,第二个句子的位置是1</span><br><span class="hljs-comment">#special_tokens_mask 特殊符号的位置是1,其他位置是0</span><br><span class="hljs-comment">#attention_mask pad的位置是0,其他位置是1</span><br><span class="hljs-comment">#length 返回句子长度</span><br><span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> out.items():<br>    <span class="hljs-built_in">print</span>(k, <span class="hljs-string">&#x27;:&#x27;</span>, v)<br><br>tokenizer.decode(out[<span class="hljs-string">&#x27;input_ids&#x27;</span>][<span class="hljs-number">0</span>])<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129203920969-20231129%2020:39:21.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129203920969"></p>
+<h3 id="字典操作"><a href="#字典操作" class="headerlink" title="字典操作"></a>字典操作</h3><ul>
+<li>获取字典</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">zidian = tokenizer.get_vocab()<br><br><span class="hljs-built_in">type</span>(zidian), <span class="hljs-built_in">len</span>(zidian), <span class="hljs-string">&#x27;月光&#x27;</span> <span class="hljs-keyword">in</span> zidian,<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129204657341-20231129%2020:46:57.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129204657341" style="zoom:50%;" />
+
+<ul>
+<li>添加新词 &#x2F; 添加新符号</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#添加新词</span><br>tokenizer.add_tokens(new_tokens=[<span class="hljs-string">&#x27;月光&#x27;</span>, <span class="hljs-string">&#x27;希望&#x27;</span>])<br><br><span class="hljs-comment">#添加新符号</span><br>tokenizer.add_special_tokens(&#123;<span class="hljs-string">&#x27;eos_token&#x27;</span>: <span class="hljs-string">&#x27;[EOS]&#x27;</span>&#125;)<br><br>zidian = tokenizer.get_vocab()<br><br><span class="hljs-built_in">type</span>(zidian), <span class="hljs-built_in">len</span>(zidian), zidian[<span class="hljs-string">&#x27;月光&#x27;</span>], zidian[<span class="hljs-string">&#x27;[EOS]&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129204720252-20231129%2020:47:20.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129204720252" style="zoom:50%;" />
+
+<ul>
+<li>编码新添加的词</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python">out = tokenizer.encode(<br>    text=<span class="hljs-string">&#x27;月光的新希望[EOS]&#x27;</span>,<br>    text_pair=<span class="hljs-literal">None</span>,<br><br>    <span class="hljs-comment">#当句子长度大于max_length时,截断</span><br>    truncation=<span class="hljs-literal">True</span>,<br><br>    <span class="hljs-comment">#一律补pad到max_length长度</span><br>    padding=<span class="hljs-string">&#x27;max_length&#x27;</span>,<br>    add_special_tokens=<span class="hljs-literal">True</span>,<br>    max_length=<span class="hljs-number">8</span>,<br>    return_tensors=<span class="hljs-literal">None</span>,<br>)<br><br><span class="hljs-built_in">print</span>(out)<br><br>tokenizer.decode(out)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129204801788-20231129%2020:48:01.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129204801788" style="zoom:50%;" />
+
+<p>编码工具的入门结束！</p>
+<h2 id="数据集的操作：datasets"><a href="#数据集的操作：datasets" class="headerlink" title="数据集的操作：datasets"></a>数据集的操作：datasets</h2><h3 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset<br><br><span class="hljs-comment">#加载数据</span><br><span class="hljs-comment">#转载自seamew/ChnSentiCorp</span><br>dataset = load_dataset(path=<span class="hljs-string">&#x27;lansinuote/ChnSentiCorp&#x27;</span>)<br><br>dataset<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129205533261-20231129%2020:55:33.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129205533261" style="zoom:50%;" />
+
+<ul>
+<li>保存数据集到磁盘</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#保存数据集到磁盘</span><br><span class="hljs-comment">#注意：运行这段代码要确保【加载数据】运行是正常的，否则直接运行【从磁盘加载数据】即可</span><br>dataset.save_to_disk(dataset_dict_path=<span class="hljs-string">&#x27;./data/ChnSentiCorp&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129205657354-20231129%2020:56:57.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129205657354" style="zoom:50%;" />
+
+<ul>
+<li>从磁盘加载数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_from_disk<br><br>dataset = load_from_disk(<span class="hljs-string">&#x27;./data/ChnSentiCorp&#x27;</span>)<br><br>dataset<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129205800504-20231129%2020:58:00.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129205800504" style="zoom:50%;" />
+
+<h3 id="查看数据集"><a href="#查看数据集" class="headerlink" title="查看数据集"></a>查看数据集</h3><ul>
+<li>取出数据集</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">dataset = dataset[<span class="hljs-string">&#x27;train&#x27;</span>]<br><br>dataset<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129210036264-20231129%2021:00:36.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129210036264" style="zoom:50%;" />
+
+<ul>
+<li>查看一个数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">dataset[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129210100191-20231129%2021:01:00.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129210100191" style="zoom:50%;" />
+
+<h3 id="简单操作：排序-x2F-打乱-x2F-选择-x2F-过滤-x2F-切分…"><a href="#简单操作：排序-x2F-打乱-x2F-选择-x2F-过滤-x2F-切分…" class="headerlink" title="简单操作：排序&#x2F;打乱&#x2F;选择&#x2F;过滤&#x2F;切分…"></a>简单操作：排序&#x2F;打乱&#x2F;选择&#x2F;过滤&#x2F;切分…</h3><ul>
+<li>排序</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#未排序的label是乱序的</span><br><span class="hljs-built_in">print</span>(dataset[<span class="hljs-string">&#x27;label&#x27;</span>][:<span class="hljs-number">10</span>])<br><br><span class="hljs-comment">#排序之后label有序了</span><br>sorted_dataset = dataset.sort(<span class="hljs-string">&#x27;label&#x27;</span>)<br><span class="hljs-built_in">print</span>(sorted_dataset[<span class="hljs-string">&#x27;label&#x27;</span>][:<span class="hljs-number">10</span>])<br><span class="hljs-built_in">print</span>(sorted_dataset[<span class="hljs-string">&#x27;label&#x27;</span>][-<span class="hljs-number">10</span>:])<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129210301993-20231129%2021:03:02.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129210301993" style="zoom:50%;" />
+
+<ul>
+<li>打乱</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">shuffled_dataset = sorted_dataset.shuffle(seed=<span class="hljs-number">42</span>)<br><br>shuffled_dataset[<span class="hljs-string">&#x27;label&#x27;</span>][:<span class="hljs-number">10</span>]<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129210434586-20231129%2021:04:34.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129210434586" style="zoom:50%;" />
+
+<ul>
+<li>选择</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">dataset.select([<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>])<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129210509991-20231129%2021:05:10.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129210509991" style="zoom:50%;" />
+
+<ul>
+<li>过滤</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">data</span>):<br>    <span class="hljs-keyword">return</span> data[<span class="hljs-string">&#x27;text&#x27;</span>].startswith(<span class="hljs-string">&#x27;选择&#x27;</span>)<br><br><br>start_with_ar = dataset.<span class="hljs-built_in">filter</span>(f)<br><br><span class="hljs-built_in">len</span>(start_with_ar), start_with_ar[<span class="hljs-string">&#x27;text&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129210543605-20231129%2021:05:43.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129210543605" style="zoom:50%;" />
+
+<ul>
+<li>切分</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#train_test_split, 切分训练集和测试集</span><br>dataset.train_test_split(test_size=<span class="hljs-number">0.1</span>)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129211103103-20231129%2021:11:03.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129211103103" style="zoom:50%;" />
+
+<ul>
+<li>均分</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#把数据切分到4个桶中,均匀分配</span><br>dataset.shard(num_shards=<span class="hljs-number">4</span>, index=<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>重命名列</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#rename_column</span><br>dataset.rename_column(<span class="hljs-string">&#x27;text&#x27;</span>, <span class="hljs-string">&#x27;textA&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>删除列</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#remove_columns</span><br>dataset.remove_columns([<span class="hljs-string">&#x27;text&#x27;</span>])<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>遍历</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#map</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;text&#x27;</span>] = <span class="hljs-string">&#x27;My sentence: &#x27;</span> + data[<span class="hljs-string">&#x27;text&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br><br>datatset_map = dataset.<span class="hljs-built_in">map</span>(f)<br><br>datatset_map[<span class="hljs-string">&#x27;text&#x27;</span>][:<span class="hljs-number">5</span>]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>格式化</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#set_format</span><br>dataset.set_format(<span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;torch&#x27;</span>, columns=[<span class="hljs-string">&#x27;label&#x27;</span>])<br><br>dataset[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+
+<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><ul>
+<li>csv格式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#第三章/导出为csv格式</span><br>dataset = load_dataset(path=<span class="hljs-string">&#x27;lansinuote/ChnSentiCorp&#x27;</span>, split=<span class="hljs-string">&#x27;train&#x27;</span>)<br>dataset.to_csv(path_or_buf=<span class="hljs-string">&#x27;./data/ChnSentiCorp.csv&#x27;</span>)<br><br><span class="hljs-comment">#加载csv格式数据</span><br>csv_dataset = load_dataset(path=<span class="hljs-string">&#x27;csv&#x27;</span>,<br>                           data_files=<span class="hljs-string">&#x27;./data/ChnSentiCorp.csv&#x27;</span>,<br>                           split=<span class="hljs-string">&#x27;train&#x27;</span>)<br>csv_dataset[<span class="hljs-number">20</span>]<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129213942884-20231129%2021:39:43.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129213942884" style="zoom:50%;" />
+
+<ul>
+<li>json格式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#第三章/导出为json格式</span><br>dataset = load_dataset(path=<span class="hljs-string">&#x27;lansinuote/ChnSentiCorp&#x27;</span>, split=<span class="hljs-string">&#x27;train&#x27;</span>)<br>dataset.to_json(path_or_buf=<span class="hljs-string">&#x27;./data/ChnSentiCorp.json&#x27;</span>)<br><br><span class="hljs-comment">#加载json格式数据</span><br>json_dataset = load_dataset(path=<span class="hljs-string">&#x27;json&#x27;</span>,<br>                            data_files=<span class="hljs-string">&#x27;./data/ChnSentiCorp.json&#x27;</span>,<br>                            split=<span class="hljs-string">&#x27;train&#x27;</span>)<br>json_dataset[<span class="hljs-number">20</span>]<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231129214014721-20231129%2021:40:14.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231129214014721" style="zoom:50%;" />
+
+<h2 id="使用评价函数：metrics"><a href="#使用评价函数：metrics" class="headerlink" title="使用评价函数：metrics"></a>使用评价函数：metrics</h2><h3 id="列出评价指标"><a href="#列出评价指标" class="headerlink" title="列出评价指标"></a>列出评价指标</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> list_metrics<br><br>metrics_list = list_metrics()<br><br><span class="hljs-built_in">len</span>(metrics_list), metrics_list<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130182411678-20231130%2018:24:11.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130182411678" style="zoom:50%;" />
+
+<h3 id="加载评价指标"><a href="#加载评价指标" class="headerlink" title="加载评价指标"></a>加载评价指标</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_metric<br><br>metric = load_metric(<span class="hljs-string">&#x27;glue&#x27;</span>, <span class="hljs-string">&#x27;mrpc&#x27;</span>)<br><br><span class="hljs-built_in">print</span>(metric.inputs_description)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130182617356-20231130%2018:26:17.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130182617356" style="zoom:50%;" />
+
+<h3 id="计算一个评价指标"><a href="#计算一个评价指标" class="headerlink" title="计算一个评价指标"></a>计算一个评价指标</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">predictions = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]<br>references = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]<br><br>final_score = metric.compute(predictions=predictions, references=references)<br><br>final_score<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130182646382-20231130%2018:26:46.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130182646382" style="zoom:50%;" />
+
+<h2 id="使用管道函数：pipeline"><a href="#使用管道函数：pipeline" class="headerlink" title="使用管道函数：pipeline"></a>使用管道函数：pipeline</h2><p>目标：解决一些非常简单的nlp任务</p>
+<h3 id="情感分类"><a href="#情感分类" class="headerlink" title="情感分类"></a>情感分类</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline<br><br>classifier = pipeline(<span class="hljs-string">&quot;sentiment-analysis&quot;</span>)<br><br>result = classifier(<span class="hljs-string">&quot;I hate you&quot;</span>)[<span class="hljs-number">0</span>]<br><span class="hljs-built_in">print</span>(result)<br><br>result = classifier(<span class="hljs-string">&quot;I love you&quot;</span>)[<span class="hljs-number">0</span>]<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130183209664-20231130%2018:32:09.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130183209664" style="zoom:50%;" />
+
+<h3 id="阅读理解"><a href="#阅读理解" class="headerlink" title="阅读理解"></a>阅读理解</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline<br><br>question_answerer = pipeline(<span class="hljs-string">&quot;question-answering&quot;</span>)<br><br>context = <span class="hljs-string">r&quot;&quot;&quot;</span><br><span class="hljs-string">Extractive Question Answering is the task of extracting an answer from a text given a question. An example of a </span><br><span class="hljs-string">question answering dataset is the SQuAD dataset, which is entirely based on that task. If you would like to fine-tune </span><br><span class="hljs-string">a model on a SQuAD task, you may leverage the examples/pytorch/question-answering/run_squad.py script.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br>result = question_answerer(question=<span class="hljs-string">&quot;What is extractive question answering?&quot;</span>,<br>                           context=context)<br><span class="hljs-built_in">print</span>(result)<br><br>result = question_answerer(<br>    question=<span class="hljs-string">&quot;What is a good example of a question answering dataset?&quot;</span>,<br>    context=context)<br><br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130183453936-20231130%2018:34:54.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130183453936"></p>
+<h3 id="完形填空"><a href="#完形填空" class="headerlink" title="完形填空"></a>完形填空</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline<br><br>unmasker = pipeline(<span class="hljs-string">&quot;fill-mask&quot;</span>)<br><br><span class="hljs-keyword">from</span> pprint <span class="hljs-keyword">import</span> pprint<br><br>sentence = <span class="hljs-string">&#x27;HuggingFace is creating a &lt;mask&gt; that the community uses to solve NLP tasks.&#x27;</span><br><br>unmasker(sentence)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130183700753-20231130%2018:37:00.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130183700753" style="zoom:50%;" />
+
+<h3 id="文本生成"><a href="#文本生成" class="headerlink" title="文本生成"></a>文本生成</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline<br><br>text_generator = pipeline(<span class="hljs-string">&quot;text-generation&quot;</span>)<br><br>text_generator(<span class="hljs-string">&quot;As far as I am concerned, I will&quot;</span>,<br>               max_length=<span class="hljs-number">50</span>,<br>               do_sample=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130183801707-20231130%2018:38:01.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130183801707" style="zoom:50%;" />
+
+<h3 id="命名实体识别"><a href="#命名实体识别" class="headerlink" title="命名实体识别"></a>命名实体识别</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline<br><br>ner_pipe = pipeline(<span class="hljs-string">&quot;ner&quot;</span>)<br><br>sequence = <span class="hljs-string">&quot;&quot;&quot;Hugging Face Inc. is a company based in New York City. Its headquarters are in DUMBO,</span><br><span class="hljs-string">therefore very close to the Manhattan Bridge which is visible from the window.&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">for</span> entity <span class="hljs-keyword">in</span> ner_pipe(sequence):<br>    <span class="hljs-built_in">print</span>(entity)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130183853936-20231130%2018:38:54.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130183853936" style="zoom:50%;" />
+
+<h3 id="文本总结"><a href="#文本总结" class="headerlink" title="文本总结"></a>文本总结</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline<br><br>summarizer = pipeline(<span class="hljs-string">&quot;summarization&quot;</span>)<br><br>ARTICLE = <span class="hljs-string">&quot;&quot;&quot; New York (CNN)When Liana Barrientos was 23 years old, she got married in Westchester County, New York.</span><br><span class="hljs-string">A year later, she got married again in Westchester County, but to a different man and without divorcing her first husband.</span><br><span class="hljs-string">Only 18 days after that marriage, she got hitched yet again. Then, Barrientos declared &quot;I do&quot; five more times, sometimes only within two weeks of each other.</span><br><span class="hljs-string">In 2010, she married once more, this time in the Bronx. In an application for a marriage license, she stated it was her &quot;first and only&quot; marriage.</span><br><span class="hljs-string">Barrientos, now 39, is facing two criminal counts of &quot;offering a false instrument for filing in the first degree,&quot; referring to her false statements on the</span><br><span class="hljs-string">2010 marriage license application, according to court documents.</span><br><span class="hljs-string">Prosecutors said the marriages were part of an immigration scam.</span><br><span class="hljs-string">On Friday, she pleaded not guilty at State Supreme Court in the Bronx, according to her attorney, Christopher Wright, who declined to comment further.</span><br><span class="hljs-string">After leaving court, Barrientos was arrested and charged with theft of service and criminal trespass for allegedly sneaking into the New York subway through an emergency exit, said Detective</span><br><span class="hljs-string">Annette Markowski, a police spokeswoman. In total, Barrientos has been married 10 times, with nine of her marriages occurring between 1999 and 2002.</span><br><span class="hljs-string">All occurred either in Westchester County, Long Island, New Jersey or the Bronx. She is believed to still be married to four men, and at one time, she was married to eight men at once, prosecutors say.</span><br><span class="hljs-string">Prosecutors said the immigration scam involved some of her husbands, who filed for permanent residence status shortly after the marriages.</span><br><span class="hljs-string">Any divorces happened only after such filings were approved. It was unclear whether any of the men will be prosecuted.</span><br><span class="hljs-string">The case was referred to the Bronx District Attorney\&#x27;s Office by Immigration and Customs Enforcement and the Department of Homeland Security\&#x27;s</span><br><span class="hljs-string">Investigation Division. Seven of the men are from so-called &quot;red-flagged&quot; countries, including Egypt, Turkey, Georgia, Pakistan and Mali.</span><br><span class="hljs-string">Her eighth husband, Rashid Rajput, was deported in 2006 to his native Pakistan after an investigation by the Joint Terrorism Task Force.</span><br><span class="hljs-string">If convicted, Barrientos faces up to four years in prison.  Her next court appearance is scheduled for May 18.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br>summarizer(ARTICLE, max_length=<span class="hljs-number">130</span>, min_length=<span class="hljs-number">30</span>, do_sample=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130183945527-20231130%2018:39:45.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130183945527" style="zoom:50%;" />
+
+<h3 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> pipeline<br><br>translator = pipeline(<span class="hljs-string">&quot;translation_en_to_de&quot;</span>)<br><br>sentence = <span class="hljs-string">&quot;Hugging Face is a technology company based in New York and Paris&quot;</span><br><br>translator(sentence, max_length=<span class="hljs-number">40</span>)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130184040724-20231130%2018:40:40.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130184040724" style="zoom:50%;" />
+
+<h2 id="实战：中文分类"><a href="#实战：中文分类" class="headerlink" title="实战：中文分类"></a>实战：中文分类</h2><h3 id="准备工作与预训练"><a href="#准备工作与预训练" class="headerlink" title="准备工作与预训练"></a>准备工作与预训练</h3><ul>
+<li>定义数据集</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Dataset</span>(torch.utils.data.Dataset):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, split</span>):<br>        self.dataset = load_dataset(path=<span class="hljs-string">&#x27;lansinuote/ChnSentiCorp&#x27;</span>, split=split)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.dataset)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, i</span>):<br>        text = self.dataset[i][<span class="hljs-string">&#x27;text&#x27;</span>]<br>        label = self.dataset[i][<span class="hljs-string">&#x27;label&#x27;</span>]<br><br>        <span class="hljs-keyword">return</span> text, label<br><br><br>dataset = Dataset(<span class="hljs-string">&#x27;train&#x27;</span>)<br><br><span class="hljs-built_in">len</span>(dataset), dataset[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130184423137-20231130%2018:44:23.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130184423137" style="zoom:50%;" />
+
+<ul>
+<li>加载字典和分词工具</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer<br><br>token = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;bert-base-chinese&#x27;</span>)<br><br>token<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130184623745-20231130%2018:46:23.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130184623745" style="zoom:50%;" />
+
+<ul>
+<li>定义批处理函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">collate_fn</span>(<span class="hljs-params">data</span>):<br>    sents = [i[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> data]<br>    labels = [i[<span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> data]<br><br>    <span class="hljs-comment">#编码</span><br>    data = token.batch_encode_plus(batch_text_or_text_pairs=sents,<br>                                   truncation=<span class="hljs-literal">True</span>,<br>                                   padding=<span class="hljs-string">&#x27;max_length&#x27;</span>,<br>                                   max_length=<span class="hljs-number">500</span>,<br>                                   return_tensors=<span class="hljs-string">&#x27;pt&#x27;</span>,<br>                                   return_length=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment">#input_ids:编码之后的数字</span><br>    <span class="hljs-comment">#attention_mask:是补零的位置是0,其他位置是1</span><br>    input_ids = data[<span class="hljs-string">&#x27;input_ids&#x27;</span>]<br>    attention_mask = data[<span class="hljs-string">&#x27;attention_mask&#x27;</span>]<br>    token_type_ids = data[<span class="hljs-string">&#x27;token_type_ids&#x27;</span>]<br>    labels = torch.LongTensor(labels)<br><br>    <span class="hljs-comment">#print(data[&#x27;length&#x27;], data[&#x27;length&#x27;].max())</span><br><br>    <span class="hljs-keyword">return</span> input_ids, attention_mask, token_type_ids, labels<br><br><br><span class="hljs-comment">#数据加载器</span><br>loader = torch.utils.data.DataLoader(dataset=dataset,<br>                                     batch_size=<span class="hljs-number">16</span>,<br>                                     collate_fn=collate_fn,<br>                                     shuffle=<span class="hljs-literal">True</span>,<br>                                     drop_last=<span class="hljs-literal">True</span>)<br><br><span class="hljs-keyword">for</span> i, (input_ids, attention_mask, token_type_ids,<br>        labels) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(loader):<br>    <span class="hljs-keyword">break</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(loader))<br>input_ids.shape, attention_mask.shape, token_type_ids.shape, labels<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130192128182-20231130%2019:21:28.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130192128182" style="zoom:50%;" />
+
+<blockquote>
+<p>600 &#x3D; 9600 &#x2F; 16</p>
+</blockquote>
+<ul>
+<li>加载模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertModel<br><br><span class="hljs-comment">#加载预训练模型</span><br>pretrained = BertModel.from_pretrained(<span class="hljs-string">&#x27;bert-base-chinese&#x27;</span>)<br><br><span class="hljs-comment">#不训练,不需要计算梯度</span><br><span class="hljs-keyword">for</span> param <span class="hljs-keyword">in</span> pretrained.parameters():<br>    param.requires_grad_(<span class="hljs-literal">False</span>)<br><br><span class="hljs-comment">#模型试算</span><br>out = pretrained(input_ids=input_ids,<br>           attention_mask=attention_mask,<br>           token_type_ids=token_type_ids)<br><br>out.last_hidden_state.shape<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130192925678-20231130%2019:29:25.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130192925678" style="zoom:50%;" />
+
+<p>Batch_size（16句话） * 数据分词的长度（每句话都是500词的长度） * 词编码的维度（每个词都是768维度的向量）</p>
+<h3 id="下游任务训练"><a href="#下游任务训练" class="headerlink" title="下游任务训练"></a>下游任务训练</h3><ul>
+<li>定义下游任务模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Model</span>(torch.nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.fc = torch.nn.Linear(<span class="hljs-number">768</span>, <span class="hljs-number">2</span>) <span class="hljs-comment"># 单层的全连接神经网络，返回二分类的结果（2为二分类）</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, attention_mask, token_type_ids</span>):<br>        <span class="hljs-keyword">with</span> torch.no_grad(): <span class="hljs-comment"># 用预训练模型来抽取特征</span><br>            out = pretrained(input_ids=input_ids,<br>                       attention_mask=attention_mask,<br>                       token_type_ids=token_type_ids)<br><br>        out = self.fc(out.last_hidden_state[:, <span class="hljs-number">0</span>]) <span class="hljs-comment"># 把抽取的特征送到全连接网络中进行计算（特征结果只用第0个词：cls）</span><br><br>        out = out.softmax(dim=<span class="hljs-number">1</span>)<br><br>        <span class="hljs-keyword">return</span> out<br><br><br>model = Model()<br><br>model(input_ids=input_ids,<br>      attention_mask=attention_mask,<br>      token_type_ids=token_type_ids).shape<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130193455644-20231130%2019:34:55.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130193455644" style="zoom:50%;" />
+
+<ul>
+<li>训练</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AdamW<br><br>optimizer = AdamW(model.parameters(), lr=<span class="hljs-number">5e-4</span>) <span class="hljs-comment"># 优化器：更新规则</span><br>criterion = torch.nn.CrossEntropyLoss() <span class="hljs-comment"># 损失函数</span><br><br>model.train()<br><span class="hljs-keyword">for</span> i, (input_ids, attention_mask, token_type_ids,<br>        labels) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(loader):<br>    out = model(input_ids=input_ids,<br>                attention_mask=attention_mask,<br>                token_type_ids=token_type_ids) <span class="hljs-comment"># 正向传播</span><br><br>    loss = criterion(out, labels) <span class="hljs-comment"># 计算损失</span><br>    loss.backward() <span class="hljs-comment"># 反向传播</span><br>    optimizer.step() <span class="hljs-comment"># 梯度下降</span><br>    optimizer.zero_grad()<br><br>    <span class="hljs-keyword">if</span> i % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>:<br>        out = out.argmax(dim=<span class="hljs-number">1</span>)<br>        accuracy = (out == labels).<span class="hljs-built_in">sum</span>().item() / <span class="hljs-built_in">len</span>(labels)<br><br>        <span class="hljs-built_in">print</span>(i, loss.item(), accuracy)<br><br>    <span class="hljs-keyword">if</span> i == <span class="hljs-number">300</span>: <span class="hljs-comment"># 300轮次</span><br>        <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130200333160-20231130%2020:03:33.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130200333160" style="zoom:50%;" />
+
+<p>以往在自然语言处理的数据集上，想要把文本分类的任务做到70-80的准确率，训练的量将会非常大，模型往往很难收敛，但是用bert预训练模型来抽取特征，再做下游任务的迁移学习，可以在非常短的时间以非常快的速度达到很高的正确率。</p>
+<h3 id="检测结果"><a href="#检测结果" class="headerlink" title="检测结果"></a>检测结果</h3><ul>
+<li>看看测试集的准确率</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#测试</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test</span>():<br>    model.<span class="hljs-built_in">eval</span>()<br>    correct = <span class="hljs-number">0</span><br>    total = <span class="hljs-number">0</span><br><br>    loader_test = torch.utils.data.DataLoader(dataset=Dataset(<span class="hljs-string">&#x27;validation&#x27;</span>),<br>                                              batch_size=<span class="hljs-number">32</span>,<br>                                              collate_fn=collate_fn,<br>                                              shuffle=<span class="hljs-literal">True</span>,<br>                                              drop_last=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-keyword">for</span> i, (input_ids, attention_mask, token_type_ids,<br>            labels) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(loader_test):<br><br>        <span class="hljs-keyword">if</span> i == <span class="hljs-number">5</span>:<br>            <span class="hljs-keyword">break</span><br><br>        <span class="hljs-built_in">print</span>(i)<br><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            out = model(input_ids=input_ids,<br>                        attention_mask=attention_mask,<br>                        token_type_ids=token_type_ids)<br><br>        out = out.argmax(dim=<span class="hljs-number">1</span>)<br>        correct += (out == labels).<span class="hljs-built_in">sum</span>().item()<br>        total += <span class="hljs-built_in">len</span>(labels)<br><br>    <span class="hljs-built_in">print</span>(correct / total)<br><br><br>test()<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130200743995-20231130%2020:07:44.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130200743995" style="zoom:50%;" />
+
+<h2 id="实战：中文填空"><a href="#实战：中文填空" class="headerlink" title="实战：中文填空"></a>实战：中文填空</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
+<li>定义数据集</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset<br><br><br><span class="hljs-comment">#定义数据集</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Dataset</span>(torch.utils.data.Dataset):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, split</span>):<br>        dataset = load_dataset(path=<span class="hljs-string">&#x27;lansinuote/ChnSentiCorp&#x27;</span>, split=split)<br><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">data</span>):<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(data[<span class="hljs-string">&#x27;text&#x27;</span>]) &gt; <span class="hljs-number">30</span> <span class="hljs-comment"># 只需要文本长度大于30的数据</span><br><br>        self.dataset = dataset.<span class="hljs-built_in">filter</span>(f)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.dataset)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, i</span>):<br>        text = self.dataset[i][<span class="hljs-string">&#x27;text&#x27;</span>] <span class="hljs-comment"># 只需要文本，不需要label</span><br><br>        <span class="hljs-keyword">return</span> text<br><br><br>dataset = Dataset(<span class="hljs-string">&#x27;train&#x27;</span>)<br><br><span class="hljs-built_in">len</span>(dataset), dataset[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130201017806-20231130%2020:10:17.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130201017806" style="zoom:50%;" />
+
+<ul>
+<li>加载字典和分词工具</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer<br><br><span class="hljs-comment">#加载字典和分词工具</span><br>token = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;bert-base-chinese&#x27;</span>)<br><br>token<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130201333804-20231130%2020:13:33.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130201333804" style="zoom:50%;" />
+
+<ul>
+<li>定义批处理函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">collate_fn</span>(<span class="hljs-params">data</span>):<br>    <span class="hljs-comment">#编码</span><br>    data = token.batch_encode_plus(batch_text_or_text_pairs=data,<br>                                   truncation=<span class="hljs-literal">True</span>,<br>                                   padding=<span class="hljs-string">&#x27;max_length&#x27;</span>,<br>                                   max_length=<span class="hljs-number">30</span>,<br>                                   return_tensors=<span class="hljs-string">&#x27;pt&#x27;</span>,<br>                                   return_length=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment">#input_ids:编码之后的数字</span><br>    <span class="hljs-comment">#attention_mask:是补零的位置是0,其他位置是1</span><br>    input_ids = data[<span class="hljs-string">&#x27;input_ids&#x27;</span>]<br>    attention_mask = data[<span class="hljs-string">&#x27;attention_mask&#x27;</span>]<br>    token_type_ids = data[<span class="hljs-string">&#x27;token_type_ids&#x27;</span>]<br><br>    <span class="hljs-comment">#把第15个词固定替换为mask</span><br>    labels = input_ids[:, <span class="hljs-number">15</span>].reshape(-<span class="hljs-number">1</span>).clone()<br>    input_ids[:, <span class="hljs-number">15</span>] = token.get_vocab()[token.mask_token]<br><br>    <span class="hljs-comment">#print(data[&#x27;length&#x27;], data[&#x27;length&#x27;].max())</span><br><br>    <span class="hljs-keyword">return</span> input_ids, attention_mask, token_type_ids, labels<br><br><br><span class="hljs-comment">#数据加载器</span><br>loader = torch.utils.data.DataLoader(dataset=dataset,<br>                                     batch_size=<span class="hljs-number">16</span>,<br>                                     collate_fn=collate_fn,<br>                                     shuffle=<span class="hljs-literal">True</span>,<br>                                     drop_last=<span class="hljs-literal">True</span>)<br><br><span class="hljs-keyword">for</span> i, (input_ids, attention_mask, token_type_ids,<br>        labels) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(loader):<br>    <span class="hljs-keyword">break</span><br><br><span class="hljs-comment"># 查看样例</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(loader))<br><span class="hljs-built_in">print</span>(token.decode(input_ids[<span class="hljs-number">0</span>]))<br><span class="hljs-built_in">print</span>(token.decode(labels[<span class="hljs-number">0</span>]))<br>input_ids.shape, attention_mask.shape, token_type_ids.shape, labels.shape<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130201438810-20231130%2020:14:39.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130201438810" style="zoom:50%;" />
+
+<ul>
+<li>加载模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertModel<br><br>pretrained = BertModel.from_pretrained(<span class="hljs-string">&#x27;bert-base-chinese&#x27;</span>)<br><br><span class="hljs-comment">#不训练,不需要计算梯度</span><br><span class="hljs-keyword">for</span> param <span class="hljs-keyword">in</span> pretrained.parameters():<br>    param.requires_grad_(<span class="hljs-literal">False</span>)<br><br><span class="hljs-comment">#模型试算</span><br>out = pretrained(input_ids=input_ids,<br>           attention_mask=attention_mask,<br>           token_type_ids=token_type_ids)<br><br>out.last_hidden_state.shape<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130201601527-20231130%2020:16:01.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130201601527" style="zoom:50%;" />
+
+<h3 id="下游任务训练-1"><a href="#下游任务训练-1" class="headerlink" title="下游任务训练"></a>下游任务训练</h3><ul>
+<li>定义下游任务模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 定义下游任务模型</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Model</span>(torch.nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.decoder = torch.nn.Linear(<span class="hljs-number">768</span>, token.vocab_size, bias=<span class="hljs-literal">False</span>)<br>        self.bias = torch.nn.Parameter(torch.zeros(token.vocab_size))<br>        self.decoder.bias = self.bias<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, attention_mask, token_type_ids</span>):<br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            out = pretrained(input_ids=input_ids,<br>                             attention_mask=attention_mask,<br>                             token_type_ids=token_type_ids)<br><br>        out = self.decoder(out.last_hidden_state[:, <span class="hljs-number">15</span>])<br><br>        <span class="hljs-keyword">return</span> out<br><br><br>model = Model()<br><br>model(input_ids=input_ids,<br>      attention_mask=attention_mask,<br>      token_type_ids=token_type_ids).shape<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130201654400-20231130%2020:16:54.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130201654400" style="zoom:50%;" />
+
+<p>这是一个21128分类的任务，对英字典词数</p>
+<ul>
+<li>训练</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AdamW<br><br><span class="hljs-comment">#训练</span><br>optimizer = AdamW(model.parameters(), lr=<span class="hljs-number">5e-4</span>)<br>criterion = torch.nn.CrossEntropyLoss()<br><br>model.train()<br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>): <span class="hljs-comment"># 在训练集上训练5个轮次：大概需要30min-1h</span><br>    <span class="hljs-keyword">for</span> i, (input_ids, attention_mask, token_type_ids,<br>            labels) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(loader):<br>        out = model(input_ids=input_ids,<br>                    attention_mask=attention_mask,<br>                    token_type_ids=token_type_ids)<br><br>        loss = criterion(out, labels)<br>        loss.backward()<br>        optimizer.step()<br>        optimizer.zero_grad()<br><br>        <span class="hljs-keyword">if</span> i % <span class="hljs-number">50</span> == <span class="hljs-number">0</span>:<br>            out = out.argmax(dim=<span class="hljs-number">1</span>)<br>            accuracy = (out == labels).<span class="hljs-built_in">sum</span>().item() / <span class="hljs-built_in">len</span>(labels)<br><br>            <span class="hljs-built_in">print</span>(epoch, i, loss.item(), accuracy)<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130202333106-20231130%2020:23:33.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130202333106" style="zoom:50%;" />
+
+<h3 id="检测结果-1"><a href="#检测结果-1" class="headerlink" title="检测结果"></a>检测结果</h3><ul>
+<li>看看测试集的准确率</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#测试</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test</span>():<br>    model.<span class="hljs-built_in">eval</span>()<br>    correct = <span class="hljs-number">0</span><br>    total = <span class="hljs-number">0</span><br><br>    loader_test = torch.utils.data.DataLoader(dataset=Dataset(<span class="hljs-string">&#x27;test&#x27;</span>),<br>                                              batch_size=<span class="hljs-number">32</span>,<br>                                              collate_fn=collate_fn,<br>                                              shuffle=<span class="hljs-literal">True</span>,<br>                                              drop_last=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-keyword">for</span> i, (input_ids, attention_mask, token_type_ids,<br>            labels) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(loader_test):<br><br>        <span class="hljs-keyword">if</span> i == <span class="hljs-number">15</span>:<br>            <span class="hljs-keyword">break</span><br><br>        <span class="hljs-built_in">print</span>(i)<br><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            out = model(input_ids=input_ids,<br>                        attention_mask=attention_mask,<br>                        token_type_ids=token_type_ids)<br><br>        out = out.argmax(dim=<span class="hljs-number">1</span>)<br>        correct += (out == labels).<span class="hljs-built_in">sum</span>().item()<br>        total += <span class="hljs-built_in">len</span>(labels)<br><br>        <span class="hljs-built_in">print</span>(token.decode(input_ids[<span class="hljs-number">0</span>]))<br>        <span class="hljs-built_in">print</span>(token.decode(labels[<span class="hljs-number">0</span>]), token.decode(labels[<span class="hljs-number">0</span>]))<br><br>    <span class="hljs-built_in">print</span>(correct / total)<br><br><br>test()<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130203306133-20231130%2020:33:06.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130203306133" style="zoom:50%;" />
+
+<h2 id="实战：中文句子关系推断"><a href="#实战：中文句子关系推断" class="headerlink" title="实战：中文句子关系推断"></a>实战：中文句子关系推断</h2><p>两个句子是否有关：两分类任务</p>
+<h3 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
+<li>定义数据集</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset<br><span class="hljs-keyword">import</span> random<br><br><br><span class="hljs-comment">#定义数据集</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Dataset</span>(torch.utils.data.Dataset):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, split</span>):<br>        dataset = load_dataset(path=<span class="hljs-string">&#x27;lansinuote/ChnSentiCorp&#x27;</span>, split=split)<br><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">data</span>):<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(data[<span class="hljs-string">&#x27;text&#x27;</span>]) &gt; <span class="hljs-number">40</span><br><br>        self.dataset = dataset.<span class="hljs-built_in">filter</span>(f)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.dataset)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, i</span>):<br>        text = self.dataset[i][<span class="hljs-string">&#x27;text&#x27;</span>]<br><br>        <span class="hljs-comment">#切分一句话为前半句和后半句</span><br>        sentence1 = text[:<span class="hljs-number">20</span>]<br>        sentence2 = text[<span class="hljs-number">20</span>:<span class="hljs-number">40</span>]<br>        label = <span class="hljs-number">0</span><br><br>        <span class="hljs-comment">#有一半的概率把后半句替换为一句无关的话</span><br>        <span class="hljs-keyword">if</span> random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>) == <span class="hljs-number">0</span>:<br>            j = random.randint(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(self.dataset) - <span class="hljs-number">1</span>)<br>            sentence2 = self.dataset[j][<span class="hljs-string">&#x27;text&#x27;</span>][<span class="hljs-number">20</span>:<span class="hljs-number">40</span>]<br>            label = <span class="hljs-number">1</span><br><br>        <span class="hljs-keyword">return</span> sentence1, sentence2, label<br><br><br>dataset = Dataset(<span class="hljs-string">&#x27;train&#x27;</span>)<br><br>sentence1, sentence2, label = dataset[<span class="hljs-number">0</span>]<br><br><span class="hljs-built_in">len</span>(dataset), sentence1, sentence2, label<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130203513794-20231130%2020:35:14.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130203513794" style="zoom:50%;" />
+
+<ul>
+<li>加载字典和分词工具</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer<br><br><span class="hljs-comment">#加载字典和分词工具</span><br>token = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;bert-base-chinese&#x27;</span>)<br><br>token<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130203617537-20231130%2020:36:17.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130203617537" style="zoom:50%;" />
+
+<ul>
+<li>批处理函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">collate_fn</span>(<span class="hljs-params">data</span>):<br>    sents = [i[:<span class="hljs-number">2</span>] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> data]<br>    labels = [i[<span class="hljs-number">2</span>] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> data]<br><br>    <span class="hljs-comment">#编码</span><br>    data = token.batch_encode_plus(batch_text_or_text_pairs=sents,<br>                                   truncation=<span class="hljs-literal">True</span>,<br>                                   padding=<span class="hljs-string">&#x27;max_length&#x27;</span>,<br>                                   max_length=<span class="hljs-number">45</span>,<br>                                   return_tensors=<span class="hljs-string">&#x27;pt&#x27;</span>,<br>                                   return_length=<span class="hljs-literal">True</span>,<br>                                   add_special_tokens=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment">#input_ids:编码之后的数字</span><br>    <span class="hljs-comment">#attention_mask:是补零的位置是0,其他位置是1</span><br>    <span class="hljs-comment">#token_type_ids:第一个句子和特殊符号的位置是0,第二个句子的位置是1</span><br>    input_ids = data[<span class="hljs-string">&#x27;input_ids&#x27;</span>]<br>    attention_mask = data[<span class="hljs-string">&#x27;attention_mask&#x27;</span>]<br>    token_type_ids = data[<span class="hljs-string">&#x27;token_type_ids&#x27;</span>]<br>    labels = torch.LongTensor(labels)<br><br>    <span class="hljs-comment">#print(data[&#x27;length&#x27;], data[&#x27;length&#x27;].max())</span><br><br>    <span class="hljs-keyword">return</span> input_ids, attention_mask, token_type_ids, labels<br><br><br><span class="hljs-comment">#数据加载器</span><br>loader = torch.utils.data.DataLoader(dataset=dataset,<br>                                     batch_size=<span class="hljs-number">8</span>,<br>                                     collate_fn=collate_fn,<br>                                     shuffle=<span class="hljs-literal">True</span>,<br>                                     drop_last=<span class="hljs-literal">True</span>)<br><br><span class="hljs-keyword">for</span> i, (input_ids, attention_mask, token_type_ids,<br>        labels) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(loader):<br>    <span class="hljs-keyword">break</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(loader))<br><span class="hljs-built_in">print</span>(token.decode(input_ids[<span class="hljs-number">0</span>]))<br>input_ids.shape, attention_mask.shape, token_type_ids.shape, labels<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130204150974-20231130%2020:41:51.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130204150974" style="zoom:50%;" />
+
+<ul>
+<li>加载预训练模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertModel<br><br><span class="hljs-comment">#加载预训练模型</span><br>pretrained = BertModel.from_pretrained(<span class="hljs-string">&#x27;bert-base-chinese&#x27;</span>)<br><br><span class="hljs-comment">#不训练,不需要计算梯度</span><br><span class="hljs-keyword">for</span> param <span class="hljs-keyword">in</span> pretrained.parameters():<br>    param.requires_grad_(<span class="hljs-literal">False</span>)<br><br><span class="hljs-comment">#模型试算</span><br>out = pretrained(input_ids=input_ids,<br>           attention_mask=attention_mask,<br>           token_type_ids=token_type_ids)<br><br>out.last_hidden_state.shape<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130204242488-20231130%2020:42:42.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130204242488" style="zoom:50%;" />
+
+<h3 id="下游任务训练-2"><a href="#下游任务训练-2" class="headerlink" title="下游任务训练"></a>下游任务训练</h3><ul>
+<li>定义下游任务模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#定义下游任务模型</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Model</span>(torch.nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.fc = torch.nn.Linear(<span class="hljs-number">768</span>, <span class="hljs-number">2</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, attention_mask, token_type_ids</span>):<br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            out = pretrained(input_ids=input_ids,<br>                             attention_mask=attention_mask,<br>                             token_type_ids=token_type_ids)<br><br>        out = self.fc(out.last_hidden_state[:, <span class="hljs-number">0</span>])<br><br>        out = out.softmax(dim=<span class="hljs-number">1</span>)<br><br>        <span class="hljs-keyword">return</span> out<br><br><br>model = Model()<br><br>model(input_ids=input_ids,<br>      attention_mask=attention_mask,<br>      token_type_ids=token_type_ids).shape<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130204347929-20231130%2020:43:48.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130204347929" style="zoom:50%;" />
+
+<ul>
+<li>训练</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AdamW<br><br><span class="hljs-comment">#训练</span><br>optimizer = AdamW(model.parameters(), lr=<span class="hljs-number">5e-4</span>)<br>criterion = torch.nn.CrossEntropyLoss()<br><br>model.train()<br><span class="hljs-keyword">for</span> i, (input_ids, attention_mask, token_type_ids,<br>        labels) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(loader):<br>    out = model(input_ids=input_ids,<br>                attention_mask=attention_mask,<br>                token_type_ids=token_type_ids)<br><br>    loss = criterion(out, labels)<br>    loss.backward()<br>    optimizer.step()<br>    optimizer.zero_grad()<br><br>    <span class="hljs-keyword">if</span> i % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>:<br>        out = out.argmax(dim=<span class="hljs-number">1</span>)<br>        accuracy = (out == labels).<span class="hljs-built_in">sum</span>().item() / <span class="hljs-built_in">len</span>(labels)<br>        <span class="hljs-built_in">print</span>(i, loss.item(), accuracy)<br><br>    <span class="hljs-keyword">if</span> i == <span class="hljs-number">300</span>:<br>        <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130204514978-20231130%2020:45:15.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130204514978" style="zoom:50%;" />
+
+<h3 id="检测结果-2"><a href="#检测结果-2" class="headerlink" title="检测结果"></a>检测结果</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#测试</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test</span>():<br>    model.<span class="hljs-built_in">eval</span>()<br>    correct = <span class="hljs-number">0</span><br>    total = <span class="hljs-number">0</span><br><br>    loader_test = torch.utils.data.DataLoader(dataset=Dataset(<span class="hljs-string">&#x27;test&#x27;</span>),<br>                                              batch_size=<span class="hljs-number">32</span>,<br>                                              collate_fn=collate_fn,<br>                                              shuffle=<span class="hljs-literal">True</span>,<br>                                              drop_last=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-keyword">for</span> i, (input_ids, attention_mask, token_type_ids,<br>            labels) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(loader_test):<br><br>        <span class="hljs-keyword">if</span> i == <span class="hljs-number">5</span>:<br>            <span class="hljs-keyword">break</span><br><br>        <span class="hljs-built_in">print</span>(i)<br><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            out = model(input_ids=input_ids,<br>                        attention_mask=attention_mask,<br>                        token_type_ids=token_type_ids)<br><br>        pred = out.argmax(dim=<span class="hljs-number">1</span>)<br><br>        correct += (pred == labels).<span class="hljs-built_in">sum</span>().item()<br>        total += <span class="hljs-built_in">len</span>(labels)<br><br>    <span class="hljs-built_in">print</span>(correct / total)<br><br><br>test()<br></code></pre></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231130204554984-20231130%2020:45:55.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231130204554984" style="zoom:50%;" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/%E8%AE%BA%E6%96%87/" class="category-chain-item">论文</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/%E8%AE%BA%E6%96%87%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E3%80%81nlp/">#论文、深度学习、nlp</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Huggingface 快速上手</div>
+      <div>https://yoonalis.github.io/blog/2023/11/29/Huggingface 快速上手/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Azure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2023/11/22/PyTorch%20handbook/" title="快速上手PyTorch">
+                        <span class="hidden-mobile">快速上手PyTorch</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
