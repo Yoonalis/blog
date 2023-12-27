@@ -25,9 +25,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yoonalis.github.io/blog/img/transformer.jpg">
 <meta property="article:published_time" content="2023-12-01T12:08:05.937Z">
-<meta property="article:modified_time" content="2023-12-26T12:33:50.311Z">
+<meta property="article:modified_time" content="2023-12-27T07:16:01.468Z">
 <meta property="article:author" content="Azure">
-<meta property="article:tag" content="论文、深度学习、nlp、transformer">
+<meta property="article:tag" content="论文、transformer">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://yoonalis.github.io/blog/img/transformer.jpg">
   
@@ -248,7 +248,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          137k 字
+          172k 字
         
       </span>
     
@@ -260,7 +260,7 @@
         
         
           <!-- compatible with older versions-->
-          1143 分钟
+          1433 分钟
         
       </span>
     
@@ -1497,7 +1497,39 @@
 <ol>
 <li><strong>判别器的二分类属性，导致其可能不适用于下游任务</strong>。BERT使用MLM进行预训练然后接下游任务，看起来是足够合理的，因为我们可以认为MLM对全词采样的过程中，其实是给所有token都建立了一个基于其上下文的词表示；然而判别器任务是二分类，也就是将token的表示划分到两个空间中，可能会导致其hidden space中信息的过早退化。知乎上有用户发现ELECTRA模型对NER任务不太友好，因而面对复杂的下游任务时，ELECTRA判别器生成的表示可能不够丰富。此外，判别器本身是用二分类任务来预训练的，所以当它面对“接近二分类”的任务时会明显有所助益（如GLUE的CoLA任务），但面对诸如序列标注、文本生成等不那么“分类”的任务时，效果可能就较差。</li>
 </ol>
-<h2 id="Longformer"><a href="#Longformer" class="headerlink" title="Longformer"></a>Longformer</h2><h2 id="DeBERTa"><a href="#DeBERTa" class="headerlink" title="DeBERTa"></a>DeBERTa</h2><h3 id="论文解读-2"><a href="#论文解读-2" class="headerlink" title="论文解读"></a>论文解读</h3><h4 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h4><p>预训练的神经语言模型的最新进展已显着提高了许多自然语言处理(NLP)任务的性能。在本文中，我们提出了一种新的模型架构DeBERTa(解耦注意力解码增强BERT)，它使用两种新颖的技术改进了BERT和RoBERTa模型。首先是解耦注意力机制，其中对每个单词分别使用其内容和位置的编码向量表示，单词间的注意力权重使用解耦矩阵分别计算其内容和相对位置。其次，增强的mask解码器用于在解码层中合并绝对位置，以预测模型预训练中的mask token。此外，一种新的虚拟对抗训练方法用于微调，以改善模型的通用性。我们表明，这些技术显着提高了模型预训练的效率以及自然语言理解(NLU)和自然语言生成(NLG)下游任务的性能。与RoBERTaLarge相比，在一半的训练数据上训练的DeBERTa模型在各种NLP任务上始终表现更好，对MNLI的改进为+0.9％(90.2％对91.1％)，对SQuAD v2.0的改进为+2.3％(88.4％vs. 90.7％)和RACE + 3.6％(83.2％vs. 86.8％)。值得注意的是，我们通过训练更大的版本来扩展DeBERTa，该版本由48个包含15亿个参数的Transform层组成。显着的性能提升使单个DeBERTa模型在macro-average上得分(89.9与89.8)，首次超过了(Wang等人，2019a)SuperGLUE基准上的人类性能，而组合的DeBERTa模型截至2021年1月6日，在SuperGLUE排行榜的表现优于人类基线(90.3对89.8)。我们将向公众发布DeBERTa模型和源代码。 </p>
+<h2 id="Longformer"><a href="#Longformer" class="headerlink" title="Longformer"></a>Longformer</h2><h3 id="1-Longformer的由来"><a href="#1-Longformer的由来" class="headerlink" title="1. Longformer的由来"></a>1. Longformer的由来</h3><p>目前基于Transformer的预训练模型在各项NLP任务纷纷取得更好的效果，这些成功的部分原因在于Self-Attention机制，它运行模型能够快速便捷地从整个文本序列中捕获重要信息。然而传统的Self-Attention机制的时空复杂度与文本的序列长度呈<strong>平方</strong>的关系，这在很大程度上限制了模型的输入不能太长，因此需要将过长的文档进行截断传入模型进行处理，例如BERT中能够接受的最大序列长度为512。</p>
+<p>基于这些考虑，Longformer被提出来拓展模型在长序列建模的能力，它提出了一种时空复杂度同文本序列长度呈<strong>线性</strong>关系的Self-Attention，用以保证模型使用更低的时空复杂度建模长文档。</p>
+<p>这里需要注意的是Longformer是Transformer的Encoder端。</p>
+<h3 id="2-Longformer提出的Self-Attention"><a href="#2-Longformer提出的Self-Attention" class="headerlink" title="2. Longformer提出的Self-Attention"></a>2. Longformer提出的Self-Attention</h3><p>Longformer对长文档建模主要的改进是提出了新的Self-Attention模式，如<strong>图1</strong>所示，下面我们来详细讨论一下。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-2cb9b4e8a15f3728d689d9dc27ff5eb9_1440w.jpg" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图1 经典的Self-Attention和Longformer提出的Self-Attention</p>
+<p><strong>图1</strong>展示了经典的Self-Attention和Longformer提出的Self-Attention，其中<strong>图1a</strong>是经典的Self-Attention，它是一种”全看型”的Self-Attention，即每个token都要和序列中的其他所有token进行交互，因此它的时空复杂度均是 O(n2) 。右边的三种模式是Longformer提出来的Self-Attention模式，分别是Sliding Window Attention（滑窗机制）、Dilated Sliding Window（空洞滑窗机制）和Global+Sliding Window（融合全局信息的滑窗机制）。</p>
+<h4 id="2-1-Sliding-Window-Attention"><a href="#2-1-Sliding-Window-Attention" class="headerlink" title="2.1 Sliding Window Attention"></a>2.1 Sliding Window Attention</h4><p>如<strong>图1b</strong>所示，对于某个token，经典的Self-Attention能够看到并融合所有其他的token，但Sliding window attention设定了一个窗口 w ，它规定序列中的每个token只能看到 w 个token，其左右两侧能看到 12w 个token，因此它的时间复杂度是 O(n×w) 。</p>
+<p>你不需要担心这种设定无法建立整个序列的语义信息，因为transformer模型结构本身是层层叠加的结构，模型高层相比底层具有更宽广的感受野，自然能够能够看到更多的信息，因此它有能力去建模融合全部序列信息的全局表示，就行CNN那样。一个拥有$m$层的transformer，它在最上层的感受野尺寸为 m×w 。</p>
+<p>通过这种设定Longformer能够在建模质量和效率之间进行一个比较好的折中。</p>
+<h4 id="2-2-Dilated-Sliding-Window"><a href="#2-2-Dilated-Sliding-Window" class="headerlink" title="2.2 Dilated Sliding Window"></a>2.2 Dilated Sliding Window</h4><p>在对一个token进行Self-Attention操作时，普通的Sliding Window Attention只能考虑到长度为 w的上下文，在不增加计算符合的情况下，Longformer提出了Dilated Sliding Window，如<strong>图1c</strong>所示。在进行Self-Attention的两个相邻token之间会存在大小为$d$的间隙，这样序列中的每个token的感受野范围可扩展到 d×w 。在第$m$层，感受野的范围将是 m×d×w 。</p>
+<p>作者在文中提到，在进行Multi-Head Self-Attention时，在某些Head上不设置Dilated Sliding Window以让模型聚焦在局部上下文，在某些Head上设置Dilated Sliding Window以让模型聚焦在更长的上下文序列，这样能够提高模型表现。</p>
+<h4 id="2-3-Global-Attention"><a href="#2-3-Global-Attention" class="headerlink" title="2.3 Global Attention"></a>2.3 Global Attention</h4><p>以上两种Attention机制还不能完全适应task-specific的任务，因此Global+Sliding Window的Attention机制被提出来，如<strong>图1d</strong>所示。它设定某些位置的token能够看见全部的token，同时其他的所有token也能看见这些位置的token，相当于是将这些位置的token”暴露”在最外面。</p>
+<p>这些位置的确定和<strong>具体的任务</strong>有关。例如对于分类任务，这个带有全局视角的token是”CLS”；对于QA任务，这些带有全局视角的token是Question对应的这些token。</p>
+<p>那么这种融合全局信息的滑窗Attention具体如何实现呢，我们先来回顾一下经典的Self-Attention，公式如下： Attention(Q,K,V)&#x3D;softmax(QKTdk) 即将原始的输入分别映射到了 Q,K,V 三个空间后进行Attention计算，Global+Sliding Window这里涉及到两种Attention，Longformer中分别将这两种Attention映射到了两个独立的空间，即使用 Qs,Ks,Vs 来计算Sliding Window Attention，使用 Qg,Kg,Vg来计算Global Attention。</p>
+<h3 id="3-Longformer-Attention的实现"><a href="#3-Longformer-Attention的实现" class="headerlink" title="3. Longformer Attention的实现"></a>3. Longformer Attention的实现</h3><p>上述提出的Attention机制在当前的深度学习框架中尚未实现，比如PyTorch&#x2F;Tensorflow，因此Longformer作者实现了三种方式并进行了对比，如<strong>图2</strong>所示。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-4978cfa799b5b07183e383394d5f1d15_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图2 Longformer Attention的不同实现方式</p>
+<p>其中Full Self-Attention是经典的自注意力实现；Longformer-loop是一种PyTorch实现，它能够有效节省内存使用并且支持Dilated Sliding Window, 但这种实现方式太慢，因此只能用于测试阶段。Longformer-chunks不支持Dilated Sliding Window，被用于预训练&#x2F;微调阶段。Longformer-cuda是作者使用TVM实现的CUDA内核方法。可以看到，Longformer能够取得比较好的时空复杂度。</p>
+<h3 id="longformer代码解析"><a href="#longformer代码解析" class="headerlink" title="longformer代码解析"></a>longformer代码解析</h3><p>经过预训练的longformer在多个下游任务上取得了优秀的效果。这里不一一列举，请读者阅读原论文了解更多细节。我们这里只提一下复现论文效果时的一些注意事项。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/allenai/longformer%E4%B8%8A%E7%9A%84%E4%BB%A3%E7%A0%81%E6%98%AF%E5%9F%BA%E4%BA%8Epytorch-lightning%E5%92%8Chuggingface">https://github.com/allenai/longformer上的代码是基于pytorch-lightning和huggingface</a> transformer实现的，笔者通过readme中的方法配环境没有成功，反倒是根据代码自己配的环境能让代码正常运行。</p>
+<p>另外，<a target="_blank" rel="noopener" href="https://github.com/allenai/longformer%E4%B8%ADscripts%E9%87%8C%E7%9A%84cheatsheet.txt%E5%86%99%E7%9A%84%E6%98%AF%E6%9C%89%E9%97%AE%E9%A2%98%E7%9A%84%E3%80%82%E5%A6%82%E6%9E%9C%E8%AF%BB%E8%80%85%E6%8C%89%E5%85%B6%E5%91%BD%E4%BB%A4%E8%BF%90%E8%A1%8C%EF%BC%8C%E6%98%AF%E5%BE%97%E4%B8%8D%E5%88%B0%E8%AE%BA%E6%96%87%E4%B8%AD%E6%8F%90%E5%88%B0%E7%9A%84%E5%9C%A8triviaqa%E4%B8%8A%E7%9A%84%E6%95%88%E6%9E%9C%E7%9A%84%E3%80%82%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%E5%85%B6%E5%AE%9E%E5%B7%B2%E7%BB%8F%E6%9C%89%E5%A4%A7%E4%BD%AC%E8%A7%A3%E5%86%B3%E4%BA%86%EF%BC%8C%E5%8F%AA%E6%98%AFcheatsheet%E8%BF%9F%E8%BF%9F%E6%B2%A1%E6%9C%89%E6%9B%B4%E6%96%B0%E3%80%82%E6%AD%A4%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%E8%A7%81longformer%E8%AE%BA%E6%96%87%E4%B8%ADtriviaqa%E4%B8%8A%E6%95%88%E6%9E%9C%E5%A4%8D%E7%8E%B0%E3%80%82%E7%94%B1%E4%BA%8E%E6%9C%89%E7%9A%84%E4%BA%BA%E5%8F%AF%E8%83%BD%E6%89%93%E4%B8%8D%E5%BC%80%E9%93%BE%E6%8E%A5%E6%88%96%E4%B8%8D%E6%B8%85%E6%A5%9A%E5%A4%A7%E4%BD%AC%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%EF%BC%8C%E6%88%AA%E5%9B%BE%E5%A6%82%E4%B8%8B%E5%B9%B6%E5%8A%A0%E4%BB%A5%E8%A7%A3%E9%87%8A">https://github.com/allenai/longformer中scripts里的cheatsheet.txt写的是有问题的。如果读者按其命令运行，是得不到论文中提到的在triviaqa上的效果的。这个问题其实已经有大佬解决了，只是cheatsheet迟迟没有更新。此问题的解决办法见longformer论文中triviaqa上效果复现。由于有的人可能打不开链接或不清楚大佬是怎么做的，截图如下并加以解释</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yoonalis/img@master/blog/image-20231226212452033-20231226%2021:24:53.png" srcset="/blog/img/loading.gif" lazyload alt="image-20231226212452033"></p>
+<p>首先，–save_prefix triviaqa-longformer-large并不能正确的加载预训练模型参数，导致测试结果极差。想要正确加载参数，我们需要用到–resume_ckpt path&#x2F;to&#x2F;triviaqa-longformer-large&#x2F;checkpoints&#x2F;ckpt_epoch_4_v2.ckpt。可是在github上下载的triviaqa-longformer-large&#x2F;checkpoints&#x2F;ckpt_epoch_4_v2.ckpt通过上述方法加载还会失败，所以我们要对checkpoint内容进行修改。这种修改在python terminal里进行即可。修改代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">checkpoint = torch.load(<span class="hljs-string">&quot;path/to/triviaqa-longformer-large/checkpoints/ckpt_epoch_4_v2.ckpt&quot;</span>)<br><br>checkpoint[<span class="hljs-string">&quot;state_dict&quot;</span>][<span class="hljs-string">&quot;model.embeddings.position_ids&quot;</span>] = torch.arange(<span class="hljs-number">4098</span>).to(<span class="hljs-string">&#x27;cuda&#x27;</span>).unsqueeze(<span class="hljs-number">0</span>)<br>checkpoint[<span class="hljs-string">&quot;checkpoint_callback_best_model_path&quot;</span>]=<span class="hljs-string">&quot;&quot;</span>  <span class="hljs-comment"># some versions of pytorch lightning may not need this</span><br><br>torch.save(checkpoint, <span class="hljs-string">&quot;path/to/triviaqa-longformer-large/checkpoints/fixed_ckpt_epoch_4_v2.ckpt&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>修改完后，使用&#x3D;&#x3D;–resume_ckpt path&#x2F;to&#x2F;triviaqa-longformer-large&#x2F;checkpoints&#x2F;fixed_ckpt_epoch_4_v2.ckpt&#x3D;&#x3D;就可以啦。测试的效果如下：<br><strong>{‘exact_match’: 73.16401851620168, ‘f1’: 77.782891117113}</strong></p>
+<p><a target="_blank" rel="noopener" href="https://huggingface.co/transformers/model_doc/longformer.html">https://huggingface.co/transformers/model_doc/longformer.html</a></p>
+<p>Huggingface中实现了Longformer，并且是作者本人实现的。但是，上文中提到的Dilated Sliding Window并没有被实现，而且Huggingface中还给出了提示DISCLAIMER: This model is still a work in progress, if you see something strange, file a Github Issue.但不论怎样，这里给出的实现比github中原项目更易用。需要注意的是，longformer相关模型的forward函数都需要一个参数global_attention_mask用于标定需要使用global attention的token。虽然这个参数是可选的，但笔者建议大家用的时候加上这个参数。</p>
+<p>对于Huggingface中Longformer的实现和原Longformer实现的区别，github上有一个相关的issue，但还没有答复。可以关注一下<a target="_blank" rel="noopener" href="https://github.com/allenai/longformer/issues/210">https://github.com/allenai/longformer/issues/210</a></p>
+<p>最后提一点，longformer的最长处理长度不是4096。但是为了在可接受时间内得到结果，论文的作者在预训练longformer模型时，将输入的长度都限制在了4096个token内，超过4096个token的部分会被直接截断。</p>
+<p>另外，longformer的时间复杂度虽然和输入长度线性相关，但这绝对不代表longformer对计算资源的需求小。恰恰相反，longformer对计算资源的需求远大于roberta。如果想在longformer上pretrain或finetune，v100是不错的选择。</p>
+<h2 id="DeBERTa"><a href="#DeBERTa" class="headerlink" title="DeBERTa"></a>DeBERTa</h2><h3 id="论文解读-2"><a href="#论文解读-2" class="headerlink" title="论文解读"></a>论文解读</h3><h4 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h4><p>预训练的神经语言模型的最新进展已显着提高了许多自然语言处理(NLP)任务的性能。在本文中，我们提出了一种新的模型架构DeBERTa(解耦注意力解码增强BERT)，它使用两种新颖的技术改进了BERT和RoBERTa模型。首先是解耦注意力机制，其中对每个单词分别使用其内容和位置的编码向量表示，单词间的注意力权重使用解耦矩阵分别计算其内容和相对位置。其次，增强的mask解码器用于在解码层中合并绝对位置，以预测模型预训练中的mask token。此外，一种新的虚拟对抗训练方法用于微调，以改善模型的通用性。我们表明，这些技术显着提高了模型预训练的效率以及自然语言理解(NLU)和自然语言生成(NLG)下游任务的性能。与RoBERTaLarge相比，在一半的训练数据上训练的DeBERTa模型在各种NLP任务上始终表现更好，对MNLI的改进为+0.9％(90.2％对91.1％)，对SQuAD v2.0的改进为+2.3％(88.4％vs. 90.7％)和RACE + 3.6％(83.2％vs. 86.8％)。值得注意的是，我们通过训练更大的版本来扩展DeBERTa，该版本由48个包含15亿个参数的Transform层组成。显着的性能提升使单个DeBERTa模型在macro-average上得分(89.9与89.8)，首次超过了(Wang等人，2019a)SuperGLUE基准上的人类性能，而组合的DeBERTa模型截至2021年1月6日，在SuperGLUE排行榜的表现优于人类基线(90.3对89.8)。我们将向公众发布DeBERTa模型和源代码。 </p>
 <p>Transformer已成为用于神经语言模型的最有效的神经网络体系结构。与按顺序处理文本的循环神经网络(RNN)不同，transformer应用self-attention功能来并行计算输入文本中的每个单词的注意力权重，从而衡量每个单词对另一个单词的影响，因此与RNN相比，它可以并行大规模模型训练(Vaswani et al.,2017)。自2018年以来，我们已经看到了一系列基于transformer的大规模预训练语言模型(PLM)的兴起，例如GPT(Radford等人，2019; Brown等人，2020)，BERT(Devlin等人)。等人，2019)，RoBERTa(Liu等人，2019c)，XLNet(Yang等人，2019)，UniLM(Dong等人，2019)，ELECTRA(Clark等人，2020)，T5(Raffel等人)等人，2020)，ALUM(Liu等人，2020)，StructBERT(Wang等人，2019c)和ERINE(Sun等人，2019)。这些PLM使用特定任务label进行了微调，并在许多下游自然语言处理(NLP)任务中创造了新的技术水平(Liu等人，2019b； Minaee等人，2020； Jiang等人，2020 ; He等人，2019a; b; Shen等人，2020)。 </p>
 <p>在本文中，我们提出了一种新的基于Transformer的神经语言模型DeBERTa(具有解耦注意力的解码增强BERT)，它使用两种新颖的技术改进了以前的最新PLM：<strong>解耦注意力机制和增强的mask解码器。</strong> </p>
 <p><strong>解耦注意力:</strong> 与BERT不同，在BERT中，输入层中的每个单词都使用一个向量来表示，该向量是其单词(内容)嵌入和位置嵌入的总和， 单词间的权重分别根据其内容和相对位置使用解耦的矩阵进行计算。 这是由于观察到一个单词对的注意力权重不仅取决于它们的内容，而且还取决于它们的相对位置。 例如，单词“deep”和“learning”相邻时的的关系要强于出现在不同句子中。 </p>
@@ -1615,7 +1647,208 @@
 <h5 id="A-8-微调的差异"><a href="#A-8-微调的差异" class="headerlink" title="A.8 微调的差异"></a>A.8 微调的差异</h5><p>考虑到微调的不同运行的差异，在我们的实验中，我们始终遵循Liu等人(2019c)通过平均五个具有不同随机初始化种子的运行，并且在比较结果时执行显着性测试。 如表13所示，DeBERTabase的性能明显优于RoBERTabase(pvalue&lt;0.05)。 </p>
 <p><img src="https://pic4.zhimg.com/80/v2-be8245bb4278c6cc5eea49b979341303_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
 <p>表13：在MNLI匹配的SQuAD v1.1和DeBERTa和RoBERTa的比较。</p>
-<h2 id="M2M1000"><a href="#M2M1000" class="headerlink" title="M2M1000"></a>M2M1000</h2><h2 id="LUKE"><a href="#LUKE" class="headerlink" title="LUKE"></a>LUKE</h2><h2 id="clip"><a href="#clip" class="headerlink" title="clip"></a>clip</h2>
+<h2 id="M2M1000"><a href="#M2M1000" class="headerlink" title="M2M1000"></a>M2M1000</h2><blockquote>
+<p>多语言翻译模型</p>
+</blockquote>
+<p>原文: Beyond English-Centric Multilingual Machine Translation</p>
+<p>作者: Angela Fan∗, Shruti Bhosale,</p>
+<p>论文发表时间: 2020年10月</p>
+<blockquote>
+<p>\1. 多对多翻译的是在于任意2种语言之间进行翻译，M2M-100的意思是在100种语言之间进行互相翻译。<br>\2. 多对多数据集的创建时一个难点，如何创建一个多对多的数据集，如果全部创建平行语料库，那么100种语言，就需要10000对平行语料库，本文使用语言的相似性的方法自动构建平行语料库。<br>\3. 另一个挑战是现有的模型结构无法拟合这么多的数据，使用密集的缩放和稀疏的专家混合来增加模型规模，来减小参数量，增大模型规模。<br>\4. 多语言翻译用的SentencePiece的方法分词，产生的单词表为128112个，覆盖了99.95%的单词。<br>\5. Transformer架构是为双语情况设计的，改造成多语言，也是类似于T5模型，都是前面加个一特定的token，例如: 你好啊 –&gt; <strong>zh</strong> 你好啊</s>, 特殊的token是__zh_, 翻译的目标语言也是这样的结构，例如翻译成英语，给定 __en__的token，模型就会知道要翻译成英语了。<br>\6. bitext代表的意思是 bidirectional text, 双向语料，即翻译的平行语料，例如中英文翻译语料库。<br>\7. 表1是这100种语言，作者他们进行了语系的划分。<br>\8. 训练数据的100种语言挖掘也是一个复杂的工作，作者通过大型语料库的平行挖掘和桥梁语言挖掘（例如小语种1-英语-小语种2），对齐，生成了75亿个平行句子，对应2200种语言对。<br>\9. 表5表明了没有训练的bitext语料对和有bitext的语料对的语种间性能的差异，虽然有差异，但是也表明了即使某2种语言之间，我们没有平行语料库，但是模型仍然能够翻译他们。<br>\10. 对于这个大型模型如何训练，作者通过2种方式进行了优化，1是通过梯度checkpoint的方式，把训练中的梯度存到硬盘，减少GPU消耗内存，能减少50%，2是通过并行的方式，在多个GPU上运行，又分为沿着宽度或沿着深度，本模型是沿着深度的方式拆分进行并行训练。<br>\11. 图7 证明了在模型宽度方向扩展，即增加模型的隐藏层维度，能比在模型深度方向扩展提高的性能更多。<br>\12. 图8是本文的一个架构的重点，在解码器层添加一个重新路由的特定语言层，把相似语种的语言自动路由到相似的Transformer子层，这个子层负责解码到某种语言。</p>
+</blockquote>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs text">from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer<br># 100种语言包括: Afrikaans (af), Amharic (am), Arabic (ar), Asturian (ast), Azerbaijani (az), Bashkir (ba), Belarusian (be), Bulgarian (bg), Bengali (bn), Breton (br), Bosnian (bs), Catalan; Valencian (ca), Cebuano (ceb), Czech (cs), Welsh (cy), Danish (da), German (de), Greeek (el), English (en), Spanish (es), Estonian (et), Persian (fa), Fulah (ff), Finnish (fi), French (fr), Western Frisian (fy), Irish (ga), Gaelic; Scottish Gaelic (gd), Galician (gl), Gujarati (gu), Hausa (ha), Hebrew (he), Hindi (hi), Croatian (hr), Haitian; Haitian Creole (ht), Hungarian (hu), Armenian (hy), Indonesian (id), Igbo (ig), Iloko (ilo), Icelandic (is), Italian (it), Japanese (ja), Javanese (jv), Georgian (ka), Kazakh (kk), Central Khmer (km), Kannada (kn), Korean (ko), Luxembourgish; Letzeburgesch (lb), Ganda (lg), Lingala (ln), Lao (lo), Lithuanian (lt), Latvian (lv), Malagasy (mg), Macedonian (mk), Malayalam (ml), Mongolian (mn), Marathi (mr), Malay (ms), Burmese (my), Nepali (ne), Dutch; Flemish (nl), Norwegian (no), Northern Sotho (ns), Occitan (post 1500) (oc), Oriya (or), Panjabi; Punjabi (pa), Polish (pl), Pushto; Pashto (ps), Portuguese (pt), Romanian; Moldavian; Moldovan (ro), Russian (ru), Sindhi (sd), Sinhala; Sinhalese (si), Slovak (sk), Slovenian (sl), Somali (so), Albanian (sq), Serbian (sr), Swati (ss), Sundanese (su), Swedish (sv), Swahili (sw), Tamil (ta), Thai (th), Tagalog (tl), Tswana (tn), Turkish (tr), Ukrainian (uk), Urdu (ur), Uzbek (uz), Vietnamese (vi), Wolof (wo), Xhosa (xh), Yiddish (yi), Yoruba (yo), Chinese (zh), Zulu (zu)<br>model = M2M100ForConditionalGeneration.from_pretrained(&quot;facebook/m2m100_418M&quot;)<br>tokenizer = M2M100Tokenizer.from_pretrained(&quot;facebook/m2m100_418M&quot;)<br><br>def cn2en():<br>    article_cn = &quot;生活就像一块巧克力。&quot;<br>    tokenizer.src_lang = &quot;zh&quot;<br>    encoded_text = tokenizer(article_cn, return_tensors=&quot;pt&quot;)<br>    generated_tokens = model.generate(**encoded_text, forced_bos_token_id=tokenizer.get_lang_id(&quot;en&quot;))<br>    result = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)<br>    print(f&quot;&#123;article_cn&#125;的翻译结果: &#123;result[0]&#125;&quot;)<br><br>def en2cn():<br>    article_en = &quot;Life is like a box of chocolate.&quot;<br>    tokenizer.src_lang = &quot;en&quot;<br>    encoded_text = tokenizer(article_en, return_tensors=&quot;pt&quot;)<br>    generated_tokens = model.generate(**encoded_text, forced_bos_token_id=tokenizer.get_lang_id(&quot;zh&quot;))<br>    result = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)<br>    print(f&quot;&#123;article_en&#125;的翻译结果: &#123;result[0]&#125;&quot;)<br><br>cn2en()<br>en2cn()<br><br>输出结果:<br>生活就像一块巧克力。的翻译结果: Life is like a piece of chocolate.<br>Life is like a box of chocolate.的翻译结果: 生活就像一盒巧克力。<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="一、简介-1"><a href="#一、简介-1" class="headerlink" title="一、简介"></a>一、简介</h3><p>现有的翻译工作通过训练一个能够在任何<strong>一对语言之间进行翻译的单一模型</strong>，展示了大规模多语言机器翻译的潜力。然而，这些工作大多是以英语为中心的，只对从英语翻译过来的数据进行训练。虽然这得到了大量训练数据来源的支持，但它并没有反映全世界的翻译需求。在这项工作中，<strong>我们创建了一个真正的多对多语言翻译模型，可以在任何一对100种语言之间直接翻译。</strong>我们建立并开源了一个训练数据集，该数据集涵盖了数千种语言方向的监督数据，是通过大规模挖掘创建的。然后，我们探索如何通过密集扩展和特定语言的稀疏参数的组合来有效地提高模型的容量，以创建高质量的模型。我们对以非英语为中心的模型的关注，在直接翻译非英语方向时带来了超过10个BLEU的收益，同时表现出与WMT的最佳单一系统相竞争。我们开源了我们的脚本，以便其他人可以在这里复制数据、评估和最终的M2M-100模型。</p>
+<p>多语言机器翻译（MMT）旨在建立一个单一的模型，在任何一对语言之间进行翻译。神经网络模型在双语机器翻译方面非常成功（Bahdanau等人，2014年；Gehring等人，2017年；Vaswani等人，2017年），最近，神经MMT模型也显展示良好的效果（Firat等人，2016年；Zhang等人，2020年）。多语言翻译模型在翻译到多种语言时将计算因素化，并在相似的语言之间共享信息，这有利于low-resource方向（Arivazhagan等人，2019年），并实现zero-shot翻译（Gu等人，2019年）。</p>
+<p>然而，在过去，这些系统在相同的语言对上训练时，表现不如双语模型好（Johnson等人，2017），因为模型容量必然要在许多语言之间分割（Arivazhagan等人，2019）。这一点通过增加模型容量得到了缓解（Aharoni等人，2019年；Zhang等人，2020年），但是模型规模的增加也需要更大的多语言训练数据集，而这些数据集的创建是费力和困难的。为了缓解这一挑战，大多数先前的工作都集中在以英语为中心的数据集和模型上，这些模型在英语之间进行翻译，但在非英语语言之间不进行翻译。这种以英语为中心的数据和产生的模型并不能反映人们如何使用翻译，而且根据经验，会导致非英语翻译方向的性能降低。在这项工作中，我们通过建立100种语言的大规模 “多对多 “数据集，创建了更多样化的多语言机器翻译模型。我们通过自动构建平行语料库（Artetxe和Schwenk，2018b；Schwenk等人，2019），用一种新颖的数据挖掘策略，利用语言的相似性来避免挖掘所有方向，大大降低了这项任务的复杂性。我们还利用backtranslation来提高我们在zero-shot和low-resource语言对上的模型质量。总的来说，我们建立了第一个真正的多对多数据集，包括100种语言的75亿个训练句子，为成千上万的翻译方向提供直接的训练数据。</p>
+<p>多对多数据集中的数据量随着语言数量的增加而呈二次方增长，使得具有标准能力的神经网络迅速欠拟合。为此，我们利用缩放方面的进展（Kaplan等人，2020年；Arora等人，2018年）来训练模型，这些模型比目前的双语模型大50多倍，具有模型平行性（黄等人，2019年；Shoeybi等人，2019年）。即使有了这些工具，参数量的扩展也很难遵循 “多对多 “设置所引起的数据的二次增长，我们提出了几个针对我们问题的特殊性的扩展策略。特别是，我们考虑了一种确定性的专家混合策略，将模型参数分成不重叠的语言组，我们用一种新的重新路由策略对其进行训练。特定语言的专家混合策略也减少了密集更新参数的需要，并且在多机环境下更容易并行。总的来说，结合这些策略，我们可以将模型的容量扩大到154亿个参数的规模，并且仍然可以在数百个GPU上合理地训练它们。</p>
+<p>由此产生的方法使我们能够扩大Transformers的规模，并直接在100种语言之间进行翻译，而不需要通过英语进行中间转换，其性能在包括WMT在内的许多竞争性基准上与双语模型具有竞争力。图1说明了我们的数据挖掘策略以及我们的模型架构。本文的组织结构如下：首先，我们介绍了现代机器翻译的几个标准组件，并解释了它们在多语言环境中的应用（第2节），然后描述了我们扩大语言对数量的策略，以创建一个多对多的数据集（第3节）。然后，我们将这个多对多的数据集与以英语为中心的方法进行系统的比较（第4节）。接下来，我们通过密集的缩放和稀疏的专家混合来增加模型规模（第5节）。最后，我们对我们的100x100 “多对多 “翻译系统的质量进行了彻底的分析，包括人工评估（第6节）。</p>
+<h3 id="二、-前言"><a href="#二、-前言" class="headerlink" title="二、 前言"></a>二、 前言</h3><p>在这项工作中，我们研究了如何能用一个单一的模型最好地从100种语言翻译到100种语言，或9900个方向。我们在本节中描述了我们的出发点，并提供了关于基于Transformer的神经机器翻译模型的初步背景。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-3e70933a40047ed8a2a7d283e179388b_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图1：我们的多对多数据集和多语言模型的摘要。以英语为中心的数据（左上）只包含与英语之间的训练数据，而我们的多对多语言设置（右上）则包含直接通过各种不同方向的数据。我们提出的模型，M2M-100，结合密集和稀疏的特定语言参数，直接在语言之间进行翻译（底部）。</p>
+<p>seq2seq的模型是在成对的序列上训练的，以输入序列为条件，产生一个输出序列。每个句子都被分割成token，可以是单词或字符，产生成对的序列（w1, … , wS）和（v1, … , vT）。大多数机器翻译系统是通过最大化目标序列的概率来训练的，给定源句和目标语言lt。</p>
+<p>P(v1,…,vT∣w1,…,wS,ℓt)</p>
+<p>现代神经机器翻译系统基于几个标准组件，即一个子词分词方法和一个称为Transformer的编码解码器架构。我们在多语言翻译的背景下描述这些组件。</p>
+<p>用SentencePiece进行分词。翻译系统的输入和输出是token的序列。这些token是来自字典的单元，其目的是为了重建任何语言的任何句子。使用单词作为基本单位是具有挑战性的，因为它要么导致覆盖率低的单词表，要么导致大量单词表。这在多语言环境中尤其如此。基于单词的系统的另一个限制是那些不能自然地分成单词的语言，如泰语。另一种方法是使用子词单元，直接从数据中学习（Sennrich等人，2015；Kudo和Richardson，2018）。我们使用SentencePiece，因为它被设计用来处理没有分词的语言，使它特别适合我们的环境。我们训练了一个字符覆盖率为0.9995的模型，以便对基于字符的语言有充分的表示性。</p>
+<p>创建一个多语言词典。SentencePiece根据其在训练数据集中的频率来产生子词单元。简单地把它应用到我们的语料库中，会导致low-resource语言和用不太常用的文字书写的语言在所产生的词典中表示不足。随机抽样的数据有利于表示性过高的语言，因为挑选语言l的概率与它的句子数量Dl成正比，即 pℓ&#x3D;Dℓ∑iDi 。我们通过增加low-resource语言的单语数据和使用T&#x3D;5的温度采样来规避这个问题。更确切地说，温度T控制分布的概率pl。例如，设置为pT重新缩放为1，就可以得到原始数据的分布。由此得到的词典包含128k个独特的token，这些token在不同的语言中分布良好，如附录A所示。</p>
+<p>我们的多语言机器翻译模型是基于Transformer seq2seq的架构，它由两个模块组成：编码器和解码器（Vaswani等人，2017）。编码器将源token序列转换为相同长度的嵌入序列。然后，解码器依次产生目标句子，逐个token，或自动生成。更确切地说，编码器将token序列W &#x3D; (w1, . . . , wS)和源语言ls，并产生嵌入序列H &#x3D; (h1, . . . , hS)，然后用目标语言lt反馈给解码器，依次产生目标token序列V &#x3D; (v1, . . , vT )，即。</p>
+<p>(1)H&#x3D;encoder⁡(W,ℓs),∀i∈[1,…,T],vi+1&#x3D;decoder⁡(H,ℓt,v1,…,vi)</p>
+<p>编码器和解码器都是由同一类型的层组成，称为转换层。每个转换层将一个向量序列作为输入并输出一个向量序列。在编码器中，转换层由两个子层组成，一个是self-attention层，一个是前馈层。这些都是依次使用的的，并且都有一个残差连接（He等人，2015）和层归一化（Ba等人，2016）。</p>
+<p>(3-4)Z&#x3D;norm⁡(X+self-attention(X))Y&#x3D;norm⁡(Z+self-attention(Z))</p>
+<p>self-attention层是一个注意力层，它通过查看其他元素来更新序列中的每个元素，而前馈层（FFN）通过一个2层MLP独立地传递序列中的每个元素。在解码器中，在self-attention和前馈之间有一个额外的第三层子层，它在编码器的输出上计算注意力。关于这些层的细节，我们请读者参考Vaswani等人（2017）。</p>
+<p>目标语言token: Transformer架构是为双语情况设计的，在这种情况下，目标语言是固定的。在多语言机器翻译的情况下，目标语言是不固定的，可以采用几种策略来调节网络，使其产生一个所需目标语言的句子。与Ha等人（2016）和Johnson等人（2017）类似，我们在编码器中加入一个特殊的token，表示源语言，在解码器中加入一个特殊token，表示目标语言。</p>
+<p>训练: 我们改进大规模多语言翻译模型的起点是一个大型的Transformer模型，有12个编码器和12个解码器层，有8192个FFN大小和1024个嵌入维度。我们共享输入和输出嵌入的权重矩阵。总参数数为1.2B。我们用Adam优化器（Kingma和Ba，2015）进行训练，先预热4000次，标签平滑度为0.1（Szegedy等人，2015；Pereyra等人，2017）。对于正则化，我们在{0.1, 0.2,0.3}之间调整dropout参数。为了稳定深层transformer的训练，我们用LayerDrop（Fan等人，2019）0.05和预正则化（Nguyen和Salazar，2019）进行训练。</p>
+<p>为了用数十亿的句子进行训练，我们将训练数据分成256个不同的分片，以管理内存消耗。然而，直接将middle、low-resource语言划分为分片，会减少每个分片的middle、low-resource语言数据的可变性。想象一下每个分片中只有100个语言方向的句子的情况–模型会很容易过拟合。因此，每种语言根据资源水平被分为不同数量的碎片，比如high-resource语言有更多的碎片，而最少的low-resource语言只有一个碎片。随后，较low-resource的分片被复制，直到达到分片的全部数量。</p>
+<p>生成: 除非另有说明：对于所有的结果，我们报告了没有checkpoint平均化的单一模型，使用beam search 的 beam为5，并且不调整长度惩罚。</p>
+<h3 id="三、-构建100种语言的多对多并行数据集"><a href="#三、-构建100种语言的多对多并行数据集" class="headerlink" title="三、 构建100种语言的多对多并行数据集"></a>三、 构建100种语言的多对多并行数据集</h3><p>在这一节中，我们将概述我们的多对多设置：100种语言的选择，评估基准，以及通过数据挖掘（Artetxe和Schwenk，2018b）和back translation（Sennrich等人，2016a）构建一个大规模的训练集，提供训练数据的数千个方向。</p>
+<h4 id="3-1-创建一个多语言基准"><a href="#3-1-创建一个多语言基准" class="headerlink" title="3.1 创建一个多语言基准"></a>3.1 创建一个多语言基准</h4><p>建立 “多对多 “数据集的第一步是选择100种语言，这些语言已经存在高质量的、有注释的数据集，可以用于模型评估。</p>
+<h4 id="3-1-1-语言选择"><a href="#3-1-1-语言选择" class="headerlink" title="3.1.1 语言选择"></a>3.1.1 语言选择</h4><p>我们考虑了几个因素来选择要关注的语言。首先，我们包括来自不同地理区域的语言家族的广泛使用的语言。我们涵盖了各种不同的文字和资源水平（如表1所示），以达到对全球语言的高度覆盖。其次，我们使用存在公共评估数据的语言，因为我们必须能够量化模型的性能。最后，我们只使用有单语数据的语言，因为单语数据是大规模挖掘的关键资源。将这三个标准的结果结合起来，就形成了我们的100种语言的完整名单，汇总于表1。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a9ad2be8e27165441f44722edd25720f_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表1：按语系分类的100种语言。对于每种语言，我们都显示了ISO代码、语言名称、语系和文字。黑体字的语言是桥梁语言（Malayo-Polyn.代表Malayo-Polynesian）。</p>
+<h4 id="3-1-2-评价基准"><a href="#3-1-2-评价基准" class="headerlink" title="3.1.2 评价基准"></a>3.1.2 评价基准</h4><p>我们使用公开可用的评估数据集来评估我们所有模型的性能。为了覆盖我们的100种语言和2200个方向，我们把来自不同来源的数据集中起来。我们在下面描述每个评估数据集。</p>
+<p>- WMT–WMT的大部分语言对都经过了英语，数据来自新闻领域。我们考虑13种语言的数据（Ondrej等人，2017；Bojar等人，2018；Barrault等人，2019）。</p>
+<p>- WAT - WAT比赛涵盖了与英语配对的亚洲语言。我们考虑的是缅甸语-英语（Riza等人，2016）的数据，其中包含新闻文章。WAT包含许多其他的评估方向，但其中许多是由WMT覆盖的，或在一个特定的领域，所以我们只关注Burmes-English的WAT。</p>
+<p>- IWSLT - IWSLT翻译竞赛包含来自TED演讲与英文翻译配对的数据。我们使用4种语言的数据（Cettolo等人，2017）。</p>
+<p>- FLORES - FLORES2（Guzmán等人，2019年）将两种low-resource语言僧伽罗语和尼泊尔语与维基百科领域的英语配对。</p>
+<p>- TED–TED Talks数据集3（Ye等人，2018）包含了50多种语言之间的翻译；大部分的配对不包括英语。评估数据是n-way平行的，包含数千个方向。</p>
+<p>- Autshumato - Autshumato4是一个由10种非洲语言和政府领域的英语组成的11-way平行数据集。没有标准的有效&#x2F;测试划分，所以我们使用数据集的前半部分作为有效数据，后半部分作为测试数据。</p>
+<p>- Tatoeba - Tatoeba挑战赛涵盖692个来自混合领域的测试对，这些句子由志愿者在线提供和翻译。我们从Tatoeba使用的评估对涵盖85种不同的语言。</p>
+<p>我们用BLEU（Papineni等人，2002）来评估翻译的质量。我们首先对所有数据进行detokenize处理，然后在计算BLEU之前对每种语言应用标准的tokenize处理。对于大多数语言，我们使用moses tokenizer（Koehn等人，2007）。对于中文，我们使用Sacre</p>
+<p>BLEU tokenizer（tok zh），并使用HanziConv7（Post，2018）将模型生成的所有繁体字转换成简体字，对于印度语言，我们使用Indic NLP库（Kunchukuttan，2020），对于日语，我们使用Kytea，对于泰语，我们使用PyThaiNLP（Phatthiyaphaibun等人。对于阿拉伯语，我们使用QCRI阿拉伯语归一化工具，于韩语，我们使用Mecab，对于缅甸语，我们使用Ding等人（2019）提供的oﬃcial分词工具，对于罗马尼亚语，我们遵循Sennrich等人（2016b），对罗马尼亚语文本进行摩西标记化、特殊归一化，并去除变音，最后对于塞尔维亚语，我们在计算BLEU之前将输出译为拉丁文字。我们将所有评估集的所有数据从我们的训练集中删除。</p>
+<h4 id="3-2-通过挖掘相关平行数据覆盖语言矩阵"><a href="#3-2-通过挖掘相关平行数据覆盖语言矩阵" class="headerlink" title="3.2 通过挖掘相关平行数据覆盖语言矩阵"></a>3.2 通过挖掘相关平行数据覆盖语言矩阵</h4><p>监督下的翻译系统依赖于大量的平行句子，我们称之为bitext数据，这些数据传统上来自人类的翻译。大多数现有的bitext数据集都是通过英语进行的，只有少数特定领域的例外，如国际组织的会议记录（Koehn，2005；Ziemski等人，2016）。这些语料库的规模和领域都是有限的，另一种方法是在大型单语数据集中挖掘平行数据（Resnik，1999；Utiyama和Isahara，2003）（Conneau等人，2019；Wenzek等人，2019）。在这项工作中，我们利用并扩展了这些挖掘项目中的两个项目所提供的语料库。CCMatrix（Schwenk等人，2019）和CCAligned17（El-Kishky等人，2020）。在下文中，我们描述了我们的挖掘策略，并总结了CCMatrix和CCAligned的主要观点。关于这些方法的详细描述，我们请读者参阅参考文献。</p>
+<p>用LASER挖掘平行数据。挖掘平行数据包括在大型单语语料库中搜索可能成为潜在翻译的句子。这种搜索需要一种能够捕捉不同语言的句子之间的语义相似性的措施。最近的大多数方法通过比较在多语言数据上训练的神经网络的嵌入来建立这种相似性（Artetxe和Schwenk，2018b；Chen等人，2020；Kvapilíková等人，2020）。我们专注于LASER编码器生成的嵌入，该编码器能够比较94种不同语言的句子（Artetxe和Schwenk，2018a）。然后，我们使用FAISS索引（Johnson等人，2019年）有效的检索平行语料库。LASER嵌入普遍适用于未见过的语言，如阿斯图里亚语，使我们能够挖掘100种语言的位图。通用数据挖掘pipeline由几步组成。<strong>1）对大型文本语料库进行预处理，并将其划分为不同的语言；（2）对对齐的候选句子进行嵌入并存储在索引中；（3）对索引的句子进行比较以形成潜在的配对；（4）在后处理中对产生的候选配对进行过滤。</strong></p>
+<p>CCMatrix挖掘方法。CCMatrix采用全局方法：将一种语言的所有独特句子与另一种语言的所有独特句子进行比较。这种全局挖掘方法的优点是在搜索一个句子的翻译时考虑所有可能的文件。CCMatrix在CCNet的91种语言的大型单语语料库上工作（Wenzek等人，2019），但在这种规模下，即使有FAISS（Johnson等人，2019）的快速索引，全局搜索的计算量也很大。因此，我们将其应用于选定的相关配对子集，详见§3.2.1</p>
+<p>CCAligned挖掘方法。CCAligned通过预先选择要比较的文档，避免了全局挖掘的规模化挑战。这种本地挖掘遵循一种分层的方法：首先，文档级的语言识别与各种规则一起应用，以找到可能包含相互翻译的整个文档（El-Kishky等人，2020）。然后，只在配对的文档中使用基于LASER的对齐方式挖掘平行句子。进行过滤（Chaudhary等人，2019年），以去除因原始网页没有任何平行数据、只有部分平行数据或其他处理失败而存在的未对齐数据。这种方法的一个优点是，它非常快，可扩展，并能以高精确度检索到平行句子。另一个是，每个英语文档都与许多非英语文档对齐–因此，通过连接与同一来源配对的非英语文档，可以快速地进行非英语对的挖掘。</p>
+<p>后期处理。我们应用一个过滤步来删除标点符号大于50%的句子。然后对数据进行重复处理，并删除出现在任何验证或测试数据集中的任何句子–即使它与另一种语言对相关。最后，我们应用长度和特定语言的过滤。长度过滤将删除过长的句子–用SPM分词后超过250个子词–或句子和其翻译之间的长度不匹配–如果长度比大于3倍。特定语言过滤删除含有50%以上未被标记为所识别语言的核心字符的句子–特别是在所识别语言中常用的字符，但空白、数字、标点和非拉丁字母语言的拉丁字符除外。</p>
+<h4 id="3-2-1-桥梁语言组挖掘策略"><a href="#3-2-1-桥梁语言组挖掘策略" class="headerlink" title="3.2.1 桥梁语言组挖掘策略"></a>3.2.1 桥梁语言组挖掘策略</h4><p>挖掘每一个语言对的数据是令人望而却步的–以前的工作通过只关注经过英语的99个语言对来规避这个问题（Zhang等人，2020）。对于挖掘所有可能的语言对组合所需的大量计算，一种替代方法是稀疏挖掘，或只挖掘语言对的一个精选子集。一个直接的策略是随机选择配对进行挖掘，但这并没有使用任何关于语言在世界各地的关系和口语的语言学信息。</p>
+<p>在这项工作中，我们提出了一个基于语系和桥梁语言的替代方案，避免了详尽地挖掘每一个可能的配对。我们的目标是减少bitext对的数量，同时保留实际感兴趣的翻译方向。我们首先将所有的100种语言分成14个语言组。一个组内的所有语言都是相互挖掘的。例如，在印度语组中，我们挖掘所有的孟加拉语、印地语、马拉地语、泰米尔语、乌尔都语等语言对，以此类推。这一策略的动机是双重的。首先，生活在同一语言组中讲多种语言的地区的人们往往相互之间有很多交流，并会从高质量的直接翻译中受益。第二，系统地挖掘同一分组的语言有助于训练特定语言的参数模型（见5.2节）。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-a6f260327d1688d0b2183d2e0cc26bb6_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图2：只用英语的数据挖掘设置与桥梁语言挖掘策略的比较。我们显示了一个数据矩阵，其中语言显示在X和Y轴上。数据在一个方向上被挖掘（如印地语到马拉地语），并用于双向训练。</p>
+<p>在大多数情况下，语言是按照语言的相似性来分组的，例如日耳曼语、斯拉夫语或马来-波利尼西亚语。然而，由此产生的分组的规模差异很大，导致最小的分组中的语言的挖掘数据较少。我们进一步按地理和文化上的接近程度对语言进行分组，以减少这种差异。例如，乌拉尔语和波罗的海语被集中到一个组中，以增加挖掘的数据量。最终的分组情况见表1。</p>
+<p>为了连接不同组别的语言，我们在每个组别中定义1-3种桥梁语言，通常是那些拥有最多资源的语言，例如印度-雅利安语系的12种语言中的孟加拉语、印地语和泰米尔语。所有26种桥梁语言都在表1中得到了强调。这些桥梁语言与所有其他桥梁语言进行对比挖掘。最后，所有的100种语言都是针对英语进行挖掘的。我们在图2中说明了这种挖掘策略。在左边，我们描述了目前许多方法的模型：只通过英语进行数据。在右边，我们描述了几个例子语言的 “多对多”语言矩阵。与以英语为中心相比，我们的数据集对非英语、直接翻译方向的覆盖面要大得多。</p>
+<p>训练数据统计。总的来说，我们最终的训练数据集包含75亿个平行句子，对应2200个方向。在图3中，我们显示了所有的桥梁语言，并展示了它们的相关训练数据是如何在与英语的翻译之间，在一个语言组内，或与跨语言组的桥梁语言之间划分的。特别令人感兴趣的是额外的多对多数据和通过英语的数据之间的比较。我们观察到，如果使用多对多的策略，与以英语为中心的策略相比，可以挖掘出5-10倍的平行数据。这对中等资源和低资源的语言特别有利。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-0bd1e4a95ef5eac5eccf17898875b03b_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图3：在我们100x100的训练语料库中，通过桥梁语言获得的数据总量。我们描述了通过英语的数据量（灰色），通过不算英语的桥梁语言的数据量（橙色），以及通过不算桥梁语言的语言组的数据量（蓝色）。</p>
+<h4 id="3-2-2-结果"><a href="#3-2-2-结果" class="headerlink" title="3.2.2 结果"></a>3.2.2 结果</h4><p>我们验证了在数据构建过程中做出的几个决定的影响。首先，我们研究了我们的桥接语言策略与以英语为中心的、由其他随机对增强的挖掘以及完全随机挖掘相比的影响。其次，我们研究了在我们的桥梁策略中选择的稀疏程度的影响，重点是50种语言的一个子集。</p>
+<p>桥梁语言策略与随机和以英语为中心的随机相比。我们通过实验评估了我们的桥梁语言挖掘策略对基线模型性能的影响，见表2（左侧）。我们考虑了另外两个基线，一个是完全随机的挖掘策略（随机20%），一个是以英语为中心的+随机策略（随机20% w&#x2F; En）。在随机策略中，挖掘出来的配对是随机选择的，而在以英语为中心的+随机策略中，我们保留所有通过英语的配对，只随机选择其余的配对。我们表明，完全随机的挖掘对性能有很大的负面影响，因为很多高质量的数据是通过英语排列的，所以完全随机的采样消除了很大一部分的潜在训练集。随机20% w&#x2F; En的情况也比较糟糕。通过检查，我们发现，随机抽样挖掘的语言对往往会选择不产生那么多的数据，因为这些语言对可能不包括高资源的语言。然而，桥梁语言策略确保了高资源语言被挖掘出来，然后专注于挖掘相关家族的语言。这就产生了大量的bitext，同时，也涵盖了许多语言方向。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-59786d4b4cde1ee5f909518b10ca3f25_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表2</p>
+<blockquote>
+<p>表2：（左）稀疏挖掘策略的比较。我们首先将稀疏程度固定为80%-与随机选择配对进行挖掘相比，桥梁语言挖掘策略的表现非常好。(右)不同稀疏度水平下的桥梁语言策略。我们分析了语言矩阵中不同的稀疏程度，以了解要挖掘多少个配对。基于这些结果，我们把60%的稀疏度作为强大的性能和合理的挖掘数量之间的一个权衡点。0%表示没有稀疏性，或者说是一个完全挖掘的语言矩阵。</p>
+</blockquote>
+<p>稀疏性的影响。我们用桥梁语言的数量来控制我们语言矩阵的稀疏性。在图2（右）中，我们显示了与完全挖掘的语言矩阵（0%稀疏）相比，稀疏性对我们基线模型的性能的影响。我们观察到，增加挖掘的数据量以使矩阵不那么稀疏是有帮助的，但完全挖掘的矩阵并没有实质性的改善。主要原因是我们的挖掘策略优先考虑经常使用的配对，这些配对通常与最大的bitext相关，而被丢弃的配对通常与小的bitext相关。例如，完全挖掘矩阵会挖掘出冰岛语到汉语这样的配对，但挖掘这个配对产生的数据量相当低。这种情况表示了完整的矩阵被挖掘的情况–随着越来越多的数据被挖掘出来，额外的配对开始增加更少的数据，这反过来又导致了质量的递减。</p>
+<h4 id="3-3-用backtranslation增强Bitext数据"><a href="#3-3-用backtranslation增强Bitext数据" class="headerlink" title="3.3 用backtranslation增强Bitext数据"></a>3.3 用backtranslation增强Bitext数据</h4><p>backtranslation（BT）从未对齐的单语数据中创建合成Bitext（Schwenk，2008；Bojar和Tamchyna，2011；Sennrich等人，2016a；Edunov等人，2018；Hoang等人，2018）。其核心思想是将单语句子向后翻译，并将获得的合成译文加入训练集。更确切地说，当训练一个模型从源语言翻译到目标语言时，backtranslation通过将单语目标句子翻译成源语言而产生额外的数据。因此，使用backtranslation需要有双向翻译的能力，这很适合多语言机器翻译的设定（Zhang等人，2020；Siddhant等人，2020）。然而，即使是单一方向的翻译，生成这些backtranslation也是很耗时的，这在多对多的情况下就更复杂了。因此，我们专注于在特定的对上应用backtranslation，在需要时补充挖掘数据。</p>
+<p>选择backtranslation对。我们的目标是在100种语言之间进行翻译，并为尽可能多的翻译方向提供良好的翻译质量。为此，我们使用BT来改善那些最初翻译质量较低的方向。在应用BT之前，我们通过测量我们1.2B参数的多语言模型的质量来确定这些语言方向。由于backtranslation的计算量很大，我们把重点放在BLEU分数在2到10之间的100个方向。对于其中的50个方向，我们根本没有任何bitext，因为我们没有挖掘出所有4450个可能的语言对。</p>
+<p>用额外的backtranslation来训练多语言模型。对于选定的翻译对，我们首先生成合成翻译，并将其添加到训练集中，而不进行上采样。按照Caswell等人（2019）的做法，我们在这些译文中加入一个特殊的编码器端BTtoken，以向模型表明它们是合成的。对于100种目标语言中的每一种，我们从Wenzek等人（2019）的CommonCrawl语料库中随机抽取5000万个独特的单语句子。然后用我们的1.2B MMT模型生成合成译文。我们使用大小为5的beam search，并将所有的超参数，包括长度惩罚，固定为所有方向的相同值。我们对backtranslation的过滤与原始训练数据的过滤相同，这大大减少了生成的合成bitext的大小。</p>
+<p>backtranslation数据的影响。结果显示在图4中，我们将用于创建backtranslation的原始 “多对多 “模型（蓝线）与训练添加了backtranslation的多语言模型后的改进情况（橙色散点）进行了比较。backtranslation几乎总是能提高任何方向的性能，无论原始BLEU分数如何。由于用BT产生的数据量与训练时间的长短相关，我们决定把重点放在性能低的方向（BLEU在2到10之间）上应用BT，以改善我们表现不佳的MMT系统。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-50303d7087d1508fe39671600acf5d21_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图4：添加backtranslation数据带来的改进。对于100个语言方向中的每一个，我们都通过添加backtranslation进行了探索。蓝线表示原始模型，如果方向的BLEU在2到10之间，则被选中。橙色的散点表示添加backtranslation的效果。语言按其在backtranslation前的原始BLEU分数排序。</p>
+<h4 id="3-4-在多对多的环境中的平衡"><a href="#3-4-在多对多的环境中的平衡" class="headerlink" title="3.4 在多对多的环境中的平衡"></a>3.4 在多对多的环境中的平衡</h4><p>大规模挖掘产生的数据分布在语言之间是不平衡的，所以训练模型会偏向于表示性过强的语言。一个标准的解决方案是用温度抽样法（Arivazhagan等人，2019年）独立地重新平衡每种语言，例如用p替换一种语言的概率pl。在以英语为中心的情况下，改变Tl对一种语言的采样概率只通过归一化改变其他语言的概率。然而，在多对多的情况下，语言分布更加相互依赖。例如，有些语言只与其他语言的一个子集配对，或与一个表示性过强的语言配对。因此，对它们进行抽样会影响到它们与之配对的这些其他语言的概率。因此，这种策略不能保证产生目标的语言间平衡分布。我们描述了Sinkhorn温度抽样，它将温度抽样策略扩展到多对多的设置。</p>
+<p>我们的目标是设计一种抽样技术，使源语言和目标语言的分布等同于一个给定的目标分布。不幸的是，按顺序对源语言进行抽样，然后对目标语言进行抽样是行不通的，因为有些语言只与一个子集的语言配对–这使得我们不可能根据给定的分布对目标语言进行抽样。此外，比特币的大小和分布在不同的语言之间有很大的不同。相反，我们提议直接从配对概率矩阵中对语言进行抽样，使语言的边际分布对应于我们的目标分布。在实践中，这意味着矩阵的每一行和每一列都应该与相应语言的概率相加。更确切地说，我们估计一个正方形矩阵P∗，以便于: </p>
+<p>maxPtr⁡(PQ) s.t. P1L&#x3D;p1T,P⊤1L&#x3D;p1T</p>
+<p>其中p是堆叠L种语言概率的向量，Q是配对概率的矩阵。这个问题可以用Sinkhorn-Knopp算法准确解决。矩阵Q对于没有bitext的对来说，其条目等于0，这种算法在解决方案P∗中保留了这些条目，因此没有给缺失的bitext增加概率质量。在表3中，我们显示了这种策略比温度取样的好处，BLEU持续提高0.5。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-8495b1455d6a8da9b813476f4c8ef611_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表3：各种抽样策略的比较。我们报告了用不同的数据采样方案训练的1.2B基础多语言模型的验证集的BLEU。性能分为不同的资源设置（低、中、高），其中存在bitext的数据（监督）或在没有数据的对的zero-shot设置。</p>
+<h3 id="四、-多对多与以英语为中心的比较"><a href="#四、-多对多与以英语为中心的比较" class="headerlink" title="四、 多对多与以英语为中心的比较"></a>四、 多对多与以英语为中心的比较</h3><p>在这一节中，我们首先介绍了一个实验，以更好地了解以英语为中心的系统的性能改进，并将其与我们的多对多设置进行比较。</p>
+<p>实验环境。我们在完整的100种语言的Many-to-Many数据集上训练我们的1.2B模型，并将其与只在英语数据上训练的相同模型进行比较。我们在这两种情况下都使用了用SentencePiece在完整数据集上建立的相同单词表。每个模型都有不同的数据集大小，我们训练500K的更新。这个更新次数相当于在整个 “多对多 “数据集上运行一次，在以英语为中心的数据上运行3.5次。我们在{0.1, 0.2, 0.3}的范围内调整每个模型的dropout rate。</p>
+<h4 id="4-1-主要结果"><a href="#4-1-主要结果" class="headerlink" title="4.1 主要结果"></a>4.1 主要结果</h4><p>在表4中，我们比较了两种模型在不同类型的方向上的表现，即任何语言到英语（To English），英语到任何语言（From English），以及所有不涉及英语的方向（Non-English）。在150个方向上，To English和From English的表现是综合的，而Non-English的表现则超过2500个方向。在包括英语在内的配对中，两个模型都取得了相似的性能，这表明1.2B模型并不欠拟合，即使额外的非英语数据占98%的方向和74%的数据。对于非英语对，我们为以英语为中心的模型考虑了两种翻译策略：直接翻译，就像模型在pair对上训练一样–通过使用相应的语言token–或者通过英语进行映射。我们的模型比以英语为中心的模型的直接翻译要好10.2 BLEU，而当以英语为中心的模型时，则要好5.5 BLEU。虽然这个结果并不令人惊讶，但它证实了一个纯粹的以英语为中心的模型在非英语对上的潜力有限，而且根本上需要在多对多数据上进行训练。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a59ee8574746a0cd73c5bd10ce3a9b7b_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表4：多对多和以英语为中心的系统的比较。在涉及英语的评价方向上，Many-to-Many的表现与以英语为中心的相匹配，但在非英语方向上明显要好。</p>
+<h4 id="4-2-了解改进的来源"><a href="#4-2-了解改进的来源" class="headerlink" title="4.2 了解改进的来源"></a>4.2 了解改进的来源</h4><p>增加多对多数据的主要影响是对不包括英语的方向。在这一节中，我们详细研究了我们观察到的新增数据的最大改进之处。</p>
+<p>对Zero-shot的影响。许多非英语对没有被我们的 “多对多 “模型所覆盖，因此我们可以研究我们观察到的改进是否主要来自于与bitext数据相关的方向，或者我们是否在 “多对多 “模型以zero-shot方式生成翻译的方向上观察到同样的改进。在表5中，我们显示了在有bitext和无bitext的非英语对之间进行评估的性能。在有bitext的方向上，Many-to-Many模型在直接翻译方面比以英语为中心的模型高出7个BLEU，在以英语为中心的翻译方面高出3.5个BLEU。这显示了多样化数据的重要性。毫不奇怪，这个差距在没有bitext的翻译对上甚至更大。多对多在直接翻译上比以英语为中心的模型好了近11个BLEU，而在pivoting的情况下，收益仍然超过6个BLEU。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-6c020ddfb7d7214cc738ba8b89b4c3e1_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表5：Many-to-Many与English-Centric在zero-shot方向的对比。我们报告了在 &amp;quot;多对多 &amp;quot;训练数据集中有和没有bitext的语言对的性能。</p>
+<p>训练数据的数量的影响。解释以英语为中心的模型和多对多模型之间的收益的一个假设是额外的源和目标方训练数据的影响。即使 “多对多 “系统在训练时从未见过一个方向，它也会从通过其他训练对获得的额外源和目标方数据中受益。由于与以英语为中心的数据集相比，挖掘非英语语言对会产生更多的训练数据，所以Many-to-Many模型会从更大的训练集中受益。在表6中，我们在看到相同数量的数据后对两种模型进行了比较。我们对这两个模型都进行了一个epoch的训练。以英语为中心的模型在对英语方向上表现更好，可能是因为它只有一种输出语言需要学习，但多对多模型在从英语方向和非英语方向上表现更好。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-863b8088c5d6e504f26afe44138592d9_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表6：多对多与English-Centric在一次数据上的对比。我们报告了相当于以English-Centric的数据集大小的更新相同次数后的模型性能。</p>
+<p>哪些Pairs的改进最大？改进的主要因素是与一对或一种语言相关的数据量。拥有大量挖掘的数据的配对，如西班牙语-葡萄牙语，从我们的多对多数据集中大大受益。我们在图5（左）的左侧面板上显示了这种效果。第二个改进的来源是在那些 “多对多 “数据集包含大量的数据的语言上观察到的。这些数据对解码器一侧的语言模型有好处，其方式与BT相当。在图5的右侧，我们显示了这种累积的单语数据对每种语言的平均性能的影响。最后，我们还从相关语言的单词表和句法的相似性中观察到第三类改进。一个突出的例子是英语和白俄罗斯语之间的翻译质量，多对多模型在TED评估集上取得了12.7 BLEU，而双语模型只有3.2 BLEU。白俄罗斯语的bitext数量很少，但白俄罗斯语与俄语有关，多对多模型将其知识从俄语迁移到白俄罗斯语。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-133d1bb2ba2895b5d3ff7ea24322c890_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图5：Many-to-Many相对于以英语为中心的训练数据量（左）和目标方语言数据量（右）的改进。多对多模型的改进与更多的双语训练数据量相关，Pearson相关性为0.38（左），更多的目标语言数据量相关，Pearson相关性为0.32（右）。</p>
+<h4 id="4-3-了解以英语为中心的系统的性能"><a href="#4-3-了解以英语为中心的系统的性能" class="headerlink" title="4.3 了解以英语为中心的系统的性能"></a>4.3 了解以英语为中心的系统的性能</h4><p>在表4中，我们证实了Arivazhagan等人（2019）的观察，即以英语为中心的模型在进入英语的方向上比双语模型改善得最多，而在其他方向（从英语）的改善仍然比较温和。解释从英语到英语的方向之间的差异的一个假设是，以英语为中心的模型的解码器通过利用所有通过英语的方向的聚合英语数据来学习一个更好的英语模型。</p>
+<p>结果: 我们用一个受控实验来测试这个假设，在这个实验中，我们用backtranslation的英语数据来比较多对英模型和双语模型（3.3节）。该实验基于11种斯拉夫语言，我们backtranslation的英语数据与用于训练多对英模型的数据完全相同，因此两个模型都是在相同的英语数据上训练的。图6显示，backtranslation的表现与 “多对英 “的方法相当。虽然这提高了我们对 “多-英 “翻译的理解，但多语言方法仍然保留了将许多方向结合到一个单一模型中的优势，这大大简化了模型。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-bc5d7c0cfeab68b03ecc150748975cdc_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图6：多译英多语言翻译的性能与在挖掘的数据上训练的双语基线和双语+backtranslation相比。多译英的平均性能为25.1 BLEU，而backtranslation的平均性能为25.2 BLEU，而双语系统的平均性能为23.1。</p>
+<h3 id="五、-扩展多语言翻译模型的组件"><a href="#五、-扩展多语言翻译模型的组件" class="headerlink" title="五、 扩展多语言翻译模型的组件"></a>五、 扩展多语言翻译模型的组件</h3><p>我们的目标是建立一个单一的模型，能够翻译涵盖100种语言的9,900个语言方向。这给具有足够能力的模型带来了若干挑战，以充分捕捉这么多语言和文字。为此，以前的MMT工作考虑了不同类型的大容量模型（Arivazhagan等人，2019；Lepikhin等人，2020）。在本节中，我们研究了为MMT模型增加容量的不同方法：我们首先研究了密集扩展，即增加标准Transformer架构的深度和宽度。然后，我们确定了密集扩展的缺点，并提出了一个替代方案，以有效地增加特定语言的参数，并利用多语言机器翻译任务中的语言相似性的性质。</p>
+<h4 id="5-1-密集扩展"><a href="#5-1-密集扩展" class="headerlink" title="5.1 密集扩展"></a>5.1 密集扩展</h4><h4 id="5-1-1-背景-模型并行训练"><a href="#5-1-1-背景-模型并行训练" class="headerlink" title="5.1.1 背景: 模型并行训练"></a>5.1.1 背景: 模型并行训练</h4><p>在神经网络的训练过程中，我们需要将其权重、激活、梯度和优化器状态装入内存中。这限制了我们在单个加速设备（如GPU）上可以训练的网络的最大容量。在本节中，我们描述了两个方向来规避这一限制。第一个方向是通过减少训练过程中激活和优化器状态所需的内存，在单个设备上装配更大的模型。第二个方向是通过模型的并行性来有效地训练更大的模型，例如将一个模型分割到多个设备上。在这项工作中，我们采用这两种技术来密集地扩展transformer的容量。</p>
+<p>减少GPU上的内存消耗。为了减少内存的数量，我们考虑优化器状态分片和梯度checkpoint。优化器状态分片（Rajbhandari等人，2019年）将优化器状态分给分布式数据并行工作者，这样每个工作者只需要存储优化器状态的一小部分。我们还应用了梯度checkpoint，它通过在前向传递完成前丢弃中间激活来节省内存（Chen等人，2016）。在反向过程中，这些激活会根据需要再次被重新计算。这是以时间换取内存。在基于Transformer的架构中，在pipeline并行模型分区边界应用梯度checkpoint，使激活所使用的内存减少了近50%。</p>
+<p>分散在多个GPU上的模型。减少内存消耗可以在单个GPU上装配更大的模型容量，但单个设备的物理内存仍然有限。一个解决方案是将模型分割成独立的组件，在不同的GPU上分配并进行并行训练。这种类型的解决方案随着GPU数量的增加而扩大模型容量。有两种广泛的范式来分割模型：沿着宽度或沿着深度。张量并行（Shoeybi等人，2019；Shazeer等人，2018）按宽度分割，而pipeline并行（Huang等人，2019；Kim等人，2020）按深度分割，将不同层放在不同的GPU上。我们使用pipeline并行，但这两种方法对transformer的效果同样好。我们使用的是fairscale的实现。</p>
+<h4 id="5-1-2-训练大型密集模型"><a href="#5-1-2-训练大型密集模型" class="headerlink" title="5.1.2 训练大型密集模型"></a>5.1.2 训练大型密集模型</h4><p>我们研究了在多语言机器翻译的背景下提高seq2seq转化器模型容量的几种策略。</p>
+<p>如何扩大规模。宽还是深？我们考虑通过增加层数（深度轴）或增加每层的尺寸，包括前馈（宽度轴）来增加Transformer的能力。在图7的左边，我们通过比较不同大小的模型（1B、2B和10B）来分析优先考虑哪个轴，这些模型是通过增加深度或宽度获得的（关于模型的配置和尺寸见附录B）。我们以BLEU为单位报告它们的性能，并以每秒字数（WPS）衡量它们的推理速度。我们在涵盖80种语言的数据集上训练这些模型，并在38个不同的基准方向上对它们进行评估，每个方向有超过1千句的平行句。这项研究的主要结果是，在性能和WPS方面，更宽的模型比更深的模型更好。因此，在本文的其余部分，我们将重点放在更宽的模型上。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-dd4ac3994e6d41b4063e197cb5e1dfa4_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图7：（左）深度模型与宽度模型的比较。我们比较了不同的宽模型和深模型在训练时的BLEU性能，作为其每秒字数（WPS）的函数，对38个方向的子集进行评估。(右)不同参数大小的宽模型的性能。我们比较了不同宽模型在低、中、高资源水平下的性能，对所有监督评价对进行了评估。白线表示在同一资源水平下不同</p>
+<p>性能和规模。在图7的右侧，我们比较了宽模型的性能，因为我们把它们的容量从418M增加到12B参数。我们在100种语言的全集上训练这些模型，并在所有的监督评价对上评估它们。我们以BLEU的形式报告它们在低、中或高资源训练数据对上的表现。首先，随着参数量的增加，我们观察到性能的提高，即使是在低资源对上。这表明，即使是一个12B参数的模型，对我们的多对多语言数据集也可能是欠拟合的。然而，改进的程度在参数量上大致呈对数增长，我们需要将模型的规模扩大一个数量级，以提高几个BLEU点，例如，从1.2B到12B，+1.5 BLEU。当我们密集地扩展模型时，它们的运行时间和内存使用量变得过于庞大，无法证明性能的提高是合理的，因此，我们考虑其他方法来更有效地增加我们模型的容量。</p>
+<h4 id="5-2-用特定语言的参数扩展模型容量"><a href="#5-2-用特定语言的参数扩展模型容量" class="headerlink" title="5.2 用特定语言的参数扩展模型容量"></a>5.2 用特定语言的参数扩展模型容量</h4><p>在这一节中，我们<strong>引入了一个层，其参数是根据单词表的相似性按语言或语言组划分的。每个翻译方向只访问这些参数的一个子集，允许模型容量的扩展而不明显影响训练和推理时间。该层的训练采用了一种新的重新路由方案，</strong>以提高泛化能力，我们在下文中详细介绍。与之前的工作相比（Wang等人，2018；Bapna等人，2019；Zhang等人，2020），我们专注于分配整个语言特定层，并以此来扩展模型规模，同时保持训练速度。</p>
+<p>平行transformer层。我们遵循seq2seq的Transformer架构，用一组平行的Transformer层来代替它的一些层，每一个预先定义的语言组都有一个。更确切地说，假设我们把语言分成K个固定的组，这个平行层由K个平行Transformer子层组成，每个语言组一个。对于每个翻译，我们会根据语言方向在K个可能的子层中选择相应的子层。如果平行层在编码器中，我们根据源语言选择子层，而如果它在解码器中，我们根据目标语言选择。在实践中，我们只在编码器或解码器中添加这些层，而不是同时添加。这使我们能够在每个GPU上将翻译和它们的子层分开，从而导致更快的训练和有效的内存使用。图8显示了当并行层在解码器中时，所产生的干线和支线架构的一个例子。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-f08bbc40667e6b8e3952393fdc3d496a_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图8：特定语言参数为原本完全共享的多语言编码器和解码器提供了专门的能力。</p>
+<p>按频率和相似度对语言进行分组。我们根据两个标准对语言进行分组：训练数据的数量和它们的单词量。这些标准的动机是，我们可以为有足够数据的语言学习一个特定的层，而对于其他语言，重叠的单词是相似语言的一个很好的代表。首先，每一种拥有超过1亿句子的语言都形成了自己的群体，因此有自己的子层。我们有28种语言符合这一标准：hu, ru, hi, ro, fr, nl, fi, pt, ar, el, vi, en, ms, tr, he, id, pl, cs, sv, fa, zh, bg, de, es, ko, ja, it, da。其次，我们按单词重叠度对其余语言进行分组，从而得出18个额外的分组。为了创建这些分组，我们计算不同语言的训练数据之间的单词重合度，并将那些重合度高的语言聚在一起。请注意，一些低资源的语言有自己的文字–如卡纳达语–并且没有与任何类似的语言集群，因为其文字是独一无二的。然而，为了保持组间的平衡（Wang等人，2020），我们将其余的语言聚在一起，并大致平衡每组的训练数据量。总的来说，我们形成了46个组，每个组都有自己的子层，在特定的语言层。</p>
+<p>子层之间的随机重新路由。在训练和推理过程中，一个子层根据其语言方向被确定性地选择。这保证了我们的模型在推理过程中总是使用相同的内存和时间，而不考虑翻译对。然而，在训练期间，如果不与同一子层相关联，这种确定性的路由不会在类似的语言之间共享信息。例如，与乌克兰语相关的子层不能从大量的俄语训练数据中获益，因为俄语有自己的孤立的子层。我们通过随机重新安排翻译来缓解这一缺陷，即随机挑选另一个子层而不是指定的子层。这在与不同子层相关的语言之间共享信息，通过对类似的高资源语言进行训练，使低资源语言受益。重新路由是完全随机的，尽管可以限制为只重新路由到类似的语言。</p>
+<p>将特定语言层添加到预训练的transformer中。我们可以通过在解码器的末尾或在编码器的开头添加特定语言层，将其整合到已经预训练过的transformer中。然后，我们可以冻结预训练的transformer的参数，并学习特定的语言组件。由于模型的其他部分已经具有很强的性能，这些额外的特定语言层可以快速训练。这种策略意味着，通过训练少量的专用并行层，可以直接将预训练的网络适应新的领域或语言，并且可以很容易地扩展到其他各种应用。</p>
+<h4 id="5-2-1-对特定语言层的评估"><a href="#5-2-1-对特定语言层的评估" class="headerlink" title="5.2.1 对特定语言层的评估"></a>5.2.1 对特定语言层的评估</h4><p>我们通过在编码器或解码器上增加一个特定的语言层，或者在预训练好的密集模型上增加一个特定的语言层，来实验不同的情况。我们证明了随机重路由的重要性。最后，我们通过与密集扩展模型的比较来验证这一策略。</p>
+<p>编码器或解码器中的平行层？特定语言层的主干和分支结构是通用的，可以用于任何神经结构的专门能力。我们使用10种高资源语言的较小设置，探索在编码器或解码器中增加特定语言的能力。表7显示，当应用于解码器网络时，特定语言的参数通常更有效。最近的研究表明，编码器对于双语机器翻译更为重要（Wu等人，2019年；Kasai等人，2020年），然而，与我们的设置相比，这些研究是基于只对单一语言方向进行建模的系统。在我们的案例中，增加编码器或解码器对性能的影响并不明显，在本文的其余部分，我们主要关注解码器。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-d07b62d78956048b5113f9dce35fbdff_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表7：比较特定语言的编码器和解码器。我们在编码器或解码器中添加了不同规模的平行特定语言层。</p>
+<p><strong>随机重新路由。图9显示了重新路由策略对性能的影响，因为我们增加了路由到随机平行层的训练样本的数量，而不是其指定层。在重新路由率为20%的情况下，对于低、中资源语言来说，比不重新路由的情况下可以提高约0.8 BLEU，而不影响高资源语言的性能。</strong>过多的随机性导致高资源语言的性能与无随机重新路由相似，但与无重新路由相比，仍能改善中低资源的性能。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-3cc96311c2a0d19016940f8e4bf90907_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图9：重新路由率对高资源和低&#x2F;中资源语言性能的影响。</p>
+<p>与大型密集模型的比较。我们在表8中对100种语言添加特定语言能力与密集模型大小进行了比较。由于特定语言层增加了许多参数，我们与不同规模的基线模型进行了比较，以便进行多点比较。我们的结论是，与参数大小相似的基线相比，特定语言层改善了结果，特别是对于中等和高资源语言，有足够的数据来训练特定语言的子层。此外，与密集缩放相比，稀疏缩放在每次前向传递中只使用一部分参数，尽管模型总规模很大，但仍能保持快速训练速度。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-b602f4061c63c5586da282464e127177_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表8</p>
+<blockquote>
+<p>表8：用特定语言的参数扩大模型的规模。我们从1.2B的参数基线开始，有24个编码器层和24个解码器层。我们将越来越多的解码器层添加到特定语言层。例如，在1个特定语言的解码器层的情况下，解码器有23个共享层和1个特定语言层。我们展示了使用1、3和6个特定语言层的效果。特定语言层的额外参数在所有语言组中分配。我们报告了在8个GPU上保持批次大小固定的训练时间的WPS。12B基线使用模型并行。</p>
+</blockquote>
+<p>在预训练的模型中加入特定语言层。我们在图10中展示了在预训练的12B参数transformer的解码器中添加特定语言层的影响。我们表明，为五种语言添加特定的语言层可以改善WMT评估数据集的结果。特定语言层增加了3.4B的参数，我们对它进行了20K的更新训练，同时冻结了网络的其他部分。这个模型的总规模是15.4B参数。对于几个方向，我们观察到超过1 BLEU的收益，这验证了这个策略。平均而言，我们观察到0.9 BLEU的收益。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-17bfe3c72ffa28a33f7c2b558fbaed25_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图10：使用密集+稀疏比单独使用密集的BLEU提高。我们展示了使用WMT评估数据集对一个子集的评估。</p>
+<h3 id="六、-将它们都结合起来"><a href="#六、-将它们都结合起来" class="headerlink" title="六、 将它们都结合起来"></a>六、 将它们都结合起来</h3><p>我们已经探索了为100种语言的多语言翻译创建一个真正的多对多数据集，以及如何通过密集和稀疏的混合缩放有效地扩展多对多模型。在这一节中，我们总结了我们的最终结果，与现有发表的工作–包括多语言基准和WMT的竞争方向–进行了比较，最后对我们翻译质量的整体质量进行了人工评估。</p>
+<h4 id="6-1-多对多翻译的现实世界设置"><a href="#6-1-多对多翻译的现实世界设置" class="headerlink" title="6.1 多对多翻译的现实世界设置"></a>6.1 多对多翻译的现实世界设置</h4><p>我们强调，在现实世界中有几个不涉及英语的翻译方向的用例。例如，许多国家都有非英语的特殊和区域性语言，这些语言是直接翻译的自然候选语言。例如，在哈萨克斯坦，将哈萨克语直接翻译成俄语是很直观的。在表9中，我们在各种不同的非英语方向上比较了以英语为中心的模型和多对多模型。我们看到，从整体上看，我们的M2M-100模型的性能大幅提高，在这些方向上平均提高了超过7个BLEU。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-3f65cda17a7978ebcce03c3fa03ea779_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表9：在几个国家的官方语言和官方区域语言之间的翻译表现，主要是在非英语方向。</p>
+<p><strong>6.2 在各种翻译基准上的比较</strong></p>
+<p>接下来，我们将我们的M2M-100模型与不同基准的现有工作进行比较。虽然训练数据不一样，但我们进行这种比较是为了给我们模型的整体实力提供一个参考点。一个重要的注意点是，对于这些基准中的每一个，都有各种不同的tokenizer被使用，这影响了BLEU–我们遵循这些基准的tokenize和BLEU计算，而不是我们之前结果的评估方法。因此，本小节中的数字与本文的其他部分没有可比性，因为它们使用了每个基准的tokenization。此外，这种比较是事先准备好的，所以所有出现在这些评价集中的句子都从我们使用的训练数据中删除。</p>
+<p>在WMT上的比较。首先，我们将我们的 “多对多 “模型与提交给WMT（首要的翻译比赛）的作品进行比较。我们在各种不同的语言方向上显示结果，其中一些是标准的自然语言处理机器翻译基准，如英语-法语、英语-德语和英语-俄语。结果显示在表10中。 许多提交给WMT共享任务的文件都使用了合集、域内微调或重新排序的方法，这些都是提高质量的标准技术。由于这些方法也可以在推理时添加到我们的系统中，因此我们将重点放在比较单一模型的结果上。为了确定比较结果，我们检查了WMT共享任务程序以及在<a href="https://link.zhihu.com/?target=http://matrix.statmt.org/">http://matrix.statmt.org/</a>。</p>
+<p>从表10中可以看出，我们的M2M-100系统与特别针对单个WMT翻译方向调整的双语模型相比，可以取得非常有竞争力的性能。这表明，我们的模型在个别方向上保持了很强的翻译质量。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-0f8d223c433076c34f886c72c710e9ca_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表10</p>
+<blockquote>
+<p>表10：Many-to-Many和WMT数据集上的公开结果的比较。我们将M2M-100与WMT上已发表的工作（最佳单一模型）进行比较。为了确定以前的工作，我们检查了WMT共享任务程序中表现最好的模型，并在<a href="https://link.zhihu.com/?target=http://matrix.statmt.org/">http://matrix.statmt.org/</a> 上检查报告的结果。对于这些比较，我们在测试集上用sacrebleu（Post，2018）报告去token化的BLEU。</p>
+</blockquote>
+<p>接下来，我们将我们的模型与其他多语言翻译工作进行比较。表11显示了以前在不同基准集上发表的几个结果。请注意，对于每一个比较，我们在tokenization、评估以及是否在验证集上调整BLEU以最大限度地提高可比性方面都遵循了已发表的设置。</p>
+<p>双语模型。我们首先与mBART（Liu et al., 2020）进行比较，mBART基于对单个语言方向的预训练模型进行微调而创建双语模型。在作为降噪自编码进行预训练后，公开可用的bitext数据被用来创建各种不同的双语模型，每个评估方向都有一个。Liu等人（2020）在验证集上调整了测试集的BLEU。按照他们的设置，我们在{5,10}之间调整生成beam的大小，在{0.5, 1.0, 1.5}之间调整长度惩罚，在{1, 5, 10}之间调整平均checkpoint的数量。我们的模型提供了+0.7的BLEU改进。</p>
+<p>然后，我们与CCMatrix（Schwenk等人，2019）中提供的双语基线进行比较，该基线为每个方向训练了单独的模型。由于这些模型在生成时没有调整，我们在所有beam大小为5和长度惩罚为1的对上生成，只使用最佳checkpoint。与训练数百个单独的模型相比，我们的一个多对多语言模型平均实现了2个BLEU点的增益。</p>
+<p>多语言模型。接下来，我们将我们的多语言系统的性能与其他已发表的多语言系统进行比较。我们与Zhang等人（2020）在OPUS100语料库上的以英语为中心的多语言模型进行比较。他们的模型是用OPUS(Tiedemann, 2012; Zhang et al., 2020)中的噪音对齐的全英文数据进行训练的，通过在线backtranslation来提高非英语对的性能。请注意，Zhang等人（2020）在100个方向上进行训练，但我们只重叠了一个方向的子集。然而，我们完全覆盖了他们的全部非英语评价对。最后，OPUS100非英语方向只带有一个测试集，所以我们用beam大小5，长度惩罚1来生成，并使用最佳checkpoint。如表11所示，我们提高了4个以上的BLEU。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-c2f5774feaa21862ff5f3f767c2777da_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表11</p>
+<blockquote>
+<p>表11：在以前工作中的各种评估设置上的比较。我们显示了已发表工作中表现最好的模型，并报告了测试集上的平均BLEU。在这些比较中，我们使用每项工作所使用的tokenization和BLEU评估脚本以进行比较。Liu等人（2020）报告了进入和离开英语的低&#x2F;中资源方向，以及进入英语的高资源方向，我们对所有方向进行平均。Schwenk等人（2019）报告了28种语言的完整矩阵，我们在所有语言中取平均值。Zhang等人(2020)报告了非英语方向的结果，我们对所有方向进行了平均。</p>
+</blockquote>
+<h4 id="6-3-人工评估"><a href="#6-3-人工评估" class="headerlink" title="6.3 人工评估"></a>6.3 人工评估</h4><p>我们以人类评估研究作为结束，以了解我们的模型翻译的质量。我们专注于20个不同的方向，其中没有一个涉及英语。我们包括在同一地区普遍使用的语言，如日本-中国、印度-泰米尔和俄罗斯-乌克兰，以及跨语言系列的方向，如中国-法国、法国-阿拉伯和俄罗斯-西班牙。我们还包括几个资源非常少的方向，如法语-沃洛夫语、印地语-马拉地语和日语-蒙古语。我们所有的评估员都以其中一种语言为母语，并能流利地使用另一种语言。</p>
+<p>每位评估员对50个不同的翻译进行语义准确性评分，评分标准为1-10分。结果显示在图11中。在语义准确性方面，我们的大多数评估得分在8.5到9.5之间（10分是最好的得分）。对于较低的资源方向，分数仍然合理。印地语到泰米尔语和沃洛夫语到法语的得分在7-8左右。基于人类评价的最具挑战性的方向是法语转沃洛夫语（fr-wo），可能是因为没有足够的目标方沃洛夫语数据。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-d14168f70d3e017e457a2c5f15b508c0_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图11：人类对M2M-100在非英语方向上的翻译准确性的评估。评价者被要求对翻译的语义准确性进行评分，评分标准为1至10。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-42b2702bee2a49c078878c117e170c69_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图12：人类对M2M-100与以英语为中心的10个非英语方向的翻译准确性的评价。评价者被要求对翻译的语义准确性进行评分，评分标准为1至10。</p>
+<p>接下来，我们在图12中把我们的模型与以英语为中心的模型在10个方向上进行比较。每个评估员被要求对100个句子进行评分，每个模型50个，进行盲测。总的来说，我们发现我们的 “多对多 “系统在相关语言和不相关语言的翻译准确性方面都取得了更好的成绩。</p>
+<h4 id="6-4-讨论"><a href="#6-4-讨论" class="headerlink" title="6.4 讨论"></a>6.4 讨论</h4><p>策划高质量的训练数据。创建高质量的数据集来训练翻译模型一直是一个长期的研究领域。例如，以前的工作已经探索了如何更好地过滤噪声数据集（Koehn等人，2018年，2019年）。我们使用大规模的挖掘训练数据，提供了大量的数据来训练多语言模型，但同时也带来了挑战。例如，我们的挖掘方法同时挖掘简体和繁体中文文本、tokenize和untokenized的文本，以及许多带有代码转换的例子。我们应用了几种数据过滤方法，但对齐的清洁度和质量对于训练高质量的翻译系统至关重要。此外，多语言翻译可能会受到领域不匹配的影响，因为世界上不同地区的人讨论不同的主题（Shen等人，2019），这对策划良好的训练集提出了额外的挑战。因此，我们认为继续提高数据质量是多语言翻译系统的一个重要方向，因为多语言翻译系统需要大量的数据来训练。</p>
+<p>对极低资源语言的改进。低资源语言的强大性能仍然是未来改进的关键领域（Gu等人，2018；Sennrich和Zhang，2019）。对于许多语言，我们的系统仍然需要大量的改进。例如非洲语言，如Xhosa和Zulu，欧洲语言，如加泰罗尼亚语和巴斯克语，以及东南亚语言，如Iloko和Cebuano。对于其中的许多语言，即使是互联网上的单语资源也是有限的，这极大地影响了挖掘数据的数量和质量。使用策划好的数据，可能再辅以挖掘，可以为未来的改进提供一个起点。例如，存在一些非洲语言的资源，包括用于masakhane机器翻译工作的JW300（Agić和Vulić，2019）（∀等人。2020）和尼日利亚皮金语（Ahia和Ogueji，2020）、沃洛夫语（Alla等人，2020）、Fon（Emezue和Dossou，2020）、Igbo（Ezeani等人，2020）、阿姆哈拉语、提格里格纳语、Afan-Oromo、Wolaytta和Ge’ez的数据集（Abate等人，2018）。其他工作路线提出了低资源亚洲语言的资源，如ALT项目（Riza等人，2016；Ding等人，2016）、蒙古语、维吾尔语和藏语（匿名，2020），或在特定方向上的改进策略（Chen等人，2019）。需要进一步研究，将质量较高的翻译的小数据集、挖掘的数据和单语资源结合起来，为资源非常少的语言创建改进的翻译系统。</p>
+<h3 id="七、-总结"><a href="#七、-总结" class="headerlink" title="七、 总结"></a>七、 总结</h3><p>我们介绍了M2M-100，一个新的多对多的多语言翻译模型，可以在100种语言的9900个方向之间进行翻译。底层数据集是从CommonCrawl中挖掘出来的，使用一种新的策略，利用语言分组来避免挖掘每个可能的方向，同时保持良好的准确性。如此大的数据集需要有更大的容量，为此，我们探索了密集地扩展参数的数量以及稀疏地扩展参数，通过引入特定语言的参数，用一种新的随机重新路由方案进行训练。</p>
+<p>结果显示，M2M-100优于以英语为中心的多语言模型，该模型是在源语言或目标语言为英语的数据上训练出来的。与以英语为中心的基线相比，该系统在非英语方向的直接翻译中平均提高了10 BLEU以上。M2M-100与WMT的双语模型相比具有竞争力，并比现有的公开可用的多语言翻译系统有所改进。通过人工评测，我们的模型翻译流畅，语义准确度高。</p>
+<h3 id="附录-1"><a href="#附录-1" class="headerlink" title="附录"></a>附录</h3><p>附录A. 关于数据的其他信息</p>
+<p>图13显示了我们100种语言中每种语言的词典覆盖率。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-0023ecc177870da30fdf1aa4418e6380_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图13：每种语言的覆盖率</p>
+<p>附录B. 模型结构</p>
+<p>表14显示了我们的实验在扩展密集模型时考虑的各种模型配置。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-d852ea5f74ae8c5d79a10d904d2dc2f5_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>图14：宽和深层模型的架构。</p>
+<p>附录C. 在推理时利用多源自我组合的多语言性</p>
+<p>在本文中，我们探讨了如何提高单一模型的性能，扩大数据量和模型规模，但未来对多语言性的研究仍有许多方向。一个方向是了解如何在推理时也能利用多语言翻译的性质。</p>
+<p>一个已知的、有效的提高准确性的策略是在推理时集成多个模型。然而，这需要训练多个模型，这大大增加了训练的计算要求。相反，我们提议探索自我组合，通过将多语言模型应用于不同语言的相同源句来创建。例如，如果我们想把加利西亚语翻译成英语，那么我们不直接在两者之间进行翻译，而是把西班牙语翻译成英语和加利西亚语翻译成英语合在一起，对这两个方向使用同一个多语言模型，并通过平均预测token的对数概率，如同标准的多模型合集一样。额外的来源是通过将输入翻译成另一种中间语言获得的。在这之后，我们将两个来源的翻译集成到目标语言。这在所有步骤中都使用同一个多语言模型。</p>
+<p>我们评估了zero-shot方向上的pivoting和自我组合，因为这些方向可以从更好的准确性中受益。我们报告了100个随机抽样的zero-shot翻译方向的结果，这些方向在验证和测试集中至少有1000个例子。接下来，对于每个翻译方向，我们选择在验证集上产生最高BLEU的中介语言；同样的方法也是为了选择用于pivoting的中介语言。我们还调整了一个权重来平衡两个语言方向（Garmash和Monz，2016）。表12显示，多源自组装平均将单一模型的结果提高了0.2 BLEU。它的表现也和标准的多模型合集一样好，但只需要训练一个单一的模型。这对于在海量数据上训练的大型模型来说尤其重要，这些模型需要大量的计算才能进行标准合集。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-0994123aa2972a3107223f5ab6ab543b_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>表12：与各种基线相比，多源自我组合的zero-shot语言对的结果。我们报告了100个随机抽样的语言对的平均测试BLEU分数。</p>
+<h2 id="LUKE"><a href="#LUKE" class="headerlink" title="LUKE"></a>LUKE</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/381626609">https://zhuanlan.zhihu.com/p/381626609</a></p>
+<h2 id="clip"><a href="#clip" class="headerlink" title="clip"></a>clip</h2><blockquote>
+<p>Paper: <a href="https://link.zhihu.com/?target=https://arxiv.org/abs/2103.00020">Learning Transferable Visual Models From Natural Language Supervision</a><br>Code: <a href="https://link.zhihu.com/?target=https://github.com/openai/CLIP">https://github.com/openai/CLIP</a></p>
+</blockquote>
+<p>CLIP，全名Contrastive Language-Image Pre-training，是利用图文对进行无监督学习的多模态模型。CLIP出自OpenAI之手，是多模态领域的经典之作，许多后续的研究都是基于该网络。例如BLIP**[1]<strong>、DeCLIP</strong>[2]**等。CVPR2023 workshop的<a href="https://link.zhihu.com/?target=https://vlp-tutorial.github.io/2023/">Recent Advanced in Vision Foundation Models</a> 也同样以CLIP作为基础网络，梳理多模态领域的发展脉络。结合CLIP本身简洁的网络结构和学习任务，CLIP是进入多模态领域的很好入门网络。</p>
+<p>CLIP的模型结构如下：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-8597030855f484c7ccad99cf7a0a9035_1440w.jpg" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><strong>流程解读：</strong></p>
+<p>主要分为两个分支，一个图像encoder、一个文本encoder。<strong>图像分支是resnet50或是vit，文本分支和bert的结构类似，采用12层transformer</strong>，8个head，词表大小是49,152。最大sequence长度76。并且添加[SOS]和[EOS]标识token，并且[EOS]对应位置的特征就是最后的文本特征。</p>
+<p>通过encoder特征提取以后，图像分支获得的特征是[batch, embed_dim]，文本分支获得的特征是[batch, embed_dim]。其中对应位置上的embedding是匹配的，来自同一组图像-文本对。<strong>对于优化任务，一种自然的想法，就是拉近同一对embedding之间的距离，推远不同对的embedding之间的距离。作者采用了InfoNCE loss。</strong>特征间进行两两计算，[batch, embed_dim] * [embed_dim, batch] &#x3D; [batch, batch]，获取到batch*batch对样本之间的距离。具体伪代码如下：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-5a03f88cfde17499b5daa8c873ca8a12_1440w.jpg" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p>可以看出，作者采用的对称loss。针对每一个image特征，将text batch中对应的那个text特征拉近，而推远其余未配对的text特征。同样，针对没一个text特征，将image batch中对应的那个image特征拉进，而推远其余未配对的image特征。<strong>站在loss对称的角度，模型优化中图像、文本的地位是相同的。因此，论文标题想表达利用文本监督去学习视觉特征，但是这未尝不是利用图像监督去学习文本特征。</strong>对比纯图像领域的自监督学习方法，其实和上面的方法是类似的，只是将文本分支替换为图像分支，两个分支同时输入同一张图的图像增强版本。</p>
+<p>CLIP之所以经典，在于其出色的zero-shot能力。zero-shot的实验设定如下：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-17531dd35eb2a0fa048d5d7500687ca2_1440w.webp" srcset="/blog/img/loading.gif" lazyload alt="img"></p>
+<p><strong>流程解读：</strong></p>
+<p>输入单张图像，通过Image Encoder提取对应的embedding。然后设定想要查找的标签集合，如”plane”, “car”, “dog”等。然后<strong>利用prompt语句 “a photo of a {}”，分别构成”a photo of a plane”, “a photo of a dog”等文本</strong>。然后利用Text Encoder分别提取对应的文本embedding。最后利用文本embedding和图像embedding计算对应的相似度，然后对相似度进行softmax，获得最大的概率值，即为对应的label。实验结果显示CLIP在zero-shot上面具有较高的精度，表明CLIP的泛化性很好。</p>
+<p>这里需要注意两点：<strong>一是标签集合是自行定义的</strong>，如果我们定义为imagenet的类别标签，那么这时zero-shot就相当于完成imagenet分类任务；<strong>二是prompt语句的改变，可能会影响最后的分类效果</strong>，论文指出不同的数据集，有自己最优的prompt语句，并且多个prompt语句的结果取平均，可能最终的效果更好。</p>
+<p>CLIP的成功，在于数据量的扩大，<strong>达到了400 million 图像文本对</strong>。其训练的时间，论文中提及:” The largest ResNet model, RN50x64, took 18 days to train on 592 V100 GPUs while the largest Vision Transformer took 12 days on 256 V100 GPUs. “</p>
+<p>CLIP结构简洁，效果优秀，<strong>并且将图像和文本映射到同一个空间，相当于架起了图像和文本的桥梁</strong>，从此开启了大航海时代。许多其余领域和CLIP进行结合，创造出令人称赞的结果。如CLIP-NeRF**[3]<strong>，将CLIP思想和NeRF相互结合；StyleCLIP</strong>[4]<strong>，利用文本去驱动图像风格变化，将StyleGAN和CLIP进行结合等；GLIP</strong>[5]**，利用CLIP进行目标检测和视觉定位任务。</p>
+
                 
               </div>
             
@@ -1648,7 +1881,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/blog/tags/%E8%AE%BA%E6%96%87%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E3%80%81nlp%E3%80%81transformer/">#论文、深度学习、nlp、transformer</a>
+        <a href="/blog/tags/%E8%AE%BA%E6%96%87%E3%80%81transformer/">#论文、transformer</a>
       
     </div>
   
